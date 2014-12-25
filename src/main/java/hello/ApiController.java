@@ -2,9 +2,11 @@ package hello;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import hello.Helpers.Initializator;
+import hello.Model.DoctorAppointments;
 import hello.Model.Role;
 import hello.Model.User;
 import hello.Model.UserRole;
+import hello.Services.DoctorAppointmentsService;
 import hello.Services.RoleService;
 import hello.Services.UserService;
 import org.springframework.stereotype.Controller;
@@ -31,42 +33,51 @@ public class ApiController{
     private List<UserRole> userRoleList;
     private RoleService roleService = new RoleService();
     private UserService userService = new UserService();
+    private DoctorAppointmentsService doctorAppointmentsService = new DoctorAppointmentsService();
 
     @RequestMapping("/")
-    public String sayHello(){
+    public @ResponseBody String sayHello(){
         return "redirect:/Api/error";
     }
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String Login(@RequestParam(value="login", required=false, defaultValue="Stranger")String login, @RequestParam(value="pass", required=false, defaultValue="Stranger")String password){
         userList = Initializator.getUsers();
         roleList = Initializator.getRoles();
         userRoleList = Initializator.getUserRoles();
 
         for (final User user : userList) {
-            //if(user.getName() != login && user.getPassword() != password)
-                //continue;
-            if(user.getName() == "Igor" && user.getPassword() == "12345")
-            {
-                roleService.getRole(user.getId());
-                return "redirect:/Api/OrderList?id="+Long.toString(user.getId());
+            if(user.getName().equals(login) && user.getPassword().equals(password)){
+                if(roleService.getRole(user.getId()) == "patient"){
+                    return "redirect:/Api/OrderList?id="+Long.toString(user.getId());
+                }
+                if(roleService.getRole(user.getId()) == "doctor"){
+                    return "redirect:/Api/DocAppoint?id="+Long.toString(user.getId());
+                }
             }
         }
         return "redirect:/Api/error";
     }
 
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
+    public @ResponseBody String Login(){
+         return "test";
+    }
+
     @RequestMapping(value = "/OrderList", method = RequestMethod.GET)
     public @ResponseBody User OrderList(@RequestParam(value="id", required=false, defaultValue="0")long userId)
     {
-        if(userId == 0)
-        {
-            //return "redirect:/Api/error";
-        }
          return userService.getUserById(userId);
     }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public @ResponseBody String error (){
         return "Error no User";
+    }
+
+    @RequestMapping(value = "/DocAppoint", method = RequestMethod.GET)
+    public @ResponseBody
+    DoctorAppointments DocAppoint(@RequestParam(value = "id",required = false,defaultValue = "0") long doctorId){
+        return doctorAppointmentsService.getAppointmentsByDoctorId(doctorId);
     }
 }
 

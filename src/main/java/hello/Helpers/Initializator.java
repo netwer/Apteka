@@ -1,9 +1,6 @@
 package hello.Helpers;
 
-import hello.Model.Order;
-import hello.Model.Role;
-import hello.Model.User;
-import hello.Model.UserRole;
+import hello.Model.*;
 
 import java.util.List;
 
@@ -19,12 +16,14 @@ public class Initializator {
     private static List<Role> roles;
     private static List<UserRole> userRoles;
     private static List<Order> orders;
+    private static List<DoctorAppointments> doctorAppointmentses;
 
-    public Initializator (List<User> users, List<Role> roles, List<UserRole> userRoles,List<Order> orders) {
+    public Initializator (List<User> users, List<Role> roles, List<UserRole> userRoles,List<Order> orders, List<DoctorAppointments> doctorAppointmentses) {
         this.users = users;
         this.roles = roles;
         this.userRoles = userRoles;
         this.orders = orders;
+        this.doctorAppointmentses = doctorAppointmentses;
     }
 
     public static List<User> getUsers() {
@@ -41,5 +40,9 @@ public class Initializator {
 
     public static List<Order> getOrders() {
         return orders;
+    }
+
+    public static List<DoctorAppointments> getDoctorAppointmentses() {
+        return doctorAppointmentses;
     }
 }

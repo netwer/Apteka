@@ -45,6 +45,9 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:4.0.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-actuator:1.1.10.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator:1.1.10.RELEASE" level="project" />
+    <orderEntry type="library" name="spring-security-config-3.2.5.RELEASE" level="project" />
+    <orderEntry type="library" name="spring-security-core-3.2.5.RELEASE" level="project" />
+    <orderEntry type="library" name="spring-security-web-3.2.5.RELEASE" level="project" />
   </component>
 </module>
 

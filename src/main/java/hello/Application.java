@@ -1,10 +1,7 @@
 package hello;
 
 import hello.Helpers.Initializator;
-import hello.Model.Order;
-import hello.Model.Role;
-import hello.Model.User;
-import hello.Model.UserRole;
+import hello.Model.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -22,6 +19,7 @@ public class Application {
         List<Role> roles = new ArrayList<Role>() ;
         roles.add(new Role(1,"admin"));
         roles.add(new Role(2,"patient"));
+        roles.add(new Role(3,"doctor"));
 
         List<Order> ordersOne = new ArrayList<Order>();
         List<String> drugsOne = new ArrayList<String>();
@@ -50,17 +48,25 @@ public class Application {
         users.add(new User(1,"Vasya","12345",null));
         users.add(new User(2,"Petya","12345",ordersOne));
         users.add(new User(3,"Igor","12345",ordersTwo));
+        users.add(new User(4,"Svetlana","12345",null)); //doctor
+        User user = new User(5,"Oleg","12345",null);
+        users.add(user);
 
         List<UserRole> userRoles = new ArrayList<UserRole>();
         userRoles.add(new UserRole(1,1,1));
         userRoles.add(new UserRole(2,2,2));
         userRoles.add(new UserRole(3,3,2));
+        userRoles.add(new UserRole(4,4,3));
+        userRoles.add(new UserRole(5,5,2));
 
         List<Order> orders = new ArrayList<Order>();
         orders.addAll(ordersOne);
         orders.addAll(ordersTwo);
 
-        Initializator initializator = new Initializator(users,roles,userRoles,orders);
+        List<DoctorAppointments> doctorAppointmentses = new ArrayList<DoctorAppointments>();
+        doctorAppointmentses.add(new DoctorAppointments(1,4,user,"12:30","---"));
+
+        Initializator initializator = new Initializator(users,roles,userRoles,orders,doctorAppointmentses);
 
         SpringApplication.run(Application.class, args);
     }
