@@ -21,36 +21,57 @@ public class Application {
         roles.add(new Role(2,"patient"));
         roles.add(new Role(3,"doctor"));
 
-        List<Order> ordersOne = new ArrayList<Order>();
-        List<String> drugsOne = new ArrayList<String>();
-        drugsOne.add("Medical One");
-        drugsOne.add("Medical Two");
-        ordersOne.add(new Order(1,drugsOne, "done","12/23/2014","addres 1"));
+        List<Apteka> aptekas = new ArrayList<Apteka>();
+        Apteka apt1 = new Apteka(1,"Ленинский проспект 1");
+        aptekas.add(apt1);
+        Apteka apt2 = new Apteka(2,"Невский проспект 47");
+        aptekas.add(apt2);
+        Apteka apt3 = new Apteka(3,"ул. Гагарина 34");
+        aptekas.add(apt3);
 
-        List<String> drugsTwo = new ArrayList<String>();
-        drugsTwo.add("Medical One");
-        drugsTwo.add("Medical Two");
-        drugsTwo.add("Medical Three");
-        ordersOne.add(new Order(2,drugsTwo, "inProcess","12/27/2014","addres 1"));
+        List<Drug> drugs = new ArrayList<Drug>();
+        drugs.add(new Drug(1,"Карволол",1));
+        drugs.add(new Drug(2,"Валерианка",1));
+        drugs.add(new Drug(3,"Каптоприл",1));
+        drugs.add(new Drug(4,"Називин",1));
+        drugs.add(new Drug(5,"Но-шпа",1));
+
+        List<Order> ordersOne = new ArrayList<Order>();
+        List<Drug> drugsOne = new ArrayList<Drug>();
+        drugsOne.add(drugs.get(0));
+        drugsOne.add(drugs.get(1));
+        ordersOne.add(new Order(1,drugsOne, "done","12/23/2014",apt1));
+
+        List<Drug> drugsTwo = new ArrayList<Drug>();
+        drugsTwo.add(drugs.get(2));
+        drugsTwo.add(drugs.get(3));
+        drugsTwo.add(drugs.get(4));
+        ordersOne.add(new Order(2,drugsTwo, "inProcess","12/27/2014",apt1));
 
         List<Order> ordersTwo = new ArrayList<Order>();
-        List<String> drugsThree = new ArrayList<String>();
-        drugsThree.add("Medical One");
-        drugsThree.add("Medical Two");
-        ordersTwo.add(new Order(3,drugsThree, "inProcess","10/23/2014","addres 2"));
+        List<Drug> drugsThree = new ArrayList<Drug>();
+        drugsThree.add(drugs.get(2));
+        drugsThree.add(drugs.get(4));
+        ordersTwo.add(new Order(3,drugsThree, "inProcess","10/23/2014",apt2));
 
-        List<String> drugsFour = new ArrayList<String>();
-        drugsFour.add("Medical One");
-        drugsFour.add("Medical Two");
-        ordersTwo.add(new Order(4,drugsFour, "inProcess","10/23/2014","addres 2"));
+        List<Drug> drugsFour = new ArrayList<Drug>();
+        drugsFour.add(drugs.get(1));
+        drugsFour.add(drugs.get(4));
+        drugsFour.add(drugs.get(3));
+        ordersTwo.add(new Order(4,drugsFour, "inProcess","10/23/2014",apt3));
+
+        List<PatientRecords> patientRecordses = new ArrayList<PatientRecords>();
+        patientRecordses.add(new PatientRecords(1,"Адрес Пациента 1","456284950","Головная боль, судороги","Эпидемия"));
+        patientRecordses.add(new PatientRecords(2,"Адрес Пациента 2","4567896","",""));
 
         List<User> users = new ArrayList<User>();
-        users.add(new User(1,"Vasya","12345",null));
-        users.add(new User(2,"Petya","12345",ordersOne));
-        users.add(new User(3,"Igor","12345",ordersTwo));
-        users.add(new User(4,"Svetlana","12345",null)); //doctor
-        User user = new User(5,"Oleg","12345",null);
+        users.add(new User(1,"Vasya","Василий Петрович","12345",null,null));
+        users.add(new User(2,"Petya","Петр Егнатьевич","12345",ordersOne,patientRecordses.get(0)));
+        User user = new User(3,"Igor","Игорь Николаевич","12345",ordersTwo,patientRecordses.get(1));
         users.add(user);
+        users.add(new User(4,"Svetlana","Светлана Аникенко","12345",null,null)); //doctor
+        users.add(new User(5,"Oleg","Олег Святославович","12345",null,null));
+
 
         List<UserRole> userRoles = new ArrayList<UserRole>();
         userRoles.add(new UserRole(1,1,1));
@@ -64,9 +85,9 @@ public class Application {
         orders.addAll(ordersTwo);
 
         List<DoctorAppointments> doctorAppointmentses = new ArrayList<DoctorAppointments>();
-        doctorAppointmentses.add(new DoctorAppointments(1,4,user,"12:30","---"));
+        doctorAppointmentses.add(new DoctorAppointments(1,4,user,"26.12.2014 12:30","---"));
 
-        Initializator initializator = new Initializator(users,roles,userRoles,orders,doctorAppointmentses);
+        Initializator initializator = new Initializator(users,roles,userRoles,orders,doctorAppointmentses,patientRecordses,drugs,aptekas);
 
         SpringApplication.run(Application.class, args);
     }

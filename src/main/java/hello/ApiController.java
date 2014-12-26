@@ -2,13 +2,11 @@ package hello;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import hello.Helpers.Initializator;
-import hello.Model.DoctorAppointments;
-import hello.Model.Role;
-import hello.Model.User;
-import hello.Model.UserRole;
-import hello.Services.DoctorAppointmentsService;
-import hello.Services.RoleService;
-import hello.Services.UserService;
+import hello.Model.*;
+import hello.Services.*;
+import hello.ViewModel.AptekaDrugView;
+import hello.ViewModel.AptekaDrugViewModel;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.View;
@@ -34,6 +32,8 @@ public class ApiController{
     private RoleService roleService = new RoleService();
     private UserService userService = new UserService();
     private DoctorAppointmentsService doctorAppointmentsService = new DoctorAppointmentsService();
+    private PatientRecordsService patientRecordsService = new PatientRecordsService();
+    private AptekaDrugService aptekaDrugService = new AptekaDrugService();
 
     @RequestMapping("/")
     public @ResponseBody String sayHello(){
@@ -78,6 +78,33 @@ public class ApiController{
     public @ResponseBody
     DoctorAppointments DocAppoint(@RequestParam(value = "id",required = false,defaultValue = "0") long doctorId){
         return doctorAppointmentsService.getAppointmentsByDoctorId(doctorId);
+    }
+
+    @RequestMapping(value = "/PatientRecords", method = RequestMethod.GET)
+    public @ResponseBody
+    User PatientRecords(@RequestParam(value = "patientId",required = false,defaultValue = "0")long patientId){
+        return userService.getUserById(patientId);
+    }
+
+    @RequestMapping(value = "/UpdatePatientRecors", method = RequestMethod.GET)
+    public String UpdatePatientRecors(@RequestParam(value = "patientRecordId",required = false,defaultValue = "0")long patientRecordId,
+                                      @RequestParam(value = "userId",required = false,defaultValue = "0") long userId,
+                                      @RequestParam(value = "Complaints",required = false,defaultValue = "0")String complaints,
+                                      @RequestParam(value = "Diagnosis",required = false,defaultValue = "0")String diagnosis){
+        patientRecordsService.UpdatePatientRecordsById(patientRecordId,userId,complaints,diagnosis);
+        return "redirect:/Api/Resept?userId="+Long.toString(userId);
+    }
+
+    @RequestMapping(value = "/Resept", method = RequestMethod.GET)
+    public @ResponseBody
+    AptekaDrugView Resept(@RequestParam(value = "userId",required = false,defaultValue = "0")long userId){
+        return aptekaDrugService.getAptekaDrugs(userId);
+    }
+
+    @RequestMapping(value = "/CreateOrder",method = RequestMethod.POST)
+    public @ResponseBody String CreateOrder(@RequestBody AptekaDrugView adv){
+        aptekaDrugService.CreateOrder(adv);
+        return "Ok";
     }
 }
 

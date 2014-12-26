@@ -11,24 +11,24 @@ import java.util.List;
  */
 public class Order {
     private long Id;
-    private List<String> Drugs;
+    private List<Drug> Drugs;
     private String Status;
     private String Date;
-    private String Address;
+    private Apteka apteka;
 
-    public Order (long id, List<String> drugs, String status, String date, String address){
+    public Order (long id, List<Drug> drugs, String status, String date, Apteka apteka){
         this.Id = id;
         this.Drugs = drugs;
         this.Status = status;
         this.Date = date;
-        this.Address = address;
+        this.apteka = apteka;
     }
 
     public long getId() {
         return Id;
     }
 
-    public List<String> getDrugs() {
+    public List<Drug> getDrugs() {
         return Drugs;
     }
 
@@ -40,7 +40,7 @@ public class Order {
         return Date;
     }
 
-    public String getAddress() {
-        return Address;
+    public Apteka getApteka() {
+        return apteka;
     }
 }
