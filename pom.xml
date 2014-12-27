@@ -32,7 +32,7 @@
     </dependencies>
 
     <properties>
-        <start-class>hello.Application</start-class>
+        <start-class>Apteka.Application</start-class>
     </properties>
 
     <build>

@@ -7,27 +7,27 @@
     <file path="/HelloWorldController.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419355808624" ignored="false" />
     <file path="/Home.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419355903350" ignored="false" />
     <file path="/HomeController.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419356874626" ignored="false" />
-    <file path="/ApiController.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419634196683" ignored="false" />
+    <file path="/ApiController.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419680057600" ignored="false" />
     <file path="/User.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419634566740" ignored="false" />
     <file path="/UserRole.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419360741735" ignored="false" />
-    <file path="/Application.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419630643347" ignored="false" />
+    <file path="/Application.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419681644224" ignored="false" />
     <file path="/Role.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419360669887" ignored="false" />
-    <file path="/Initializator.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419629574497" ignored="false" />
+    <file path="/Initializator.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419680156430" ignored="false" />
     <file path="/Order.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419630527688" ignored="false" />
     <file path="/RoleService.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419364081937" ignored="false" />
-    <file path="/UserService.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419368719313" ignored="false" />
+    <file path="/UserService.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419676737406" ignored="false" />
     <file path="/gs-actuator-service.iml" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419404950867" ignored="false" />
-    <file path="/WebSecurityConfig.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419450385380" ignored="false" />
+    <file path="/WebSecurityConfig.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419680224841" ignored="false" />
     <file path="/DoctorAppointments.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419492557555" ignored="false" />
     <file path="/DoctorAppointmentsService.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419492942904" ignored="false" />
     <file path="/PatientRecords.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419622707446" ignored="false" />
-    <file path="/PatientRecordsService.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419627321947" ignored="false" />
-    <file path="/fragment.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419625187716" ignored="false" />
+    <file path="/PatientRecordsService.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419675404125" ignored="false" />
+    <file path="/fragment.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419677817639" ignored="false" />
     <file path="/Apteka.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419628685446" ignored="false" />
     <file path="/Drug.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419628783376" ignored="false" />
     <file path="/AptekaDrugViewModel.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419631915362" ignored="false" />
     <file path="/AptekaDrugView.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419633868842" ignored="false" />
-    <file path="/AptekaDrugService.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419634716744" ignored="false" />
+    <file path="/AptekaDrugService.java" changelist="72fc5001-48c9-4600-ab76-68b31985dbfe" time="1419675841230" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +42,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_rules default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
@@ -78,7 +78,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <breakpoint_rules default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -88,110 +88,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ApiController.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hello/ApiController.java">
+      <file leaf-file-name="PatientRecords.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/PatientRecords.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="20" selection-start="4636" selection-end="4636" vertical-scroll-proportion="1.2560241">
+            <state line="9" column="25" selection-start="208" selection-end="222" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Role.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/Role.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="15" selection-start="101" selection-end="105" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="17" selection-start="60" selection-end="64" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserRole.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/UserRole.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="21" selection-start="36" selection-end="44" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="AptekaDrugService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hello/Services/AptekaDrugService.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Services/AptekaDrugService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="9" selection-start="1280" selection-end="1280" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PatientRecordsService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hello/Services/PatientRecordsService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="13" selection-start="1285" selection-end="1652" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AptekaDrugView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hello/ViewModel/AptekaDrugView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="25" selection-start="484" selection-end="498" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AptekaDrugViewModel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hello/ViewModel/AptekaDrugViewModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="10" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#573#581#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Initializator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hello/Helpers/Initializator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="33" selection-start="604" selection-end="604" vertical-scroll-proportion="0.0">
+            <state line="10" column="30" selection-start="222" selection-end="239" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Application.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hello/Application.java">
+      <file leaf-file-name="DoctorAppointmentsService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Services/DoctorAppointmentsService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="56" selection-start="1989" selection-end="1998" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#718#726#0" expanded="true" />
-                <element signature="e#1026#1032#0" expanded="true" />
-                <element signature="e#1361#1367#0" expanded="true" />
-                <element signature="e#1559#1565#0" expanded="true" />
-                <element signature="e#1856#1862#0" expanded="true" />
-                <element signature="e#2066#2072#0" expanded="true" />
-                <element signature="e#2327#2343#0" expanded="true" />
-                <element signature="e#2597#2603#0" expanded="true" />
-              </folding>
+            <state line="5" column="38" selection-start="117" selection-end="142" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hello/Model/User.java">
+      <file leaf-file-name="PatientRecordsService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Services/PatientRecordsService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="27" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0">
+            <state line="8" column="34" selection-start="163" selection-end="184" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoleService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Services/RoleService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="24" selection-start="133" selection-end="144" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="UserService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hello/Services/UserService.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Services/UserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="9" selection-start="338" selection-end="469" vertical-scroll-proportion="0.0">
+            <state line="6" column="24" selection-start="126" selection-end="137" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Order.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/hello/Model/Order.java">
+      <file leaf-file-name="AptekaDrugViewModel.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/ViewModel/AptekaDrugViewModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="0" selection-start="817" selection-end="817" vertical-scroll-proportion="0.0">
+            <state line="7" column="59" selection-start="142" selection-end="142" vertical-scroll-proportion="0.14782609">
               <folding />
             </state>
           </provider>
@@ -207,22 +188,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/hello/Helpers/WebSecurityConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/Model/DoctorAppointments.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/Services/DoctorAppointmentsService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/Model/BaseEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/Model/PatientRecords.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/Services/PatientRecordsService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/Model/Apteka.java" />
         <option value="$PROJECT_DIR$/src/main/java/hello/Model/Drug.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/Helpers/Initializator.java" />
         <option value="$PROJECT_DIR$/src/main/java/hello/Model/Order.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/Application.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/ViewModel/AptekaDrugViewModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/ViewModel/AptekaDrugView.java" />
-        <option value="$PROJECT_DIR$/src/main/java/hello/ApiController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hello/Model/PatientRecords.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hello/Model/Role.java" />
         <option value="$PROJECT_DIR$/src/main/java/hello/Model/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/hello/Services/AptekaDrugService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hello/Services/DoctorAppointmentsService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hello/Services/PatientRecordsService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hello/Services/RoleService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hello/Services/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hello/ViewModel/AptekaDrugViewModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/hello/ApiController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Apteka/Helpers/Initializator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Apteka/Helpers/WebSecurityConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Apteka/Application.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Apteka/ApiController.java" />
       </list>
     </option>
   </component>
@@ -279,21 +260,19 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gs-actuator-service" />
+              <option name="myItemId" value="AptekaApi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gs-actuator-service" />
+              <option name="myItemId" value="AptekaApi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -303,25 +282,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gs-actuator-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RepositoriesAptekaapteka" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gs-actuator-service" />
+              <option name="myItemId" value="AptekaApi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -337,17 +298,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hello" />
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gs-actuator-service" />
+              <option name="myItemId" value="AptekaApi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -367,7 +324,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hello" />
+              <option name="myItemId" value="Apteka" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AptekaApi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RepositoriesAptekaapteka" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Apteka" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -377,7 +360,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gs-actuator-service" />
+              <option name="myItemId" value="AptekaApi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -397,7 +380,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hello" />
+              <option name="myItemId" value="Apteka" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -407,7 +390,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gs-actuator-service" />
+              <option name="myItemId" value="AptekaApi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -427,7 +410,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hello" />
+              <option name="myItemId" value="Apteka" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -437,7 +420,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gs-actuator-service" />
+              <option name="myItemId" value="AptekaApi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -457,7 +440,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hello" />
+              <option name="myItemId" value="Apteka" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -467,14 +450,12 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
@@ -486,28 +467,28 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RunManager" selected="Application.Application">
     <configuration default="false" name="Application" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="hello.*" />
+          <option name="PATTERN" value="Apteka.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="hello.Application" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="MAIN_CLASS_NAME" value="Apteka.Application" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="gs-actuator-service" />
+      <module name="AptekaApi" />
       <envs />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="" />
@@ -519,12 +500,6 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
-      <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
     <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
       <module name="" />
       <setting name="path" value="" />
@@ -534,12 +509,31 @@
       <setting name="debug" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -568,19 +562,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -661,7 +642,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -749,133 +730,116 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Services/DoctorAppointmentsService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Helpers/Initializator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="102" selection-start="399" selection-end="492" vertical-scroll-proportion="0.23026316">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Model/Apteka.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="20" selection-start="236" selection-end="236" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Model/Drug.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="20" selection-start="259" selection-end="259" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_11/src.zip!/java/util/List.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="17" selection-start="4233" selection-end="4282" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Model/PatientRecords.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="23" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/ViewModel/AptekaDrugViewModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="10" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#573#581#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Helpers/Initializator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="33" selection-start="604" selection-end="604" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.8.RELEASE/spring-web-4.0.8.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="29" selection-start="2403" selection-end="2403" vertical-scroll-proportion="1.019544">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/ViewModel/AptekaDrugView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="25" selection-start="484" selection-end="498" vertical-scroll-proportion="0.0">
+        <state line="12" column="26" selection-start="371" selection-end="384" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Application.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Helpers/WebSecurityConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="56" selection-start="1989" selection-end="1998" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#718#726#0" expanded="true" />
-            <element signature="e#1026#1032#0" expanded="true" />
-            <element signature="e#1361#1367#0" expanded="true" />
-            <element signature="e#1559#1565#0" expanded="true" />
-            <element signature="e#1856#1862#0" expanded="true" />
-            <element signature="e#2066#2072#0" expanded="true" />
-            <element signature="e#2327#2343#0" expanded="true" />
-            <element signature="e#2597#2603#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Model/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="0" selection-start="817" selection-end="817" vertical-scroll-proportion="0.0">
+        <state line="15" column="30" selection-start="793" selection-end="810" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Model/User.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/Apteka.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="27" selection-start="561" selection-end="561" vertical-scroll-proportion="0.0">
+        <state line="6" column="17" selection-start="106" selection-end="112" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Services/UserService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/DoctorAppointments.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="9" selection-start="338" selection-end="469" vertical-scroll-proportion="0.0">
+        <state line="9" column="29" selection-start="217" selection-end="235" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Services/PatientRecordsService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/Drug.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="13" selection-start="1285" selection-end="1652" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="7" column="15" selection-start="125" selection-end="129" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/Services/AptekaDrugService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/Order.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="9" selection-start="1280" selection-end="1280" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="4" column="18" selection-start="60" selection-end="65" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/hello/ApiController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/PatientRecords.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="20" selection-start="4636" selection-end="4636" vertical-scroll-proportion="1.2560241">
+        <state line="9" column="25" selection-start="208" selection-end="222" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/Role.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="15" selection-start="101" selection-end="105" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="17" selection-start="60" selection-end="64" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Model/UserRole.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="21" selection-start="36" selection-end="44" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Services/AptekaDrugService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="30" selection-start="222" selection-end="239" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Services/DoctorAppointmentsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="38" selection-start="117" selection-end="142" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Services/PatientRecordsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="34" selection-start="163" selection-end="184" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Services/RoleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="24" selection-start="133" selection-end="144" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/Services/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="24" selection-start="126" selection-end="137" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Apteka/ViewModel/AptekaDrugViewModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="59" selection-start="142" selection-end="142" vertical-scroll-proportion="0.14782609">
           <folding />
         </state>
       </provider>
@@ -932,7 +896,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>gs-actuator-service</last-edited>
+          <last-edited>AptekaApi</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
