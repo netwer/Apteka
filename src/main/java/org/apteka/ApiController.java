@@ -13,10 +13,6 @@ public class ApiController {
     @RequestMapping("/")
     public @ResponseBody
     String sayHello(){
-<<<<<<< HEAD
-        return "Hi!!!, this is Spring Bo22222222ot Project for IS 'Apteka'";
-=======
         return "Hi!!!, this is Spring Boot Project for IS 'Apteka'";
->>>>>>> create-entities
     }
 }

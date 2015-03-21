@@ -26,23 +26,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-      <file leaf-file-name="AptekaApplication.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/AptekaApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35695538" vertical-offset="0" max-vertical-offset="381">
-=======
->>>>>>> create-entities
       <file leaf-file-name="AptekaApplication.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/AptekaApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-<<<<<<< HEAD
-=======
->>>>>>> create-proj
->>>>>>> create-entities
+            <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="289">
               <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
               <folding>
                 <element signature="e#242#243#0" expanded="true" />
@@ -52,26 +39,11 @@
           </provider>
         </entry>
       </file>
-<<<<<<< HEAD
       <file leaf-file-name="ApiController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/ApiController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62467194" vertical-offset="0" max-vertical-offset="381">
-              <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-=======
-<<<<<<< HEAD
-      <file leaf-file-name="ApiController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/ApiController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-=======
-      <file leaf-file-name="ApiController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/ApiController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35695538" vertical-offset="0" max-vertical-offset="381">
->>>>>>> create-proj
+            <state vertical-scroll-proportion="0.23367697" vertical-offset="0" max-vertical-offset="582">
               <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
->>>>>>> create-entities
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -133,16 +105,7 @@
       <sortByType />
     </navigator>
     <panes>
-<<<<<<< HEAD
       <pane id="PackagesPane" />
-      <pane id="Scope" />
-=======
-<<<<<<< HEAD
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-=======
->>>>>>> create-proj
->>>>>>> create-entities
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -157,12 +120,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-<<<<<<< HEAD
-              <option name="myItemId" value="Apteka1" />
-=======
-<<<<<<< HEAD
-              <option name="myItemId" value="Apteka1" />
-=======
               <option name="myItemId" value="org.apteka" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -258,7 +215,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="classes" />
->>>>>>> create-entities
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -268,9 +224,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-<<<<<<< HEAD
-              <option name="myItemId" value="Apteka1" />
-=======
               <option name="myItemId" value="org.apteka" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -288,7 +241,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="apteka" />
->>>>>>> create-proj
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -298,22 +250,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-<<<<<<< HEAD
-              <option name="myItemId" value="Apteka1" />
-=======
               <option name="myItemId" value="org.apteka" />
->>>>>>> create-proj
->>>>>>> create-entities
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -326,8 +269,6 @@
               <option name="myItemId" value="apteka" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
->>>>>>> create-proj
->>>>>>> create-entities
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -335,15 +276,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-<<<<<<< HEAD
-              <option name="myItemId" value="Apteka1" />
-=======
-<<<<<<< HEAD
-              <option name="myItemId" value="Apteka1" />
-=======
               <option name="myItemId" value="org.apteka" />
->>>>>>> create-proj
->>>>>>> create-entities
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -354,16 +287,10 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
             <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
->>>>>>> create-proj
->>>>>>> create-entities
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -371,15 +298,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-<<<<<<< HEAD
-              <option name="myItemId" value="Apteka1" />
-=======
-<<<<<<< HEAD
-              <option name="myItemId" value="Apteka1" />
-=======
               <option name="myItemId" value="org.apteka" />
->>>>>>> create-proj
->>>>>>> create-entities
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -401,14 +320,7 @@
           </PATH>
         </subPane>
       </pane>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
       <pane id="Scope" />
-      <pane id="PackagesPane" />
->>>>>>> create-proj
->>>>>>> create-entities
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -420,28 +332,12 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-<<<<<<< HEAD
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-=======
-<<<<<<< HEAD
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-=======
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../demo1/demo1" />
->>>>>>> create-proj
->>>>>>> create-entities
+    <property name="last_opened_file_path" value="G:/Repositories/Apteka1" />
     <property name="recentsLimit" value="5" />
     <property name="dynamic.classpath" value="false" />
     <property name="FullScreen" value="false" />
   </component>
-<<<<<<< HEAD
-  <component name="RunManager" selected="Application.AptekaApplication">
-=======
-<<<<<<< HEAD
-  <component name="RunManager" selected="Application.AptekaApplication">
-=======
   <component name="RunManager">
->>>>>>> create-proj
->>>>>>> create-entities
     <configuration default="false" name="AptekaApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -728,29 +624,12 @@
       <updated>1426917846972</updated>
       <workItem from="1426917849994" duration="106000" />
       <workItem from="1426918056348" duration="790000" />
-<<<<<<< HEAD
       <workItem from="1426919104189" duration="22000" />
-      <workItem from="1426921192426" duration="32000" />
-=======
-<<<<<<< HEAD
-      <workItem from="1426919104189" duration="22000" />
-      <workItem from="1426919209737" duration="20000" />
-=======
->>>>>>> create-proj
->>>>>>> create-entities
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-<<<<<<< HEAD
-    <option name="totallyTimeSpent" value="950000" />
-=======
-<<<<<<< HEAD
-    <option name="totallyTimeSpent" value="938000" />
-=======
-    <option name="totallyTimeSpent" value="896000" />
->>>>>>> create-proj
->>>>>>> create-entities
+    <option name="totallyTimeSpent" value="918000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -759,7 +638,6 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -767,15 +645,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-<<<<<<< HEAD
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295082" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-=======
-<<<<<<< HEAD
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295082" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-=======
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295082" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
->>>>>>> create-proj
->>>>>>> create-entities
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -786,11 +655,13 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295082" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -821,10 +692,6 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/AptekaApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> create-entities
         <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="289">
           <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
           <folding>
@@ -854,40 +721,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/AptekaApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="289">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding>
-            <element signature="e#242#243#0" expanded="true" />
-            <element signature="e#310#311#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/ApiController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="935">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/AptekaApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-=======
-=======
->>>>>>> create-proj
->>>>>>> create-entities
         <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="255">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
@@ -911,15 +744,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding>
-            <element signature="e#0#697#0" expanded="true" />
-          </folding>
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -927,15 +751,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.23595506" vertical-offset="35" max-vertical-offset="391">
           <caret line="7" column="10" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="10" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding>
-            <element signature="e#0#459#0" expanded="true" />
-          </folding>
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -943,13 +758,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="381">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -957,13 +765,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="381">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -971,13 +772,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1003">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -993,13 +787,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.8965516" vertical-offset="10172" max-vertical-offset="13124">
           <caret line="605" column="30" selection-start-line="605" selection-start-column="28" selection-end-line="605" selection-end-column="30" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1007,13 +794,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="381">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1021,13 +801,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.085545726" vertical-offset="29" max-vertical-offset="2193">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1035,13 +808,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="381">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1049,13 +815,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.085545726" vertical-offset="29" max-vertical-offset="2805">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1063,13 +822,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="381">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1077,13 +829,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.08238637" vertical-offset="29" max-vertical-offset="646">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1091,13 +836,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="381">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1105,13 +843,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="381">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1119,13 +850,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="381">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1133,13 +857,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="381">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-          <folding />
->>>>>>> create-proj
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1147,21 +864,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="381">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/ApiController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-=======
-          <folding />
->>>>>>> create-entities
         </state>
       </provider>
     </entry>
@@ -1172,39 +874,16 @@
           <folding>
             <element signature="e#242#243#0" expanded="true" />
             <element signature="e#310#311#0" expanded="true" />
-<<<<<<< HEAD
-=======
->>>>>>> create-proj
->>>>>>> create-entities
           </folding>
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/ApiController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62467194" vertical-offset="0" max-vertical-offset="381">
-          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-=======
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/AptekaApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35695538" vertical-offset="0" max-vertical-offset="381">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding>
-            <element signature="e#242#243#0" expanded="true" />
-            <element signature="e#310#311#0" expanded="true" />
-=======
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/apteka/ApiController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35695538" vertical-offset="0" max-vertical-offset="381">
+        <state vertical-scroll-proportion="0.23367697" vertical-offset="0" max-vertical-offset="582">
           <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
           <folding>
             <element signature="imports" expanded="true" />
->>>>>>> create-proj
->>>>>>> create-entities
           </folding>
         </state>
       </provider>
