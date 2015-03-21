@@ -13,6 +13,6 @@ public class ApiController {
     @RequestMapping("/")
     public @ResponseBody
     String sayHello(){
-        return "Hi!!!, this is Spring Boot Project for IS 'Apteka'";
+        return "Hi!!!, this is Spri2ng Boot Project for IS 'Apteka'";
     }
 }
