@@ -1,11 +1,12 @@
 package aptekaproj.controllers;
 
-import aptekaproj.models.IRolesRepository;
+import aptekaproj.models.RoleService;
 import aptekaproj.models.Roles;
-
+import aptekaproj.models.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -17,24 +18,47 @@ public class ApiController {
 
     //private RolesService rolesService;
     @Autowired
-    private IRolesRepository repository;
+    private RoleService roleService;// = new RoleService();
+    @Autowired
+    private UserService userService;
 
-    /*@Autowired
-    public ApiController(IRolesRepository repository)
-    {
-        this.repository = repository;
+    /*public ApiController(RoleService roleService) {
+        this.roleService = roleService;
     }*/
 
-    @RequestMapping("/")
+    /*public ApiController(RoleService roleService){
+        this.roleService = roleService;
+    }*/
+
+
+    @RequestMapping(value = "/")
     public @ResponseBody
     String sayHello(){
         return "Hi!!!, this is Spri2ng Boot Project for IS 'Apteka'";
     }
 
-    @RequestMapping("/test")
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
     public @ResponseBody
-    Roles getRole(int id){
-        return repository.findOne(id);
+    Roles getRole(String name){
+        return roleService.getRoleByName(name);
+    }
+
+    @RequestMapping(value = "/test1",method = RequestMethod.GET)
+    public @ResponseBody
+    String getRoleName(){
+        return roleService.getRoleName(1);
+    }
+
+    @RequestMapping(value = "/test2",method = RequestMethod.GET)
+    public @ResponseBody
+    String getUserName(){
+        return userService.getUserNameById(1);
+    }
+
+    @RequestMapping(value = "/put",method = RequestMethod.GET)
+    public String putRole(Roles roles){
+        roleService.saveRole(roles);
+        return "redirect:/Api/test?name="+roles.getName();
     }
 
 }

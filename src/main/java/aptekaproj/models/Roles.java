@@ -5,19 +5,22 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
-@Entity
+@Entity(name = "models.Rolies.Roles")
 @Table(name = "Roles")
 public class Roles implements Serializable {
 
     @Id
-    //@Column(name = "id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer Id;
 
-    //@Column(name = "name")
+    @Column(name = "name")
     private String Name;
 
-    public Roles(){}
+    public Roles(){
+
+    }
+
     public Roles(Integer id){
         this.Id = id;
     }
