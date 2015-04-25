@@ -2,13 +2,11 @@ package aptekaproj.models;
 
 import javax.persistence.*;
 
-/**
- * Created by Admin on 29.03.2015.
- */
 @Entity(name = "models.Rolies.Users")
 @Table(name = "users")
 public class Users {
-    @javax.persistence.Id
+
+    @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer Id;
