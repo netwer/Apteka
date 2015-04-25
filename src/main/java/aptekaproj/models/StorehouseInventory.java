@@ -14,10 +14,10 @@ public class StorehouseInventory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;
 
-    @Column(name = "id")
+    @Column(name = "material_id")
     private int material_id;
 
-    @Column(name = "id")
+    @Column(name = "count")
     private int count;
 
     public int getId() {
