@@ -1,6 +1,8 @@
-package aptekaproj.models;
+package aptekaproj.services;
 
 import aptekaproj.helpers.Hash;
+import aptekaproj.models.IUsersRepository;
+import aptekaproj.models.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
