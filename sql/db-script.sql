@@ -8,33 +8,33 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema apteka
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema apteka
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `apteka` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `apteka` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Roles`
+-- Table `apteka`.`Roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Roles` ;
+DROP TABLE IF EXISTS `apteka`.`Roles` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Roles` (
+CREATE TABLE IF NOT EXISTS `apteka`.`Roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Users`
+-- Table `apteka`.`Users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Users` ;
+DROP TABLE IF EXISTS `apteka`.`Users` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Users` (
+CREATE TABLE IF NOT EXISTS `apteka`.`Users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `role_id` INT NULL,
   `login` VARCHAR(45) NOT NULL,
@@ -46,45 +46,45 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Users` (
   PRIMARY KEY (`id`),
   INDEX `fk_Users_Roles_idx` (`role_id` ASC),
   CONSTRAINT `fk_Users_Roles1`
-    FOREIGN KEY (`role_id`)
-    REFERENCES `mydb`.`Roles` (`id`)
+  FOREIGN KEY (`role_id`)
+  REFERENCES `apteka`.`Roles` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Recipes`
+-- Table `apteka`.`Recipes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Recipes` ;
+DROP TABLE IF EXISTS `apteka`.`Recipes` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Recipes` (
+CREATE TABLE IF NOT EXISTS `apteka`.`Recipes` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(100) NOT NULL,
   `created_at` DATE NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Drugs`
+-- Table `apteka`.`Drugs`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Drugs` ;
+DROP TABLE IF EXISTS `apteka`.`Drugs` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Drugs` (
+CREATE TABLE IF NOT EXISTS `apteka`.`Drugs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL COMMENT 'Название лекарства',
   `description` MEDIUMTEXT NOT NULL COMMENT 'Описание лекарства',
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Diagnoses`
+-- Table `apteka`.`Diagnoses`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Diagnoses` ;
+DROP TABLE IF EXISTS `apteka`.`Diagnoses` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Diagnoses` (
+CREATE TABLE IF NOT EXISTS `apteka`.`Diagnoses` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `patient_user_id` INT NOT NULL COMMENT 'Идентификатор пациента',
   `doctor_user_id` INT NULL COMMENT 'Идентификатор доктора',
@@ -97,86 +97,86 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Diagnoses` (
   INDEX `fk_Diagnoses_Patient_Users_idx` (`patient_user_id` ASC),
   INDEX `fk_Diagnoses_Doctor_Users_idx` (`doctor_user_id` ASC),
   CONSTRAINT `fk_Diagnoses_Patient_Users`
-    FOREIGN KEY (`patient_user_id`)
-    REFERENCES `mydb`.`Users` (`id`)
+  FOREIGN KEY (`patient_user_id`)
+  REFERENCES `apteka`.`Users` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Diagnoses_Recipes`
-    FOREIGN KEY (`recipe_id`)
-    REFERENCES `mydb`.`Recipes` (`id`)
+  FOREIGN KEY (`recipe_id`)
+  REFERENCES `apteka`.`Recipes` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Diagnoses_Doctor_Users`
-    FOREIGN KEY (`doctor_user_id`)
-    REFERENCES `mydb`.`Users` (`id`)
+  FOREIGN KEY (`doctor_user_id`)
+  REFERENCES `apteka`.`Users` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`DrugProgressStatuses`
+-- Table `apteka`.`drug_progress_statuses`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`DrugProgressStatuses` ;
+DROP TABLE IF EXISTS `apteka`.`drug_progress_statuses` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`DrugProgressStatuses` (
+CREATE TABLE IF NOT EXISTS `apteka`.`drug_progress_statuses` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`RecipesHasDrugs`
+-- Table `apteka`.`recipes_has_drugs`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`RecipesHasDrugs` ;
+DROP TABLE IF EXISTS `apteka`.`recipes_has_drugs` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`RecipesHasDrugs` (
+CREATE TABLE IF NOT EXISTS `apteka`.`recipes_has_drugs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `recipe_id` INT NOT NULL,
   `drug_id` INT NOT NULL,
   `progress_status_id` INT NULL COMMENT 'Статус готовности лекарства',
   `count` INT NOT NULL DEFAULT 1 COMMENT 'Количество лекарства',
   PRIMARY KEY (`id`),
-  INDEX `fk_RecipesHasDrugs_Drugs_idx` (`drug_id` ASC),
-  INDEX `fk_RecipesHasDrugs_Recipes_idx` (`recipe_id` ASC),
-  INDEX `fk_RecipesHasDrugs_DrugProgressStatuses_idx` (`progress_status_id` ASC),
+  INDEX `fk_recipes_has_drugs_Drugs_idx` (`drug_id` ASC),
+  INDEX `fk_recipes_has_drugs_Recipes_idx` (`recipe_id` ASC),
+  INDEX `fk_recipes_has_drugs_drug_progress_statuses_idx` (`progress_status_id` ASC),
   CONSTRAINT `fk_Recipes_has_Drugs_Recipes1`
-    FOREIGN KEY (`recipe_id`)
-    REFERENCES `mydb`.`Recipes` (`id`)
+  FOREIGN KEY (`recipe_id`)
+  REFERENCES `apteka`.`Recipes` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Recipes_has_Drugs_Drugs1`
-    FOREIGN KEY (`drug_id`)
-    REFERENCES `mydb`.`Drugs` (`id`)
+  FOREIGN KEY (`drug_id`)
+  REFERENCES `apteka`.`Drugs` (`id`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_RecipesHasDrugs_DrugProgressStatuses1`
-    FOREIGN KEY (`progress_status_id`)
-    REFERENCES `mydb`.`DrugProgressStatuses` (`id`)
+  CONSTRAINT `fk_recipes_has_drugs_drug_progress_statuses1`
+  FOREIGN KEY (`progress_status_id`)
+  REFERENCES `apteka`.`drug_progress_statuses` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Materials`
+-- Table `apteka`.`Materials`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Materials` ;
+DROP TABLE IF EXISTS `apteka`.`Materials` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Materials` (
+CREATE TABLE IF NOT EXISTS `apteka`.`Materials` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL COMMENT 'Название вещества',
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Ingredients`
+-- Table `apteka`.`Ingredients`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Ingredients` ;
+DROP TABLE IF EXISTS `apteka`.`Ingredients` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Ingredients` (
+CREATE TABLE IF NOT EXISTS `apteka`.`Ingredients` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `drug_id` INT NOT NULL,
   `material_id` INT NOT NULL,
@@ -185,35 +185,35 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Ingredients` (
   INDEX `fk_Drugs_has_Materials_Materials1_idx` (`material_id` ASC),
   INDEX `fk_Drugs_has_Materials_Drugs1_idx` (`drug_id` ASC),
   CONSTRAINT `fk_Drugs_has_Materials_Drugs1`
-    FOREIGN KEY (`drug_id`)
-    REFERENCES `mydb`.`Drugs` (`id`)
+  FOREIGN KEY (`drug_id`)
+  REFERENCES `apteka`.`Drugs` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Drugs_has_Materials_Materials1`
-    FOREIGN KEY (`material_id`)
-    REFERENCES `mydb`.`Materials` (`id`)
+  FOREIGN KEY (`material_id`)
+  REFERENCES `apteka`.`Materials` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`StorehouseInventory`
+-- Table `apteka`.`storehouse_inventory`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`StorehouseInventory` ;
+DROP TABLE IF EXISTS `apteka`.`storehouse_inventory` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`StorehouseInventory` (
-  `id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `apteka`.`storehouse_inventory` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `material_id` INT NOT NULL,
   `count` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_StorehouseInventory_Materials1_idx` (`material_id` ASC),
-  CONSTRAINT `fk_StorehouseInventory_Materials1`
-    FOREIGN KEY (`material_id`)
-    REFERENCES `mydb`.`Materials` (`id`)
+  INDEX `fk_storehouse_inventory_Materials1_idx` (`material_id` ASC),
+  CONSTRAINT `fk_storehouse_inventory_Materials1`
+  FOREIGN KEY (`material_id`)
+  REFERENCES `apteka`.`Materials` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
