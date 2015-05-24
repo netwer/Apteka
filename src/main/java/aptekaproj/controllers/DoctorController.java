@@ -41,6 +41,7 @@ public class DoctorController {
     PatientCardViewModel PatientCard(@RequestParam(value = "patientId",required = true) int patientId,
                                      @RequestParam(value = "doctorId",required = true) int doctorId){
         return userService.getPatientCard(patientId,doctorId);
+
     }
 
 }

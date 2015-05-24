@@ -1,11 +1,14 @@
 package aptekaproj.services;
 
 import aptekaproj.ViewModels.PatientCardViewModel;
+import aptekaproj.ViewModels.UserViewModel;
 import aptekaproj.ViewModels.UsersDoctorViewModel;
 import aptekaproj.controllers.repository.IDiagnosesRepository;
+import aptekaproj.controllers.repository.IRolesRepository;
 import aptekaproj.helpers.Hash;
 import aptekaproj.controllers.repository.IUsersRepository;
 import aptekaproj.models.Diagnoses;
+import aptekaproj.models.Roles;
 import aptekaproj.models.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,22 +29,26 @@ public class UserService {
     @Autowired
     private IDiagnosesRepository diagnosesRepository;
 
-    public Users userInDb(String login, String password){
-        List<Users> usersList = (List<Users>) usersRepository.findAll();
-        for(Users user : usersList){
-            if(user.getLogin().equals(login) && user.getHash().equals(Hash.getHash(password + user.getSalt()))){
-                return user;
-            }
+    @Autowired
+    private RoleService roleService;
+
+    public UserViewModel getUser(String login, String password){
+        Users user = userInDb(login,password);
+        UserViewModel responseViewModel = new UserViewModel();
+        if(user != null ){
+            responseViewModel.Url = "/" + roleService.getRoleName(user.getRoleId()) + "/";
+            responseViewModel.UserFullName = user.getFullName();
+            responseViewModel.UserId = user.getId();
+            responseViewModel.UserLogin = user.getLogin();
+            responseViewModel.UserRole = roleService.getRoleName(user.getRoleId());
+            responseViewModel.UserRoleId = user.getRoleId();
+            responseViewModel.ErrorMessage = "";
+            //return"redirect:/" + roleService.getRoleName(user.getRoleId()) + "/Success?message=Welcome," + userName;
+            return responseViewModel;
         }
-        return null;
-    }
-
-    public String getUserNameById(int id){
-        return usersRepository.findOne(id).getName();
-    }
-
-    public Users getUserById(int id){
-        return usersRepository.findOne(id);
+        responseViewModel.ErrorMessage = "login or password incorrect";
+        responseViewModel.Url = "/Login/sigin";
+        return responseViewModel;
     }
 
     //todo add check is recipe_id is null ?!
@@ -98,5 +105,19 @@ public class UserService {
             }
         }
         return patientCardViewModel;
+    }
+
+    private Users userInDb(String login, String password){
+        List<Users> usersList = (List<Users>) usersRepository.findAll();
+        for(Users user : usersList){
+            if(user.getLogin().equals(login) && user.getHash().equals(Hash.getHash(password + user.getSalt()))){
+                return user;
+            }
+        }
+        return null;
+    }
+
+    private Users getUserById(int id){
+        return usersRepository.findOne(id);
     }
 }
