@@ -1,5 +1,6 @@
 package aptekaproj.controllers;
 
+import aptekaproj.ViewModels.PatientCardViewModel;
 import aptekaproj.ViewModels.UsersDoctorViewModel;
 import aptekaproj.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,13 @@ public class DoctorController {
     List<UsersDoctorViewModel> Patients(@RequestParam(value = "userId",required = true) int userId){
         return userService.getPatients(userId);
     }
+
+    //localhost:8080/Doctor/PatientCard?patientId=4&doctorId=1
+    @RequestMapping(value = "/PatientCard",method = RequestMethod.GET)
+    public @ResponseBody
+    PatientCardViewModel PatientCard(@RequestParam(value = "patientId",required = true) int patientId,
+                                     @RequestParam(value = "doctorId",required = true) int doctorId){
+        return userService.getPatientCard(patientId,doctorId);
+    }
+
 }

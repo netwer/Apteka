@@ -23,7 +23,7 @@ public class Diagnoses {
     private int doctor_user_id;
 
     @Column(name = "recipe_id")
-    private int recipe_id;
+    private Integer recipe_id;
 
     @Column(name = "diagnosis")
     private String diagnosis;
@@ -50,11 +50,11 @@ public class Diagnoses {
         this.doctor_user_id = doctor_user_id;
     }
 
-    public int getRecipe_id() {
+    public Integer getRecipe_id() {
         return recipe_id;
     }
 
-    public void setRecipe_id(int recipe_id) {
+    public void setRecipe_id(Integer recipe_id) {
         this.recipe_id = recipe_id;
     }
 
