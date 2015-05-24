@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="apteka_expl_archive">
+    <output-path>$PROJECT_DIR$/classes/artifacts/apteka_expl_archive</output-path>
+    <root id="archive" name="apteka.war">
+      <element id="artifact" artifact-name="apteka_expl" />
+    </root>
+  </artifact>
+</component>

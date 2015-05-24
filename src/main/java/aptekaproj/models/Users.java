@@ -1,6 +1,9 @@
 package aptekaproj.models;
 
+import org.springframework.data.repository.CrudRepository;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Entity(name = "models.Rolies.Users")
 @Table(name = "users")
@@ -125,4 +128,8 @@ public class Users {
     public void setName(String name) {
         Name = name;
     }
+
+
+
+
 }

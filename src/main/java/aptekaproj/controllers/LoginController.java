@@ -1,15 +1,14 @@
 package aptekaproj.controllers;
 
-import aptekaproj.models.RoleService;
-import aptekaproj.models.Roles;
-import aptekaproj.models.UserService;
+import aptekaproj.ViewModels.UserViewModel;
+import aptekaproj.services.RoleService;
+import aptekaproj.services.UserService;
 import aptekaproj.models.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by Admin on 29.03.2015.
@@ -26,16 +25,24 @@ public class LoginController {
     private RoleService roleService;
 
     @RequestMapping(value = "/sigin",method = RequestMethod.GET)
-    public String sigin(String login, String password){
+    public @ResponseBody
+    UserViewModel sigin(String login, String password){
         Users user = userService.userInDb(login,password);
-        //return userService.userInDb(login,password);
+        UserViewModel responseViewModel = new UserViewModel();
         if(user != null ){
-            //return new ModelAndView("redirect: /"+roleService.getRoleName(user.getRoleId()) +"/Success?message=Welcome, "+user.getName());
-            //return new DoctorController().Success("Welcome, "+user.getName());
-            String userName = user.getName();
-            return"redirect:/" + roleService.getRoleName(user.getRoleId()) + "/Success?message=Welcome," + userName;
+            responseViewModel.Url = "/" + roleService.getRoleName(user.getRoleId()) + "/";
+            responseViewModel.UserFullName = user.getFullName();
+            responseViewModel.UserId = user.getId();
+            responseViewModel.UserLogin = user.getLogin();
+            responseViewModel.UserRole = roleService.getRoleName(user.getRoleId());
+            responseViewModel.UserRoleId = user.getRoleId();
+            responseViewModel.ErrorMessage = "";
+            //return"redirect:/" + roleService.getRoleName(user.getRoleId()) + "/Success?message=Welcome," + userName;
+            return responseViewModel;
         }
-        return "redirect:/Error/Show?message=No,user";
+        responseViewModel.ErrorMessage = "login or password incorrect";
+        responseViewModel.Url = "/Login/sigin";
+        return responseViewModel;
     }
 
 

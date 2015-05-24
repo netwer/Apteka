@@ -1,8 +1,8 @@
 package aptekaproj.controllers;
 
-import aptekaproj.models.RoleService;
+import aptekaproj.services.RoleService;
 import aptekaproj.models.Roles;
-import aptekaproj.models.UserService;
+import aptekaproj.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ApiController {
 
     //private RolesService rolesService;
-    @Autowired
+    /*@Autowired
     private RoleService roleService;// = new RoleService();
     @Autowired
-    private UserService userService;
+    private UserService userService;*/
 
     /*public ApiController(RoleService roleService) {
         this.roleService = roleService;
@@ -37,7 +37,7 @@ public class ApiController {
         return "Hi!!!, this is Spri2ng Boot Project for IS 'Apteka'";
     }
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    /*@RequestMapping(value = "/test",method = RequestMethod.GET)
     public @ResponseBody
     Roles getRole(String name){
         return roleService.getRoleByName(name);
@@ -59,6 +59,6 @@ public class ApiController {
     public String putRole(Roles roles){
         roleService.saveRole(roles);
         return "redirect:/Api/test?name="+roles.getName();
-    }
+    }*/
 
 }

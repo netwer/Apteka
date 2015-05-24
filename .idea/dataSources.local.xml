@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - apteka@127.0.0.1" uuid="7348c211-a8d7-402b-8c6d-6a5246805e37">
+      <secret-storage>master_key</secret-storage>
+      <user-name>apteka-user</user-name>
+      <schema-pattern>apteka.*</schema-pattern>
+      <default-schemas>apteka.*</default-schemas>
+    </data-source>
+  </component>
+</project>

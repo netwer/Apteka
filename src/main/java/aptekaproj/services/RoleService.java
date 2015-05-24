@@ -1,6 +1,6 @@
 package aptekaproj.services;
 
-import aptekaproj.models.IRolesRepository;
+import aptekaproj.controllers.repository.IRolesRepository;
 import aptekaproj.models.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

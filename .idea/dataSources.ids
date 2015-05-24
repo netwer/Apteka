@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - apteka@127.0.0.1" uuid="7348c211-a8d7-402b-8c6d-6a5246805e37">
+    <database-info product="MySQL" version="5.5.41-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="apteka"/>
+    <table name="Diagnoses" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="patient_user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0JjQtNC10L3RgtC40YTQuNC60LDRgtC+0YAg0L/QsNGG0LjQtdC90YLQsA=="/>
+      <column name="doctor_user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="0JjQtNC10L3RgtC40YTQuNC60LDRgtC+0YAg0LTQvtC60YLQvtGA0LA="/>
+      <column name="recipe_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="diagnosis" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" remarks="0JTQuNCw0LPQvdC+0Lcg0LLRgNCw0YfQsA=="/>
+      <column name="complaints" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" remarks="0JbQsNC70L7QsdGLINC/0LDRhtC40LXQvdGC0LA="/>
+      <column name="created_at" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_Diagnoses_Doctor_Users" columns="doctor_user_id" ref-table="Users" ref-schema="" ref-catalog="apteka" ref-columns="id" update-rule="0" delete-rule="2" deferrability="2"/>
+      <foreign-key name="fk_Diagnoses_Patient_Users" columns="patient_user_id" ref-table="Users" ref-schema="" ref-catalog="apteka" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_Diagnoses_Recipes" columns="recipe_id" ref-table="Recipes" ref-schema="" ref-catalog="apteka" ref-columns="id" update-rule="0" delete-rule="2" deferrability="2"/>
+      <index name="fk_Diagnoses_Doctor_Users_idx" unique="false" columns="doctor_user_id"/>
+      <index name="fk_Diagnoses_Patient_Users_idx" unique="false" columns="patient_user_id"/>
+      <index name="fk_Diagnoses_Recipes_idx" unique="false" columns="recipe_id"/>
+    </table>
+    <table name="DrugProgressStatuses" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_RecipesHasDrugs_DrugProgressStatuses1" table="RecipesHasDrugs" schema="" catalog="apteka" columns="progress_status_id"/>
+    </table>
+    <table name="Drugs" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="0J3QsNC30LLQsNC90LjQtSDQu9C10LrQsNGA0YHRgtCy0LA="/>
+      <column name="description" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1" remarks="0J7Qv9C40YHQsNC90LjQtSDQu9C10LrQsNGA0YHRgtCy0LA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_Drugs_has_Materials_Drugs1" table="Ingredients" schema="" catalog="apteka" columns="drug_id"/>
+      <exported-key name="fk_Recipes_has_Drugs_Drugs1" table="RecipesHasDrugs" schema="" catalog="apteka" columns="drug_id"/>
+    </table>
+    <table name="Ingredients" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="drug_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="material_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="count" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="0JrQvtC7LdCy0L4g0LLQtdGJ0LXRgdGC0LLQsCwg0L3QtdC+0LHRhdC+0LTQuNC80L7Qs9C+INC00LvRjyDQv9GA0LjQs9C+0YLQvtCy0LvQtdC90LjRjyDQu9C10LrQsNGA0YHRgtCy0LA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_Drugs_has_Materials_Drugs1" columns="drug_id" ref-table="Drugs" ref-schema="" ref-catalog="apteka" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_Drugs_has_Materials_Materials1" columns="material_id" ref-table="Materials" ref-schema="" ref-catalog="apteka" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_Drugs_has_Materials_Drugs1_idx" unique="false" columns="drug_id"/>
+      <index name="fk_Drugs_has_Materials_Materials1_idx" unique="false" columns="material_id"/>
+    </table>
+    <table name="Materials" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="0J3QsNC30LLQsNC90LjQtSDQstC10YnQtdGB0YLQstCw"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_Drugs_has_Materials_Materials1" table="Ingredients" schema="" catalog="apteka" columns="material_id"/>
+      <exported-key name="fk_StorehouseInventory_Materials1" table="StorehouseInventory" schema="" catalog="apteka" columns="material_id"/>
+    </table>
+    <table name="Recipes" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created_at" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_Diagnoses_Recipes" table="Diagnoses" schema="" catalog="apteka" columns="recipe_id"/>
+      <exported-key name="fk_Recipes_has_Drugs_Recipes1" table="RecipesHasDrugs" schema="" catalog="apteka" columns="recipe_id"/>
+    </table>
+    <table name="RecipesHasDrugs" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="recipe_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="drug_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="progress_status_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" remarks="0KHRgtCw0YLRg9GBINCz0L7RgtC+0LLQvdC+0YHRgtC4INC70LXQutCw0YDRgdGC0LLQsA=="/>
+      <column name="count" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ==" remarks="0JrQvtC70LjRh9C10YHRgtCy0L4g0LvQtdC60LDRgNGB0YLQstCw"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_RecipesHasDrugs_DrugProgressStatuses1" columns="progress_status_id" ref-table="DrugProgressStatuses" ref-schema="" ref-catalog="apteka" ref-columns="id" update-rule="0" delete-rule="2" deferrability="2"/>
+      <foreign-key name="fk_Recipes_has_Drugs_Drugs1" columns="drug_id" ref-table="Drugs" ref-schema="" ref-catalog="apteka" ref-columns="id" update-rule="0" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_Recipes_has_Drugs_Recipes1" columns="recipe_id" ref-table="Recipes" ref-schema="" ref-catalog="apteka" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_RecipesHasDrugs_DrugProgressStatuses_idx" unique="false" columns="progress_status_id"/>
+      <index name="fk_RecipesHasDrugs_Drugs_idx" unique="false" columns="drug_id"/>
+      <index name="fk_RecipesHasDrugs_Recipes_idx" unique="false" columns="recipe_id"/>
+    </table>
+    <table name="Roles" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_Users_Roles1" table="users" schema="" catalog="apteka" columns="role_id"/>
+    </table>
+    <table name="StorehouseInventory" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="material_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="count" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_StorehouseInventory_Materials1" columns="material_id" ref-table="Materials" ref-schema="" ref-catalog="apteka" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_StorehouseInventory_Materials1_idx" unique="false" columns="material_id"/>
+    </table>
+    <table name="drug_progress_statuses" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="recipes_has_drugs" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="drug_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="progress_status_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="recipe_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="storehouse_inventory" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="material_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="users" schema="" catalog="apteka" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="role_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="login" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="full_name" sqlType="VARCHAR" precision="120" scale="0" nullable="false" jdbcType="12"/>
+      <column name="hash" sqlType="VARCHAR" precision="120" scale="0" nullable="false" jdbcType="12"/>
+      <column name="salt" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
+      <column name="medical_policy_number" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_Users_Roles1" columns="role_id" ref-table="Roles" ref-schema="" ref-catalog="apteka" ref-columns="id" update-rule="0" delete-rule="2" deferrability="2"/>
+      <exported-key name="fk_Diagnoses_Doctor_Users" table="Diagnoses" schema="" catalog="apteka" columns="doctor_user_id"/>
+      <exported-key name="fk_Diagnoses_Patient_Users" table="Diagnoses" schema="" catalog="apteka" columns="patient_user_id"/>
+      <index name="fk_Users_Roles_idx" unique="false" columns="role_id"/>
+    </table>
+  </data-source>
+</component>
