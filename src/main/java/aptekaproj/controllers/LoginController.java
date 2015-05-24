@@ -21,8 +21,8 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RoleService roleService;
+    //@Autowired
+    private RoleService roleService = new RoleService();
 
     @RequestMapping(value = "/sigin",method = RequestMethod.GET)
     public @ResponseBody
