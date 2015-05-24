@@ -54,8 +54,8 @@ public class UserService {
         for(Diagnoses diagnoses : diagnoseses){
             if(diagnoses.getDoctor_user_id()  == userId &&
                diagnoses.getRecipe_id()       == null   &&
-               diagnoses.getComplaints()      == null   &&
-               diagnoses.getDiagnosis()       == null){
+                    (diagnoses.getComplaints() == null || diagnoses.getComplaints().isEmpty()) &&
+                    (diagnoses.getDiagnosis() == null || diagnoses.getDiagnosis().isEmpty())){
 
                 Users patient = getUserById(diagnoses.getPatient_user_id());
                 UsersDoctorViewModel usersDoctorViewModel = new UsersDoctorViewModel();
@@ -81,8 +81,8 @@ public class UserService {
             if(diagnoses.getDoctor_user_id()  == doctorId  &&
                diagnoses.getPatient_user_id() == patientId &&
                diagnoses.getRecipe_id()       == null      &&
-               diagnoses.getComplaints()      == null      &&
-               diagnoses.getDiagnosis()       == null){
+               (diagnoses.getComplaints() == null || diagnoses.getComplaints().isEmpty()) &&
+               (diagnoses.getDiagnosis() == null || diagnoses.getDiagnosis().isEmpty())){
 
                 patient = getUserById(patientId);
                 patientCardViewModel.Complaints = diagnoses.getComplaints();
