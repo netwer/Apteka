@@ -32,7 +32,7 @@ public class Diagnoses {
     private String complaints;
 
     @Column(name = "created_at")
-    private Date created_at;
+    private String created_at;
 
     public int getPatient_user_id() {
         return patient_user_id;
@@ -74,11 +74,11 @@ public class Diagnoses {
         this.complaints = complaints;
     }
 
-    public Date getCreated_at() {
+    public String getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
 

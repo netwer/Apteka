@@ -20,6 +20,9 @@ public class Drugs {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "needs_to_produce")
+    private String NeedsToProduce;
+
     public int getId() {
         return Id;
     }
@@ -42,5 +45,13 @@ public class Drugs {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getNeedsToProduce() {
+        return NeedsToProduce;
+    }
+
+    public void setNeedsToProduce(String needsToProduce) {
+        NeedsToProduce = needsToProduce;
     }
 }

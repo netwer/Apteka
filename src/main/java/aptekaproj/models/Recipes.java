@@ -18,6 +18,12 @@ public class Recipes {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "pharmacy_id")
+    private int PharmacyId;
+
+    @Column(name = "recipe_progress_status_id")
+    private int RecipeProgressStatusId;
+
     @Column(name = "created_at")
     private Date created_at;
 
@@ -43,5 +49,21 @@ public class Recipes {
 
     public void setCreated_at(Date created_at) {
         this.created_at = created_at;
+    }
+
+    public int getPharmacyId() {
+        return PharmacyId;
+    }
+
+    public void setPharmacyId(int pharmacyId) {
+        PharmacyId = pharmacyId;
+    }
+
+    public int getRecipeProgressStatusId() {
+        return RecipeProgressStatusId;
+    }
+
+    public void setRecipeProgressStatusId(int recipeProgressStatusId) {
+        RecipeProgressStatusId = recipeProgressStatusId;
     }
 }

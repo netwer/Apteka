@@ -20,8 +20,8 @@ public class RecipesHasDrugs {
     @Column(name = "drug_id")
     private int drug_id;
 
-    @Column(name = "progress_status_id")
-    private int progress_status_id;
+    @Column(name = "done")
+    private boolean done;
 
     @Column(name = "count")
     private int count;
@@ -42,12 +42,12 @@ public class RecipesHasDrugs {
         this.drug_id = drug_id;
     }
 
-    public int getProgress_status_id() {
-        return progress_status_id;
+    public boolean getDone() {
+        return done;
     }
 
-    public void setProgress_status_id(int progress_status_id) {
-        this.progress_status_id = progress_status_id;
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     public int getCount() {
