@@ -1,0 +1,10 @@
+Save diagnoses
+{"patient_user_id":5,"doctor_user_id":2,"diagnosis":"q11werty","complaints":"rtyuihg","created_at":"2015-05-15"}
+
+{
+ "RecipeTitle":"title1",
+ "PharmacyId":2,
+ "DiagnosesId":22,
+ "drugsViewModelList":[{"DrugId":1,"DrugName":"N1","DrugCount":13}]
+}
+
