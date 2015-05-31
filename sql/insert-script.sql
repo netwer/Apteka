@@ -180,16 +180,16 @@ INSERT INTO drug_progress_statuses (title)
   VALUE ('Собран');
 
 #insert RecipesHasDrugs
-INSERT INTO recipes_has_drugs (count, drug_id, progress_status_id, recipe_id)
+INSERT INTO recipes_has_drugs (count, drug_id, done, recipe_id)
 VALUES (3,1,1,1);
 
-INSERT INTO recipes_has_drugs (count, drug_id, progress_status_id, recipe_id)
+INSERT INTO recipes_has_drugs (count, drug_id, done, recipe_id)
 VALUES (1,2,1,2);
 
-INSERT INTO recipes_has_drugs (count, drug_id, progress_status_id, recipe_id)
+INSERT INTO recipes_has_drugs (count, drug_id, done, recipe_id)
 VALUES (4,6,1,3);
 
-INSERT INTO recipes_has_drugs (count, drug_id, progress_status_id, recipe_id)
+INSERT INTO recipes_has_drugs (count, drug_id, done, recipe_id)
 VALUES (1,5,1,4);
 
 #insert Diagnoses

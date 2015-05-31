@@ -117,7 +117,7 @@ public class UserService {
         return null;
     }
 
-    private Users getUserById(int id){
+    public Users getUserById(int id){
         return usersRepository.findOne(id);
     }
 }

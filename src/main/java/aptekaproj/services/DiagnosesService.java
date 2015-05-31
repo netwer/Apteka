@@ -46,4 +46,15 @@ public class DiagnosesService {
             return postViewModel;
         }
     }
+
+    public List<Diagnoses> getDiagnosesForUser(int userId) {
+        List<Diagnoses> diagnosesList = (List<Diagnoses>)diagnosesRepository.findAll();
+        List<Diagnoses> diagnosesForUser = new ArrayList<>();
+        for (Diagnoses diagnoses:diagnosesList){
+            if(diagnoses.getPatient_user_id() == userId){
+                diagnosesForUser.add(diagnoses);
+            }
+        }
+        return diagnosesForUser;
+    }
 }

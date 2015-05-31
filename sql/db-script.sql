@@ -135,12 +135,12 @@ CREATE TABLE IF NOT EXISTS `apteka`.`recipes_has_drugs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `recipe_id` INT NOT NULL,
   `drug_id` INT NOT NULL,
-  `progress_status_id` INT NULL COMMENT 'Статус готовности лекарства',
+  `done` INT NULL COMMENT 'Статус готовности лекарства',
   `count` INT NOT NULL DEFAULT 1 COMMENT 'Количество лекарства',
   PRIMARY KEY (`id`),
   INDEX `fk_recipes_has_drugs_Drugs_idx` (`drug_id` ASC),
   INDEX `fk_recipes_has_drugs_Recipes_idx` (`recipe_id` ASC),
-  INDEX `fk_recipes_has_drugs_drug_progress_statuses_idx` (`progress_status_id` ASC),
+  INDEX `fk_recipes_has_drugs_drug_progress_statuses_idx` (`done` ASC),
   CONSTRAINT `fk_Recipes_has_Drugs_Recipes1`
   FOREIGN KEY (`recipe_id`)
   REFERENCES `apteka`.`Recipes` (`id`)
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `apteka`.`recipes_has_drugs` (
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `fk_recipes_has_drugs_drug_progress_statuses1`
-  FOREIGN KEY (`progress_status_id`)
+  FOREIGN KEY (`done`)
   REFERENCES `apteka`.`drug_progress_statuses` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)

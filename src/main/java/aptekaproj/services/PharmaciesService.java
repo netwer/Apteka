@@ -19,4 +19,8 @@ public class PharmaciesService {
     public List<Pharmacies> getPharmacies() {
         return (List<Pharmacies>)pharmaciesRepository.findAll();
     }
+
+    public Pharmacies getPharmacyById(int pharmacyId) {
+        return pharmaciesRepository.findOne(pharmacyId);
+    }
 }

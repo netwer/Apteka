@@ -24,4 +24,12 @@ public class RecipeProgressStatusService {
         }
         return new RecipeProgressStatus();
     }
+
+    public RecipeProgressStatus getRecipeProgressStatusById(int recipeProgressStatusId) {
+        return recipeProgressStatusRepository.findOne(recipeProgressStatusId);
+    }
+
+    public List<RecipeProgressStatus> getRecipeProgressStatuses() {
+        return (List<RecipeProgressStatus>)recipeProgressStatusRepository.findAll();
+    }
 }
