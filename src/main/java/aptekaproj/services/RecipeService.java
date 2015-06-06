@@ -50,6 +50,7 @@ public class RecipeService {
 
         //todo CHECK!
         Recipes recipes1 = recipesRepository.save(recipes);
+        diagnosesService.Update(recipeViewModel.DiagnosesId,recipes1.getId());
         recipesHasDrugsService.Update(recipeViewModel,recipes1);
     }
 
@@ -97,4 +98,7 @@ public class RecipeService {
         recipesHasDrugsService.Update(recipeViewModel,recipes);
     }
 
+    public RecipeViewModel GetRecipeForUser(int userId){
+        return null;
+    }
 }

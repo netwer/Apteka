@@ -11,4 +11,5 @@ public class PatientCardViewModel {
     public String PatientPoliceNumber;
     public String Complaints;
     public String Diagnosis;
+    public RecipeViewModel recipeViewModel;
 }

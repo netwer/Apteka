@@ -1,6 +1,7 @@
 package aptekaproj.services;
 
 import aptekaproj.ViewModels.PostViewModel;
+import aptekaproj.ViewModels.RecipeViewModel;
 import aptekaproj.controllers.repository.IDiagnosesRepository;
 import aptekaproj.models.Diagnoses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,22 @@ public class DiagnosesService {
             }
         }
         return diagnosesForUser;
+    }
+
+    public void Update(int diagnosesId, int recipeId) {
+        Diagnoses diagnoses = diagnosesRepository.findOne(diagnosesId);
+
+        if(diagnoses == null)
+            return;
+
+        Diagnoses diagnoses1 = new Diagnoses();
+        diagnoses1.setId(diagnoses.getId());
+        diagnoses1.setPatient_user_id(diagnoses.getPatient_user_id());
+        diagnoses1.setComplaints(diagnoses.getComplaints());
+        diagnoses1.setDiagnosis(diagnoses.getDiagnosis());
+        diagnoses1.setDoctor_user_id(diagnoses.getDoctor_user_id());
+        diagnoses1.setCreated_at(diagnoses.getCreated_at());
+        diagnoses1.setRecipe_id(recipeId);
+        diagnosesRepository.save(diagnoses1);
     }
 }
