@@ -8,6 +8,8 @@ import aptekaproj.models.RecipesHasDrugs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Admin on 28.05.2015.
  */
@@ -36,5 +38,9 @@ public class RecipesHasDrugsService {
             recipesHasDrugs.setDone(false);
             Save(recipesHasDrugs);
         }
+    }
+
+    public List<RecipesHasDrugs> getAll() {
+        return (List<RecipesHasDrugs>) recipesHasDrugsRepository.findAll();
     }
 }

@@ -1,8 +1,12 @@
 package aptekaproj.controllers;
 
+import aptekaproj.ViewModels.UsersDoctorViewModel;
+import aptekaproj.services.ApiService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by Admin on 21.03.2015.
@@ -11,49 +15,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/Api")
 public class ApiController {
 
-    //private RolesService rolesService;
-    /*@Autowired
-    private RoleService roleService;// = new RoleService();
     @Autowired
-    private UserService userService;*/
-
-    /*public ApiController(RoleService roleService) {
-        this.roleService = roleService;
-    }*/
-
-    /*public ApiController(RoleService roleService){
-        this.roleService = roleService;
-    }*/
-
+    private ApiService apiService;
 
     @RequestMapping(value = "/")
     public @ResponseBody
     String sayHello(){
-        return "Hi!!!, this is Spri2ng Boot Project for IS 'Apteka'";
+        return "Hi!!!, This is Spring Boot Project for IS 'Apteka'";
     }
 
-    /*@RequestMapping(value = "/test",method = RequestMethod.GET)
+    @RequestMapping(value = "/appointments",method = RequestMethod.GET)
     public @ResponseBody
-    Roles getRole(String name){
-        return roleService.getRoleByName(name);
+    List<UsersDoctorViewModel> getAppointments(){
+        return apiService.getAppointments();
     }
 
-    @RequestMapping(value = "/test1",method = RequestMethod.GET)
-    public @ResponseBody
-    String getRoleName(){
-        return roleService.getRoleName(1);
+    @RequestMapping(value = "/appointments",method = RequestMethod.POST)
+    public @ResponseBody void saveAppointment(@RequestBody UsersDoctorViewModel usersDoctorViewModel){
+        apiService.saveAppointment(usersDoctorViewModel);
     }
 
-    @RequestMapping(value = "/test2",method = RequestMethod.GET)
-    public @ResponseBody
-    String getUserName(){
-        return userService.getUserNameById(1);
+    @RequestMapping(value = "/appointments/{id}",method = RequestMethod.DELETE)
+    public @ResponseBody void deleteAppointment(@PathVariable int id){
+        apiService.deleteAppointment(id);
     }
-
-    @RequestMapping(value = "/put",method = RequestMethod.GET)
-    public String putRole(Roles roles){
-        roleService.saveRole(roles);
-        return "redirect:/Api/test?name="+roles.getName();
-    }*/
 
 }

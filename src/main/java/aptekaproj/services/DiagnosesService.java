@@ -87,4 +87,12 @@ public class DiagnosesService {
         diagnoses1.setRecipe_id(diagnoses.getRecipe_id());
         diagnosesRepository.save(diagnoses1);
     }
+
+    public List<Diagnoses> getAll() {
+        return (List<Diagnoses>)diagnosesRepository.findAll();
+    }
+
+    public void delete(int id) {
+        diagnosesRepository.delete(id);
+    }
 }

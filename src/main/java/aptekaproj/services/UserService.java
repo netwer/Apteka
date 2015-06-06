@@ -5,6 +5,7 @@ import aptekaproj.ViewModels.UserViewModel;
 import aptekaproj.ViewModels.UsersDoctorViewModel;
 import aptekaproj.controllers.repository.IDiagnosesRepository;
 import aptekaproj.controllers.repository.IRolesRepository;
+import aptekaproj.helpers.Enums.RolesNameEnum;
 import aptekaproj.helpers.Hash;
 import aptekaproj.controllers.repository.IUsersRepository;
 import aptekaproj.models.Diagnoses;
@@ -27,10 +28,14 @@ public class UserService {
     private IUsersRepository usersRepository;
 
     @Autowired
-    private IDiagnosesRepository diagnosesRepository;
+    private DiagnosesService diagnosesService;
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private RecipeService recipeService;
+    private List<Users> doctors;
 
     public UserViewModel getUser(String login, String password){
         Users user = userInDb(login,password);
@@ -55,7 +60,7 @@ public class UserService {
     //todo add check is Complaints is null ?!
     //todo add check is Diagnosis is null?!
     public List<UsersDoctorViewModel> getPatients(int userId){
-        List<Diagnoses> diagnoseses = (List<Diagnoses>) diagnosesRepository.findAll();
+        List<Diagnoses> diagnoseses = diagnosesService.getAll();
         List<UsersDoctorViewModel> usersDoctorViewModels = new ArrayList<>();
 
         for(Diagnoses diagnoses : diagnoseses){
@@ -65,12 +70,16 @@ public class UserService {
                     (diagnoses.getDiagnosis() == null || diagnoses.getDiagnosis().isEmpty())){
 
                 Users patient = getUserById(diagnoses.getPatient_user_id());
+                Users doctor = getUserById(userId);
                 UsersDoctorViewModel usersDoctorViewModel = new UsersDoctorViewModel();
                 usersDoctorViewModel.DoctorId = userId;
                 usersDoctorViewModel.PatientId = patient.getId();
                 usersDoctorViewModel.PatientFullName = patient.getFullName();
+                usersDoctorViewModel.DoctorFullName = doctor.getFullName();
                 //todo right date?
-                usersDoctorViewModel.LastVisitDate = new SimpleDateFormat("MM/dd/yyyy").format(diagnoses.getCreated_at()).toString();
+                //usersDoctorViewModel.LastVisitDate = new SimpleDateFormat("MM/dd/yyyy").format(diagnoses.getCreated_at()).toString();
+                usersDoctorViewModel.LastVisitDate = diagnoses.getCreated_at().toString();
+                usersDoctorViewModel.DiagnosisId = diagnoses.getId();
                 usersDoctorViewModels.add(usersDoctorViewModel);
             }
         }
@@ -83,7 +92,7 @@ public class UserService {
     public PatientCardViewModel getPatientCard(int patientId,int doctorId){
         PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
         Users patient = new Users();
-        List<Diagnoses> diagnoseses = (List<Diagnoses>) diagnosesRepository.findAll();
+        List<Diagnoses> diagnoseses = diagnosesService.getAll();
         for(Diagnoses diagnoses : diagnoseses){
             if(diagnoses.getDoctor_user_id()  == doctorId  &&
                diagnoses.getPatient_user_id() == patientId &&
@@ -99,6 +108,8 @@ public class UserService {
                 patientCardViewModel.PatientAddress = patient.getAddress();
                 patientCardViewModel.PatientFullName = patient.getFullName();
                 patientCardViewModel.PatientPoliceNumber = patient.getMedicalPolicyNumber();
+                //todo need?
+                //patientCardViewModel.recipeViewModel = recipeService.GetRecipeForUser(patientId,diagnoses.getId(),diagnoses.getRecipe_id());
 
                 //todo may be error
                 break;
@@ -119,5 +130,18 @@ public class UserService {
 
     public Users getUserById(int id){
         return usersRepository.findOne(id);
+    }
+
+    public List<Users> getDoctors() {
+        List<Users> usersList = (List<Users>)usersRepository.findAll();
+        List<Users> doctors = new ArrayList<>();
+        Roles roles = roleService.getRoleByName(RolesNameEnum.DOCTOR.toString());
+        for(Users user : usersList){
+            if (user.getRoleId() == roles.getId()){
+                doctors.add(user);
+            }
+        }
+
+        return doctors;
     }
 }

@@ -98,7 +98,22 @@ public class RecipeService {
         recipesHasDrugsService.Update(recipeViewModel,recipes);
     }
 
-    public RecipeViewModel GetRecipeForUser(int userId){
+    public RecipeViewModel GetRecipeForUser(int userId, int diagnosesId, Integer recipeId){
+        Recipes recipes = GetRecipeById(recipeId);
+        RecipeViewModel recipeViewModel = new RecipeViewModel();
+
+        if (recipes == null)
+            return recipeViewModel;
+
+        recipeViewModel.DiagnosesId = diagnosesId;
+        recipeViewModel.PharmacyId = recipes.getPharmacyId();
+        recipeViewModel.RecipeId = recipeId;
+        recipeViewModel.RecipeTitle = recipes.getTitle();
+        recipeViewModel.drugsViewModelList = drugsService.getDrugsForRecipe(recipeId);
         return null;
+    }
+
+    public Recipes GetRecipeById(int recipeId){
+        return recipesRepository.findOne(recipeId);
     }
 }
