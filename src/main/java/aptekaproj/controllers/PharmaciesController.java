@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by Admin on 25.05.2015.
  */
 
-//Провизор
+//Pharmacies
 @Controller
 @RequestMapping("/Pharmacies")
 public class PharmaciesController {

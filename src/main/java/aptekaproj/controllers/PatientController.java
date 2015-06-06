@@ -7,10 +7,7 @@ import aptekaproj.services.RecipeProgressStatusService;
 import aptekaproj.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,9 +26,9 @@ public class PatientController {
 
     //Получение рецептов для пациента GET /
     //http://localhost:8443/Patient/?userId=4
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public @ResponseBody
-    List<PatientRecipeViewModel> Patients(@RequestParam(value = "userId",required = true) int userId){
+    List<PatientRecipeViewModel> Patients(@PathVariable int userId){
         return recipeService.GetRecipesForPatient(userId);
     }
 

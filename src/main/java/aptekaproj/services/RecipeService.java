@@ -61,7 +61,15 @@ public class RecipeService {
         for (Diagnoses diagnoses : diagnosesList){
 
             patientRecipeViewModel = new PatientRecipeViewModel();
+
+            if(diagnoses.getRecipe_id() == null)
+                continue;
+
             Recipes recipes = recipesRepository.findOne(diagnoses.getRecipe_id());
+
+            if(recipes == null)
+                continue;
+
             Pharmacies pharmacies = pharmaciesService.getPharmacyById(recipes.getPharmacyId());
             Users users = userService.getUserById(diagnoses.getDoctor_user_id());
             RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(recipes.getRecipeProgressStatusId());

@@ -40,11 +40,11 @@ public class DoctorController {
     private RecipeService recipeService;
 
     //Получение списка заявок на прием GET /appointments
-    //url example: http://localhost:8443/Doctor/?userId=1
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    //url example: http://localhost:8443/Doctor/1
+    @RequestMapping(value = "/{doctorId}", method = RequestMethod.GET)
     public @ResponseBody
-    List<UsersDoctorViewModel> Patients(@RequestParam(value = "userId",required = true) int userId){
-        return userService.getPatients(userId);
+    List<UsersDoctorViewModel> Patients(@PathVariable int doctorId){
+        return userService.getPatients(doctorId);
     }
 
     //Getting specific record for admission GET /diagnoses/{id}
@@ -57,10 +57,10 @@ public class DoctorController {
 
     }
 
-    //Getting all of the patient admission records GET /diagnoses?user_id={user_id}
-    @RequestMapping(value = "/diagnoses",method = RequestMethod.GET)
+    //Getting all of the patient admission records GET /diagnoses/4
+    @RequestMapping(value = "/diagnoses/{user_id}",method = RequestMethod.GET)
     public @ResponseBody
-    List<Diagnoses> PatientHistory(@RequestParam(value = "user_id",required = true)int user_id){
+    List<Diagnoses> PatientHistory(@PathVariable int user_id){
         return diagnosesService.getPatientHistory(user_id);
     }
 
