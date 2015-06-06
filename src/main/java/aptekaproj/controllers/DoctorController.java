@@ -71,6 +71,12 @@ public class DoctorController {
         return diagnosesService.SaveDiagnoses(diagnoses);
     }
 
+    //Update diagnoses
+    @RequestMapping(value = "/diagnoses/update",method = RequestMethod.PUT)
+    public @ResponseBody void updateDiagnoses(@RequestBody Diagnoses diagnoses){
+        diagnosesService.Update(diagnoses);
+    }
+
     //Creating a record of the results of the reception POST /diagnoses
     //Save recipe
     @RequestMapping(value = "/recipe/save",method = RequestMethod.POST)

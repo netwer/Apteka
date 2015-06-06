@@ -27,7 +27,7 @@ public class PatientController {
     @Autowired
     private RecipeProgressStatusService recipeProgressStatusService;
 
-    //Получение статусов рецептов GET /
+    //Получение рецептов для пациента GET /
     //http://localhost:8443/Patient/?userId=4
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public @ResponseBody

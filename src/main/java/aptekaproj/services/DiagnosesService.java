@@ -75,4 +75,16 @@ public class DiagnosesService {
         diagnoses1.setRecipe_id(recipeId);
         diagnosesRepository.save(diagnoses1);
     }
+
+    public void Update(Diagnoses diagnoses) {
+        Diagnoses diagnoses1 = new Diagnoses();
+        diagnoses1.setId(diagnoses.getId());
+        diagnoses1.setPatient_user_id(diagnoses.getPatient_user_id());
+        diagnoses1.setComplaints(diagnoses.getComplaints());
+        diagnoses1.setDiagnosis(diagnoses.getDiagnosis());
+        diagnoses1.setDoctor_user_id(diagnoses.getDoctor_user_id());
+        diagnoses1.setCreated_at(diagnoses.getCreated_at());
+        diagnoses1.setRecipe_id(diagnoses.getRecipe_id());
+        diagnosesRepository.save(diagnoses1);
+    }
 }
