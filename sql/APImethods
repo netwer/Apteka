@@ -3,8 +3,8 @@
 Заявки на прием:
 
     Получение списка заявок на прием GET /appointments +
-    Создание заявки на прием POST /appointments
-    Удаление заявки на прием DELETE /appointments/{id}
+    Создание заявки на прием POST /appointments +
+    Удаление заявки на прием DELETE /appointments/{id} +
 
 Запись о результатах приема:
 
@@ -32,7 +32,7 @@
 
 Аптекари:
 
-    Получение списка аптекарей GET /pharmacists?pharmacy={pharmacy_id}
+    Получение списка аптекарей GET /pharmacists?pharmacy={pharmacy_id} +
 
 Аптеки:
 
