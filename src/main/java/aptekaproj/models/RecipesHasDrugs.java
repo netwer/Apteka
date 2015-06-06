@@ -57,4 +57,12 @@ public class RecipesHasDrugs {
     public void setCount(int count) {
         this.count = count;
     }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
 }

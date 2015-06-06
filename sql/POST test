@@ -1,10 +1,29 @@
 Save diagnoses
 {"patient_user_id":5,"doctor_user_id":2,"diagnosis":"q11werty","complaints":"rtyuihg","created_at":"2015-05-15"}
 
+Save recipe
 {
- "RecipeTitle":"title1",
+ "RecipeTitle":"title41",
  "PharmacyId":2,
  "DiagnosesId":22,
- "drugsViewModelList":[{"DrugId":1,"DrugName":"N1","DrugCount":13}]
+ "drugsViewModelList":
+    [
+      {"DrugId":1,"DrugName":"N1","DrugCount":655},
+      {"DrugId":2,"DrugName":"N1","DrugCount":654},
+      {"DrugId":3,"DrugName":"N1","DrugCount":653}
+    ]
 }
 
+Update recipe
+{
+ "RecipeId":14,
+ "RecipeTitle":"qwe1rty",
+ "PharmacyId":3,
+ "DiagnosesId":22,
+ "drugsViewModelList":
+    [
+      {"RecipesHasDrugsId":17,"DrugId":2,"DrugName":"N123","DrugCount":243},
+      {"RecipesHasDrugsId":18,"DrugId":4,"DrugName":"N123","DrugCount":242},
+      {"RecipesHasDrugsId":19,"DrugId":5,"DrugName":"N123","DrugCount":241}
+    ]
+}

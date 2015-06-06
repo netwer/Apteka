@@ -40,15 +40,15 @@ public class DoctorController {
     private RecipeService recipeService;
 
     //Получение списка заявок на прием GET /appointments
-    //url example: http://localhost:8080/Doctor/?userId=1
+    //url example: http://localhost:8443/Doctor/?userId=1
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public @ResponseBody
     List<UsersDoctorViewModel> Patients(@RequestParam(value = "userId",required = true) int userId){
         return userService.getPatients(userId);
     }
 
-    //Получение конкретной записи о приеме GET /diagnoses/{id}
-    //localhost:8080/Doctor/PatientCard?patientId=4&doctorId=1
+    //Getting specific record for admission GET /diagnoses/{id}
+    //localhost:8443/Doctor/PatientCard?patientId=4&doctorId=1
     @RequestMapping(value = "/PatientCard",method = RequestMethod.GET)
     public @ResponseBody
     PatientCardViewModel PatientCard(@RequestParam(value = "patientId",required = true) int patientId,
@@ -57,35 +57,41 @@ public class DoctorController {
 
     }
 
-    //Получение всех записей приема пациента GET /diagnoses?user_id={user_id}
+    //Getting all of the patient admission records GET /diagnoses?user_id={user_id}
     @RequestMapping(value = "/diagnoses",method = RequestMethod.GET)
     public @ResponseBody
     List<Diagnoses> PatientHistory(@RequestParam(value = "user_id",required = true)int user_id){
         return diagnosesService.getPatientHistory(user_id);
     }
 
-    //Создание записи о результатах приема POST /diagnoses
-    //Сохранение diagnoses объекта для пациента
+    //Creating a record of the results of the reception POST /diagnoses
+    //Save diagnoses object for patient
     @RequestMapping(value = "/diagnoses/save",method = RequestMethod.POST)
     public @ResponseBody PostViewModel save(@RequestBody Diagnoses diagnoses) throws ParseException {
         return diagnosesService.SaveDiagnoses(diagnoses);
     }
 
-    //Создание записи о результатах приема POST /diagnoses
-    //Сохранение рецепта
+    //Creating a record of the results of the reception POST /diagnoses
+    //Save recipe
     @RequestMapping(value = "/recipe/save",method = RequestMethod.POST)
     public void saveRecipe(@RequestBody RecipeViewModel recipeViewModel){
         recipeService.Save(recipeViewModel);
     }
 
-    //Получение списка аптек: GET /pharmacies
+    //Update Recipe
+    @RequestMapping(value = "/recipe/update",method = RequestMethod.PUT)
+    public void updateRecipe(@RequestBody RecipeViewModel recipeViewModel){
+        recipeService.Update(recipeViewModel);
+    }
+
+    //Get pharmacies list: GET /pharmacies
     @RequestMapping(value = "/recipe/pharmacies",method = RequestMethod.GET)
     public @ResponseBody
     List<Pharmacies> getPharmacies(){
         return pharmaciesService.getPharmacies();
     }
 
-
+    //Get the drugs list
     @RequestMapping(value = "/recipe/drugs",method = RequestMethod.GET)
     public @ResponseBody
     List<Drugs> getDrugs(){

@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class RecipeViewModel {
     public String RecipeTitle;
+    public int RecipeId;
     public int PharmacyId;
     public int DiagnosesId;
     public List<DrugsViewModel> drugsViewModelList;

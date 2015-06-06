@@ -1,6 +1,9 @@
 package aptekaproj.services;
 
+import aptekaproj.ViewModels.DrugsViewModel;
+import aptekaproj.ViewModels.RecipeViewModel;
 import aptekaproj.controllers.repository.IRecipesHasDrugsRepository;
+import aptekaproj.models.Recipes;
 import aptekaproj.models.RecipesHasDrugs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,5 +19,22 @@ public class RecipesHasDrugsService {
 
     public void Save(RecipesHasDrugs recipesHasDrugs) {
         recipesHasDrugsRepository.save(recipesHasDrugs);
+    }
+
+    public void Update(RecipeViewModel recipeViewModel,Recipes recipes){
+        for (DrugsViewModel drugsViewModel : recipeViewModel.drugsViewModelList){
+            RecipesHasDrugs recipesHasDrugs = new RecipesHasDrugs();
+            if(drugsViewModel.RecipesHasDrugsId != null){
+                recipesHasDrugs = recipesHasDrugsRepository.findOne(drugsViewModel.RecipesHasDrugsId);
+                if(recipesHasDrugs == null)
+                    continue;
+                recipesHasDrugs.setId(drugsViewModel.RecipesHasDrugsId);
+            }
+            recipesHasDrugs.setCount(drugsViewModel.DrugCount);
+            recipesHasDrugs.setDrug_id(drugsViewModel.DrugId);
+            recipesHasDrugs.setRecipe_id(recipes.getId());
+            recipesHasDrugs.setDone(false);
+            Save(recipesHasDrugs);
+        }
     }
 }
