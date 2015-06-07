@@ -124,4 +124,21 @@ public class RecipeService {
     public Recipes GetRecipeById(int recipeId){
         return recipesRepository.findOne(recipeId);
     }
+
+    public List<Recipes> GetRecipesForPharmacyByStatus(int pharmacy_id, String status) {
+        List<Recipes> recipes = new ArrayList<>();
+        List<Recipes> currentRecipes = (List<Recipes>)recipesRepository.findAll();
+        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(status);
+
+        if (recipeProgressStatus == null)
+            return recipes;
+
+        for (Recipes recipe : currentRecipes){
+            if(recipe.getPharmacyId() == pharmacy_id && recipe.getRecipeProgressStatusId() == recipeProgressStatus.getId()){
+                recipes.add(recipe);
+            }
+        }
+
+        return recipes;
+    }
 }

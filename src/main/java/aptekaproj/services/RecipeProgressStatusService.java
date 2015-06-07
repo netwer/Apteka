@@ -19,7 +19,7 @@ public class RecipeProgressStatusService {
     public RecipeProgressStatus getRecipeProgressStatusByName(String name){
         List<RecipeProgressStatus> recipeProgressStatuses = (List<RecipeProgressStatus>)recipeProgressStatusRepository.findAll();
         for(RecipeProgressStatus recipeProgressStatus : recipeProgressStatuses){
-            if(recipeProgressStatus.getName() == name)
+            if(recipeProgressStatus.getName().toUpperCase() == name.toUpperCase())
                 return recipeProgressStatus;
         }
         return new RecipeProgressStatus();
