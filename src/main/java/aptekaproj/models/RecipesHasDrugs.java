@@ -26,6 +26,10 @@ public class RecipesHasDrugs {
     @Column(name = "count")
     private int count;
 
+    @Column(name = "progress_status_id")
+    private Integer progress_status_id;
+
+
     public int getRecipe_id() {
         return recipe_id;
     }
@@ -64,5 +68,13 @@ public class RecipesHasDrugs {
 
     public void setId(int id) {
         Id = id;
+    }
+
+    public int getProgress_status_id() {
+        return progress_status_id;
+    }
+
+    public void setProgress_status_id(int progress_status_id) {
+        this.progress_status_id = progress_status_id;
     }
 }

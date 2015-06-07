@@ -1,7 +1,6 @@
 package aptekaproj.controllers;
 
 import aptekaproj.ViewModels.PatientRecipeViewModel;
-import aptekaproj.ViewModels.UsersDoctorViewModel;
 import aptekaproj.models.RecipeProgressStatus;
 import aptekaproj.services.RecipeProgressStatusService;
 import aptekaproj.services.RecipeService;
@@ -37,7 +36,7 @@ public class PatientController {
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
     public @ResponseBody
     List<RecipeProgressStatus> getRecipeStatuses(){
-        return recipeProgressStatusService.getRecipeProgressStatuses();
+        return recipeProgressStatusService.GetRecipeProgressStatuses();
     }
 
 }

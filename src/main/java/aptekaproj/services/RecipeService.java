@@ -1,6 +1,5 @@
 package aptekaproj.services;
 
-import aptekaproj.ViewModels.DrugsViewModel;
 import aptekaproj.ViewModels.PatientRecipeViewModel;
 import aptekaproj.ViewModels.RecipeViewModel;
 import aptekaproj.controllers.repository.IRecipesRepository;
@@ -41,7 +40,7 @@ public class RecipeService {
 
     public void Save(RecipeViewModel recipeViewModel){
         //todo check!
-        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.CREATED.toString());
+        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusByName(ProgressStatusEnum.CREATED.toString());
         Recipes recipes = new Recipes();
         recipes.setTitle(recipeViewModel.RecipeTitle);
         recipes.setRecipeProgressStatusId(recipeProgressStatus.getId());
@@ -72,7 +71,7 @@ public class RecipeService {
 
             Pharmacies pharmacies = pharmaciesService.getPharmacyById(recipes.getPharmacyId());
             Users users = userService.getUserById(diagnoses.getDoctor_user_id());
-            RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(recipes.getRecipeProgressStatusId());
+            RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusById(recipes.getRecipeProgressStatusId());
 
             patientRecipeViewModel.DoctorId = diagnoses.getDoctor_user_id();
             patientRecipeViewModel.DoctorName = users.getFullName();
@@ -91,7 +90,7 @@ public class RecipeService {
 
     public void Update(RecipeViewModel recipeViewModel) {
         Recipes recipes = recipesRepository.findOne(recipeViewModel.RecipeId);
-        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.UPDATED.toString());
+        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusByName(ProgressStatusEnum.UPDATED.toString());
 
         if(recipes == null || recipeProgressStatus == null)
             return;
@@ -128,7 +127,7 @@ public class RecipeService {
     public List<Recipes> GetRecipesForPharmacyByStatus(int pharmacy_id, String status) {
         List<Recipes> recipes = new ArrayList<>();
         List<Recipes> currentRecipes = (List<Recipes>)recipesRepository.findAll();
-        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(status);
+        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusByName(status);
 
         if (recipeProgressStatus == null)
             return recipes;

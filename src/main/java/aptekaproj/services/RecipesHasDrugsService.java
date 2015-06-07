@@ -36,6 +36,7 @@ public class RecipesHasDrugsService {
             recipesHasDrugs.setDrug_id(drugsViewModel.DrugId);
             recipesHasDrugs.setRecipe_id(recipes.getId());
             recipesHasDrugs.setDone(false);
+            recipesHasDrugs.setProgress_status_id(recipes.getRecipeProgressStatusId());
             Save(recipesHasDrugs);
         }
     }
