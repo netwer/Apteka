@@ -48,8 +48,8 @@ public class PharmaciesController {
     @RequestMapping(value = "/pharmacies/2/recipes/",method = RequestMethod.GET)
     public @ResponseBody
     //List<Recipes> getRecipes(@PathVariable("pharmacy_id") int pharmacy_id,@PathVariable("status") String status){
-    Recipes getRecipe(@RequestParam(value = "id",required = true) int id){
-        return recipeService.GetRecipeById(id);//GetRecipeForPharmacyByStatus(2,status);
+    RecipeViewModel getRecipe(@RequestParam(value = "id",required = true) int id){
+        return recipeService.GetRecipe(id);//GetRecipeForPharmacyByStatus(2,status);
     }
 
     //todo

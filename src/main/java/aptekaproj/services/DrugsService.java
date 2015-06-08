@@ -22,22 +22,28 @@ public class DrugsService {
     @Autowired
     private RecipesHasDrugsService recipesHasDrugsService;
 
-    public List<Drugs> getDrugs(){
+    public List<Drugs> GetDrugs(){
         return (List<Drugs>)drugsRepository.findAll();
     }
 
-    public List<DrugsViewModel> getDrugsForRecipe(Integer recipeId) {
+    public List<DrugsViewModel> GetDrugsForRecipe(Integer recipeId) {
         List<RecipesHasDrugs> recipesHasDrugses = recipesHasDrugsService.getAll();
         List<DrugsViewModel> drugsViewModels = new ArrayList<>();
 
         for (RecipesHasDrugs recipesHasDrugs : recipesHasDrugses){
             if(recipesHasDrugs.getRecipe_id() == recipeId){
                 DrugsViewModel drugsViewModel = new DrugsViewModel();
-                Drugs drugs = drugsRepository.findOne(recipesHasDrugs.getDrug_id());
+                Drugs drug = drugsRepository.findOne(recipesHasDrugs.getDrug_id());
+
+                if(drug == null)
+                    continue;
+
                 drugsViewModel.RecipesHasDrugsId = recipesHasDrugs.getId();
                 drugsViewModel.DrugId = recipesHasDrugs.getDrug_id();
                 drugsViewModel.DrugCount = recipesHasDrugs.getCount();
-                drugsViewModel.DrugName = drugs.getName();
+                drugsViewModel.DrugName = drug.getName();
+                drugsViewModel.NeedsToProduce = drug.getNeedsToProduce();
+
                 drugsViewModels.add(drugsViewModel);
             }
         }

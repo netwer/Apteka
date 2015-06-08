@@ -13,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -101,6 +99,6 @@ public class DoctorController {
     @RequestMapping(value = "/recipe/drugs",method = RequestMethod.GET)
     public @ResponseBody
     List<Drugs> getDrugs(){
-        return drugsService.getDrugs();
+        return drugsService.GetDrugs();
     }
 }

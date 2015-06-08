@@ -95,4 +95,18 @@ public class DiagnosesService {
     public void delete(int id) {
         diagnosesRepository.delete(id);
     }
+
+    public Diagnoses GetDiagnoses(Integer recipeId) {
+        List<Diagnoses> diagnosesList = (List<Diagnoses>)diagnosesRepository.findAll();
+        Diagnoses diagnoses = new Diagnoses();
+
+        for (Diagnoses diagnoses1 : diagnosesList){
+            if(diagnoses1.getRecipe_id() == recipeId){
+                diagnoses = diagnoses1;
+                break;
+            }
+        }
+
+        return diagnoses;
+    }
 }

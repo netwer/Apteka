@@ -105,19 +105,20 @@ public class RecipeService {
         recipesHasDrugsService.Update(recipeViewModel,recipes);
     }
 
-    public RecipeViewModel GetRecipeForUser(int userId, int diagnosesId, Integer recipeId){
+    public RecipeViewModel GetRecipe(int recipeId){
         Recipes recipes = GetRecipeById(recipeId);
+        Diagnoses diagnoses = diagnosesService.GetDiagnoses(recipeId);
         RecipeViewModel recipeViewModel = new RecipeViewModel();
 
-        if (recipes == null)
+        if (recipes == null && diagnoses != null)
             return recipeViewModel;
 
-        recipeViewModel.DiagnosesId = diagnosesId;
+        recipeViewModel.DiagnosesId = diagnoses.getId();
         recipeViewModel.PharmacyId = recipes.getPharmacyId();
         recipeViewModel.RecipeId = recipeId;
         recipeViewModel.RecipeTitle = recipes.getTitle();
-        recipeViewModel.drugsViewModelList = drugsService.getDrugsForRecipe(recipeId);
-        return null;
+        recipeViewModel.drugsViewModelList = drugsService.GetDrugsForRecipe(recipeId);
+        return recipeViewModel;
     }
 
     public Recipes GetRecipeById(int recipeId){

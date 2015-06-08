@@ -109,7 +109,7 @@ public class UserService {
                 patientCardViewModel.PatientFullName = patient.getFullName();
                 patientCardViewModel.PatientPoliceNumber = patient.getMedicalPolicyNumber();
                 //todo need?
-                //patientCardViewModel.recipeViewModel = recipeService.GetRecipeForUser(patientId,diagnoses.getId(),diagnoses.getRecipe_id());
+                //patientCardViewModel.recipeViewModel = recipeService.GetRecipe(patientId,diagnoses.getId(),diagnoses.getRecipe_id());
 
                 //todo may be error
                 break;

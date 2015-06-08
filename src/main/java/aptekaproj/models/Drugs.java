@@ -21,7 +21,7 @@ public class Drugs {
     private String description;
 
     @Column(name = "needs_to_produce")
-    private String NeedsToProduce;
+    private Boolean NeedsToProduce;
 
     public int getId() {
         return Id;
@@ -47,11 +47,11 @@ public class Drugs {
         this.description = description;
     }
 
-    public String getNeedsToProduce() {
+    public Boolean getNeedsToProduce() {
         return NeedsToProduce;
     }
 
-    public void setNeedsToProduce(String needsToProduce) {
+    public void setNeedsToProduce(Boolean needsToProduce) {
         NeedsToProduce = needsToProduce;
     }
 }
