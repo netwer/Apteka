@@ -48,9 +48,14 @@ public class RecipeService {
         recipes.setCreated_at(new Date());
 
         //todo CHECK!
+        //Recipes recipes1 = recipesRepository.save(recipes);
         Recipes recipes1 = recipesRepository.save(recipes);
         diagnosesService.Update(recipeViewModel.DiagnosesId,recipes1.getId());
         recipesHasDrugsService.Update(recipeViewModel,recipes1);
+    }
+
+    public void Save(Recipes recipes){
+        recipesRepository.save(recipes);
     }
 
     public List<PatientRecipeViewModel> GetRecipesForPatient(int userId) {
@@ -140,5 +145,15 @@ public class RecipeService {
         }
 
         return recipes;
+    }
+
+    public void ChangeStatus(int recipeId,String status) {
+        Recipes recipe = GetRecipeById(recipeId);
+
+        if (recipe == null)
+            return;
+
+        recipe.setRecipeProgressStatusId(recipeProgressStatusService.GetRecipeProgressStatusByName(status).getId());
+        Save(recipe);
     }
 }

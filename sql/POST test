@@ -34,3 +34,6 @@ Update recipe
       {"RecipesHasDrugsId":19,"DrugId":5,"DrugName":"N123","DrugCount":241}
     ]
 }
+
+Recipe done
+{"Id":16,"status":"завершен","message":""}

@@ -1,5 +1,6 @@
 package aptekaproj.controllers;
 
+import aptekaproj.ViewModels.PostViewModel;
 import aptekaproj.ViewModels.RecipeViewModel;
 import aptekaproj.ViewModels.UserViewModel;
 import aptekaproj.models.Recipes;
@@ -56,5 +57,10 @@ public class PharmaciesController {
     @RequestMapping(value = "/pharmacies/2/recipes/",method = RequestMethod.PUT)
     public @ResponseBody void updateRecipe(@RequestBody RecipeViewModel recipeViewModel){
         recipeService.Update(recipeViewModel);
+    }
+
+    @RequestMapping(value = "/pharmacies/2/recipes/",method = RequestMethod.POST)
+    public @ResponseBody void changeStatus(@RequestBody PostViewModel postViewModel){//,@RequestBody String status){
+        recipeService.ChangeStatus(postViewModel.Id,postViewModel.status);
     }
 }
