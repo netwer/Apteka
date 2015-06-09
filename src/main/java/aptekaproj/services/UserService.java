@@ -144,4 +144,23 @@ public class UserService {
 
         return doctors;
     }
+
+    public List<Users> GetUsersByIds(List<Integer> pharmacistIdList, String roleName) {
+        List<Users> usersList = GetUsers();
+        List<Users> apotekarys = new ArrayList<>();
+        Roles role = roleService.getRoleByName(roleName);
+        for (Users user : usersList){
+            for (Integer pharmacistId : pharmacistIdList){
+                if(user.getId() == pharmacistId && user.getRoleId()==role.getId()){
+                    apotekarys.add(user);
+                }
+            }
+        }
+
+        return apotekarys;
+    }
+
+    public List<Users> GetUsers(){
+        return (List<Users>)usersRepository.findAll();
+    }
 }

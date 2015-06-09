@@ -5,7 +5,8 @@ package aptekaproj.helpers.Enums;
  */
 public enum RolesNameEnum {
     DOCTOR("Doctor"),
-    PATIENT("Patient");
+    PATIENT("Patient"),
+    APOTEKARY("Apotekary");
 
     private String displayRoleName;
     RolesNameEnum(String displayRoleName){

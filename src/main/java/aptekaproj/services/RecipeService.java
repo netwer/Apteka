@@ -1,5 +1,6 @@
 package aptekaproj.services;
 
+import aptekaproj.ViewModels.OrderMissingViewModel;
 import aptekaproj.ViewModels.PatientRecipeViewModel;
 import aptekaproj.ViewModels.RecipeViewModel;
 import aptekaproj.controllers.repository.IRecipesRepository;
@@ -37,6 +38,9 @@ public class RecipeService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PharmacyStaffService pharmacyStaffService;
 
     public void Save(RecipeViewModel recipeViewModel){
         //todo check!
@@ -155,5 +159,10 @@ public class RecipeService {
 
         recipe.setRecipeProgressStatusId(recipeProgressStatusService.GetRecipeProgressStatusByName(status).getId());
         Save(recipe);
+    }
+
+    public OrderMissingViewModel GetOrderMissing(int pharmacistId) {
+        List<Users> pharmacistsList = pharmacyStaffService.GetStaffs(pharmacistId);
+        return null;
     }
 }
