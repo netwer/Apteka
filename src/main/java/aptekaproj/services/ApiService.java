@@ -21,7 +21,7 @@ public class ApiService {
     @Autowired
     private DiagnosesService diagnosesService;
 
-    public List<UsersDoctorViewModel> getAppointments(){
+    public List<UsersDoctorViewModel> GetAppointments(){
         List<Users> doctors = userService.getDoctors();
         List<UsersDoctorViewModel> usersDoctorViewModels = new ArrayList<>();
         for (Users doctor:doctors){
@@ -31,7 +31,7 @@ public class ApiService {
         return usersDoctorViewModels;
     }
 
-    public void saveAppointment(UsersDoctorViewModel usersDoctorViewModel) {
+    public void SaveAppointment(UsersDoctorViewModel usersDoctorViewModel) {
         Diagnoses diagnoses = new Diagnoses();
 
         diagnoses.setPatient_user_id(usersDoctorViewModel.PatientId);
@@ -41,10 +41,10 @@ public class ApiService {
         diagnoses.setComplaints("");
         diagnoses.setRecipe_id(null);
 
-        diagnosesService.SaveDiagnoses(diagnoses);
+        diagnosesService.SaveDiagnosis(diagnoses);
     }
 
-    public void deleteAppointment(int id) {
-        diagnosesService.delete(id);
+    public void DeleteAppointment(int id) {
+        diagnosesService.DeleteDiagnosis(id);
     }
 }

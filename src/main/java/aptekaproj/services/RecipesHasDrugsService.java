@@ -19,11 +19,11 @@ public class RecipesHasDrugsService {
     @Autowired
     private IRecipesHasDrugsRepository recipesHasDrugsRepository;
 
-    public void Save(RecipesHasDrugs recipesHasDrugs) {
+    public void SaveRecipeHasDrugs(RecipesHasDrugs recipesHasDrugs) {
         recipesHasDrugsRepository.save(recipesHasDrugs);
     }
 
-    public void Update(RecipeViewModel recipeViewModel,Recipes recipes){
+    public void UpdateRecipeHasDrugs(RecipeViewModel recipeViewModel, Recipes recipes){
         for (DrugsViewModel drugsViewModel : recipeViewModel.drugsViewModelList){
             RecipesHasDrugs recipesHasDrugs = new RecipesHasDrugs();
             if(drugsViewModel.RecipesHasDrugsId != null){
@@ -37,11 +37,11 @@ public class RecipesHasDrugsService {
             recipesHasDrugs.setRecipe_id(recipes.getId());
             recipesHasDrugs.setDone(false);
             recipesHasDrugs.setProgress_status_id(recipes.getRecipeProgressStatusId());
-            Save(recipesHasDrugs);
+            SaveRecipeHasDrugs(recipesHasDrugs);
         }
     }
 
-    public List<RecipesHasDrugs> getAll() {
+    public List<RecipesHasDrugs> GetAllRecipesHasDrugs() {
         return (List<RecipesHasDrugs>) recipesHasDrugsRepository.findAll();
     }
 }

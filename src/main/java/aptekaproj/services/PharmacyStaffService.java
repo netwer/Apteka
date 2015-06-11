@@ -36,7 +36,7 @@ public class PharmacyStaffService {
                 Users users1 = new Users();
                 users1 = userService.getUserById(pharmacyStaff.getUserId());
                 userViewModel.UserId = users1.getId();
-                userViewModel.UserRole = roleService.getRoleName(users1.getRoleId());
+                userViewModel.UserRole = roleService.GetRoleName(users1.getRoleId());
                 userViewModel.UserFullName = users1.getFullName();
                 userViewModel.UserLogin = users1.getLogin();
                 users.add(userViewModel);

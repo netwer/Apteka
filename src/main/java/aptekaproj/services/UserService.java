@@ -3,8 +3,6 @@ package aptekaproj.services;
 import aptekaproj.ViewModels.PatientCardViewModel;
 import aptekaproj.ViewModels.UserViewModel;
 import aptekaproj.ViewModels.UsersDoctorViewModel;
-import aptekaproj.controllers.repository.IDiagnosesRepository;
-import aptekaproj.controllers.repository.IRolesRepository;
 import aptekaproj.helpers.Enums.RolesNameEnum;
 import aptekaproj.helpers.Hash;
 import aptekaproj.controllers.repository.IUsersRepository;
@@ -14,7 +12,6 @@ import aptekaproj.models.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,18 +38,18 @@ public class UserService {
         Users user = userInDb(login,password);
         UserViewModel responseViewModel = new UserViewModel();
         if(user != null ){
-            responseViewModel.Url = "/" + roleService.getRoleName(user.getRoleId()) + "/";
+            responseViewModel.Url = "/" + roleService.GetRoleName(user.getRoleId()) + "/";
             responseViewModel.UserFullName = user.getFullName();
             responseViewModel.UserId = user.getId();
             responseViewModel.UserLogin = user.getLogin();
-            responseViewModel.UserRole = roleService.getRoleName(user.getRoleId());
+            responseViewModel.UserRole = roleService.GetRoleName(user.getRoleId());
             responseViewModel.UserRoleId = user.getRoleId();
             responseViewModel.ErrorMessage = "";
-            //return"redirect:/" + roleService.getRoleName(user.getRoleId()) + "/Success?message=Welcome," + userName;
+            //return"redirect:/" + roleService.GetRoleName(user.getRoleId()) + "/Success?message=Welcome," + userName;
             return responseViewModel;
         }
         responseViewModel.ErrorMessage = "login or password incorrect";
-        responseViewModel.Url = "/Login/sigin";
+        responseViewModel.Url = "/Login/Sigin";
         return responseViewModel;
     }
 
@@ -60,7 +57,7 @@ public class UserService {
     //todo add check is Complaints is null ?!
     //todo add check is Diagnosis is null?!
     public List<UsersDoctorViewModel> getPatients(int userId){
-        List<Diagnoses> diagnoseses = diagnosesService.getAll();
+        List<Diagnoses> diagnoseses = diagnosesService.GetAllDiagnoses();
         List<UsersDoctorViewModel> usersDoctorViewModels = new ArrayList<>();
 
         for(Diagnoses diagnoses : diagnoseses){
@@ -92,7 +89,7 @@ public class UserService {
     public PatientCardViewModel getPatientCard(int patientId,int doctorId){
         PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
         Users patient = new Users();
-        List<Diagnoses> diagnoseses = diagnosesService.getAll();
+        List<Diagnoses> diagnoseses = diagnosesService.GetAllDiagnoses();
         for(Diagnoses diagnoses : diagnoseses){
             if(diagnoses.getDoctor_user_id()  == doctorId  &&
                diagnoses.getPatient_user_id() == patientId &&
@@ -121,7 +118,7 @@ public class UserService {
     private Users userInDb(String login, String password){
         List<Users> usersList = (List<Users>) usersRepository.findAll();
         for(Users user : usersList){
-            if(user.getLogin().equals(login) && user.getHash().equals(Hash.getHash(password + user.getSalt()))){
+            if(user.getLogin().equals(login) && user.getHash().equals(Hash.GetHash(password + user.getSalt()))){
                 return user;
             }
         }
@@ -135,7 +132,7 @@ public class UserService {
     public List<Users> getDoctors() {
         List<Users> usersList = (List<Users>)usersRepository.findAll();
         List<Users> doctors = new ArrayList<>();
-        Roles roles = roleService.getRoleByName(RolesNameEnum.DOCTOR.toString());
+        Roles roles = roleService.GetRoleByName(RolesNameEnum.DOCTOR.toString());
         for(Users user : usersList){
             if (user.getRoleId() == roles.getId()){
                 doctors.add(user);
@@ -148,7 +145,7 @@ public class UserService {
     public List<Users> GetUsersByIds(List<Integer> pharmacistIdList, String roleName) {
         List<Users> usersList = GetUsers();
         List<Users> apotekarys = new ArrayList<>();
-        Roles role = roleService.getRoleByName(roleName);
+        Roles role = roleService.GetRoleByName(roleName);
         for (Users user : usersList){
             for (Integer pharmacistId : pharmacistIdList){
                 if(user.getId() == pharmacistId && user.getRoleId()==role.getId()){

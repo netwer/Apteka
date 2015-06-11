@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Hash {
 
-    public static String getHash(String txt) {
+    public static String GetHash(String txt) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(txt.getBytes());

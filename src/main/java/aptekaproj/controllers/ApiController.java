@@ -26,18 +26,18 @@ public class ApiController {
 
     @RequestMapping(value = "/appointments",method = RequestMethod.GET)
     public @ResponseBody
-    List<UsersDoctorViewModel> getAppointments(){
-        return apiService.getAppointments();
+    List<UsersDoctorViewModel> GetAppointments(){
+        return apiService.GetAppointments();
     }
 
     @RequestMapping(value = "/appointments",method = RequestMethod.POST)
-    public @ResponseBody void saveAppointment(@RequestBody UsersDoctorViewModel usersDoctorViewModel){
-        apiService.saveAppointment(usersDoctorViewModel);
+    public @ResponseBody void SaveAppointment(@RequestBody UsersDoctorViewModel usersDoctorViewModel){
+        apiService.SaveAppointment(usersDoctorViewModel);
     }
 
     @RequestMapping(value = "/appointments/{id}",method = RequestMethod.DELETE)
-    public @ResponseBody void deleteAppointment(@PathVariable int id){
-        apiService.deleteAppointment(id);
+    public @ResponseBody void DeleteAppointment(@PathVariable int id){
+        apiService.DeleteAppointment(id);
     }
 
 }

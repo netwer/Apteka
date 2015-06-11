@@ -52,10 +52,10 @@ public class RecipeService {
         recipes.setCreated_at(new Date());
 
         //todo CHECK!
-        //Recipes recipes1 = recipesRepository.save(recipes);
+        //Recipes recipes1 = recipesRepository.SaveRecipeHasDrugs(recipes);
         Recipes recipes1 = recipesRepository.save(recipes);
-        diagnosesService.Update(recipeViewModel.DiagnosesId,recipes1.getId());
-        recipesHasDrugsService.Update(recipeViewModel,recipes1);
+        diagnosesService.UpdateDiagnosis(recipeViewModel.DiagnosesId, recipes1.getId());
+        recipesHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipes1);
     }
 
     public void Save(Recipes recipes){
@@ -63,7 +63,7 @@ public class RecipeService {
     }
 
     public List<PatientRecipeViewModel> GetRecipesForPatient(int userId) {
-        List<Diagnoses> diagnosesList = diagnosesService.getDiagnosesForUser(userId);
+        List<Diagnoses> diagnosesList = diagnosesService.GetDiagnosisForUser(userId);
         List<PatientRecipeViewModel> patientRecipeViewModels = new ArrayList<>();
         PatientRecipeViewModel patientRecipeViewModel;
         for (Diagnoses diagnoses : diagnosesList){
@@ -78,7 +78,7 @@ public class RecipeService {
             if(recipes == null)
                 continue;
 
-            Pharmacies pharmacies = pharmaciesService.getPharmacyById(recipes.getPharmacyId());
+            Pharmacies pharmacies = pharmaciesService.GetPharmacyById(recipes.getPharmacyId());
             Users users = userService.getUserById(diagnoses.getDoctor_user_id());
             RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusById(recipes.getRecipeProgressStatusId());
 
@@ -111,12 +111,12 @@ public class RecipeService {
         recipes.setRecipeProgressStatusId(recipeProgressStatus.getId());
 
         recipesRepository.save(recipes);
-        recipesHasDrugsService.Update(recipeViewModel,recipes);
+        recipesHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipes);
     }
 
     public RecipeViewModel GetRecipe(int recipeId){
         Recipes recipes = GetRecipeById(recipeId);
-        Diagnoses diagnoses = diagnosesService.GetDiagnoses(recipeId);
+        Diagnoses diagnoses = diagnosesService.GetDiagnosis(recipeId);
         RecipeViewModel recipeViewModel = new RecipeViewModel();
 
         if (recipes == null && diagnoses != null)

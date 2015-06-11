@@ -59,46 +59,48 @@ public class DoctorController {
     @RequestMapping(value = "/diagnoses/{user_id}",method = RequestMethod.GET)
     public @ResponseBody
     List<Diagnoses> PatientHistory(@PathVariable int user_id){
-        return diagnosesService.getPatientHistory(user_id);
+        return diagnosesService.GetPatientHistory(user_id);
     }
 
     //Creating a record of the results of the reception POST /diagnoses
-    //Save diagnoses object for patient
+    //SaveRecipeHasDrugs diagnoses object for patient
     @RequestMapping(value = "/diagnoses/save",method = RequestMethod.POST)
-    public @ResponseBody PostViewModel save(@RequestBody Diagnoses diagnoses) throws ParseException {
-        return diagnosesService.SaveDiagnoses(diagnoses);
+    public @ResponseBody PostViewModel Save(@RequestBody Diagnoses diagnoses) throws ParseException {
+        return diagnosesService.SaveDiagnosis(diagnoses);
     }
 
-    //Update diagnoses
+    //UpdateDiagnosis diagnoses
     @RequestMapping(value = "/diagnoses/update",method = RequestMethod.PUT)
-    public @ResponseBody void updateDiagnoses(@RequestBody Diagnoses diagnoses){
-        diagnosesService.Update(diagnoses);
+    public @ResponseBody void UpdateDiagnoses(@RequestBody Diagnoses diagnoses){
+        diagnosesService.UpdateDiagnosis(diagnoses);
     }
 
     //Creating a record of the results of the reception POST /diagnoses
-    //Save recipe
+    //SaveRecipeHasDrugs recipe
     @RequestMapping(value = "/recipe/save",method = RequestMethod.POST)
-    public void saveRecipe(@RequestBody RecipeViewModel recipeViewModel){
+    public void SaveRecipe(@RequestBody RecipeViewModel recipeViewModel){
         recipeService.Save(recipeViewModel);
     }
 
-    //Update Recipe
+    //UpdateDiagnosis Recipe
     @RequestMapping(value = "/recipe/update",method = RequestMethod.PUT)
-    public void updateRecipe(@RequestBody RecipeViewModel recipeViewModel){
+    public void UpdateRecipe(@RequestBody RecipeViewModel recipeViewModel){
         recipeService.Update(recipeViewModel);
     }
 
     //Get pharmacies list: GET /pharmacies
+    //url: localhost:8443/Doctor/recipe/pharmacies
     @RequestMapping(value = "/recipe/pharmacies",method = RequestMethod.GET)
     public @ResponseBody
-    List<Pharmacies> getPharmacies(){
-        return pharmaciesService.getPharmacies();
+    List<Pharmacies> GetPharmacies(){
+        return pharmaciesService.GetPharmacies();
     }
 
     //Get the drugs list
+    //url: localhost:8443/Doctor/recipe/drugs
     @RequestMapping(value = "/recipe/drugs",method = RequestMethod.GET)
     public @ResponseBody
-    List<Drugs> getDrugs(){
+    List<Drugs> GetDrugs(){
         return drugsService.GetDrugs();
     }
 }

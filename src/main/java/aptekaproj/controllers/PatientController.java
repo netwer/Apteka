@@ -35,7 +35,7 @@ public class PatientController {
     //http://localhost:8443/Patient/statuses
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
     public @ResponseBody
-    List<RecipeProgressStatus> getRecipeStatuses(){
+    List<RecipeProgressStatus> GetRecipeStatuses(){
         return recipeProgressStatusService.GetRecipeProgressStatuses();
     }
 

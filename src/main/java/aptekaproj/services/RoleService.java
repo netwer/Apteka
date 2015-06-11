@@ -19,7 +19,7 @@ public class RoleService{
 
 
     @Transactional
-    public Roles getRoleByName(String name){
+    public Roles GetRoleByName(String name){
         List<Roles> rolesList = (List<Roles>) repository.findAll();
         for(Roles roles: rolesList){
             if(roles.getName().equals(name)){
@@ -31,12 +31,12 @@ public class RoleService{
     }
 
     @Transactional
-    public void saveRole(Roles roles){
+    public void SaveRole(Roles roles){
         repository.save(roles);
     }
 
     @Transactional
-    public String getRoleName(int id){
+    public String GetRoleName(int id){
         return repository.findOne(id).getName();
     }
 }

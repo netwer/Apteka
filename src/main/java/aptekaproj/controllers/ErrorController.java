@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ErrorController {
 
     @RequestMapping(value = "/Show",method = RequestMethod.GET)
-    public @ResponseBody String showErrorMessage(String message){
+    public @ResponseBody String ShowErrorMessage(String message){
         return message;
     }
 }

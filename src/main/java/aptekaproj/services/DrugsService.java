@@ -27,7 +27,7 @@ public class DrugsService {
     }
 
     public List<DrugsViewModel> GetDrugsForRecipe(Integer recipeId) {
-        List<RecipesHasDrugs> recipesHasDrugses = recipesHasDrugsService.getAll();
+        List<RecipesHasDrugs> recipesHasDrugses = recipesHasDrugsService.GetAllRecipesHasDrugs();
         List<DrugsViewModel> drugsViewModels = new ArrayList<>();
 
         for (RecipesHasDrugs recipesHasDrugs : recipesHasDrugses){

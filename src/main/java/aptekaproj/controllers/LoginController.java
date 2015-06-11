@@ -23,8 +23,8 @@ public class LoginController {
     //http://localhost:8080/Login/?login=doctor1&password=doctor1
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public @ResponseBody
-    UserViewModel sigin(@RequestParam(value = "login",required = true) String login,
-                        @RequestParam(value = "password",required = true) String password){
+    UserViewModel Sigin(@RequestParam(value = "login", required = true) String login,
+                        @RequestParam(value = "password", required = true) String password){
         return userService.getUser(login,password);
     }
 }
