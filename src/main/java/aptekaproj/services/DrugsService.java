@@ -17,7 +17,7 @@ import java.util.List;
 public class DrugsService {
 
     @Autowired
-    IDrugsRepository drugsRepository;
+    private IDrugsRepository drugsRepository;
 
     @Autowired
     private RecipesHasDrugsService recipesHasDrugsService;
@@ -45,6 +45,30 @@ public class DrugsService {
                 drugsViewModel.NeedsToProduce = drug.getNeedsToProduce();
 
                 drugsViewModels.add(drugsViewModel);
+            }
+        }
+
+        return drugsViewModels;
+    }
+
+    public List<DrugsViewModel> GetDrugsNeedsToProduce(int recipeId) {
+        List<RecipesHasDrugs> recipesHasDrugs = recipesHasDrugsService.GetAllRecipesHasDrugs();
+        List<DrugsViewModel> drugsViewModels = new ArrayList<>();
+
+        for (RecipesHasDrugs recipesHasDrugs1 : recipesHasDrugs){
+            if(recipesHasDrugs1.getRecipe_id() == recipeId){
+                Drugs drug = drugsRepository.findOne(recipesHasDrugs1.getDrug_id());
+                if(drug != null && drug.getNeedsToProduce() == true) {
+                    DrugsViewModel drugsViewModel = new DrugsViewModel();
+
+                    drugsViewModel.NeedsToProduce = drug.getNeedsToProduce();
+                    drugsViewModel.DrugName = drug.getName();
+                    drugsViewModel.DrugCount = recipesHasDrugs1.getCount();
+                    drugsViewModel.DrugId = drug.getId();
+                    drugsViewModel.RecipesHasDrugsId = recipesHasDrugs1.getId();
+
+                    drugsViewModels.add(drugsViewModel);
+                }
             }
         }
 

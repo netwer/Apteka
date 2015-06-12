@@ -1,5 +1,6 @@
 package aptekaproj.services;
 
+import aptekaproj.ViewModels.DrugsViewModel;
 import aptekaproj.ViewModels.OrderMissingViewModel;
 import aptekaproj.ViewModels.PatientRecipeViewModel;
 import aptekaproj.ViewModels.RecipeViewModel;
@@ -161,8 +162,12 @@ public class RecipeService {
         Save(recipe);
     }
 
-    public OrderMissingViewModel GetOrderMissing(int pharmacistId) {
+    public OrderMissingViewModel GetOrderMissing(int pharmacistId, int recipeId) {
         List<Users> pharmacistsList = pharmacyStaffService.GetStaffs(pharmacistId);
-        return null;
+        List<DrugsViewModel> drugsViewModelList = drugsService.GetDrugsNeedsToProduce(recipeId);
+        OrderMissingViewModel orderMissing = new OrderMissingViewModel();
+        orderMissing.apothecaryUsers = pharmacistsList;
+        orderMissing.drugsViewModels = drugsViewModelList;
+        return orderMissing;
     }
 }

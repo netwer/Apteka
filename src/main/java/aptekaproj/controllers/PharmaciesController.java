@@ -68,8 +68,9 @@ public class PharmaciesController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/2/order/",method = RequestMethod.GET)
-    public OrderMissingViewModel GetOrderMissing(@RequestParam(value = "pharmacistId", required = true) int pharmacistId){
-        return recipeService.GetOrderMissing(pharmacistId);
+    @RequestMapping(value = "/pharmacies/2/order",method = RequestMethod.GET)
+    public OrderMissingViewModel GetOrderMissing(@RequestParam(value = "pharmacistId", required = true) int pharmacistId,
+                                                 @RequestParam(value = "recipeId", required = true) int recipeId){
+        return recipeService.GetOrderMissing(pharmacistId, recipeId);
     }
 }
