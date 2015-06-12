@@ -1,16 +1,16 @@
 package aptekaproj.controllers;
 
-import aptekaproj.ViewModels.OrderMissingViewModel;
-import aptekaproj.ViewModels.PostViewModel;
-import aptekaproj.ViewModels.RecipeViewModel;
-import aptekaproj.ViewModels.UserViewModel;
+import aptekaproj.ViewModels.*;
+import aptekaproj.models.ConcreteDrugs;
 import aptekaproj.models.Recipes;
+import aptekaproj.services.ConcreteDrugsService;
 import aptekaproj.services.PharmacyStaffService;
 import aptekaproj.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +27,9 @@ public class PharmaciesController {
 
     @Autowired
     private RecipeService recipeService;
+
+    @Autowired
+    private ConcreteDrugsService concreteDrugsService;
 
     //Get apotekary list for appointment to the manufacturer
     @ResponseBody
@@ -72,5 +75,11 @@ public class PharmaciesController {
     public OrderMissingViewModel GetOrderMissing(@RequestParam(value = "pharmacistId", required = true) int pharmacistId,
                                                  @RequestParam(value = "recipeId", required = true) int recipeId){
         return recipeService.GetOrderMissing(pharmacistId, recipeId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/pharmacies/2/order/",method = RequestMethod.POST)
+    public void OrderToProduce(@RequestBody List<ConcreteDrugs> concreteDrugs){//need viewModel!!!
+        concreteDrugsService.DrugsToProduce(concreteDrugs);
     }
 }

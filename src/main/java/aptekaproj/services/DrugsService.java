@@ -74,4 +74,8 @@ public class DrugsService {
 
         return drugsViewModels;
     }
+
+    public Drugs GetDrugById(int drugId) {
+        return drugsRepository.findOne(drugId);
+    }
 }
