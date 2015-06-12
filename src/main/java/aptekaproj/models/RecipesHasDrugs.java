@@ -21,7 +21,7 @@ public class RecipesHasDrugs {
     private int drug_id;
 
     @Column(name = "done")
-    private Boolean done;
+    private boolean done;
 
     @Column(name = "count")
     private int count;

@@ -8,5 +8,5 @@ public class DrugsViewModel {
     public int DrugId;
     public String DrugName;
     public int DrugCount;
-    public Boolean NeedsToProduce;
+    public boolean NeedsToProduce;
 }
