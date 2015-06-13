@@ -1,7 +1,6 @@
 package aptekaproj.controllers;
 
 import aptekaproj.ViewModels.*;
-import aptekaproj.models.ConcreteDrugs;
 import aptekaproj.models.Recipes;
 import aptekaproj.services.ConcreteDrugsService;
 import aptekaproj.services.PharmacyStaffService;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,7 +77,7 @@ public class PharmaciesController {
 
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/order/",method = RequestMethod.POST)
-    public void OrderToProduce(@RequestBody List<ConcreteDrugs> concreteDrugs){//need viewModel!!!
-        concreteDrugsService.DrugsToProduce(concreteDrugs);
+    public void OrderToProduce(@RequestBody List<DrugsWithPharmacists> drugsWithPharmacists){//need viewModel!!!
+        concreteDrugsService.DrugsToProduce(drugsWithPharmacists);
     }
 }
