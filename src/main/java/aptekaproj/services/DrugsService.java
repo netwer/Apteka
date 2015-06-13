@@ -2,6 +2,7 @@ package aptekaproj.services;
 
 import aptekaproj.ViewModels.DrugsViewModel;
 import aptekaproj.controllers.repository.IDrugsRepository;
+import aptekaproj.models.ConcreteDrugs;
 import aptekaproj.models.Drugs;
 import aptekaproj.models.RecipesHasDrugs;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class DrugsService {
 
     @Autowired
     private RecipesHasDrugsService recipesHasDrugsService;
+
+    @Autowired
+    private ConcreteDrugsService concreteDrugsService;
 
     public List<Drugs> GetDrugs(){
         return (List<Drugs>)drugsRepository.findAll();
@@ -42,6 +46,7 @@ public class DrugsService {
                 drugsViewModel.DrugId = recipesHasDrugs.getDrug_id();
                 drugsViewModel.DrugCount = recipesHasDrugs.getCount();
                 drugsViewModel.DrugName = drug.getName();
+                drugsViewModel.AvailabilityDate = concreteDrugsService.GetAvailabilityDrugDate(recipeId,drug.getId());
                 drugsViewModel.NeedsToProduce = drug.getNeedsToProduce();
 
                 drugsViewModels.add(drugsViewModel);

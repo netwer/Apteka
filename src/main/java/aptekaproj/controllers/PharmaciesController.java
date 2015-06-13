@@ -76,8 +76,21 @@ public class PharmaciesController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/2/order/",method = RequestMethod.POST)
-    public void OrderToProduce(@RequestBody List<DrugsWithPharmacists> drugsWithPharmacists){//need viewModel!!!
-        concreteDrugsService.DrugsToProduce(drugsWithPharmacists);
+    @RequestMapping(value = "/pharmacies/2/drugs/",method = RequestMethod.POST)
+    public void OrderToProduce(@RequestBody RecipeDrugsWithPharmacistsViewModel recipeDrugsWithPharmacistsViewModel){//need viewModel!!!
+        concreteDrugsService.DrugsToProduce(recipeDrugsWithPharmacistsViewModel);
+    }
+
+    //todo
+    @ResponseBody
+    @RequestMapping(value = "/pharmacies/2/drugs/",method = RequestMethod.PUT)
+    public void UpdateOrderToProduce(@RequestBody List<DrugsWithPharmacists> drugsWithPharmacists){
+        concreteDrugsService.UpdateDrugsToProduce(drugsWithPharmacists);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/pharmacies/2/recipe/{id}",method = RequestMethod.GET)
+    public RecipeViewModel GetRecipeInfo(@PathVariable int id){
+        return recipeService.GetRecipe(id);
     }
 }

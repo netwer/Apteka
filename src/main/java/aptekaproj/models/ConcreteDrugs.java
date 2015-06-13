@@ -20,6 +20,9 @@ public class ConcreteDrugs {
     @Column(name = "PharmacyStaff_id")
     private int PharmacyStaffId;
 
+    @Column(name = "Recipe_id")
+    private int RecipeId;
+
     public int getId() {
         return Id;
     }
@@ -42,5 +45,13 @@ public class ConcreteDrugs {
 
     public void setPharmacyStaffId(int pharmacyStaffId) {
         PharmacyStaffId = pharmacyStaffId;
+    }
+
+    public int getRecipeId() {
+        return RecipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        RecipeId = recipeId;
     }
 }

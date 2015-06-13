@@ -3,6 +3,7 @@ package aptekaproj.services;
 import aptekaproj.controllers.repository.IConcreteIngredientsRepository;
 import aptekaproj.helpers.DateWorker;
 import aptekaproj.helpers.TimeIgnoringComparator;
+import aptekaproj.models.ConcreteDrugs;
 import aptekaproj.models.ConcreteIngredients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class ConcreteIngredientsService {
 
     @Autowired
     private IConcreteIngredientsRepository concreteIngredientsRepository;
+
+    @Autowired
+    private ConcreteDrugsService concreteDrugsService;
 
     //todo - the method must be tested
     //without refactoring - for debugging
@@ -55,4 +59,30 @@ public class ConcreteIngredientsService {
         concreteIngredientsRepository.save(concreteIngredient);
     }
 
+    public List<Date> GetConcreteIngredientDateByConcreteDrugsId(List<ConcreteDrugs> concreteDrugs) {
+        List<ConcreteIngredients> concreteIngredients = GetAllConcreteIngredients();
+        List<Date> concreteIngredientsById = new ArrayList<>();
+
+        for (ConcreteIngredients ingredient : concreteIngredients){
+            for (ConcreteDrugs drug : concreteDrugs){
+                if(ingredient.getConcreteDrugId() == drug.getId()){
+                    concreteIngredientsById.add(ingredient.getAvailabilityDate());
+                }
+            }
+        }
+
+        return concreteIngredientsById;
+    }
+
+    public String  GetConcreteIngredientAvailableDate(int concreteDrugId, int drugId) {
+        List<ConcreteIngredients> concreteIngredientsList = GetAllConcreteIngredients();
+        List<Date> availableDate = new ArrayList<>();
+        for (ConcreteIngredients ingredient : concreteIngredientsList){
+            if(ingredient.getConcreteDrugId() == concreteDrugId){
+                availableDate.add(ingredient.getAvailabilityDate());
+            }
+        }
+
+        return DateWorker.MaxDate(availableDate);
+    }
 }

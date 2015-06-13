@@ -9,6 +9,7 @@ import java.util.Date;
 @Entity(name = "models.ConcreteIngredients")
 @Table(name = "ConcreteIngredients")
 public class ConcreteIngredients {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)

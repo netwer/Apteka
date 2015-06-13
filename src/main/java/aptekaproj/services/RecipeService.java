@@ -43,6 +43,9 @@ public class RecipeService {
     @Autowired
     private PharmacyStaffService pharmacyStaffService;
 
+    @Autowired
+    private ConcreteDrugsService concreteDrugsService;
+
     public void Save(RecipeViewModel recipeViewModel){
         //todo check!
         RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusByName(ProgressStatusEnum.CREATED.toString());
@@ -127,6 +130,7 @@ public class RecipeService {
         recipeViewModel.PharmacyId = recipes.getPharmacyId();
         recipeViewModel.RecipeId = recipeId;
         recipeViewModel.RecipeTitle = recipes.getTitle();
+        recipeViewModel.AvailabilityDate = concreteDrugsService.GetAvailabilityRecipeDate(recipeId);
         recipeViewModel.drugsViewModelList = drugsService.GetDrugsForRecipe(recipeId);
         return recipeViewModel;
     }

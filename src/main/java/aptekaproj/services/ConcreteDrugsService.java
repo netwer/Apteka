@@ -1,6 +1,7 @@
 package aptekaproj.services;
 
 import aptekaproj.ViewModels.DrugsWithPharmacists;
+import aptekaproj.ViewModels.RecipeDrugsWithPharmacistsViewModel;
 import aptekaproj.controllers.repository.IConcreteDrugsRepository;
 import aptekaproj.helpers.DateWorker;
 import aptekaproj.models.ConcreteDrugs;
@@ -9,7 +10,7 @@ import aptekaproj.models.Ingredients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,13 +34,14 @@ public class ConcreteDrugsService {
 
     //todo - the method must be tested
     //without refactoring - for debugging
-    public void DrugsToProduce(List<DrugsWithPharmacists> drugsWithPharmacist) {
-        for (DrugsWithPharmacists drug : drugsWithPharmacist){
+    public void DrugsToProduce(RecipeDrugsWithPharmacistsViewModel recipeDrugsWithPharmacistsViewModel) {
+        for (DrugsWithPharmacists drug : recipeDrugsWithPharmacistsViewModel.drugsWithPharmacist){
 
             ConcreteDrugs concreteDrug = new ConcreteDrugs();
             concreteDrug.setDrugId(drug.DrugId);
             concreteDrug.setPharmacyStaffId(drug.PharmacyStaffId);
-            concreteDrugsRepository.save(concreteDrug);
+            concreteDrug.setRecipeId(recipeDrugsWithPharmacistsViewModel.recipeId);
+            ConcreteDrugs createdConcreteDrug = concreteDrugsRepository.save(concreteDrug);
 
             List<Ingredients> ingredientsForDrug = ingredientsService.GetIngredientsForDrug(drug.DrugId);
             for (Ingredients ingredient : ingredientsForDrug){
@@ -47,7 +49,7 @@ public class ConcreteDrugsService {
                 int countRecordsByMaxDate = concreteIngredientsList.size();
 
                 ConcreteIngredients concreteIngredient = new ConcreteIngredients();
-                concreteIngredient.setConcreteDrugId(drug.DrugId);
+                concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                 concreteIngredient.setIngredientId(ingredient.getId());
 
                 if(countRecordsByMaxDate < ingredient.getCount()){
@@ -65,5 +67,54 @@ public class ConcreteDrugsService {
                 concreteIngredientsService.Save(concreteIngredient);
             }
         }
+    }
+
+    public void UpdateDrugsToProduce(List<DrugsWithPharmacists> drugsWithPharmacists) {
+        for (DrugsWithPharmacists drugsWithPharmacists1 : drugsWithPharmacists){
+            //ConcreteDrugs drug =
+
+        }
+    }
+
+    public List<ConcreteDrugs> GetConcreteDrugsByRecipeId(int recipeId) {
+        List<ConcreteDrugs> concreteDrugsList = GetAll();
+        List<ConcreteDrugs> concreteDrugsListById = new ArrayList<>();
+
+        for (ConcreteDrugs drug : concreteDrugsList){
+            if(drug.getRecipeId() == recipeId){
+                concreteDrugsListById.add(drug);
+            }
+        }
+
+        return concreteDrugsListById;
+    }
+
+    private List<ConcreteDrugs> GetAll() {
+        return (List<ConcreteDrugs>)concreteDrugsRepository.findAll();
+    }
+
+    public String GetAvailabilityRecipeDate(int recipeId) {
+        List<ConcreteDrugs> concreteDrugs = GetConcreteDrugsByRecipeId(recipeId);
+        List<Date> drugAvailabilityDate = concreteIngredientsService.GetConcreteIngredientDateByConcreteDrugsId(concreteDrugs);
+
+        return DateWorker.MaxDate(drugAvailabilityDate);
+    }
+
+    public String GetAvailabilityDrugDate(Integer recipeId,Integer drugId) {
+        ConcreteDrugs concreteDrug = GetConcreteDrugByRecipeIdAndDrugId(recipeId, drugId);
+        return concreteIngredientsService.GetConcreteIngredientAvailableDate(concreteDrug.getId(),drugId);
+    }
+
+    private ConcreteDrugs GetConcreteDrugByRecipeIdAndDrugId(Integer recipeId, Integer drugId) {
+        List<ConcreteDrugs> concreteDrugs = GetAll();
+        ConcreteDrugs concreteDrug = new ConcreteDrugs();
+        for (ConcreteDrugs drug : concreteDrugs){
+            if(drug.getDrugId() == drugId && drug.getRecipeId() == recipeId){
+                concreteDrug = drug;
+                break;
+            }
+        }
+
+        return concreteDrug;
     }
 }
