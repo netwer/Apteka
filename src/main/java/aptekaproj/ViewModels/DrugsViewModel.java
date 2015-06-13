@@ -9,4 +9,5 @@ public class DrugsViewModel {
     public String DrugName;
     public int DrugCount;
     public boolean NeedsToProduce;
+    public String AvailabilityDate;
 }
