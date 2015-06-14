@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/Api")
-public class ApiController {
+public class AdminController {
 
     @Autowired
     private ApiService apiService;
