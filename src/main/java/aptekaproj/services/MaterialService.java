@@ -1,7 +1,7 @@
 package aptekaproj.services;
 
 import aptekaproj.controllers.repository.IMaterialsRepository;
-import aptekaproj.models.Materials;
+import aptekaproj.models.Material;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class MaterialService {
     private IMaterialsRepository materialsRepository;
 
 
-    public Materials getMaterialById(int materialId) {
+    public Material getMaterialById(int materialId) {
         return materialsRepository.findOne(materialId);
     }
 }

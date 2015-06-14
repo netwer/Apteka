@@ -1,7 +1,6 @@
 package aptekaproj.models;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by Admin on 25.04.2015.
@@ -14,16 +13,16 @@ public class Diagnoses {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
 
     @Column(name = "patient_user_id")
-    private int patient_user_id;
+    private int patientUserId;
 
     @Column(name = "doctor_user_id")
-    private int doctor_user_id;
+    private int doctorUserId;
 
     @Column(name = "recipe_id")
-    private Integer recipe_id;
+    private Integer recipeId;
 
     @Column(name = "diagnosis")
     private String diagnosis;
@@ -32,30 +31,30 @@ public class Diagnoses {
     private String complaints;
 
     @Column(name = "created_at")
-    private String created_at;
+    private String createdAt;
 
-    public int getPatient_user_id() {
-        return patient_user_id;
+    public int getPatientUserId() {
+        return patientUserId;
     }
 
-    public void setPatient_user_id(int patient_user_id) {
-        this.patient_user_id = patient_user_id;
+    public void setPatientUserId(int patientUserId) {
+        this.patientUserId = patientUserId;
     }
 
-    public int getDoctor_user_id() {
-        return doctor_user_id;
+    public int getDoctorUserId() {
+        return doctorUserId;
     }
 
-    public void setDoctor_user_id(int doctor_user_id) {
-        this.doctor_user_id = doctor_user_id;
+    public void setDoctorUserId(int doctorUserId) {
+        this.doctorUserId = doctorUserId;
     }
 
-    public Integer getRecipe_id() {
-        return recipe_id;
+    public Integer getRecipeId() {
+        return recipeId;
     }
 
-    public void setRecipe_id(Integer recipe_id) {
-        this.recipe_id = recipe_id;
+    public void setRecipeId(Integer recipeId) {
+        this.recipeId = recipeId;
     }
 
     public String getDiagnosis() {
@@ -74,19 +73,19 @@ public class Diagnoses {
         this.complaints = complaints;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 }

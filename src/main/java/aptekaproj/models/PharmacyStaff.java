@@ -12,35 +12,35 @@ public class PharmacyStaff {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
 
     @Column(name = "user_id")
-    private int UserId;
+    private int userId;
 
     @Column(name = "pharmacy_id")
-    private int PharmacyId;
+    private int pharmacyId;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public int getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(int userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
     public int getPharmacyId() {
-        return PharmacyId;
+        return pharmacyId;
     }
 
     public void setPharmacyId(int pharmacyId) {
-        PharmacyId = pharmacyId;
+        this.pharmacyId = pharmacyId;
     }
 }

@@ -4,7 +4,7 @@ import aptekaproj.ViewModels.UserViewModel;
 import aptekaproj.controllers.repository.IPharmacyStaffRepository;
 import aptekaproj.helpers.Enums.RolesNameEnum;
 import aptekaproj.models.PharmacyStaff;
-import aptekaproj.models.Users;
+import aptekaproj.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +33,12 @@ public class PharmacyStaffService {
         for(PharmacyStaff pharmacyStaff : pharmacyStaffs){
             if(pharmacyStaff.getPharmacyId() == pharmacy_id){
                 UserViewModel userViewModel = new UserViewModel();
-                Users users1 = new Users();
-                users1 = userService.getUserById(pharmacyStaff.getUserId());
-                userViewModel.UserId = users1.getId();
-                userViewModel.UserRole = roleService.GetRoleName(users1.getRoleId());
-                userViewModel.UserFullName = users1.getFullName();
-                userViewModel.UserLogin = users1.getLogin();
+                User user1 = new User();
+                user1 = userService.getUserById(pharmacyStaff.getUserId());
+                userViewModel.UserId = user1.getId();
+                userViewModel.UserRole = roleService.GetRoleName(user1.getRoleId());
+                userViewModel.UserFullName = user1.getFullName();
+                userViewModel.UserLogin = user1.getLogin();
                 users.add(userViewModel);
             }
         }
@@ -63,7 +63,7 @@ public class PharmacyStaffService {
         return (List<PharmacyStaff>)pharmacyStaffRepository.findAll();
     }
 
-    public List<Users> GetStaffs(int pharmacistId) {
+    public List<User> GetStaffs(int pharmacistId) {
         int pharmacyId = GetPharmacyByPharmacistId(pharmacistId).getPharmacyId();
         List<Integer> pharmacistIdList = GetPharmacistsIdsInPharmacy(pharmacyId);
         return userService.GetUsersByIds(pharmacistIdList, RolesNameEnum.APOTEKARY.toString());

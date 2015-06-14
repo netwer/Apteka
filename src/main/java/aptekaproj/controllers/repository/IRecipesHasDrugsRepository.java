@@ -1,8 +1,8 @@
 package aptekaproj.controllers.repository;
-import aptekaproj.models.RecipesHasDrugs;
+import aptekaproj.models.RecipeHasDrugs;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface IRecipesHasDrugsRepository extends CrudRepository<RecipesHasDrugs, Integer> {
+public interface IRecipesHasDrugsRepository extends CrudRepository<RecipeHasDrugs, Integer> {
 }

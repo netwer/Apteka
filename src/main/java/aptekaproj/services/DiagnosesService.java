@@ -1,7 +1,6 @@
 package aptekaproj.services;
 
 import aptekaproj.ViewModels.PostViewModel;
-import aptekaproj.ViewModels.RecipeViewModel;
 import aptekaproj.controllers.repository.IDiagnosesRepository;
 import aptekaproj.models.Diagnoses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class DiagnosesService {
         List<Diagnoses> history = new ArrayList<>();
         List<Diagnoses> diagnoseses = (List<Diagnoses>) diagnosesRepository.findAll();
         for(Diagnoses diagnoses:diagnoseses){
-            if(diagnoses.getPatient_user_id() == userId){
+            if(diagnoses.getPatientUserId() == userId){
                 history.add(diagnoses);
             }
         }
@@ -52,7 +51,7 @@ public class DiagnosesService {
         List<Diagnoses> diagnosesList = (List<Diagnoses>)diagnosesRepository.findAll();
         List<Diagnoses> diagnosesForUser = new ArrayList<>();
         for (Diagnoses diagnoses:diagnosesList){
-            if(diagnoses.getPatient_user_id() == userId){
+            if(diagnoses.getPatientUserId() == userId){
                 diagnosesForUser.add(diagnoses);
             }
         }
@@ -67,24 +66,24 @@ public class DiagnosesService {
 
         Diagnoses diagnoses1 = new Diagnoses();
         diagnoses1.setId(diagnoses.getId());
-        diagnoses1.setPatient_user_id(diagnoses.getPatient_user_id());
+        diagnoses1.setPatientUserId(diagnoses.getPatientUserId());
         diagnoses1.setComplaints(diagnoses.getComplaints());
         diagnoses1.setDiagnosis(diagnoses.getDiagnosis());
-        diagnoses1.setDoctor_user_id(diagnoses.getDoctor_user_id());
-        diagnoses1.setCreated_at(diagnoses.getCreated_at());
-        diagnoses1.setRecipe_id(recipeId);
+        diagnoses1.setDoctorUserId(diagnoses.getDoctorUserId());
+        diagnoses1.setCreatedAt(diagnoses.getCreatedAt());
+        diagnoses1.setRecipeId(recipeId);
         diagnosesRepository.save(diagnoses1);
     }
 
     public void UpdateDiagnosis(Diagnoses diagnoses) {
         Diagnoses diagnoses1 = new Diagnoses();
         diagnoses1.setId(diagnoses.getId());
-        diagnoses1.setPatient_user_id(diagnoses.getPatient_user_id());
+        diagnoses1.setPatientUserId(diagnoses.getPatientUserId());
         diagnoses1.setComplaints(diagnoses.getComplaints());
         diagnoses1.setDiagnosis(diagnoses.getDiagnosis());
-        diagnoses1.setDoctor_user_id(diagnoses.getDoctor_user_id());
-        diagnoses1.setCreated_at(diagnoses.getCreated_at());
-        diagnoses1.setRecipe_id(diagnoses.getRecipe_id());
+        diagnoses1.setDoctorUserId(diagnoses.getDoctorUserId());
+        diagnoses1.setCreatedAt(diagnoses.getCreatedAt());
+        diagnoses1.setRecipeId(diagnoses.getRecipeId());
         diagnosesRepository.save(diagnoses1);
     }
 
@@ -101,7 +100,7 @@ public class DiagnosesService {
         Diagnoses diagnoses = new Diagnoses();
 
         for (Diagnoses diagnoses1 : diagnosesList){
-            if(diagnoses1.getRecipe_id() == recipeId){
+            if(diagnoses1.getRecipeId() == recipeId){
                 diagnoses = diagnoses1;
                 break;
             }

@@ -1,6 +1,5 @@
 package aptekaproj.controllers.repository;
 
-import aptekaproj.models.Pharmacies;
 import aptekaproj.models.RecipeProgressStatus;
 import org.springframework.data.repository.CrudRepository;
 

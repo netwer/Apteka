@@ -13,46 +13,46 @@ public class ConcreteIngredient {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
 
     @Column(name = "concrete_drug_id")
-    private int ConcreteDrugId;
+    private int concreteDrugId;
 
     @Column(name = "ingredient_id")
-    private int IngredientId;
+    private int ingredientId;
 
     @Column(name = "availability_date")
-    private Date AvailabilityDate;
+    private Date availabilityDate;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public int getConcreteDrugId() {
-        return ConcreteDrugId;
+        return concreteDrugId;
     }
 
     public void setConcreteDrugId(int concreteDrugId) {
-        ConcreteDrugId = concreteDrugId;
+        this.concreteDrugId = concreteDrugId;
     }
 
     public int getIngredientId() {
-        return IngredientId;
+        return ingredientId;
     }
 
     public void setIngredientId(int ingredientId) {
-        IngredientId = ingredientId;
+        this.ingredientId = ingredientId;
     }
 
     public Date getAvailabilityDate() {
-        return AvailabilityDate;
+        return availabilityDate;
     }
 
     public void setAvailabilityDate(Date availabilityDate) {
-        AvailabilityDate = availabilityDate;
+        this.availabilityDate = availabilityDate;
     }
 }

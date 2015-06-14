@@ -2,9 +2,9 @@ package aptekaproj.services;
 
 import aptekaproj.ViewModels.IngredientInDrugViewModel;
 import aptekaproj.controllers.repository.IIngredientsRepository;
-import aptekaproj.models.ConcreteIngredients;
-import aptekaproj.models.Ingredients;
-import aptekaproj.models.Materials;
+import aptekaproj.models.ConcreteIngredient;
+import aptekaproj.models.Ingredient;
+import aptekaproj.models.Material;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,30 +27,30 @@ public class IngredientsService {
     private MaterialService materialService;
 
 
-    public List<Ingredients> GetIngredientsForDrug(int drugId) {
-        List<Ingredients> ingredients = GetAllIngredients();
-        List<Ingredients> ingredientsForDrug = new ArrayList<>();
-        for (Ingredients ingredient : ingredients){
-            if(ingredient.getDrug_id() == drugId){
-                ingredientsForDrug.add(ingredient);
+    public List<Ingredient> GetIngredientsForDrug(int drugId) {
+        List<Ingredient> ingredients = GetAllIngredients();
+        List<Ingredient> ingredientForDrug = new ArrayList<>();
+        for (Ingredient ingredient : ingredients){
+            if(ingredient.getDrugId() == drugId){
+                ingredientForDrug.add(ingredient);
             }
         }
 
-        return ingredientsForDrug;
+        return ingredientForDrug;
     }
 
-    private List<Ingredients> GetAllIngredients() {
-        return (List<Ingredients>)ingredientsRepository.findAll();
+    private List<Ingredient> GetAllIngredients() {
+        return (List<Ingredient>)ingredientsRepository.findAll();
     }
 
     public List<IngredientInDrugViewModel> getIngredientsForDrug(int drugId, int concreteDrugId) {
-        List<ConcreteIngredients> concreteIngredients = concreteIngredientsService.GetAllConcreteIngredients();
+        List<ConcreteIngredient> concreteIngredients = concreteIngredientsService.GetAllConcreteIngredients();
         List<IngredientInDrugViewModel> ingredientsInDrug = new ArrayList<>();
 
-        for (ConcreteIngredients concreteIngredient : concreteIngredients){
+        for (ConcreteIngredient concreteIngredient : concreteIngredients){
             if(concreteIngredient.getConcreteDrugId() == concreteDrugId){
-                Ingredients ingredient = getIngredientById(concreteIngredient.getIngredientId());
-                Materials material = materialService.getMaterialById(ingredient.getMaterial_id());
+                Ingredient ingredient = getIngredientById(concreteIngredient.getIngredientId());
+                Material material = materialService.getMaterialById(ingredient.getMaterialId());
                 if (ingredient == null || material == null)
                     continue;
 
@@ -58,7 +58,7 @@ public class IngredientsService {
                 ingredientInDrug.availableDate = concreteIngredient.getAvailabilityDate();
                 ingredientInDrug.count = ingredient.getCount();
                 ingredientInDrug.ingredientId = ingredient.getId();
-                ingredientInDrug.materialId= ingredient.getMaterial_id();
+                ingredientInDrug.materialId= ingredient.getMaterialId();
                 ingredientInDrug.materialName = material.getName();
 
                 ingredientsInDrug.add(ingredientInDrug);
@@ -68,7 +68,7 @@ public class IngredientsService {
         return ingredientsInDrug;
     }
 
-    private Ingredients getIngredientById(int ingredientId) {
+    private Ingredient getIngredientById(int ingredientId) {
         return ingredientsRepository.findOne(ingredientId);
     }
 }

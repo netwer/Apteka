@@ -3,8 +3,8 @@ package aptekaproj.services;
 import aptekaproj.controllers.repository.IConcreteIngredientsRepository;
 import aptekaproj.helpers.DateWorker;
 import aptekaproj.helpers.TimeIgnoringComparator;
-import aptekaproj.models.ConcreteDrugs;
-import aptekaproj.models.ConcreteIngredients;
+import aptekaproj.models.ConcreteDrug;
+import aptekaproj.models.ConcreteIngredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,45 +26,45 @@ public class ConcreteIngredientsService {
 
     //todo - the method must be tested
     //without refactoring - for debugging
-    public List<ConcreteIngredients> GetConcreteIngredientByMaxAvailableDate(int ingredientId){
-        List<ConcreteIngredients> concreteIngredients = GetAllConcreteIngredients();
-        List<ConcreteIngredients> concreteIngredientsById = new ArrayList<>();
+    public List<ConcreteIngredient> GetConcreteIngredientByMaxAvailableDate(int ingredientId){
+        List<ConcreteIngredient> concreteIngredients = GetAllConcreteIngredients();
+        List<ConcreteIngredient> concreteIngredientById = new ArrayList<>();
         Date maxDate = new Date(0);
         Date currentDate = new Date();
         Date dateForGroup = new Date();
-        for (ConcreteIngredients concreteIng : concreteIngredients){
+        for (ConcreteIngredient concreteIng : concreteIngredients){
             if(concreteIng.getIngredientId() == ingredientId){
                 if(TimeIgnoringComparator.compare(concreteIng.getAvailabilityDate(),maxDate) >= 0){
                     maxDate = concreteIng.getAvailabilityDate();
                 }
-                concreteIngredientsById.add(concreteIng);
+                concreteIngredientById.add(concreteIng);
             }
         }
 
         dateForGroup = DateWorker.MaxDate(maxDate, currentDate);
-        List<ConcreteIngredients> concreteIngredientsByDate = new ArrayList<>();
-        for(ConcreteIngredients concreteIngredients1 : concreteIngredientsById){
-            if(TimeIgnoringComparator.compare(concreteIngredients1.getAvailabilityDate(),dateForGroup) == 0){
-                concreteIngredientsByDate.add(concreteIngredients1);
+        List<ConcreteIngredient> concreteIngredientByDate = new ArrayList<>();
+        for(ConcreteIngredient concreteIngredient1 : concreteIngredientById){
+            if(TimeIgnoringComparator.compare(concreteIngredient1.getAvailabilityDate(),dateForGroup) == 0){
+                concreteIngredientByDate.add(concreteIngredient1);
             }
         }
-        return concreteIngredientsByDate;
+        return concreteIngredientByDate;
     }
 
-    public List<ConcreteIngredients> GetAllConcreteIngredients(){
-        return (List<ConcreteIngredients>)concreteIngredientsRepository.findAll();
+    public List<ConcreteIngredient> GetAllConcreteIngredients(){
+        return (List<ConcreteIngredient>)concreteIngredientsRepository.findAll();
     }
 
-    public void Save(ConcreteIngredients concreteIngredient) {
+    public void Save(ConcreteIngredient concreteIngredient) {
         concreteIngredientsRepository.save(concreteIngredient);
     }
 
-    public List<Date> GetConcreteIngredientDateByConcreteDrugsId(List<ConcreteDrugs> concreteDrugs) {
-        List<ConcreteIngredients> concreteIngredients = GetAllConcreteIngredients();
+    public List<Date> GetConcreteIngredientDateByConcreteDrugsId(List<ConcreteDrug> concreteDrugs) {
+        List<ConcreteIngredient> concreteIngredients = GetAllConcreteIngredients();
         List<Date> concreteIngredientsById = new ArrayList<>();
 
-        for (ConcreteIngredients ingredient : concreteIngredients){
-            for (ConcreteDrugs drug : concreteDrugs){
+        for (ConcreteIngredient ingredient : concreteIngredients){
+            for (ConcreteDrug drug : concreteDrugs){
                 if(ingredient.getConcreteDrugId() == drug.getId()){
                     concreteIngredientsById.add(ingredient.getAvailabilityDate());
                 }
@@ -75,9 +75,9 @@ public class ConcreteIngredientsService {
     }
 
     public String GetConcreteIngredientAvailableDate(int concreteDrugId, int drugId) {
-        List<ConcreteIngredients> concreteIngredientsList = GetAllConcreteIngredients();
+        List<ConcreteIngredient> concreteIngredientList = GetAllConcreteIngredients();
         List<Date> availableDate = new ArrayList<>();
-        for (ConcreteIngredients ingredient : concreteIngredientsList){
+        for (ConcreteIngredient ingredient : concreteIngredientList){
             if(ingredient.getConcreteDrugId() == concreteDrugId){
                 availableDate.add(ingredient.getAvailabilityDate());
             }

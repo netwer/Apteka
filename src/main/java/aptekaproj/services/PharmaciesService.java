@@ -1,7 +1,7 @@
 package aptekaproj.services;
 
 import aptekaproj.controllers.repository.IPharmaciesRepository;
-import aptekaproj.models.Pharmacies;
+import aptekaproj.models.Pharmacy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,11 @@ public class PharmaciesService {
     @Autowired
     private IPharmaciesRepository pharmaciesRepository;
 
-    public List<Pharmacies> GetPharmacies() {
-        return (List<Pharmacies>)pharmaciesRepository.findAll();
+    public List<Pharmacy> GetPharmacies() {
+        return (List<Pharmacy>)pharmaciesRepository.findAll();
     }
 
-    public Pharmacies GetPharmacyById(int pharmacyId) {
+    public Pharmacy GetPharmacyById(int pharmacyId) {
         return pharmaciesRepository.findOne(pharmacyId);
     }
 }

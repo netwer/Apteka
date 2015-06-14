@@ -12,39 +12,39 @@ public class Ingredient {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
 
     @Column(name = "drug_id")
-    private int drug_id;
+    private int drugId;
 
     @Column(name = "material_id")
-    private int material_id;
+    private int materialId;
 
     @Column(name = "count")
     private int count;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
-    public int getDrug_id() {
-        return drug_id;
+    public int getDrugId() {
+        return drugId;
     }
 
-    public void setDrug_id(int drug_id) {
-        this.drug_id = drug_id;
+    public void setDrugId(int drugId) {
+        this.drugId = drugId;
     }
 
-    public int getMaterial_id() {
-        return material_id;
+    public int getMaterialId() {
+        return materialId;
     }
 
-    public void setMaterial_id(int material_id) {
-        this.material_id = material_id;
+    public void setMaterialId(int materialId) {
+        this.materialId = materialId;
     }
 
     public int getCount() {

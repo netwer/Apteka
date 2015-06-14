@@ -1,7 +1,7 @@
 package aptekaproj.controllers;
 
 import aptekaproj.ViewModels.*;
-import aptekaproj.models.Recipes;
+import aptekaproj.models.Recipe;
 import aptekaproj.services.ConcreteDrugsService;
 import aptekaproj.services.PharmacyStaffService;
 import aptekaproj.services.RecipeService;
@@ -41,7 +41,7 @@ public class PharmaciesController {
     //todo test
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipes", method = RequestMethod.GET)
-    public List<Recipes> getRecipes(@RequestParam(value = "s", required = true) String status) {
+    public List<Recipe> getRecipes(@RequestParam(value = "s", required = true) String status) {
         return recipeService.GetRecipesForPharmacyByStatus(2, status);
     }
 

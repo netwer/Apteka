@@ -5,8 +5,8 @@ import aptekaproj.ViewModels.PostViewModel;
 import aptekaproj.ViewModels.RecipeViewModel;
 import aptekaproj.ViewModels.UsersDoctorViewModel;
 import aptekaproj.models.Diagnoses;
-import aptekaproj.models.Drugs;
-import aptekaproj.models.Pharmacies;
+import aptekaproj.models.Drug;
+import aptekaproj.models.Pharmacy;
 import aptekaproj.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -102,7 +102,7 @@ public class DoctorController {
     //todo test
     @ResponseBody
     @RequestMapping(value = "/recipe/pharmacies",method = RequestMethod.GET)
-    public List<Pharmacies> getPharmacies(){
+    public List<Pharmacy> getPharmacies(){
         return pharmaciesService.GetPharmacies();
     }
 
@@ -111,7 +111,7 @@ public class DoctorController {
     //todo test
     @ResponseBody
     @RequestMapping(value = "/recipe/drugs",method = RequestMethod.GET)
-    public List<Drugs> getDrugs(){
+    public List<Drug> getDrugs(){
         return drugsService.GetDrugs();
     }
 }

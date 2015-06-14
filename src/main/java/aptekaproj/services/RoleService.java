@@ -1,7 +1,7 @@
 package aptekaproj.services;
 
 import aptekaproj.controllers.repository.IRolesRepository;
-import aptekaproj.models.Roles;
+import aptekaproj.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,20 +19,20 @@ public class RoleService{
 
 
     @Transactional
-    public Roles GetRoleByName(String name){
-        List<Roles> rolesList = (List<Roles>) repository.findAll();
-        for(Roles roles: rolesList){
-            if(roles.getName().equals(name)){
-                return roles;
+    public Role GetRoleByName(String name){
+        List<Role> roleList = (List<Role>) repository.findAll();
+        for(Role role : roleList){
+            if(role.getName().equals(name)){
+                return role;
             }
         }
-        return new Roles();
+        return new Role();
         //return rolesList;
     }
 
     @Transactional
-    public void SaveRole(Roles roles){
-        repository.save(roles);
+    public void SaveRole(Role role){
+        repository.save(role);
     }
 
     @Transactional

@@ -3,8 +3,8 @@ package aptekaproj.services;
 import aptekaproj.ViewModels.DrugsViewModel;
 import aptekaproj.ViewModels.RecipeViewModel;
 import aptekaproj.controllers.repository.IRecipesHasDrugsRepository;
-import aptekaproj.models.Recipes;
-import aptekaproj.models.RecipesHasDrugs;
+import aptekaproj.models.Recipe;
+import aptekaproj.models.RecipeHasDrugs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,29 +19,29 @@ public class RecipesHasDrugsService {
     @Autowired
     private IRecipesHasDrugsRepository recipesHasDrugsRepository;
 
-    public void SaveRecipeHasDrugs(RecipesHasDrugs recipesHasDrugs) {
-        recipesHasDrugsRepository.save(recipesHasDrugs);
+    public void SaveRecipeHasDrugs(RecipeHasDrugs recipeHasDrugs) {
+        recipesHasDrugsRepository.save(recipeHasDrugs);
     }
 
-    public void UpdateRecipeHasDrugs(RecipeViewModel recipeViewModel, Recipes recipes){
+    public void UpdateRecipeHasDrugs(RecipeViewModel recipeViewModel, Recipe recipe){
         for (DrugsViewModel drugsViewModel : recipeViewModel.drugsViewModelList){
-            RecipesHasDrugs recipesHasDrugs = new RecipesHasDrugs();
+            RecipeHasDrugs recipeHasDrugs = new RecipeHasDrugs();
             if(drugsViewModel.RecipesHasDrugsId != null){
-                recipesHasDrugs = recipesHasDrugsRepository.findOne(drugsViewModel.RecipesHasDrugsId);
-                if(recipesHasDrugs == null)
+                recipeHasDrugs = recipesHasDrugsRepository.findOne(drugsViewModel.RecipesHasDrugsId);
+                if(recipeHasDrugs == null)
                     continue;
-                recipesHasDrugs.setId(drugsViewModel.RecipesHasDrugsId);
+                recipeHasDrugs.setId(drugsViewModel.RecipesHasDrugsId);
             }
-            recipesHasDrugs.setCount(drugsViewModel.DrugCount);
-            recipesHasDrugs.setDrug_id(drugsViewModel.DrugId);
-            recipesHasDrugs.setRecipe_id(recipes.getId());
-            recipesHasDrugs.setDone(false);
-            recipesHasDrugs.setProgress_status_id(recipes.getRecipeProgressStatusId());
-            SaveRecipeHasDrugs(recipesHasDrugs);
+            recipeHasDrugs.setCount(drugsViewModel.DrugCount);
+            recipeHasDrugs.setDrugId(drugsViewModel.DrugId);
+            recipeHasDrugs.setRecipeId(recipe.getId());
+            recipeHasDrugs.setDone(false);
+            recipeHasDrugs.setProgressStatusId(recipe.getRecipeProgressStatusId());
+            SaveRecipeHasDrugs(recipeHasDrugs);
         }
     }
 
-    public List<RecipesHasDrugs> GetAllRecipesHasDrugs() {
-        return (List<RecipesHasDrugs>) recipesHasDrugsRepository.findAll();
+    public List<RecipeHasDrugs> GetAllRecipesHasDrugs() {
+        return (List<RecipeHasDrugs>) recipesHasDrugsRepository.findAll();
     }
 }

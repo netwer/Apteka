@@ -2,7 +2,7 @@ package aptekaproj.services;
 
 import aptekaproj.ViewModels.UsersDoctorViewModel;
 import aptekaproj.models.Diagnoses;
-import aptekaproj.models.Users;
+import aptekaproj.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +22,9 @@ public class ApiService {
     private DiagnosesService diagnosesService;
 
     public List<UsersDoctorViewModel> GetAppointments(){
-        List<Users> doctors = userService.getDoctors();
+        List<User> doctors = userService.getDoctors();
         List<UsersDoctorViewModel> usersDoctorViewModels = new ArrayList<>();
-        for (Users doctor:doctors){
+        for (User doctor:doctors){
             usersDoctorViewModels.addAll(userService.getPatients(doctor.getId()));
         }
 
@@ -34,12 +34,12 @@ public class ApiService {
     public void SaveAppointment(UsersDoctorViewModel usersDoctorViewModel) {
         Diagnoses diagnoses = new Diagnoses();
 
-        diagnoses.setPatient_user_id(usersDoctorViewModel.PatientId);
-        diagnoses.setDoctor_user_id(usersDoctorViewModel.DoctorId);
-        diagnoses.setCreated_at(usersDoctorViewModel.LastVisitDate);
+        diagnoses.setPatientUserId(usersDoctorViewModel.PatientId);
+        diagnoses.setDoctorUserId(usersDoctorViewModel.DoctorId);
+        diagnoses.setCreatedAt(usersDoctorViewModel.LastVisitDate);
         diagnoses.setDiagnosis("");
         diagnoses.setComplaints("");
-        diagnoses.setRecipe_id(null);
+        diagnoses.setRecipeId(null);
 
         diagnosesService.SaveDiagnosis(diagnoses);
     }

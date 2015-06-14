@@ -12,13 +12,13 @@ public class RecipeHasDrugs {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
 
     @Column(name = "recipe_id")
-    private int recipe_id;
+    private int recipeId;
 
     @Column(name = "drug_id")
-    private int drug_id;
+    private int drugId;
 
     @Column(name = "done")
     private boolean done;
@@ -27,23 +27,22 @@ public class RecipeHasDrugs {
     private int count;
 
     @Column(name = "progress_status_id")
-    private Integer progress_status_id;
+    private Integer progressStatusId;
 
-
-    public int getRecipe_id() {
-        return recipe_id;
+    public int getRecipeId() {
+        return recipeId;
     }
 
-    public void setRecipe_id(int recipe_id) {
-        this.recipe_id = recipe_id;
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 
-    public int getDrug_id() {
-        return drug_id;
+    public int getDrugId() {
+        return drugId;
     }
 
-    public void setDrug_id(int drug_id) {
-        this.drug_id = drug_id;
+    public void setDrugId(int drugId) {
+        this.drugId = drugId;
     }
 
     public boolean getDone() {
@@ -63,18 +62,18 @@ public class RecipeHasDrugs {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
-    public int getProgress_status_id() {
-        return progress_status_id;
+    public int getProgressStatusId() {
+        return progressStatusId;
     }
 
-    public void setProgress_status_id(int progress_status_id) {
-        this.progress_status_id = progress_status_id;
+    public void setProgressStatusId(int progressStatusId) {
+        this.progressStatusId = progressStatusId;
     }
 }

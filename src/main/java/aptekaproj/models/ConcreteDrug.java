@@ -12,46 +12,46 @@ public class ConcreteDrug {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
 
     @Column(name = "drug_id")
-    private int DrugId;
+    private int drugId;
 
     @Column(name = "PharmacyStaff_id")
-    private int PharmacyStaffId;
+    private int pharmacyStaffId;
 
     @Column(name = "Recipe_id")
-    private int RecipeId;
+    private int recipeId;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public int getDrugId() {
-        return DrugId;
+        return drugId;
     }
 
     public void setDrugId(int drugId) {
-        DrugId = drugId;
+        this.drugId = drugId;
     }
 
     public int getPharmacyStaffId() {
-        return PharmacyStaffId;
+        return pharmacyStaffId;
     }
 
     public void setPharmacyStaffId(int pharmacyStaffId) {
-        PharmacyStaffId = pharmacyStaffId;
+        this.pharmacyStaffId = pharmacyStaffId;
     }
 
     public int getRecipeId() {
-        return RecipeId;
+        return recipeId;
     }
 
     public void setRecipeId(int recipeId) {
-        RecipeId = recipeId;
+        this.recipeId = recipeId;
     }
 }

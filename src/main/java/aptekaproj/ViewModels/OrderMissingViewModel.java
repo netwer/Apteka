@@ -1,6 +1,6 @@
 package aptekaproj.ViewModels;
 
-import aptekaproj.models.Users;
+import aptekaproj.models.User;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 public class OrderMissingViewModel {
     public List<DrugsViewModel> drugsViewModels;
-    public List<Users> apothecaryUsers;
+    public List<User> apothecaryUsers;
 }

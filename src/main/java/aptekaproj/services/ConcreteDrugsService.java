@@ -4,9 +4,9 @@ import aptekaproj.ViewModels.DrugsWithPharmacists;
 import aptekaproj.ViewModels.RecipeDrugsWithPharmacistsViewModel;
 import aptekaproj.controllers.repository.IConcreteDrugsRepository;
 import aptekaproj.helpers.DateWorker;
-import aptekaproj.models.ConcreteDrugs;
-import aptekaproj.models.ConcreteIngredients;
-import aptekaproj.models.Ingredients;
+import aptekaproj.models.ConcreteDrug;
+import aptekaproj.models.ConcreteIngredient;
+import aptekaproj.models.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,18 +37,18 @@ public class ConcreteDrugsService {
     public void DrugsToProduce(RecipeDrugsWithPharmacistsViewModel recipeDrugsWithPharmacistsViewModel) {
         for (DrugsWithPharmacists drug : recipeDrugsWithPharmacistsViewModel.drugsWithPharmacist){
 
-            ConcreteDrugs concreteDrug = new ConcreteDrugs();
+            ConcreteDrug concreteDrug = new ConcreteDrug();
             concreteDrug.setDrugId(drug.DrugId);
             concreteDrug.setPharmacyStaffId(drug.PharmacyStaffId);
             concreteDrug.setRecipeId(recipeDrugsWithPharmacistsViewModel.recipeId);
-            ConcreteDrugs createdConcreteDrug = concreteDrugsRepository.save(concreteDrug);
+            ConcreteDrug createdConcreteDrug = concreteDrugsRepository.save(concreteDrug);
 
-            List<Ingredients> ingredientsForDrug = ingredientsService.GetIngredientsForDrug(drug.DrugId);
-            for (Ingredients ingredient : ingredientsForDrug){
-                List<ConcreteIngredients> concreteIngredientsList = concreteIngredientsService.GetConcreteIngredientByMaxAvailableDate(ingredient.getId());
-                int countRecordsByMaxDate = concreteIngredientsList.size();
+            List<Ingredient> ingredientForDrug = ingredientsService.GetIngredientsForDrug(drug.DrugId);
+            for (Ingredient ingredient : ingredientForDrug){
+                List<ConcreteIngredient> concreteIngredientList = concreteIngredientsService.GetConcreteIngredientByMaxAvailableDate(ingredient.getId());
+                int countRecordsByMaxDate = concreteIngredientList.size();
 
-                ConcreteIngredients concreteIngredient = new ConcreteIngredients();
+                ConcreteIngredient concreteIngredient = new ConcreteIngredient();
                 concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                 concreteIngredient.setIngredientId(ingredient.getId());
 
@@ -57,11 +57,11 @@ public class ConcreteDrugsService {
                         concreteIngredient.setAvailabilityDate(new Date());
                     }
                     else {
-                        concreteIngredient.setAvailabilityDate(concreteIngredientsList.get(0).getAvailabilityDate());
+                        concreteIngredient.setAvailabilityDate(concreteIngredientList.get(0).getAvailabilityDate());
                     }
                 }
                 else {
-                    concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(concreteIngredientsList.get(0).getAvailabilityDate(), 1));
+                    concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(concreteIngredientList.get(0).getAvailabilityDate(), 1));
                 }
 
                 concreteIngredientsService.Save(concreteIngredient);
@@ -76,39 +76,39 @@ public class ConcreteDrugsService {
         }
     }
 
-    public List<ConcreteDrugs> GetConcreteDrugsByRecipeId(int recipeId) {
-        List<ConcreteDrugs> concreteDrugsList = GetAll();
-        List<ConcreteDrugs> concreteDrugsListById = new ArrayList<>();
+    public List<ConcreteDrug> GetConcreteDrugsByRecipeId(int recipeId) {
+        List<ConcreteDrug> concreteDrugList = GetAll();
+        List<ConcreteDrug> concreteDrugListById = new ArrayList<>();
 
-        for (ConcreteDrugs drug : concreteDrugsList){
+        for (ConcreteDrug drug : concreteDrugList){
             if(drug.getRecipeId() == recipeId){
-                concreteDrugsListById.add(drug);
+                concreteDrugListById.add(drug);
             }
         }
 
-        return concreteDrugsListById;
+        return concreteDrugListById;
     }
 
-    private List<ConcreteDrugs> GetAll() {
-        return (List<ConcreteDrugs>)concreteDrugsRepository.findAll();
+    private List<ConcreteDrug> GetAll() {
+        return (List<ConcreteDrug>)concreteDrugsRepository.findAll();
     }
 
     public String GetAvailabilityRecipeDate(int recipeId) {
-        List<ConcreteDrugs> concreteDrugs = GetConcreteDrugsByRecipeId(recipeId);
+        List<ConcreteDrug> concreteDrugs = GetConcreteDrugsByRecipeId(recipeId);
         List<Date> drugAvailabilityDate = concreteIngredientsService.GetConcreteIngredientDateByConcreteDrugsId(concreteDrugs);
 
         return DateWorker.MaxDate(drugAvailabilityDate);
     }
 
     public String GetAvailabilityDrugDate(Integer recipeId,Integer drugId) {
-        ConcreteDrugs concreteDrug = GetConcreteDrugByRecipeIdAndDrugId(recipeId, drugId);
+        ConcreteDrug concreteDrug = GetConcreteDrugByRecipeIdAndDrugId(recipeId, drugId);
         return concreteIngredientsService.GetConcreteIngredientAvailableDate(concreteDrug.getId(),drugId);
     }
 
-    private ConcreteDrugs GetConcreteDrugByRecipeIdAndDrugId(Integer recipeId, Integer drugId) {
-        List<ConcreteDrugs> concreteDrugs = GetAll();
-        ConcreteDrugs concreteDrug = new ConcreteDrugs();
-        for (ConcreteDrugs drug : concreteDrugs){
+    private ConcreteDrug GetConcreteDrugByRecipeIdAndDrugId(Integer recipeId, Integer drugId) {
+        List<ConcreteDrug> concreteDrugs = GetAll();
+        ConcreteDrug concreteDrug = new ConcreteDrug();
+        for (ConcreteDrug drug : concreteDrugs){
             if(drug.getDrugId() == drugId && drug.getRecipeId() == recipeId){
                 concreteDrug = drug;
                 break;
@@ -118,7 +118,7 @@ public class ConcreteDrugsService {
         return concreteDrug;
     }
 
-    public List<ConcreteDrugs> getAllConcreteDrugs() {
-        return (List<ConcreteDrugs>)concreteDrugsRepository.findAll();
+    public List<ConcreteDrug> getAllConcreteDrugs() {
+        return (List<ConcreteDrug>)concreteDrugsRepository.findAll();
     }
 }

@@ -49,21 +49,21 @@ public class RecipeService {
     public void Save(RecipeViewModel recipeViewModel){
         //todo check!
         RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusByName(ProgressStatusEnum.CREATED.toString());
-        Recipes recipes = new Recipes();
-        recipes.setTitle(recipeViewModel.RecipeTitle);
-        recipes.setRecipeProgressStatusId(recipeProgressStatus.getId());
-        recipes.setPharmacyId(recipeViewModel.PharmacyId);
-        recipes.setCreated_at(new Date());
+        Recipe recipe = new Recipe();
+        recipe.setTitle(recipeViewModel.RecipeTitle);
+        recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
+        recipe.setPharmacyId(recipeViewModel.PharmacyId);
+        recipe.setCreatedAt(new Date());
 
         //todo CHECK!
         //Recipes recipes1 = recipesRepository.SaveRecipeHasDrugs(recipes);
-        Recipes recipes1 = recipesRepository.save(recipes);
-        diagnosesService.UpdateDiagnosis(recipeViewModel.DiagnosesId, recipes1.getId());
-        recipesHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipes1);
+        Recipe recipe1 = recipesRepository.save(recipe);
+        diagnosesService.UpdateDiagnosis(recipeViewModel.DiagnosesId, recipe1.getId());
+        recipesHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipe1);
     }
 
-    public void Save(Recipes recipes){
-        recipesRepository.save(recipes);
+    public void Save(Recipe recipe){
+        recipesRepository.save(recipe);
     }
 
     public List<PatientRecipeViewModel> GetRecipesForPatient(int userId) {
@@ -74,25 +74,25 @@ public class RecipeService {
 
             patientRecipeViewModel = new PatientRecipeViewModel();
 
-            if(diagnoses.getRecipe_id() == null)
+            if(diagnoses.getRecipeId() == null)
                 continue;
 
-            Recipes recipes = recipesRepository.findOne(diagnoses.getRecipe_id());
+            Recipe recipe = recipesRepository.findOne(diagnoses.getRecipeId());
 
-            if(recipes == null)
+            if(recipe == null)
                 continue;
 
-            Pharmacies pharmacies = pharmaciesService.GetPharmacyById(recipes.getPharmacyId());
-            Users users = userService.getUserById(diagnoses.getDoctor_user_id());
-            RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusById(recipes.getRecipeProgressStatusId());
+            Pharmacy pharmacy = pharmaciesService.GetPharmacyById(recipe.getPharmacyId());
+            User user = userService.getUserById(diagnoses.getDoctorUserId());
+            RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusById(recipe.getRecipeProgressStatusId());
 
-            patientRecipeViewModel.DoctorId = diagnoses.getDoctor_user_id();
-            patientRecipeViewModel.DoctorName = users.getFullName();
-            patientRecipeViewModel.PharmaciesAddress = pharmacies.getAddress();
-            patientRecipeViewModel.PharmaciesName = pharmacies.getName();
-            patientRecipeViewModel.RecipeCreated = recipes.getCreated_at().toString();
-            patientRecipeViewModel.RecipeTitle = recipes.getTitle();
-            patientRecipeViewModel.RecipeId = diagnoses.getRecipe_id();
+            patientRecipeViewModel.DoctorId = diagnoses.getDoctorUserId();
+            patientRecipeViewModel.DoctorName = user.getFullName();
+            patientRecipeViewModel.PharmaciesAddress = pharmacy.getAddress();
+            patientRecipeViewModel.PharmaciesName = pharmacy.getName();
+            patientRecipeViewModel.RecipeCreated = recipe.getCreatedAt().toString();
+            patientRecipeViewModel.RecipeTitle = recipe.getTitle();
+            patientRecipeViewModel.RecipeId = diagnoses.getRecipeId();
             patientRecipeViewModel.RecipeStatusId = recipeProgressStatus.getId();
             patientRecipeViewModel.RecipeStatusName = recipeProgressStatus.getName();
 
@@ -102,52 +102,52 @@ public class RecipeService {
     }
 
     public void Update(RecipeViewModel recipeViewModel) {
-        Recipes recipes = recipesRepository.findOne(recipeViewModel.RecipeId);
+        Recipe recipe = recipesRepository.findOne(recipeViewModel.RecipeId);
         RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusByName(ProgressStatusEnum.UPDATED.toString());
 
-        if(recipes == null || recipeProgressStatus == null)
+        if(recipe == null || recipeProgressStatus == null)
             return;
 
-        recipes.setId(recipeViewModel.RecipeId);
-        recipes.setTitle(recipeViewModel.RecipeTitle);
-        recipes.setPharmacyId(recipeViewModel.PharmacyId);
-        recipes.setCreated_at(new Date());
-        recipes.setRecipeProgressStatusId(recipeProgressStatus.getId());
+        recipe.setId(recipeViewModel.RecipeId);
+        recipe.setTitle(recipeViewModel.RecipeTitle);
+        recipe.setPharmacyId(recipeViewModel.PharmacyId);
+        recipe.setCreatedAt(new Date());
+        recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
 
-        recipesRepository.save(recipes);
-        recipesHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipes);
+        recipesRepository.save(recipe);
+        recipesHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipe);
     }
 
     public RecipeViewModel GetRecipe(int recipeId){
-        Recipes recipes = GetRecipeById(recipeId);
+        Recipe recipe = GetRecipeById(recipeId);
         Diagnoses diagnoses = diagnosesService.GetDiagnosis(recipeId);
         RecipeViewModel recipeViewModel = new RecipeViewModel();
 
-        if (recipes == null && diagnoses != null)
+        if (recipe == null && diagnoses != null)
             return recipeViewModel;
 
         recipeViewModel.DiagnosesId = diagnoses.getId();
-        recipeViewModel.PharmacyId = recipes.getPharmacyId();
+        recipeViewModel.PharmacyId = recipe.getPharmacyId();
         recipeViewModel.RecipeId = recipeId;
-        recipeViewModel.RecipeTitle = recipes.getTitle();
+        recipeViewModel.RecipeTitle = recipe.getTitle();
         recipeViewModel.AvailabilityDate = concreteDrugsService.GetAvailabilityRecipeDate(recipeId);
         recipeViewModel.drugsViewModelList = drugsService.GetDrugsForRecipe(recipeId);
         return recipeViewModel;
     }
 
-    public Recipes GetRecipeById(int recipeId){
+    public Recipe GetRecipeById(int recipeId){
         return recipesRepository.findOne(recipeId);
     }
 
-    public List<Recipes> GetRecipesForPharmacyByStatus(int pharmacy_id, String status) {
-        List<Recipes> recipes = new ArrayList<>();
-        List<Recipes> currentRecipes = (List<Recipes>)recipesRepository.findAll();
+    public List<Recipe> GetRecipesForPharmacyByStatus(int pharmacy_id, String status) {
+        List<Recipe> recipes = new ArrayList<>();
+        List<Recipe> currentRecipes = (List<Recipe>)recipesRepository.findAll();
         RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusByName(status);
 
         if (recipeProgressStatus == null)
             return recipes;
 
-        for (Recipes recipe : currentRecipes){
+        for (Recipe recipe : currentRecipes){
             if(recipe.getPharmacyId() == pharmacy_id && recipe.getRecipeProgressStatusId() == recipeProgressStatus.getId()){
                 recipes.add(recipe);
             }
@@ -157,7 +157,7 @@ public class RecipeService {
     }
 
     public void ChangeStatus(int recipeId,String status) {
-        Recipes recipe = GetRecipeById(recipeId);
+        Recipe recipe = GetRecipeById(recipeId);
 
         if (recipe == null)
             return;
@@ -167,7 +167,7 @@ public class RecipeService {
     }
 
     public OrderMissingViewModel GetOrderMissing(int pharmacistId, int recipeId) {
-        List<Users> pharmacistsList = pharmacyStaffService.GetStaffs(pharmacistId);
+        List<User> pharmacistsList = pharmacyStaffService.GetStaffs(pharmacistId);
         List<DrugsViewModel> drugsViewModelList = drugsService.GetDrugsNeedsToProduce(recipeId);
         OrderMissingViewModel orderMissing = new OrderMissingViewModel();
         orderMissing.apothecaryUsers = pharmacistsList;

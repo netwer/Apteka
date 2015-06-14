@@ -13,26 +13,26 @@ public class Recipe {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
 
     @Column(name = "title")
     private String title;
 
     @Column(name = "pharmacy_id")
-    private int PharmacyId;
+    private int pharmacyId;
 
     @Column(name = "recipe_progress_status_id")
-    private int RecipeProgressStatusId;
+    private int recipeProgressStatusId;
 
     @Column(name = "created_at")
-    private Date created_at;
+    private Date createdAt;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -43,27 +43,27 @@ public class Recipe {
         this.title = title;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public int getPharmacyId() {
-        return PharmacyId;
+        return pharmacyId;
     }
 
     public void setPharmacyId(int pharmacyId) {
-        PharmacyId = pharmacyId;
+        this.pharmacyId = pharmacyId;
     }
 
     public int getRecipeProgressStatusId() {
-        return RecipeProgressStatusId;
+        return recipeProgressStatusId;
     }
 
     public void setRecipeProgressStatusId(int recipeProgressStatusId) {
-        RecipeProgressStatusId = recipeProgressStatusId;
+        this.recipeProgressStatusId = recipeProgressStatusId;
     }
 }

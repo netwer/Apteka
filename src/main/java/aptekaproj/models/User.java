@@ -1,9 +1,6 @@
 package aptekaproj.models;
 
-import org.springframework.data.repository.CrudRepository;
-
 import javax.persistence.*;
-import javax.transaction.Transactional;
 
 @Entity(name = "models.Rolies.Users")
 @Table(name = "users")
@@ -12,121 +9,120 @@ public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
+    private Integer id;
 
     @Column(name = "login")
-    private String Login;
+    private String login;
 
     @Column(name = "role_id")
-    private int RoleId;
+    private int roleId;
 
     @Column(name = "full_name")
-    private String FullName;
+    private String fullName;
 
     @Column(name = "hash")
-    private String Hash;
+    private String hash;
 
     @Column(name = "salt")
-    private String Salt;
+    private String salt;
 
     @Column(name = "address")
-    private String Address;
+    private String address;
 
     @Column(name = "medical_policy_number")
-    private String MedicalPolicyNumber;
+    private String medicalPolicyNumber;
 
     @Column(name = "email")
-    private String Email;
+    private String email;
 
     @Column(name = "name")
-    private String Name;
+    private String name;
 
     public User(){
-
     }
 
     public User(int id){
-        this.Id = id;
+        this.id = id;
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getLogin() {
-        return Login;
+        return login;
     }
 
     public void setLogin(String login) {
-        Login = login;
+        this.login = login;
     }
 
     public int getRoleId() {
-        return RoleId;
+        return roleId;
     }
 
     public void setRoleId(int roleId) {
-        RoleId = roleId;
+        this.roleId = roleId;
     }
 
     public String getFullName() {
-        return FullName;
+        return fullName;
     }
 
     public void setFullName(String fullName) {
-        FullName = fullName;
+        this.fullName = fullName;
     }
 
     public String getHash() {
-        return Hash;
+        return hash;
     }
 
     public void setHash(String hash) {
-        Hash = hash;
+        this.hash = hash;
     }
 
     public String getSalt() {
-        return Salt;
+        return salt;
     }
 
     public void setSalt(String salt) {
-        Salt = salt;
+        this.salt = salt;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public String getMedicalPolicyNumber() {
-        return MedicalPolicyNumber;
+        return medicalPolicyNumber;
     }
 
     public void setMedicalPolicyNumber(String medicalPolicyNumber) {
-        MedicalPolicyNumber = medicalPolicyNumber;
+        this.medicalPolicyNumber = medicalPolicyNumber;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
 

@@ -12,7 +12,7 @@ public class Drug {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
 
     @Column(name = "name")
     private String name;
@@ -21,14 +21,14 @@ public class Drug {
     private String description;
 
     @Column(name = "needs_to_produce")
-    private boolean NeedsToProduce;
+    private boolean needToProduce;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -47,11 +47,11 @@ public class Drug {
         this.description = description;
     }
 
-    public boolean getNeedsToProduce() {
-        return NeedsToProduce;
+    public boolean getNeedToProduce() {
+        return needToProduce;
     }
 
-    public void setNeedsToProduce(boolean needsToProduce) {
-        NeedsToProduce = needsToProduce;
+    public void setNeedToProduce(boolean needToProduce) {
+        this.needToProduce = needToProduce;
     }
 }
