@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity(name = "models.ConcreteIngredients")
 @Table(name = "ConcreteIngredients")
-public class ConcreteIngredients {
+public class ConcreteIngredient {
 
     @Id
     @Column(name = "id")

@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity(name = "models.Pharmacies")
 @Table(name = "Pharmacies")
-public class Pharmacies {
+public class Pharmacy {
 
     @Id
     @Column(name = "id")

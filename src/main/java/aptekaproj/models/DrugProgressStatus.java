@@ -5,17 +5,17 @@ import javax.persistence.*;
 /**
  * Created by Admin on 25.04.2015.
  */
-@Entity(name = "models.Materials")
-@Table(name = "Materials")
-public class Materials {
+@Entity(name = "models.DrugProgressStatuses")
+@Table(name = "DrugProgressStatuses")
+public class DrugProgressStatus {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
 
     public int getId() {
         return Id;
@@ -25,11 +25,11 @@ public class Materials {
         Id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

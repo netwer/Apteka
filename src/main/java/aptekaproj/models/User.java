@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 
 @Entity(name = "models.Rolies.Users")
 @Table(name = "users")
-public class Users {
+public class User {
 
     @Id
     @Column(name = "id")
@@ -41,11 +41,11 @@ public class Users {
     @Column(name = "name")
     private String Name;
 
-    public Users(){
+    public User(){
 
     }
 
-    public Users(int id){
+    public User(int id){
         this.Id = id;
     }
 

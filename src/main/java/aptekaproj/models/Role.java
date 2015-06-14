@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity(name = "models.Rolies.Roles")
 @Table(name = "Roles")
-public class Roles implements Serializable {
+public class Role implements Serializable {
 
     @Id
     @Column(name = "id")
@@ -17,11 +17,11 @@ public class Roles implements Serializable {
     @Column(name = "name")
     private String Name;
 
-    public Roles(){
+    public Role(){
 
     }
 
-    public Roles(Integer id){
+    public Role(Integer id){
         this.Id = id;
     }
     public Integer getId() {
