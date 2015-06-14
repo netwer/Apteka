@@ -1,4 +1,4 @@
-package aptekaproj.ViewModels;
+package aptekaproj.viewModels;
 
 /**
  * Created by Admin on 26.05.2015.

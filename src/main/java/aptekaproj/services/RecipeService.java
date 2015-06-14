@@ -1,9 +1,9 @@
 package aptekaproj.services;
 
-import aptekaproj.ViewModels.DrugsViewModel;
-import aptekaproj.ViewModels.OrderMissingViewModel;
-import aptekaproj.ViewModels.PatientRecipeViewModel;
-import aptekaproj.ViewModels.RecipeViewModel;
+import aptekaproj.viewModels.DrugViewModel;
+import aptekaproj.viewModels.OrderMissingViewModel;
+import aptekaproj.viewModels.PatientRecipeViewModel;
+import aptekaproj.viewModels.RecipeViewModel;
 import aptekaproj.controllers.repository.IRecipesRepository;
 import aptekaproj.helpers.Enums.ProgressStatusEnum;
 import aptekaproj.models.*;
@@ -131,7 +131,7 @@ public class RecipeService {
         recipeViewModel.RecipeId = recipeId;
         recipeViewModel.RecipeTitle = recipe.getTitle();
         recipeViewModel.AvailabilityDate = concreteDrugsService.GetAvailabilityRecipeDate(recipeId);
-        recipeViewModel.drugsViewModelList = drugsService.GetDrugsForRecipe(recipeId);
+        recipeViewModel.drugViewModelList = drugsService.GetDrugsForRecipe(recipeId);
         return recipeViewModel;
     }
 
@@ -168,10 +168,10 @@ public class RecipeService {
 
     public OrderMissingViewModel GetOrderMissing(int pharmacistId, int recipeId) {
         List<User> pharmacistsList = pharmacyStaffService.GetStaffs(pharmacistId);
-        List<DrugsViewModel> drugsViewModelList = drugsService.GetDrugsNeedsToProduce(recipeId);
+        List<DrugViewModel> drugViewModelList = drugsService.GetDrugsNeedsToProduce(recipeId);
         OrderMissingViewModel orderMissing = new OrderMissingViewModel();
         orderMissing.apothecaryUsers = pharmacistsList;
-        orderMissing.drugsViewModels = drugsViewModelList;
+        orderMissing.drugViewModels = drugViewModelList;
         return orderMissing;
     }
 }

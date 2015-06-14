@@ -1,8 +1,8 @@
 package aptekaproj.services;
 
-import aptekaproj.ViewModels.PatientCardViewModel;
-import aptekaproj.ViewModels.UserViewModel;
-import aptekaproj.ViewModels.UsersDoctorViewModel;
+import aptekaproj.viewModels.PatientCardViewModel;
+import aptekaproj.viewModels.UserViewModel;
+import aptekaproj.viewModels.UserDoctorViewModel;
 import aptekaproj.helpers.Enums.RolesNameEnum;
 import aptekaproj.helpers.Hash;
 import aptekaproj.controllers.repository.IUsersRepository;
@@ -56,9 +56,9 @@ public class UserService {
     //todo add check is recipe_id is null ?!
     //todo add check is Complaints is null ?!
     //todo add check is Diagnosis is null?!
-    public List<UsersDoctorViewModel> getPatients(int userId){
+    public List<UserDoctorViewModel> getPatients(int userId){
         List<Diagnoses> diagnoseses = diagnosesService.GetAllDiagnoses();
-        List<UsersDoctorViewModel> usersDoctorViewModels = new ArrayList<>();
+        List<UserDoctorViewModel> userDoctorViewModels = new ArrayList<>();
 
         for(Diagnoses diagnoses : diagnoseses){
             if(diagnoses.getDoctorUserId()  == userId &&
@@ -68,19 +68,19 @@ public class UserService {
 
                 User patient = getUserById(diagnoses.getPatientUserId());
                 User doctor = getUserById(userId);
-                UsersDoctorViewModel usersDoctorViewModel = new UsersDoctorViewModel();
-                usersDoctorViewModel.DoctorId = userId;
-                usersDoctorViewModel.PatientId = patient.getId();
-                usersDoctorViewModel.PatientFullName = patient.getFullName();
-                usersDoctorViewModel.DoctorFullName = doctor.getFullName();
+                UserDoctorViewModel userDoctorViewModel = new UserDoctorViewModel();
+                userDoctorViewModel.DoctorId = userId;
+                userDoctorViewModel.PatientId = patient.getId();
+                userDoctorViewModel.PatientFullName = patient.getFullName();
+                userDoctorViewModel.DoctorFullName = doctor.getFullName();
                 //todo right date?
                 //usersDoctorViewModel.LastVisitDate = new SimpleDateFormat("MM/dd/yyyy").format(diagnoses.getCreatedAt()).toString();
-                usersDoctorViewModel.LastVisitDate = diagnoses.getCreatedAt().toString();
-                usersDoctorViewModel.DiagnosisId = diagnoses.getId();
-                usersDoctorViewModels.add(usersDoctorViewModel);
+                userDoctorViewModel.LastVisitDate = diagnoses.getCreatedAt().toString();
+                userDoctorViewModel.DiagnosisId = diagnoses.getId();
+                userDoctorViewModels.add(userDoctorViewModel);
             }
         }
-        return usersDoctorViewModels;
+        return userDoctorViewModels;
     }
 
     //todo add check is recipe_id is null ?!

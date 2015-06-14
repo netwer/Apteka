@@ -1,4 +1,4 @@
-package aptekaproj.ViewModels;
+package aptekaproj.viewModels;
 
 import java.util.List;
 
@@ -6,6 +6,6 @@ import java.util.List;
  * Created by Admin on 14.06.2015.
  */
 public class DrugToProduceViewModel {
-    public DrugsViewModel drugsViewModel;
+    public DrugViewModel drugViewModel;
     public List<IngredientInDrugViewModel> ingredientInDrugViewModels;
 }

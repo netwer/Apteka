@@ -1,6 +1,6 @@
 package aptekaproj.controllers;
 
-import aptekaproj.ViewModels.*;
+import aptekaproj.viewModels.*;
 import aptekaproj.models.Recipe;
 import aptekaproj.services.ConcreteDrugsService;
 import aptekaproj.services.PharmacyStaffService;
@@ -83,8 +83,8 @@ public class PharmaciesController {
     //todo test
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/drugs/", method = RequestMethod.POST)
-    public void orderToProduce(@RequestBody RecipeDrugsWithPharmacistsViewModel recipeDrugsWithPharmacistsViewModel) {//need viewModel!!!
-        concreteDrugsService.DrugsToProduce(recipeDrugsWithPharmacistsViewModel);
+    public void orderToProduce(@RequestBody RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {//need viewModel!!!
+        concreteDrugsService.DrugsToProduce(recipeDrugWithPharmacistViewModel);
     }
 
     //Updates the links between drugs and apothecaries who prepare them
@@ -92,8 +92,8 @@ public class PharmaciesController {
     //todo test
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/drugs/", method = RequestMethod.PUT)
-    public void updateOrderToProduce(@RequestBody List<DrugsWithPharmacists> drugsWithPharmacists) {
-        concreteDrugsService.UpdateDrugsToProduce(drugsWithPharmacists);
+    public void updateOrderToProduce(@RequestBody List<DrugWithPharmacistViewModel> drugWithPharmacists) {
+        concreteDrugsService.UpdateDrugsToProduce(drugWithPharmacists);
     }
 
 

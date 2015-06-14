@@ -1,7 +1,7 @@
 package aptekaproj.services;
 
-import aptekaproj.ViewModels.DrugToProduceViewModel;
-import aptekaproj.ViewModels.DrugsViewModel;
+import aptekaproj.viewModels.DrugToProduceViewModel;
+import aptekaproj.viewModels.DrugViewModel;
 import aptekaproj.controllers.repository.IDrugsRepository;
 import aptekaproj.helpers.Enums.ProgressStatusEnum;
 import aptekaproj.models.ConcreteDrug;
@@ -42,54 +42,54 @@ public class DrugsService {
         return (List<Drug>)drugsRepository.findAll();
     }
 
-    public List<DrugsViewModel> GetDrugsForRecipe(Integer recipeId) {
+    public List<DrugViewModel> GetDrugsForRecipe(Integer recipeId) {
         List<RecipeHasDrugs> recipeHasDrugses = recipesHasDrugsService.GetAllRecipesHasDrugs();
-        List<DrugsViewModel> drugsViewModels = new ArrayList<>();
+        List<DrugViewModel> drugViewModels = new ArrayList<>();
 
         for (RecipeHasDrugs recipeHasDrugs : recipeHasDrugses){
             if(recipeHasDrugs.getRecipeId() == recipeId){
-                DrugsViewModel drugsViewModel = new DrugsViewModel();
+                DrugViewModel drugViewModel = new DrugViewModel();
                 Drug drug = drugsRepository.findOne(recipeHasDrugs.getDrugId());
 
                 if(drug == null)
                     continue;
 
-                drugsViewModel.RecipesHasDrugsId = recipeHasDrugs.getId();
-                drugsViewModel.DrugId = recipeHasDrugs.getDrugId();
-                drugsViewModel.DrugCount = recipeHasDrugs.getCount();
-                drugsViewModel.DrugName = drug.getName();
-                drugsViewModel.AvailabilityDate = concreteDrugsService.GetAvailabilityDrugDate(recipeId,drug.getId());
-                drugsViewModel.NeedsToProduce = drug.getNeedToProduce();
+                drugViewModel.RecipesHasDrugsId = recipeHasDrugs.getId();
+                drugViewModel.DrugId = recipeHasDrugs.getDrugId();
+                drugViewModel.DrugCount = recipeHasDrugs.getCount();
+                drugViewModel.DrugName = drug.getName();
+                drugViewModel.AvailabilityDate = concreteDrugsService.GetAvailabilityDrugDate(recipeId,drug.getId());
+                drugViewModel.NeedsToProduce = drug.getNeedToProduce();
 
-                drugsViewModels.add(drugsViewModel);
+                drugViewModels.add(drugViewModel);
             }
         }
 
-        return drugsViewModels;
+        return drugViewModels;
     }
 
-    public List<DrugsViewModel> GetDrugsNeedsToProduce(int recipeId) {
+    public List<DrugViewModel> GetDrugsNeedsToProduce(int recipeId) {
         List<RecipeHasDrugs> recipeHasDrugs = recipesHasDrugsService.GetAllRecipesHasDrugs();
-        List<DrugsViewModel> drugsViewModels = new ArrayList<>();
+        List<DrugViewModel> drugViewModels = new ArrayList<>();
 
         for (RecipeHasDrugs recipeHasDrugs1 : recipeHasDrugs){
             if(recipeHasDrugs1.getRecipeId() == recipeId){
                 Drug drug = drugsRepository.findOne(recipeHasDrugs1.getDrugId());
                 if(drug != null && drug.getNeedToProduce() == true) {
-                    DrugsViewModel drugsViewModel = new DrugsViewModel();
+                    DrugViewModel drugViewModel = new DrugViewModel();
 
-                    drugsViewModel.NeedsToProduce = drug.getNeedToProduce();
-                    drugsViewModel.DrugName = drug.getName();
-                    drugsViewModel.DrugCount = recipeHasDrugs1.getCount();
-                    drugsViewModel.DrugId = drug.getId();
-                    drugsViewModel.RecipesHasDrugsId = recipeHasDrugs1.getId();
+                    drugViewModel.NeedsToProduce = drug.getNeedToProduce();
+                    drugViewModel.DrugName = drug.getName();
+                    drugViewModel.DrugCount = recipeHasDrugs1.getCount();
+                    drugViewModel.DrugId = drug.getId();
+                    drugViewModel.RecipesHasDrugsId = recipeHasDrugs1.getId();
 
-                    drugsViewModels.add(drugsViewModel);
+                    drugViewModels.add(drugViewModel);
                 }
             }
         }
 
-        return drugsViewModels;
+        return drugViewModels;
     }
 
     public Drug GetDrugById(int drugId) {
@@ -111,7 +111,7 @@ public class DrugsService {
 
             if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.toUpperCase().equals(tt)){
                 DrugToProduceViewModel drugToProduceViewModel = new DrugToProduceViewModel();
-                drugToProduceViewModel.drugsViewModel = getDrug(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
+                drugToProduceViewModel.drugViewModel = getDrug(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
                 drugToProduceViewModel.ingredientInDrugViewModels = ingredientsService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
                 drugsToProduce.add(drugToProduceViewModel);
             }
@@ -120,8 +120,8 @@ public class DrugsService {
         return drugsToProduce;
     }
 
-    private DrugsViewModel getDrug(int recipeId, int drugId){
-        DrugsViewModel drugViewModel = new DrugsViewModel();
+    private DrugViewModel getDrug(int recipeId, int drugId){
+        DrugViewModel drugViewModel = new DrugViewModel();
         List<RecipeHasDrugs> recipeHasDrugs = recipesHasDrugsService.GetAllRecipesHasDrugs();
 
         for (RecipeHasDrugs recipeHasDrug : recipeHasDrugs){

@@ -1,6 +1,6 @@
 package aptekaproj.services;
 
-import aptekaproj.ViewModels.UsersDoctorViewModel;
+import aptekaproj.viewModels.UserDoctorViewModel;
 import aptekaproj.models.Diagnoses;
 import aptekaproj.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +21,22 @@ public class ApiService {
     @Autowired
     private DiagnosesService diagnosesService;
 
-    public List<UsersDoctorViewModel> GetAppointments(){
+    public List<UserDoctorViewModel> GetAppointments(){
         List<User> doctors = userService.getDoctors();
-        List<UsersDoctorViewModel> usersDoctorViewModels = new ArrayList<>();
+        List<UserDoctorViewModel> userDoctorViewModels = new ArrayList<>();
         for (User doctor:doctors){
-            usersDoctorViewModels.addAll(userService.getPatients(doctor.getId()));
+            userDoctorViewModels.addAll(userService.getPatients(doctor.getId()));
         }
 
-        return usersDoctorViewModels;
+        return userDoctorViewModels;
     }
 
-    public void SaveAppointment(UsersDoctorViewModel usersDoctorViewModel) {
+    public void SaveAppointment(UserDoctorViewModel userDoctorViewModel) {
         Diagnoses diagnoses = new Diagnoses();
 
-        diagnoses.setPatientUserId(usersDoctorViewModel.PatientId);
-        diagnoses.setDoctorUserId(usersDoctorViewModel.DoctorId);
-        diagnoses.setCreatedAt(usersDoctorViewModel.LastVisitDate);
+        diagnoses.setPatientUserId(userDoctorViewModel.PatientId);
+        diagnoses.setDoctorUserId(userDoctorViewModel.DoctorId);
+        diagnoses.setCreatedAt(userDoctorViewModel.LastVisitDate);
         diagnoses.setDiagnosis("");
         diagnoses.setComplaints("");
         diagnoses.setRecipeId(null);

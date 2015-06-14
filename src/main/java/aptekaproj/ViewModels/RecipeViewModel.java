@@ -1,4 +1,4 @@
-package aptekaproj.ViewModels;
+package aptekaproj.viewModels;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ public class RecipeViewModel {
     public int PharmacyId;
     public int DiagnosesId;
     public String AvailabilityDate;
-    public List<DrugsViewModel> drugsViewModelList;
+    public List<DrugViewModel> drugViewModelList;
 }

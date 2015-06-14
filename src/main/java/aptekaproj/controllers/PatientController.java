@@ -1,6 +1,6 @@
 package aptekaproj.controllers;
 
-import aptekaproj.ViewModels.PatientRecipeViewModel;
+import aptekaproj.viewModels.PatientRecipeViewModel;
 import aptekaproj.models.RecipeProgressStatus;
 import aptekaproj.services.RecipeProgressStatusService;
 import aptekaproj.services.RecipeService;

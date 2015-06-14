@@ -1,9 +1,9 @@
 package aptekaproj.controllers;
 
-import aptekaproj.ViewModels.PatientCardViewModel;
-import aptekaproj.ViewModels.PostViewModel;
-import aptekaproj.ViewModels.RecipeViewModel;
-import aptekaproj.ViewModels.UsersDoctorViewModel;
+import aptekaproj.viewModels.PatientCardViewModel;
+import aptekaproj.viewModels.PostViewModel;
+import aptekaproj.viewModels.RecipeViewModel;
+import aptekaproj.viewModels.UserDoctorViewModel;
 import aptekaproj.models.Diagnoses;
 import aptekaproj.models.Drug;
 import aptekaproj.models.Pharmacy;
@@ -41,7 +41,7 @@ public class DoctorController {
     //url example: http://localhost:8443/Doctor/1
     @ResponseBody
     @RequestMapping(value = "/{doctorId}", method = RequestMethod.GET)
-    public List<UsersDoctorViewModel> getAppointments(@PathVariable int doctorId){
+    public List<UserDoctorViewModel> getAppointments(@PathVariable int doctorId){
         return userService.getPatients(doctorId);
     }
 

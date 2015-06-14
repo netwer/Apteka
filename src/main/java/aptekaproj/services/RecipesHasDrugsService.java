@@ -1,7 +1,7 @@
 package aptekaproj.services;
 
-import aptekaproj.ViewModels.DrugsViewModel;
-import aptekaproj.ViewModels.RecipeViewModel;
+import aptekaproj.viewModels.DrugViewModel;
+import aptekaproj.viewModels.RecipeViewModel;
 import aptekaproj.controllers.repository.IRecipesHasDrugsRepository;
 import aptekaproj.models.Recipe;
 import aptekaproj.models.RecipeHasDrugs;
@@ -24,16 +24,16 @@ public class RecipesHasDrugsService {
     }
 
     public void UpdateRecipeHasDrugs(RecipeViewModel recipeViewModel, Recipe recipe){
-        for (DrugsViewModel drugsViewModel : recipeViewModel.drugsViewModelList){
+        for (DrugViewModel drugViewModel : recipeViewModel.drugViewModelList){
             RecipeHasDrugs recipeHasDrugs = new RecipeHasDrugs();
-            if(drugsViewModel.RecipesHasDrugsId != null){
-                recipeHasDrugs = recipesHasDrugsRepository.findOne(drugsViewModel.RecipesHasDrugsId);
+            if(drugViewModel.RecipesHasDrugsId != null){
+                recipeHasDrugs = recipesHasDrugsRepository.findOne(drugViewModel.RecipesHasDrugsId);
                 if(recipeHasDrugs == null)
                     continue;
-                recipeHasDrugs.setId(drugsViewModel.RecipesHasDrugsId);
+                recipeHasDrugs.setId(drugViewModel.RecipesHasDrugsId);
             }
-            recipeHasDrugs.setCount(drugsViewModel.DrugCount);
-            recipeHasDrugs.setDrugId(drugsViewModel.DrugId);
+            recipeHasDrugs.setCount(drugViewModel.DrugCount);
+            recipeHasDrugs.setDrugId(drugViewModel.DrugId);
             recipeHasDrugs.setRecipeId(recipe.getId());
             recipeHasDrugs.setDone(false);
             recipeHasDrugs.setProgressStatusId(recipe.getRecipeProgressStatusId());

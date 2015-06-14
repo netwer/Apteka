@@ -1,7 +1,6 @@
 package aptekaproj.controllers;
 
-import aptekaproj.ViewModels.DrugToProduceViewModel;
-import aptekaproj.ViewModels.PostViewModel;
+import aptekaproj.viewModels.DrugToProduceViewModel;
 import aptekaproj.services.DrugsService;
 import aptekaproj.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;

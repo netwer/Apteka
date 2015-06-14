@@ -1,6 +1,6 @@
 package aptekaproj.controllers;
 
-import aptekaproj.ViewModels.UserViewModel;
+import aptekaproj.viewModels.UserViewModel;
 import aptekaproj.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

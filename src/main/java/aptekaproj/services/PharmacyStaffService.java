@@ -1,6 +1,6 @@
 package aptekaproj.services;
 
-import aptekaproj.ViewModels.UserViewModel;
+import aptekaproj.viewModels.UserViewModel;
 import aptekaproj.controllers.repository.IPharmacyStaffRepository;
 import aptekaproj.helpers.Enums.RolesNameEnum;
 import aptekaproj.models.PharmacyStaff;

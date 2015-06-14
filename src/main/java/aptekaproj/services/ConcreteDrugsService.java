@@ -1,7 +1,7 @@
 package aptekaproj.services;
 
-import aptekaproj.ViewModels.DrugsWithPharmacists;
-import aptekaproj.ViewModels.RecipeDrugsWithPharmacistsViewModel;
+import aptekaproj.viewModels.DrugWithPharmacistViewModel;
+import aptekaproj.viewModels.RecipeDrugWithPharmacistViewModel;
 import aptekaproj.controllers.repository.IConcreteDrugsRepository;
 import aptekaproj.helpers.DateWorker;
 import aptekaproj.models.ConcreteDrug;
@@ -34,13 +34,13 @@ public class ConcreteDrugsService {
 
     //todo - the method must be tested
     //without refactoring - for debugging
-    public void DrugsToProduce(RecipeDrugsWithPharmacistsViewModel recipeDrugsWithPharmacistsViewModel) {
-        for (DrugsWithPharmacists drug : recipeDrugsWithPharmacistsViewModel.drugsWithPharmacist){
+    public void DrugsToProduce(RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {
+        for (DrugWithPharmacistViewModel drug : recipeDrugWithPharmacistViewModel.drugsWithPharmacist){
 
             ConcreteDrug concreteDrug = new ConcreteDrug();
             concreteDrug.setDrugId(drug.DrugId);
             concreteDrug.setPharmacyStaffId(drug.PharmacyStaffId);
-            concreteDrug.setRecipeId(recipeDrugsWithPharmacistsViewModel.recipeId);
+            concreteDrug.setRecipeId(recipeDrugWithPharmacistViewModel.recipeId);
             ConcreteDrug createdConcreteDrug = concreteDrugsRepository.save(concreteDrug);
 
             List<Ingredient> ingredientForDrug = ingredientsService.GetIngredientsForDrug(drug.DrugId);
@@ -69,8 +69,8 @@ public class ConcreteDrugsService {
         }
     }
 
-    public void UpdateDrugsToProduce(List<DrugsWithPharmacists> drugsWithPharmacists) {
-        for (DrugsWithPharmacists drugsWithPharmacists1 : drugsWithPharmacists){
+    public void UpdateDrugsToProduce(List<DrugWithPharmacistViewModel> drugWithPharmacists) {
+        for (DrugWithPharmacistViewModel drugWithPharmacistViewModel1 : drugWithPharmacists){
             //ConcreteDrugs drug =
 
         }

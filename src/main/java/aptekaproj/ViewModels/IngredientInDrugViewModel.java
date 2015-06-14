@@ -1,4 +1,4 @@
-package aptekaproj.ViewModels;
+package aptekaproj.viewModels;
 
 import java.util.Date;
 

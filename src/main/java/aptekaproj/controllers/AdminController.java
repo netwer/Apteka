@@ -1,6 +1,6 @@
 package aptekaproj.controllers;
 
-import aptekaproj.ViewModels.UsersDoctorViewModel;
+import aptekaproj.viewModels.UserDoctorViewModel;
 import aptekaproj.services.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,15 +28,15 @@ public class AdminController {
     //Get all Appointments
     @ResponseBody
     @RequestMapping(value = "/appointments",method = RequestMethod.GET)
-    public List<UsersDoctorViewModel> getAppointments(){
+    public List<UserDoctorViewModel> getAppointments(){
         return apiService.GetAppointments();
     }
 
     //saveDiagnose new appointment
     @ResponseBody
     @RequestMapping(value = "/appointments",method = RequestMethod.POST)
-    public void saveAppointment(@RequestBody UsersDoctorViewModel usersDoctorViewModel){
-        apiService.SaveAppointment(usersDoctorViewModel);
+    public void saveAppointment(@RequestBody UserDoctorViewModel userDoctorViewModel){
+        apiService.SaveAppointment(userDoctorViewModel);
     }
 
     //Delete appointment

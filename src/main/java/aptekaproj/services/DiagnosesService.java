@@ -1,6 +1,6 @@
 package aptekaproj.services;
 
-import aptekaproj.ViewModels.PostViewModel;
+import aptekaproj.viewModels.PostViewModel;
 import aptekaproj.controllers.repository.IDiagnosesRepository;
 import aptekaproj.models.Diagnoses;
 import org.springframework.beans.factory.annotation.Autowired;

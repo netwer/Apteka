@@ -1,6 +1,6 @@
 package aptekaproj.services;
 
-import aptekaproj.ViewModels.IngredientInDrugViewModel;
+import aptekaproj.viewModels.IngredientInDrugViewModel;
 import aptekaproj.controllers.repository.IIngredientsRepository;
 import aptekaproj.models.ConcreteIngredient;
 import aptekaproj.models.Ingredient;
