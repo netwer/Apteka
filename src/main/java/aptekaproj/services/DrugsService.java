@@ -54,12 +54,12 @@ public class DrugsService {
                 if(drug == null)
                     continue;
 
-                drugViewModel.RecipesHasDrugsId = recipeHasDrugs.getId();
-                drugViewModel.DrugId = recipeHasDrugs.getDrugId();
-                drugViewModel.DrugCount = recipeHasDrugs.getCount();
-                drugViewModel.DrugName = drug.getName();
-                drugViewModel.AvailabilityDate = concreteDrugsService.GetAvailabilityDrugDate(recipeId,drug.getId());
-                drugViewModel.NeedsToProduce = drug.getNeedToProduce();
+                drugViewModel.recipesHasDrugsId = recipeHasDrugs.getId();
+                drugViewModel.drugId = recipeHasDrugs.getDrugId();
+                drugViewModel.drugCount = recipeHasDrugs.getCount();
+                drugViewModel.drugName = drug.getName();
+                drugViewModel.availabilityDate = concreteDrugsService.GetAvailabilityDrugDate(recipeId,drug.getId());
+                drugViewModel.needsToProduce = drug.getNeedToProduce();
 
                 drugViewModels.add(drugViewModel);
             }
@@ -78,11 +78,11 @@ public class DrugsService {
                 if(drug != null && drug.getNeedToProduce() == true) {
                     DrugViewModel drugViewModel = new DrugViewModel();
 
-                    drugViewModel.NeedsToProduce = drug.getNeedToProduce();
-                    drugViewModel.DrugName = drug.getName();
-                    drugViewModel.DrugCount = recipeHasDrugs1.getCount();
-                    drugViewModel.DrugId = drug.getId();
-                    drugViewModel.RecipesHasDrugsId = recipeHasDrugs1.getId();
+                    drugViewModel.needsToProduce = drug.getNeedToProduce();
+                    drugViewModel.drugName = drug.getName();
+                    drugViewModel.drugCount = recipeHasDrugs1.getCount();
+                    drugViewModel.drugId = drug.getId();
+                    drugViewModel.recipesHasDrugsId = recipeHasDrugs1.getId();
 
                     drugViewModels.add(drugViewModel);
                 }
@@ -130,12 +130,12 @@ public class DrugsService {
                 if (drug == null)
                     continue;
 
-                drugViewModel.DrugId = drug.getId();
-                drugViewModel.DrugName = drug.getName();
-                drugViewModel.DrugCount = recipeHasDrug.getCount();
-                drugViewModel.RecipesHasDrugsId = recipeHasDrug.getId();
-                drugViewModel.NeedsToProduce = drug.getNeedToProduce();
-                drugViewModel.AvailabilityDate = concreteDrugsService.GetAvailabilityDrugDate(recipeId,drug.getId());
+                drugViewModel.drugId = drug.getId();
+                drugViewModel.drugName = drug.getName();
+                drugViewModel.drugCount = recipeHasDrug.getCount();
+                drugViewModel.recipesHasDrugsId = recipeHasDrug.getId();
+                drugViewModel.needsToProduce = drug.getNeedToProduce();
+                drugViewModel.availabilityDate = concreteDrugsService.GetAvailabilityDrugDate(recipeId,drug.getId());
                 return drugViewModel;
             }
         }
