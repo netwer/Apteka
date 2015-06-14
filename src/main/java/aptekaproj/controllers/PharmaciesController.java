@@ -95,7 +95,8 @@ public class PharmaciesController {
     public void updateOrderToProduce(@RequestBody List<DrugsWithPharmacists> drugsWithPharmacists) {
         concreteDrugsService.UpdateDrugsToProduce(drugsWithPharmacists);
     }
-    
+
+
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipe/{id}", method = RequestMethod.GET)
     public RecipeViewModel getRecipeInfo(@PathVariable int id) {

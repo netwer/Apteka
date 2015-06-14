@@ -20,11 +20,12 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    //Login into apteka
     //http://localhost:8080/Login/?login=doctor1&password=doctor1
+    @ResponseBody
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    public @ResponseBody
-    UserViewModel Sigin(@RequestParam(value = "login", required = true) String login,
-                        @RequestParam(value = "password", required = true) String password){
+    public UserViewModel login(@RequestParam(value = "login", required = true) String login,
+                               @RequestParam(value = "password", required = true) String password){
         return userService.getUser(login,password);
     }
 }

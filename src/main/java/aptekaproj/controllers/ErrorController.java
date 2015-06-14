@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/Error")
 public class ErrorController {
 
+    //Test errors
+    @ResponseBody
     @RequestMapping(value = "/Show",method = RequestMethod.GET)
-    public @ResponseBody String ShowErrorMessage(String message){
+    public String showErrorMessage(String message){
         return message;
     }
 }
