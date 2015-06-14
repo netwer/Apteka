@@ -117,4 +117,8 @@ public class ConcreteDrugsService {
 
         return concreteDrug;
     }
+
+    public List<ConcreteDrugs> getAllConcreteDrugs() {
+        return (List<ConcreteDrugs>)concreteDrugsRepository.findAll();
+    }
 }

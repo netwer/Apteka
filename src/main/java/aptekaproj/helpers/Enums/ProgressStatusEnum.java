@@ -6,6 +6,7 @@ package aptekaproj.helpers.Enums;
 public enum ProgressStatusEnum {
     CREATED("СОЗДАН"),
     UPDATED("ОБНОВЛЕН"),
+    IN_PROCESS("В ПРОЦЕССЕ ИЗГОТОВЛЕНИЯ"),
     DONE("ЗАВЕРШЕН");
 
     private String displayName;

@@ -6,8 +6,8 @@ package aptekaproj.ViewModels;
 public class DrugsViewModel {
     public Integer RecipesHasDrugsId;
     public int DrugId;
-    public String DrugName;
     public int DrugCount;
     public boolean NeedsToProduce;
     public String AvailabilityDate;
+    public String DrugName;
 }
