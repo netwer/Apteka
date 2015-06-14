@@ -1,9 +1,12 @@
 package aptekaproj.services;
 
+import aptekaproj.ViewModels.DrugToProduceViewModel;
 import aptekaproj.ViewModels.DrugsViewModel;
 import aptekaproj.controllers.repository.IDrugsRepository;
+import aptekaproj.helpers.Enums.ProgressStatusEnum;
 import aptekaproj.models.ConcreteDrugs;
 import aptekaproj.models.Drugs;
+import aptekaproj.models.Recipes;
 import aptekaproj.models.RecipesHasDrugs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,15 @@ public class DrugsService {
 
     @Autowired
     private ConcreteDrugsService concreteDrugsService;
+
+    @Autowired
+    private RecipeService recipeService;
+
+    @Autowired
+    private RecipeProgressStatusService recipeProgressStatusService;
+
+    @Autowired
+    private IngredientsService ingredientsService;
 
     public List<Drugs> GetDrugs(){
         return (List<Drugs>)drugsRepository.findAll();
@@ -82,5 +94,52 @@ public class DrugsService {
 
     public Drugs GetDrugById(int drugId) {
         return drugsRepository.findOne(drugId);
+    }
+
+    public List<DrugToProduceViewModel> getDrugsToProduce(int pharmacyStaffId) {
+        List<ConcreteDrugs> concreteDrugsList = concreteDrugsService.getAllConcreteDrugs();
+        List<DrugToProduceViewModel> drugsToProduce = new ArrayList<>();
+
+        for (ConcreteDrugs concreteDrug : concreteDrugsList){
+            Recipes recipe = recipeService.GetRecipeById(concreteDrug.getRecipeId());
+
+            if(recipe == null)
+                continue;
+
+            String recipeStatus = recipeProgressStatusService.GetRecipeProgressStatusById(recipe.getRecipeProgressStatusId()).getName();
+            String tt = ProgressStatusEnum.IN_PROCESS.toString().toUpperCase();
+
+            if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.toUpperCase().equals(tt)){
+                DrugToProduceViewModel drugToProduceViewModel = new DrugToProduceViewModel();
+                drugToProduceViewModel.drugsViewModel = getDrug(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
+                drugToProduceViewModel.ingredientInDrugViewModels = ingredientsService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
+                drugsToProduce.add(drugToProduceViewModel);
+            }
+        }
+
+        return drugsToProduce;
+    }
+
+    private DrugsViewModel getDrug(int recipeId, int drugId){
+        DrugsViewModel drugViewModel = new DrugsViewModel();
+        List<RecipesHasDrugs> recipesHasDrugs = recipesHasDrugsService.GetAllRecipesHasDrugs();
+
+        for (RecipesHasDrugs recipeHasDrug : recipesHasDrugs){
+            if(recipeHasDrug.getRecipe_id() == recipeId && recipeHasDrug.getDrug_id() == drugId){
+                Drugs drug = GetDrugById(drugId);
+                if (drug == null)
+                    continue;
+
+                drugViewModel.DrugId = drug.getId();
+                drugViewModel.DrugName = drug.getName();
+                drugViewModel.DrugCount = recipeHasDrug.getCount();
+                drugViewModel.RecipesHasDrugsId = recipeHasDrug.getId();
+                drugViewModel.NeedsToProduce = drug.getNeedsToProduce();
+                drugViewModel.AvailabilityDate = concreteDrugsService.GetAvailabilityDrugDate(recipeId,drug.getId());
+                return drugViewModel;
+            }
+        }
+
+        return drugViewModel;
     }
 }

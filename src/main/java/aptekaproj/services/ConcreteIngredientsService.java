@@ -74,7 +74,7 @@ public class ConcreteIngredientsService {
         return concreteIngredientsById;
     }
 
-    public String  GetConcreteIngredientAvailableDate(int concreteDrugId, int drugId) {
+    public String GetConcreteIngredientAvailableDate(int concreteDrugId, int drugId) {
         List<ConcreteIngredients> concreteIngredientsList = GetAllConcreteIngredients();
         List<Date> availableDate = new ArrayList<>();
         for (ConcreteIngredients ingredient : concreteIngredientsList){

@@ -49,7 +49,7 @@ public class UserService {
             return responseViewModel;
         }
         responseViewModel.ErrorMessage = "login or password incorrect";
-        responseViewModel.Url = "/Login/Sigin";
+        responseViewModel.Url = "/Login/login";
         return responseViewModel;
     }
 
@@ -106,7 +106,7 @@ public class UserService {
                 patientCardViewModel.PatientFullName = patient.getFullName();
                 patientCardViewModel.PatientPoliceNumber = patient.getMedicalPolicyNumber();
                 //todo need?
-                //patientCardViewModel.recipeViewModel = recipeService.GetRecipe(patientId,diagnoses.getId(),diagnoses.getRecipe_id());
+                //patientCardViewModel.recipeViewModel = recipeService.getRecipe(patientId,diagnoses.getId(),diagnoses.getRecipe_id());
 
                 //todo may be error
                 break;
