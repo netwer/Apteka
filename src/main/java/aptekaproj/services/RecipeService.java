@@ -50,15 +50,15 @@ public class RecipeService {
         //todo check!
         RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusByName(ProgressStatusEnum.CREATED.toString());
         Recipe recipe = new Recipe();
-        recipe.setTitle(recipeViewModel.RecipeTitle);
+        recipe.setTitle(recipeViewModel.recipeTitle);
         recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
-        recipe.setPharmacyId(recipeViewModel.PharmacyId);
+        recipe.setPharmacyId(recipeViewModel.pharmacyId);
         recipe.setCreatedAt(new Date());
 
         //todo CHECK!
         //Recipes recipes1 = recipesRepository.SaveRecipeHasDrugs(recipes);
         Recipe recipe1 = recipesRepository.save(recipe);
-        diagnosesService.UpdateDiagnosis(recipeViewModel.DiagnosesId, recipe1.getId());
+        diagnosesService.UpdateDiagnosis(recipeViewModel.diagnosesId, recipe1.getId());
         recipesHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipe1);
     }
 
@@ -86,15 +86,15 @@ public class RecipeService {
             User user = userService.getUserById(diagnoses.getDoctorUserId());
             RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusById(recipe.getRecipeProgressStatusId());
 
-            patientRecipeViewModel.DoctorId = diagnoses.getDoctorUserId();
-            patientRecipeViewModel.DoctorName = user.getFullName();
-            patientRecipeViewModel.PharmaciesAddress = pharmacy.getAddress();
-            patientRecipeViewModel.PharmaciesName = pharmacy.getName();
-            patientRecipeViewModel.RecipeCreated = recipe.getCreatedAt().toString();
-            patientRecipeViewModel.RecipeTitle = recipe.getTitle();
-            patientRecipeViewModel.RecipeId = diagnoses.getRecipeId();
-            patientRecipeViewModel.RecipeStatusId = recipeProgressStatus.getId();
-            patientRecipeViewModel.RecipeStatusName = recipeProgressStatus.getName();
+            patientRecipeViewModel.doctorId = diagnoses.getDoctorUserId();
+            patientRecipeViewModel.doctorName = user.getFullName();
+            patientRecipeViewModel.pharmaciesAddress = pharmacy.getAddress();
+            patientRecipeViewModel.pharmaciesName = pharmacy.getName();
+            patientRecipeViewModel.recipeCreated = recipe.getCreatedAt().toString();
+            patientRecipeViewModel.recipeTitle = recipe.getTitle();
+            patientRecipeViewModel.recipeId = diagnoses.getRecipeId();
+            patientRecipeViewModel.recipeStatusId = recipeProgressStatus.getId();
+            patientRecipeViewModel.recipeStatusName = recipeProgressStatus.getName();
 
             patientRecipeViewModels.add(patientRecipeViewModel);
         }
@@ -102,15 +102,15 @@ public class RecipeService {
     }
 
     public void Update(RecipeViewModel recipeViewModel) {
-        Recipe recipe = recipesRepository.findOne(recipeViewModel.RecipeId);
+        Recipe recipe = recipesRepository.findOne(recipeViewModel.recipeId);
         RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusByName(ProgressStatusEnum.UPDATED.toString());
 
         if(recipe == null || recipeProgressStatus == null)
             return;
 
-        recipe.setId(recipeViewModel.RecipeId);
-        recipe.setTitle(recipeViewModel.RecipeTitle);
-        recipe.setPharmacyId(recipeViewModel.PharmacyId);
+        recipe.setId(recipeViewModel.recipeId);
+        recipe.setTitle(recipeViewModel.recipeTitle);
+        recipe.setPharmacyId(recipeViewModel.pharmacyId);
         recipe.setCreatedAt(new Date());
         recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
 
@@ -126,12 +126,12 @@ public class RecipeService {
         if (recipe == null && diagnoses != null)
             return recipeViewModel;
 
-        recipeViewModel.DiagnosesId = diagnoses.getId();
-        recipeViewModel.PharmacyId = recipe.getPharmacyId();
-        recipeViewModel.RecipeId = recipeId;
-        recipeViewModel.RecipeTitle = recipe.getTitle();
-        recipeViewModel.AvailabilityDate = concreteDrugsService.GetAvailabilityRecipeDate(recipeId);
-        recipeViewModel.drugViewModelList = drugsService.GetDrugsForRecipe(recipeId);
+        recipeViewModel.diagnosesId = diagnoses.getId();
+        recipeViewModel.pharmacyId = recipe.getPharmacyId();
+        recipeViewModel.recipeId = recipeId;
+        recipeViewModel.recipeTitle = recipe.getTitle();
+        recipeViewModel.availabilityDate = concreteDrugsService.GetAvailabilityRecipeDate(recipeId);
+        recipeViewModel.drugViewModels = drugsService.GetDrugsForRecipe(recipeId);
         return recipeViewModel;
     }
 

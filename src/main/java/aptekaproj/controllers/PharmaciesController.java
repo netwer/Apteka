@@ -65,7 +65,7 @@ public class PharmaciesController {
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipes/", method = RequestMethod.POST)
     public void changeStatus(@RequestBody PostViewModel postViewModel) {//,@RequestBody String status){
-        recipeService.ChangeStatus(postViewModel.Id, postViewModel.status);
+        recipeService.ChangeStatus(postViewModel.id, postViewModel.status);
     }
 
     //Get List drugs for produce and List apothecaries in apothecary

@@ -35,10 +35,10 @@ public class PharmacyStaffService {
                 UserViewModel userViewModel = new UserViewModel();
                 User user1 = new User();
                 user1 = userService.getUserById(pharmacyStaff.getUserId());
-                userViewModel.UserId = user1.getId();
-                userViewModel.UserRole = roleService.GetRoleName(user1.getRoleId());
-                userViewModel.UserFullName = user1.getFullName();
-                userViewModel.UserLogin = user1.getLogin();
+                userViewModel.userId = user1.getId();
+                userViewModel.userRole = roleService.GetRoleName(user1.getRoleId());
+                userViewModel.userFullName = user1.getFullName();
+                userViewModel.userLogin = user1.getLogin();
                 users.add(userViewModel);
             }
         }

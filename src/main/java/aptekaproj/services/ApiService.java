@@ -34,9 +34,9 @@ public class ApiService {
     public void SaveAppointment(UserDoctorViewModel userDoctorViewModel) {
         Diagnoses diagnoses = new Diagnoses();
 
-        diagnoses.setPatientUserId(userDoctorViewModel.PatientId);
-        diagnoses.setDoctorUserId(userDoctorViewModel.DoctorId);
-        diagnoses.setCreatedAt(userDoctorViewModel.LastVisitDate);
+        diagnoses.setPatientUserId(userDoctorViewModel.patientId);
+        diagnoses.setDoctorUserId(userDoctorViewModel.doctorId);
+        diagnoses.setCreatedAt(userDoctorViewModel.lastVisitDate);
         diagnoses.setDiagnosis("");
         diagnoses.setComplaints("");
         diagnoses.setRecipeId(null);

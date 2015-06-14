@@ -4,12 +4,12 @@ package aptekaproj.viewModels;
  * Created by Admin on 24.05.2015.
  */
 public class PatientCardViewModel {
-    public int PatientId;
-    public String PatientFullName;
-    public int DoctorId;
-    public String PatientAddress;
-    public String PatientPoliceNumber;
-    public String Complaints;
-    public String Diagnosis;
+    public int patientId;
+    public String patientFullName;
+    public int doctorId;
+    public String patientAddress;
+    public String patientPoliceNumber;
+    public String complaints;
+    public String diagnosis;
     public RecipeViewModel recipeViewModel;
 }

@@ -38,24 +38,24 @@ public class UserService {
         User user = userInDb(login,password);
         UserViewModel responseViewModel = new UserViewModel();
         if(user != null ){
-            responseViewModel.Url = "/" + roleService.GetRoleName(user.getRoleId()) + "/";
-            responseViewModel.UserFullName = user.getFullName();
-            responseViewModel.UserId = user.getId();
-            responseViewModel.UserLogin = user.getLogin();
-            responseViewModel.UserRole = roleService.GetRoleName(user.getRoleId());
-            responseViewModel.UserRoleId = user.getRoleId();
-            responseViewModel.ErrorMessage = "";
+            responseViewModel.url = "/" + roleService.GetRoleName(user.getRoleId()) + "/";
+            responseViewModel.userFullName = user.getFullName();
+            responseViewModel.userId = user.getId();
+            responseViewModel.userLogin = user.getLogin();
+            responseViewModel.userRole = roleService.GetRoleName(user.getRoleId());
+            responseViewModel.userRoleId = user.getRoleId();
+            responseViewModel.errorMessage = "";
             //return"redirect:/" + roleService.GetRoleName(user.getRoleId()) + "/Success?message=Welcome," + userName;
             return responseViewModel;
         }
-        responseViewModel.ErrorMessage = "login or password incorrect";
-        responseViewModel.Url = "/Login/login";
+        responseViewModel.errorMessage = "login or password incorrect";
+        responseViewModel.url = "/Login/login";
         return responseViewModel;
     }
 
     //todo add check is recipe_id is null ?!
-    //todo add check is Complaints is null ?!
-    //todo add check is Diagnosis is null?!
+    //todo add check is complaints is null ?!
+    //todo add check is diagnosis is null?!
     public List<UserDoctorViewModel> getPatients(int userId){
         List<Diagnoses> diagnoseses = diagnosesService.GetAllDiagnoses();
         List<UserDoctorViewModel> userDoctorViewModels = new ArrayList<>();
@@ -69,14 +69,14 @@ public class UserService {
                 User patient = getUserById(diagnoses.getPatientUserId());
                 User doctor = getUserById(userId);
                 UserDoctorViewModel userDoctorViewModel = new UserDoctorViewModel();
-                userDoctorViewModel.DoctorId = userId;
-                userDoctorViewModel.PatientId = patient.getId();
-                userDoctorViewModel.PatientFullName = patient.getFullName();
-                userDoctorViewModel.DoctorFullName = doctor.getFullName();
+                userDoctorViewModel.doctorId = userId;
+                userDoctorViewModel.patientId = patient.getId();
+                userDoctorViewModel.patientFullName = patient.getFullName();
+                userDoctorViewModel.doctorFullName = doctor.getFullName();
                 //todo right date?
-                //usersDoctorViewModel.LastVisitDate = new SimpleDateFormat("MM/dd/yyyy").format(diagnoses.getCreatedAt()).toString();
-                userDoctorViewModel.LastVisitDate = diagnoses.getCreatedAt().toString();
-                userDoctorViewModel.DiagnosisId = diagnoses.getId();
+                //usersDoctorViewModel.lastVisitDate = new SimpleDateFormat("MM/dd/yyyy").format(diagnoses.getCreatedAt()).toString();
+                userDoctorViewModel.lastVisitDate = diagnoses.getCreatedAt().toString();
+                userDoctorViewModel.diagnosisId = diagnoses.getId();
                 userDoctorViewModels.add(userDoctorViewModel);
             }
         }
@@ -84,8 +84,8 @@ public class UserService {
     }
 
     //todo add check is recipe_id is null ?!
-    //todo add check is Complaints is null ?!
-    //todo add check is Diagnosis is null?!
+    //todo add check is complaints is null ?!
+    //todo add check is diagnosis is null?!
     public PatientCardViewModel getPatientCard(int patientId,int doctorId){
         PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
         User patient = new User();
@@ -98,13 +98,13 @@ public class UserService {
                (diagnoses.getDiagnosis() == null || diagnoses.getDiagnosis().isEmpty())){
 
                 patient = getUserById(patientId);
-                patientCardViewModel.Complaints = diagnoses.getComplaints();
-                patientCardViewModel.Diagnosis = diagnoses.getDiagnosis();
-                patientCardViewModel.DoctorId = doctorId;
-                patientCardViewModel.PatientId = patientId;
-                patientCardViewModel.PatientAddress = patient.getAddress();
-                patientCardViewModel.PatientFullName = patient.getFullName();
-                patientCardViewModel.PatientPoliceNumber = patient.getMedicalPolicyNumber();
+                patientCardViewModel.complaints = diagnoses.getComplaints();
+                patientCardViewModel.diagnosis = diagnoses.getDiagnosis();
+                patientCardViewModel.doctorId = doctorId;
+                patientCardViewModel.patientId = patientId;
+                patientCardViewModel.patientAddress = patient.getAddress();
+                patientCardViewModel.patientFullName = patient.getFullName();
+                patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
                 //todo need?
                 //patientCardViewModel.recipeViewModel = recipeService.getRecipe(patientId,diagnoses.getId(),diagnoses.getRecipeId());
 

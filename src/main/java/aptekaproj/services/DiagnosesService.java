@@ -36,7 +36,7 @@ public class DiagnosesService {
         PostViewModel postViewModel = new PostViewModel();
         try{
             Diagnoses diagnoses1 = diagnosesRepository.save(diagnoses);
-            postViewModel.Id = diagnoses1.getId();
+            postViewModel.id = diagnoses1.getId();
             postViewModel.status = "OK";
             postViewModel.message = "Saved";
             return postViewModel;

@@ -24,7 +24,7 @@ public class RecipesHasDrugsService {
     }
 
     public void UpdateRecipeHasDrugs(RecipeViewModel recipeViewModel, Recipe recipe){
-        for (DrugViewModel drugViewModel : recipeViewModel.drugViewModelList){
+        for (DrugViewModel drugViewModel : recipeViewModel.drugViewModels){
             RecipeHasDrugs recipeHasDrugs = new RecipeHasDrugs();
             if(drugViewModel.recipesHasDrugsId != null){
                 recipeHasDrugs = recipesHasDrugsRepository.findOne(drugViewModel.recipesHasDrugsId);
