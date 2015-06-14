@@ -38,12 +38,12 @@ public class ConcreteDrugsService {
         for (DrugWithPharmacistViewModel drug : recipeDrugWithPharmacistViewModel.drugsWithPharmacist){
 
             ConcreteDrug concreteDrug = new ConcreteDrug();
-            concreteDrug.setDrugId(drug.DrugId);
-            concreteDrug.setPharmacyStaffId(drug.PharmacyStaffId);
+            concreteDrug.setDrugId(drug.drugId);
+            concreteDrug.setPharmacyStaffId(drug.pharmacyStaffId);
             concreteDrug.setRecipeId(recipeDrugWithPharmacistViewModel.recipeId);
             ConcreteDrug createdConcreteDrug = concreteDrugsRepository.save(concreteDrug);
 
-            List<Ingredient> ingredientForDrug = ingredientsService.GetIngredientsForDrug(drug.DrugId);
+            List<Ingredient> ingredientForDrug = ingredientsService.GetIngredientsForDrug(drug.drugId);
             for (Ingredient ingredient : ingredientForDrug){
                 List<ConcreteIngredient> concreteIngredientList = concreteIngredientsService.GetConcreteIngredientByMaxAvailableDate(ingredient.getId());
                 int countRecordsByMaxDate = concreteIngredientList.size();

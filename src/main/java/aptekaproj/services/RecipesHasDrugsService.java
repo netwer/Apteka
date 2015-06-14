@@ -26,14 +26,14 @@ public class RecipesHasDrugsService {
     public void UpdateRecipeHasDrugs(RecipeViewModel recipeViewModel, Recipe recipe){
         for (DrugViewModel drugViewModel : recipeViewModel.drugViewModelList){
             RecipeHasDrugs recipeHasDrugs = new RecipeHasDrugs();
-            if(drugViewModel.RecipesHasDrugsId != null){
-                recipeHasDrugs = recipesHasDrugsRepository.findOne(drugViewModel.RecipesHasDrugsId);
+            if(drugViewModel.recipesHasDrugsId != null){
+                recipeHasDrugs = recipesHasDrugsRepository.findOne(drugViewModel.recipesHasDrugsId);
                 if(recipeHasDrugs == null)
                     continue;
-                recipeHasDrugs.setId(drugViewModel.RecipesHasDrugsId);
+                recipeHasDrugs.setId(drugViewModel.recipesHasDrugsId);
             }
-            recipeHasDrugs.setCount(drugViewModel.DrugCount);
-            recipeHasDrugs.setDrugId(drugViewModel.DrugId);
+            recipeHasDrugs.setCount(drugViewModel.drugCount);
+            recipeHasDrugs.setDrugId(drugViewModel.drugId);
             recipeHasDrugs.setRecipeId(recipe.getId());
             recipeHasDrugs.setDone(false);
             recipeHasDrugs.setProgressStatusId(recipe.getRecipeProgressStatusId());
