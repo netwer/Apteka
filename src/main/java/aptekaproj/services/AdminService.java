@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Admin on 06.06.2015.
  */
 @Service
-public class ApiService {
+public class AdminService {
 
     @Autowired
     private UserService userService;
