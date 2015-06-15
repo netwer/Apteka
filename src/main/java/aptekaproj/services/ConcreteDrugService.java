@@ -18,19 +18,19 @@ import java.util.List;
  * Created by Admin on 12.06.2015.
  */
 @Service
-public class ConcreteDrugsService {
+public class ConcreteDrugService {
 
     @Autowired
     private IConcreteDrugsRepository concreteDrugsRepository;
 
     @Autowired
-    private IngredientsService ingredientsService;
+    private IngredientService ingredientService;
 
     @Autowired
-    private ConcreteIngredientsService concreteIngredientsService;
+    private ConcreteIngredientService concreteIngredientsService;
 
     @Autowired
-    private DrugsService drugsService;
+    private DrugService drugService;
 
     //todo - the method must be tested
     //without refactoring - for debugging
@@ -43,7 +43,7 @@ public class ConcreteDrugsService {
             concreteDrug.setRecipeId(recipeDrugWithPharmacistViewModel.recipeId);
             ConcreteDrug createdConcreteDrug = concreteDrugsRepository.save(concreteDrug);
 
-            List<Ingredient> ingredientForDrug = ingredientsService.GetIngredientsForDrug(drug.drugId);
+            List<Ingredient> ingredientForDrug = ingredientService.GetIngredientsForDrug(drug.drugId);
             for (Ingredient ingredient : ingredientForDrug){
                 List<ConcreteIngredient> concreteIngredientList = concreteIngredientsService.GetConcreteIngredientByMaxAvailableDate(ingredient.getId());
                 int countRecordsByMaxDate = concreteIngredientList.size();

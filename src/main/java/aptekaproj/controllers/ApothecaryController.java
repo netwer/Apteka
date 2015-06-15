@@ -2,7 +2,7 @@ package aptekaproj.controllers;
 
 import aptekaproj.models.RecipeHasDrugs;
 import aptekaproj.viewModels.DrugToProduceViewModel;
-import aptekaproj.services.DrugsService;
+import aptekaproj.services.DrugService;
 import aptekaproj.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import java.util.List;
 public class ApothecaryController {
 
     @Autowired
-    private DrugsService drugsService;
+    private DrugService drugService;
 
     @Autowired
     private RecipeService recipeService;
@@ -26,20 +26,20 @@ public class ApothecaryController {
     @ResponseBody
     @RequestMapping(value = "/drugs/",method = RequestMethod.GET)
     public List<DrugToProduceViewModel> getDrugsToProduce(@RequestParam(value = "pharmacyStaffId", required = true) int pharmacyStaffId){
-        return drugsService.getDrugsToProduce(pharmacyStaffId);
+        return drugService.getDrugsToProduce(pharmacyStaffId);
     }
 
     @ResponseBody
     @RequestMapping(value = "/drug/",method = RequestMethod.GET)
     public DrugToProduceViewModel getDrugToProduce(@RequestParam(value = "pharmacyStaffId", required = true) int pharmacyStaffId,
                                                    @RequestParam(value = "drugId", required = true) int drugId){
-        return drugsService.getDrugToProduce(pharmacyStaffId,drugId);
+        return drugService.getDrugToProduce(pharmacyStaffId,drugId);
     }
 
     @ResponseBody
     @RequestMapping(value = "/drug/done/",method = RequestMethod.GET)
     public RecipeHasDrugs drugToDone(@RequestParam(value = "recipeHasDrugsId") int recipeHasDrugsId1){
-        return drugsService.drugToDone(recipeHasDrugsId1);
+        return drugService.drugToDone(recipeHasDrugsId1);
     }
     //Change recipe status - the input parameter is ViewModel with recipe ID and new status
     /*@ResponseBody

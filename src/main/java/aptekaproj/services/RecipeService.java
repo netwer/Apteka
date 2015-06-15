@@ -26,16 +26,16 @@ public class RecipeService {
     private RecipeProgressStatusService recipeProgressStatusService;
 
     @Autowired
-    private DrugsService drugsService;
+    private DrugService drugService;
 
     @Autowired
     private DiagnosesService diagnosesService;
 
     @Autowired
-    private RecipesHasDrugsService recipesHasDrugsService;
+    private RecipeHasDrugsService recipeHasDrugsService;
 
     @Autowired
-    private PharmaciesService pharmaciesService;
+    private PharmacyService pharmacyService;
 
     @Autowired
     private UserService userService;
@@ -44,7 +44,7 @@ public class RecipeService {
     private PharmacyStaffService pharmacyStaffService;
 
     @Autowired
-    private ConcreteDrugsService concreteDrugsService;
+    private ConcreteDrugService concreteDrugService;
 
     public void Save(RecipeViewModel recipeViewModel){
         //todo check!
@@ -59,7 +59,7 @@ public class RecipeService {
         //Recipes recipes1 = recipesRepository.SaveRecipeHasDrugs(recipes);
         Recipe recipe1 = recipesRepository.save(recipe);
         diagnosesService.UpdateDiagnosis(recipeViewModel.diagnosesId, recipe1.getId());
-        recipesHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipe1);
+        recipeHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipe1);
     }
 
     public void Save(Recipe recipe){
@@ -82,7 +82,7 @@ public class RecipeService {
             if(recipe == null)
                 continue;
 
-            Pharmacy pharmacy = pharmaciesService.GetPharmacyById(recipe.getPharmacyId());
+            Pharmacy pharmacy = pharmacyService.GetPharmacyById(recipe.getPharmacyId());
             User user = userService.getUserById(diagnoses.getDoctorUserId());
             RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.GetRecipeProgressStatusById(recipe.getRecipeProgressStatusId());
 
@@ -115,7 +115,7 @@ public class RecipeService {
         recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
 
         recipesRepository.save(recipe);
-        recipesHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipe);
+        recipeHasDrugsService.UpdateRecipeHasDrugs(recipeViewModel, recipe);
     }
 
     public RecipeViewModel GetRecipe(int recipeId){
@@ -130,8 +130,8 @@ public class RecipeService {
         recipeViewModel.pharmacyId = recipe.getPharmacyId();
         recipeViewModel.recipeId = recipeId;
         recipeViewModel.recipeTitle = recipe.getTitle();
-        recipeViewModel.availabilityDate = concreteDrugsService.GetAvailabilityRecipeDate(recipeId);
-        recipeViewModel.drugViewModels = drugsService.GetDrugsForRecipe(recipeId);
+        recipeViewModel.availabilityDate = concreteDrugService.GetAvailabilityRecipeDate(recipeId);
+        recipeViewModel.drugViewModels = drugService.GetDrugsForRecipe(recipeId);
         return recipeViewModel;
     }
 
@@ -168,7 +168,7 @@ public class RecipeService {
 
     public OrderMissingViewModel GetOrderMissing(int pharmacistId, int recipeId) {
         List<User> pharmacistsList = pharmacyStaffService.GetStaffs(pharmacistId);
-        List<DrugViewModel> drugViewModelList = drugsService.GetDrugsNeedsToProduce(recipeId);
+        List<DrugViewModel> drugViewModelList = drugService.GetDrugsNeedsToProduce(recipeId);
         OrderMissingViewModel orderMissing = new OrderMissingViewModel();
         orderMissing.apothecaryUsers = pharmacistsList;
         orderMissing.drugViewModels = drugViewModelList;

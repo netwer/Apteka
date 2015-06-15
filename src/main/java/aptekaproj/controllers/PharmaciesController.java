@@ -2,7 +2,7 @@ package aptekaproj.controllers;
 
 import aptekaproj.viewModels.*;
 import aptekaproj.models.Recipe;
-import aptekaproj.services.ConcreteDrugsService;
+import aptekaproj.services.ConcreteDrugService;
 import aptekaproj.services.PharmacyStaffService;
 import aptekaproj.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class PharmaciesController {
     private RecipeService recipeService;
 
     @Autowired
-    private ConcreteDrugsService concreteDrugsService;
+    private ConcreteDrugService concreteDrugService;
 
     //Get apotekary list for appointment to the manufacturer
     @ResponseBody
@@ -84,7 +84,7 @@ public class PharmaciesController {
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/drugs/", method = RequestMethod.POST)
     public void orderToProduce(@RequestBody RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {//need viewModel!!!
-        concreteDrugsService.DrugsToProduce(recipeDrugWithPharmacistViewModel);
+        concreteDrugService.DrugsToProduce(recipeDrugWithPharmacistViewModel);
     }
 
     //Updates the links between drugs and apothecaries who prepare them
@@ -93,7 +93,7 @@ public class PharmaciesController {
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/drugs/", method = RequestMethod.PUT)
     public void updateOrderToProduce(@RequestBody List<DrugWithPharmacistViewModel> drugWithPharmacists) {
-        concreteDrugsService.UpdateDrugsToProduce(drugWithPharmacists);
+        concreteDrugService.UpdateDrugsToProduce(drugWithPharmacists);
     }
 
 

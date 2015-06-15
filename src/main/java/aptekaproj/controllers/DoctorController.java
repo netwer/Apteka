@@ -29,10 +29,10 @@ public class DoctorController {
     private DiagnosesService diagnosesService;
 
     @Autowired
-    private PharmaciesService pharmaciesService;
+    private PharmacyService pharmacyService;
 
     @Autowired
-    private DrugsService drugsService;
+    private DrugService drugService;
 
     @Autowired
     private RecipeService recipeService;
@@ -103,7 +103,7 @@ public class DoctorController {
     @ResponseBody
     @RequestMapping(value = "/recipe/pharmacies",method = RequestMethod.GET)
     public List<Pharmacy> getPharmacies(){
-        return pharmaciesService.GetPharmacies();
+        return pharmacyService.GetPharmacies();
     }
 
     //Get the drugs list
@@ -112,6 +112,6 @@ public class DoctorController {
     @ResponseBody
     @RequestMapping(value = "/recipe/drugs",method = RequestMethod.GET)
     public List<Drug> getDrugs(){
-        return drugsService.GetDrugs();
+        return drugService.GetDrugs();
     }
 }

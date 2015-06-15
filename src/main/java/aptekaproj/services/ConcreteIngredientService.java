@@ -16,13 +16,13 @@ import java.util.List;
  * Created by Admin on 12.06.2015.
  */
 @Service
-public class ConcreteIngredientsService {
+public class ConcreteIngredientService {
 
     @Autowired
     private IConcreteIngredientsRepository concreteIngredientsRepository;
 
     @Autowired
-    private ConcreteDrugsService concreteDrugsService;
+    private ConcreteDrugService concreteDrugService;
 
     //todo - the method must be tested
     //without refactoring - for debugging

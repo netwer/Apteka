@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Admin on 28.05.2015.
  */
 @Service
-public class RecipesHasDrugsService {
+public class RecipeHasDrugsService {
 
     @Autowired
     private IRecipesHasDrugsRepository recipesHasDrugsRepository;

@@ -15,13 +15,13 @@ import java.util.List;
  * Created by Admin on 12.06.2015.
  */
 @Service
-public class IngredientsService {
+public class IngredientService {
 
     @Autowired
     private IIngredientsRepository ingredientsRepository;
 
     @Autowired
-    private ConcreteIngredientsService concreteIngredientsService;
+    private ConcreteIngredientService concreteIngredientsService;
 
     @Autowired
     private MaterialService materialService;
