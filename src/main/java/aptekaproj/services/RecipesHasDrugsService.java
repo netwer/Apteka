@@ -1,5 +1,6 @@
 package aptekaproj.services;
 
+import aptekaproj.helpers.Enums.ProgressStatusEnum;
 import aptekaproj.viewModels.DrugViewModel;
 import aptekaproj.viewModels.RecipeViewModel;
 import aptekaproj.controllers.repository.IRecipesHasDrugsRepository;
@@ -8,6 +9,7 @@ import aptekaproj.models.RecipeHasDrugs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +20,9 @@ public class RecipesHasDrugsService {
 
     @Autowired
     private IRecipesHasDrugsRepository recipesHasDrugsRepository;
+
+    @Autowired
+    private RecipeService recipeService;
 
     public void SaveRecipeHasDrugs(RecipeHasDrugs recipeHasDrugs) {
         recipesHasDrugsRepository.save(recipeHasDrugs);
@@ -43,5 +48,32 @@ public class RecipesHasDrugsService {
 
     public List<RecipeHasDrugs> GetAllRecipesHasDrugs() {
         return (List<RecipeHasDrugs>) recipesHasDrugsRepository.findAll();
+    }
+
+    public RecipeHasDrugs getRecipeHasDrugsById(int recipeHasDrugsId) {
+        return recipesHasDrugsRepository.findOne(recipeHasDrugsId);
+    }
+
+    public RecipeHasDrugs update(RecipeHasDrugs recipeHasDrugs) {
+        return recipesHasDrugsRepository.save(recipeHasDrugs);
+    }
+
+    public void checkAllDrugsInRecipeDone(int recipeId) {
+        List<RecipeHasDrugs> recipeHasDrugs = GetAllRecipesHasDrugs();
+        int countRecipesDone = 0;
+        int countDrugsInRecipe = 0;
+
+        for (RecipeHasDrugs recipeHasDrugs1 : recipeHasDrugs){
+            if(recipeHasDrugs1.getRecipeId()==recipeId){
+                countDrugsInRecipe++;
+                if(recipeHasDrugs1.getDone()){
+                    countRecipesDone++;
+                }
+            }
+        }
+
+        if (countRecipesDone == countDrugsInRecipe){
+            recipeService.ChangeStatus(recipeId, ProgressStatusEnum.PACKAGE.toString().toUpperCase());
+        }
     }
 }

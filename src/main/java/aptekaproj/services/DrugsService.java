@@ -120,6 +120,31 @@ public class DrugsService {
         return drugsToProduce;
     }
 
+    public DrugToProduceViewModel getDrugToProduce(int pharmacyStaffId, int drugId) {
+        List<ConcreteDrug> concreteDrugList = concreteDrugsService.getAllConcreteDrugs();
+        DrugToProduceViewModel drugToProduce = new DrugToProduceViewModel();
+
+        for (ConcreteDrug concreteDrug : concreteDrugList){
+            Recipe recipe = recipeService.GetRecipeById(concreteDrug.getRecipeId());
+
+            if(recipe == null)
+                continue;
+
+            String recipeStatus = recipeProgressStatusService.GetRecipeProgressStatusById(recipe.getRecipeProgressStatusId()).getName();
+            String status = ProgressStatusEnum.IN_PROCESS.toString().toUpperCase();
+
+            if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.toUpperCase().equals(status) && concreteDrug.getDrugId() == drugId){
+                DrugToProduceViewModel drugToProduceViewModel = new DrugToProduceViewModel();
+                drugToProduceViewModel.drugViewModel = getDrug(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
+                drugToProduceViewModel.ingredientInDrugViewModels = ingredientsService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
+                drugToProduce = drugToProduceViewModel;
+                break;
+            }
+        }
+
+        return drugToProduce;
+    }
+
     private DrugViewModel getDrug(int recipeId, int drugId){
         DrugViewModel drugViewModel = new DrugViewModel();
         List<RecipeHasDrugs> recipeHasDrugs = recipesHasDrugsService.GetAllRecipesHasDrugs();
@@ -142,4 +167,14 @@ public class DrugsService {
 
         return drugViewModel;
     }
+
+    public RecipeHasDrugs drugToDone(int recipeHasDrugsId) {
+        RecipeHasDrugs recipeHasDrugs = recipesHasDrugsService.getRecipeHasDrugsById(recipeHasDrugsId);
+        recipeHasDrugs.setDone(true);
+        RecipeHasDrugs recipeHasDrugs1 = recipesHasDrugsService.update(recipeHasDrugs);
+        recipesHasDrugsService.checkAllDrugsInRecipeDone(recipeHasDrugs1.getRecipeId());
+        return recipeHasDrugs1;
+    }
+
+
 }

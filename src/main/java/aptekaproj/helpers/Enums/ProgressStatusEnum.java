@@ -7,6 +7,7 @@ public enum ProgressStatusEnum {
     CREATED("СОЗДАН"),
     UPDATED("ОБНОВЛЕН"),
     IN_PROCESS("В ПРОЦЕССЕ ИЗГОТОВЛЕНИЯ"),
+    PACKAGE("КОМПЛЕКТУЕТСЯ"),
     DONE("ЗАВЕРШЕН");
 
     private String displayName;
