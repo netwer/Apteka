@@ -76,4 +76,18 @@ public class RecipeHasDrugsService {
             recipeService.ChangeStatus(recipeId, ProgressStatusEnum.PACKAGE.toString().toUpperCase());
         }
     }
+
+    public RecipeHasDrugs getRecipeHasDrugsByRecipeAndDrugIds(int recipeId, int drugId) {
+        List<RecipeHasDrugs> recipeHasDrugsList = GetAllRecipesHasDrugs();
+        RecipeHasDrugs recipeHasDrugs = new RecipeHasDrugs();
+
+        for (RecipeHasDrugs recipeHasDrugs1 : recipeHasDrugsList){
+            if(recipeHasDrugs1.getRecipeId() == recipeId && recipeHasDrugs1.getDrugId() == drugId){
+                recipeHasDrugs = recipeHasDrugs1;
+                break;
+            }
+        }
+
+        return recipeHasDrugs;
+    }
 }
