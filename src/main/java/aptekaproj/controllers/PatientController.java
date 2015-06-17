@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by Admin on 25.05.2015.
+ * Controller for patient user
  */
 @Controller
 @RequestMapping("/Patient")
@@ -23,16 +24,23 @@ public class PatientController {
     @Autowired
     private RecipeProgressStatusService recipeProgressStatusService;
 
-    //Получение рецептов для пациента GET /
-    //http://localhost:8443/Patient/?userId=4
+    /**
+     * Get recipe for patient
+     * http://localhost:8443/Patient/?userId=4
+     * @param userId
+     * @return PatientRecipeViewModel
+     */
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public @ResponseBody
     List<PatientRecipeViewModel> Patients(@PathVariable int userId){
         return recipeService.GetRecipesForPatient(userId);
     }
 
-    //Получение статусов GET /statuses
-    //http://localhost:8443/Patient/statuses
+    /**
+     * Get statuses
+     * http://localhost:8443/Patient/statuses
+     * @return
+     */
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
     public @ResponseBody
     List<RecipeProgressStatus> GetRecipeStatuses(){

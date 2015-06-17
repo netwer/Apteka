@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Admin on 29.03.2015.
+ * Controller for login/logout into Apteka
  */
 
 @Controller
@@ -20,8 +21,13 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    //Login into apteka
-    //http://localhost:8080/Login/?login=doctor1&password=doctor1
+    /**
+     * Login into apteka
+     * http://localhost:8080/Login/?login=doctor1&password=doctor1
+     * @param login
+     * @param password
+     * @return UserViewModel
+     */
     @ResponseBody
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public UserViewModel login(@RequestParam(value = "login", required = true) String login,

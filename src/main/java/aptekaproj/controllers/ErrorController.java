@@ -7,12 +7,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Admin on 29.03.2015.
+ * Controller for errors
  */
 @Controller
 @RequestMapping("/Error")
 public class ErrorController {
 
-    //Test errors
+    /**
+     * Test errors
+     * @param message
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/Show",method = RequestMethod.GET)
     public String showErrorMessage(String message){

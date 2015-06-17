@@ -13,9 +13,8 @@ import java.util.List;
 
 /**
  * Created by Admin on 25.05.2015.
+ * Controller for pharmacies user (other name - provizor)
  */
-
-//Provizor
 @Controller
 @RequestMapping("/Pharmacies")
 public class PharmaciesController {
@@ -29,48 +28,71 @@ public class PharmaciesController {
     @Autowired
     private ConcreteDrugService concreteDrugService;
 
-    //Get apotekary list for appointment to the manufacturer
+    /**
+     * Get apotekary list for appointment to the manufacturer
+     * @param pharmacy_id
+     * @return List<UserViewModel>
+     */
     @ResponseBody
     @RequestMapping(value = "/pharmacists", method = RequestMethod.GET)
     public List<UserViewModel> getPharmacists(@RequestParam(value = "pharmacy", required = true) int pharmacy_id) {
         return pharmacyStaffService.GetPharmacists(pharmacy_id);
     }
 
-    //Get recipes for pharmacist by apothecary id and status
-    //url: localhost:8443/Pharmacies/pharmacies/2/recipes
     //todo test
+    /**
+     * Get recipes for pharmacist by apothecary id and status
+     * url: localhost:8443/Pharmacies/pharmacies/2/recipes
+     * @param status
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipes", method = RequestMethod.GET)
     public List<Recipe> getRecipes(@RequestParam(value = "s", required = true) String status) {
         return recipeService.GetRecipesForPharmacyByStatus(2, status);
     }
 
-    //Get recipe info for pharmacist by recipe ID
     //todo test
+    /**
+     * Get recipe info for pharmacist by recipe ID
+     * @param id
+     * @return RecipeViewModel
+     */
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipes/", method = RequestMethod.GET)
     public RecipeViewModel getRecipe(@RequestParam(value = "id", required = true) int id) {
         return recipeService.GetRecipe(id);
     }
 
-    //Update recipe by pharmacist - the input parameter is ViewModel for recipe
     //todo test
+    /**
+     * Update recipe by pharmacist - the input parameter is ViewModel for recipe
+     * @param recipeViewModel
+     */
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipes/", method = RequestMethod.PUT)
     public void updateRecipe(@RequestBody RecipeViewModel recipeViewModel) {
         recipeService.Update(recipeViewModel);
     }
 
-    //Change recipe status - the input parameter is ViewModel with recipe ID and new status
+    /**
+     * Change recipe status - the input parameter is ViewModel with recipe ID and new status
+     * @param postViewModel
+     */
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipes/", method = RequestMethod.POST)
     public void changeStatus(@RequestBody PostViewModel postViewModel) {//,@RequestBody String status){
         recipeService.ChangeStatus(postViewModel.id, postViewModel.status);
     }
 
-    //Get List drugs for produce and List apothecaries in apothecary
-    //Need one more parameter - apothecary id
     //todo test
+    /**
+     * Get List drugs for produce and List apothecaries in apothecary
+     * Need one more parameter - apothecary id
+     * @param pharmacistId
+     * @param recipeId
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/order", method = RequestMethod.GET)
     public OrderMissingViewModel getOrderMissing(@RequestParam(value = "pharmacistId", required = true) int pharmacistId,
@@ -78,18 +100,24 @@ public class PharmaciesController {
         return recipeService.GetOrderMissing(pharmacistId, recipeId);
     }
 
-    //Implementation of logic "send medicine to manufacturing"
-    //Create instance for ConcreteDrugs and ConcreteIngredients
     //todo test
+    /**
+     * Implementation of logic "send medicine to manufacturing"
+     * Create instance for ConcreteDrugs and ConcreteIngredients
+     * @param recipeDrugWithPharmacistViewModel
+     */
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/drugs/", method = RequestMethod.POST)
     public void orderToProduce(@RequestBody RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {//need viewModel!!!
         concreteDrugService.DrugsToProduce(recipeDrugWithPharmacistViewModel);
     }
 
-    //Updates the links between drugs and apothecaries who prepare them
-    //sounds funny :)
     //todo test
+    /**
+     * Updates the links between drugs and apothecaries who prepare them
+     * sounds funny :)
+     * @param drugWithPharmacists
+     */
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/drugs/", method = RequestMethod.PUT)
     public void updateOrderToProduce(@RequestBody List<DrugWithPharmacistViewModel> drugWithPharmacists) {
@@ -97,6 +125,11 @@ public class PharmaciesController {
     }
 
 
+    /**
+     * excess method
+     * @param id
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipe/{id}", method = RequestMethod.GET)
     public RecipeViewModel getRecipeInfo(@PathVariable int id) {

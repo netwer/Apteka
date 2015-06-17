@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Created by Admin on 21.03.2015.
+ * Controller for administrator
  */
 @Controller
 @RequestMapping("/Admin")
@@ -18,28 +19,40 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    //Simple test message
+    /**
+     * Simple test message
+     * @return test str
+     */
     @ResponseBody
     @RequestMapping(value = "/")
     public String sayHello(){
         return "Hi!!!, This is Spring Boot Project for IS 'Apteka'";
     }
 
-    //Get all Appointments
+    /**
+     * Get all Appointments
+     * @return List<UserDoctorViewModel>
+     */
     @ResponseBody
     @RequestMapping(value = "/appointments",method = RequestMethod.GET)
     public List<UserDoctorViewModel> getAppointments(){
         return adminService.GetAppointments();
     }
 
-    //saveDiagnose new appointment
+    /**
+     * saveDiagnose new appointment
+     * @param userDoctorViewModel
+     */
     @ResponseBody
     @RequestMapping(value = "/appointments",method = RequestMethod.POST)
     public void saveAppointment(@RequestBody UserDoctorViewModel userDoctorViewModel){
         adminService.SaveAppointment(userDoctorViewModel);
     }
 
-    //Delete appointment
+    /**
+     * Delete appointment
+     * @param  id
+     */
     @ResponseBody
     @RequestMapping(value = "/appointments/{id}",method = RequestMethod.DELETE)
     public void deleteAppointment(@PathVariable int id){

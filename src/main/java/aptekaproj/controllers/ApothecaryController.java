@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by Admin on 25.05.2015.
+ * Controller for apothecary user
  */
 @Controller
 @RequestMapping("/Apothecary")
@@ -23,12 +24,23 @@ public class ApothecaryController {
     @Autowired
     private RecipeService recipeService;
 
+    /**
+     * Get list DrugToProduceViewModel
+     * @param pharmacyStaffId
+     * @return List<DrugToProduceViewModel>
+     */
     @ResponseBody
     @RequestMapping(value = "/drugs/",method = RequestMethod.GET)
     public List<DrugToProduceViewModel> getDrugsToProduce(@RequestParam(value = "pharmacyStaffId", required = true) int pharmacyStaffId){
         return drugService.getDrugsToProduce(pharmacyStaffId);
     }
 
+    /**
+     * Get one record DrugToProduceViewModel
+     * @param pharmacyStaffId
+     * @param drugId
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/drug/",method = RequestMethod.GET)
     public DrugToProduceViewModel getDrugToProduce(@RequestParam(value = "pharmacyStaffId", required = true) int pharmacyStaffId,
@@ -36,6 +48,11 @@ public class ApothecaryController {
         return drugService.getDrugToProduce(pharmacyStaffId,drugId);
     }
 
+    /**
+     * Change drug and recipe status
+     * @param recipeHasDrugsId1
+     * @return RecipeHasDrugs
+     */
     @ResponseBody
     @RequestMapping(value = "/drug/done/",method = RequestMethod.GET)
     public RecipeHasDrugs drugToDone(@RequestParam(value = "recipeHasDrugsId") int recipeHasDrugsId1){
