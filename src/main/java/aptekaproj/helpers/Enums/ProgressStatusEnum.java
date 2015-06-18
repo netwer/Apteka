@@ -4,11 +4,13 @@ package aptekaproj.helpers.Enums;
  * Created by Admin on 06.06.2015.
  */
 public enum ProgressStatusEnum {
-    CREATED("СОЗДАН"),
+    CREATED("НОВЫЙ"),
     UPDATED("ОБНОВЛЕН"),
     IN_PROCESS("В ПРОЦЕССЕ ИЗГОТОВЛЕНИЯ"),
+    WAITING_PROCESS("ОЖИДАЕТ ИЗГОТОВЛЕНИЯ"),
     PACKAGE("КОМПЛЕКТУЕТСЯ"),
-    DONE("ЗАВЕРШЕН");
+    DONE("ГОТОВ"),
+    ISSUED("ВЫДАН");
 
     private String displayName;
     ProgressStatusEnum(String displayName){
