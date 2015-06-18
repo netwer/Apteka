@@ -66,7 +66,7 @@ public class PharmacyStaffService {
     public List<User> GetStaffs(int pharmacistId) {
         int pharmacyId = GetPharmacyByPharmacistId(pharmacistId).getPharmacyId();
         List<Integer> pharmacistIdList = GetPharmacistsIdsInPharmacy(pharmacyId);
-        return userService.GetUsersByIds(pharmacistIdList, RolesNameEnum.APOTEKARY.toString());
+        return userService.GetUsersByIds(pharmacistIdList, RolesNameEnum.APOTHECARY.toString());
     }
 
     private List<Integer> GetPharmacistsIdsInPharmacy(int pharmacyId) {
