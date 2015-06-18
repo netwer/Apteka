@@ -36,7 +36,7 @@ public class PharmaciesController {
     @ResponseBody
     @RequestMapping(value = "/pharmacists", method = RequestMethod.GET)
     public List<UserViewModel> getPharmacists(@RequestParam(value = "pharmacy", required = true) int pharmacy_id) {
-        return pharmacyStaffService.GetPharmacists(pharmacy_id);
+        return pharmacyStaffService.getPharmacists(pharmacy_id);
     }
 
     //todo test
@@ -49,7 +49,7 @@ public class PharmaciesController {
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipes", method = RequestMethod.GET)
     public List<Recipe> getRecipes(@RequestParam(value = "s", required = true) String status) {
-        return recipeService.GetRecipesForPharmacyByStatus(2, status);
+        return recipeService.getRecipesForPharmacyByStatus(2, status);
     }
 
     //todo test
@@ -61,18 +61,18 @@ public class PharmaciesController {
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipes/", method = RequestMethod.GET)
     public RecipeViewModel getRecipe(@RequestParam(value = "id", required = true) int id) {
-        return recipeService.GetRecipe(id);
+        return recipeService.getRecipe(id);
     }
 
     //todo test
     /**
-     * Update recipe by pharmacist - the input parameter is ViewModel for recipe
+     * updateRecipe recipe by pharmacist - the input parameter is ViewModel for recipe
      * @param recipeViewModel
      */
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipes/", method = RequestMethod.PUT)
     public void updateRecipe(@RequestBody RecipeViewModel recipeViewModel) {
-        recipeService.Update(recipeViewModel);
+        recipeService.updateRecipe(recipeViewModel);
     }
 
     /**
@@ -82,7 +82,7 @@ public class PharmaciesController {
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipes/", method = RequestMethod.POST)
     public void changeStatus(@RequestBody PostViewModel postViewModel) {//,@RequestBody String status){
-        recipeService.ChangeStatus(postViewModel.id, postViewModel.status);
+        recipeService.changeStatus(postViewModel.id, postViewModel.status);
     }
 
     //todo test
@@ -97,7 +97,7 @@ public class PharmaciesController {
     @RequestMapping(value = "/pharmacies/2/order", method = RequestMethod.GET)
     public OrderMissingViewModel getOrderMissing(@RequestParam(value = "pharmacistId", required = true) int pharmacistId,
                                                  @RequestParam(value = "recipeId", required = true) int recipeId) {
-        return recipeService.GetOrderMissing(pharmacistId, recipeId);
+        return recipeService.getOrderMissing(pharmacistId, recipeId);
     }
 
     //todo test
@@ -133,6 +133,6 @@ public class PharmaciesController {
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/recipe/{id}", method = RequestMethod.GET)
     public RecipeViewModel getRecipeInfo(@PathVariable int id) {
-        return recipeService.GetRecipe(id);
+        return recipeService.getRecipe(id);
     }
 }

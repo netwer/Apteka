@@ -16,11 +16,11 @@ public class PharmacyService {
     @Autowired
     private IPharmaciesRepository pharmaciesRepository;
 
-    public List<Pharmacy> GetPharmacies() {
+    public List<Pharmacy> getPharmacies() {
         return (List<Pharmacy>)pharmaciesRepository.findAll();
     }
 
-    public Pharmacy GetPharmacyById(int pharmacyId) {
+    public Pharmacy getPharmacyById(int pharmacyId) {
         return pharmaciesRepository.findOne(pharmacyId);
     }
 }

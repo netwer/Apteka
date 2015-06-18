@@ -33,7 +33,7 @@ public class PatientController {
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public @ResponseBody
     List<PatientRecipeViewModel> Patients(@PathVariable int userId){
-        return recipeService.GetRecipesForPatient(userId);
+        return recipeService.getRecipesForPatient(userId);
     }
 
     /**
@@ -44,7 +44,7 @@ public class PatientController {
     @RequestMapping(value = "/statuses", method = RequestMethod.GET)
     public @ResponseBody
     List<RecipeProgressStatus> GetRecipeStatuses(){
-        return recipeProgressStatusService.GetRecipeProgressStatuses();
+        return recipeProgressStatusService.getRecipeProgressStatuses();
     }
 
 }

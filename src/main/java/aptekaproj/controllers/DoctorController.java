@@ -74,13 +74,13 @@ public class DoctorController {
     @ResponseBody
     @RequestMapping(value = "/diagnoses/{user_id}",method = RequestMethod.GET)
     public List<Diagnoses> appointmentsHistory(@PathVariable int user_id){
-        return diagnosesService.GetPatientHistory(user_id);
+        return diagnosesService.getPatientHistory(user_id);
     }
 
     //todo test
     /**
      * Creating a record of the results of the reception POST /diagnoses
-     * SaveRecipeHasDrugs diagnoses object for patient
+     * saveRecipeHasDrugs diagnoses object for patient
      * @param diagnoses
      * @return
      * @throws ParseException
@@ -88,42 +88,42 @@ public class DoctorController {
     @ResponseBody
     @RequestMapping(value = "/diagnose/save",method = RequestMethod.POST)
     public PostViewModel saveDiagnose(@RequestBody Diagnoses diagnoses) throws ParseException {
-        return diagnosesService.SaveDiagnosis(diagnoses);
+        return diagnosesService.saveDiagnosis(diagnoses);
     }
 
     //todo test
     /**
-     * UpdateDiagnosis diagnoses
+     * updateDiagnosis diagnoses
      * @param diagnoses
      */
     @ResponseBody
     @RequestMapping(value = "/diagnose/update",method = RequestMethod.PUT)
     public void updateDiagnose(@RequestBody Diagnoses diagnoses){
-        diagnosesService.UpdateDiagnosis(diagnoses);
+        diagnosesService.updateDiagnosis(diagnoses);
     }
 
     //todo test
     /**
      * Creating a record of the results of the reception POST /diagnoses
-     * SaveRecipeHasDrugs recipe
+     * saveRecipeHasDrugs recipe
      * @param recipeViewModel
      */
     @ResponseBody
     @RequestMapping(value = "/recipe/save",method = RequestMethod.POST)
     public void saveRecipe(@RequestBody RecipeViewModel recipeViewModel){
-        recipeService.Save(recipeViewModel);
+        recipeService.saveRecipe(recipeViewModel);
     }
 
     //todo test
 
     /**
-     * UpdateDiagnosis Recipe
+     * updateDiagnosis Recipe
      * @param recipeViewModel
      */
     @ResponseBody
     @RequestMapping(value = "/recipe/update",method = RequestMethod.PUT)
     public void updateRecipe(@RequestBody RecipeViewModel recipeViewModel){
-        recipeService.Update(recipeViewModel);
+        recipeService.updateRecipe(recipeViewModel);
     }
 
     //todo test
@@ -136,7 +136,7 @@ public class DoctorController {
     @ResponseBody
     @RequestMapping(value = "/recipe/pharmacies",method = RequestMethod.GET)
     public List<Pharmacy> getPharmacies(){
-        return pharmacyService.GetPharmacies();
+        return pharmacyService.getPharmacies();
     }
 
     //todo test
@@ -148,6 +148,6 @@ public class DoctorController {
     @ResponseBody
     @RequestMapping(value = "/recipe/drugs",method = RequestMethod.GET)
     public List<Drug> getDrugs(){
-        return drugService.GetDrugs();
+        return drugService.getDrugs();
     }
 }

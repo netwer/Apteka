@@ -26,8 +26,8 @@ public class ConcreteIngredientService {
 
     //todo - the method must be tested
     //without refactoring - for debugging
-    public List<ConcreteIngredient> GetConcreteIngredientByMaxAvailableDate(int ingredientId){
-        List<ConcreteIngredient> concreteIngredients = GetAllConcreteIngredients();
+    public List<ConcreteIngredient> getConcreteIngredientByMaxAvailableDate(int ingredientId){
+        List<ConcreteIngredient> concreteIngredients = getAllConcreteIngredients();
         List<ConcreteIngredient> concreteIngredientById = new ArrayList<>();
         Date maxDate = new Date(0);
         Date currentDate = new Date();
@@ -51,16 +51,16 @@ public class ConcreteIngredientService {
         return concreteIngredientByDate;
     }
 
-    public List<ConcreteIngredient> GetAllConcreteIngredients(){
+    public List<ConcreteIngredient> getAllConcreteIngredients(){
         return (List<ConcreteIngredient>)concreteIngredientsRepository.findAll();
     }
 
-    public void Save(ConcreteIngredient concreteIngredient) {
+    public void save(ConcreteIngredient concreteIngredient) {
         concreteIngredientsRepository.save(concreteIngredient);
     }
 
-    public List<Date> GetConcreteIngredientDateByConcreteDrugsId(List<ConcreteDrug> concreteDrugs) {
-        List<ConcreteIngredient> concreteIngredients = GetAllConcreteIngredients();
+    public List<Date> getConcreteIngredientDateByConcreteDrugsId(List<ConcreteDrug> concreteDrugs) {
+        List<ConcreteIngredient> concreteIngredients = getAllConcreteIngredients();
         List<Date> concreteIngredientsById = new ArrayList<>();
 
         for (ConcreteIngredient ingredient : concreteIngredients){
@@ -74,8 +74,8 @@ public class ConcreteIngredientService {
         return concreteIngredientsById;
     }
 
-    public String GetConcreteIngredientAvailableDate(int concreteDrugId, int drugId) {
-        List<ConcreteIngredient> concreteIngredientList = GetAllConcreteIngredients();
+    public String getConcreteIngredientAvailableDate(int concreteDrugId, int drugId) {
+        List<ConcreteIngredient> concreteIngredientList = getAllConcreteIngredients();
         List<Date> availableDate = new ArrayList<>();
         for (ConcreteIngredient ingredient : concreteIngredientList){
             if(ingredient.getConcreteDrugId() == concreteDrugId){

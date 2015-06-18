@@ -21,7 +21,7 @@ public class AdminService {
     @Autowired
     private DiagnosesService diagnosesService;
 
-    public List<UserDoctorViewModel> GetAppointments(){
+    public List<UserDoctorViewModel> getAppointments(){
         List<User> doctors = userService.getDoctors();
         List<UserDoctorViewModel> userDoctorViewModels = new ArrayList<>();
         for (User doctor:doctors){
@@ -31,7 +31,7 @@ public class AdminService {
         return userDoctorViewModels;
     }
 
-    public void SaveAppointment(UserDoctorViewModel userDoctorViewModel) {
+    public void saveAppointment(UserDoctorViewModel userDoctorViewModel) {
         Diagnoses diagnoses = new Diagnoses();
 
         diagnoses.setPatientUserId(userDoctorViewModel.patientId);
@@ -41,10 +41,10 @@ public class AdminService {
         diagnoses.setComplaints("");
         diagnoses.setRecipeId(null);
 
-        diagnosesService.SaveDiagnosis(diagnoses);
+        diagnosesService.saveDiagnosis(diagnoses);
     }
 
-    public void DeleteAppointment(int id) {
-        diagnosesService.DeleteDiagnosis(id);
+    public void deleteAppointment(int id) {
+        diagnosesService.deleteDiagnosis(id);
     }
 }

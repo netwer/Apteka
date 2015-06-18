@@ -62,6 +62,6 @@ public class ApothecaryController {
     /*@ResponseBody
     @RequestMapping(value = "/recipes/", method = RequestMethod.POST)
     public void changeStatus(@RequestBody PostViewModel postViewModel) {//,@RequestBody String status){
-        recipeService.ChangeStatus(postViewModel.id, postViewModel.status);
+        recipeService.changeStatus(postViewModel.id, postViewModel.status);
     }*/
 }

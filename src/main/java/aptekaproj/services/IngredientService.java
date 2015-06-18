@@ -27,8 +27,8 @@ public class IngredientService {
     private MaterialService materialService;
 
 
-    public List<Ingredient> GetIngredientsForDrug(int drugId) {
-        List<Ingredient> ingredients = GetAllIngredients();
+    public List<Ingredient> getIngredientsForDrug(int drugId) {
+        List<Ingredient> ingredients = getAllIngredients();
         List<Ingredient> ingredientForDrug = new ArrayList<>();
         for (Ingredient ingredient : ingredients){
             if(ingredient.getDrugId() == drugId){
@@ -39,12 +39,12 @@ public class IngredientService {
         return ingredientForDrug;
     }
 
-    private List<Ingredient> GetAllIngredients() {
+    private List<Ingredient> getAllIngredients() {
         return (List<Ingredient>)ingredientsRepository.findAll();
     }
 
     public List<IngredientInDrugViewModel> getIngredientsForDrug(int drugId, int concreteDrugId) {
-        List<ConcreteIngredient> concreteIngredients = concreteIngredientsService.GetAllConcreteIngredients();
+        List<ConcreteIngredient> concreteIngredients = concreteIngredientsService.getAllConcreteIngredients();
         List<IngredientInDrugViewModel> ingredientsInDrug = new ArrayList<>();
 
         for (ConcreteIngredient concreteIngredient : concreteIngredients){

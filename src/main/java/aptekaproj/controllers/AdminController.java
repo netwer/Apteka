@@ -36,7 +36,7 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/appointments",method = RequestMethod.GET)
     public List<UserDoctorViewModel> getAppointments(){
-        return adminService.GetAppointments();
+        return adminService.getAppointments();
     }
 
     /**
@@ -46,7 +46,7 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/appointments",method = RequestMethod.POST)
     public void saveAppointment(@RequestBody UserDoctorViewModel userDoctorViewModel){
-        adminService.SaveAppointment(userDoctorViewModel);
+        adminService.saveAppointment(userDoctorViewModel);
     }
 
     /**
@@ -56,7 +56,7 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/appointments/{id}",method = RequestMethod.DELETE)
     public void deleteAppointment(@PathVariable int id){
-        adminService.DeleteAppointment(id);
+        adminService.deleteAppointment(id);
     }
 
 }

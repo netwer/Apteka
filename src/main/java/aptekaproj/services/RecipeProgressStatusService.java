@@ -17,7 +17,7 @@ public class RecipeProgressStatusService {
     @Autowired
     private IRecipeProgressStatusRepository recipeProgressStatusRepository;
 
-    public RecipeProgressStatus GetRecipeProgressStatusByName(String name){
+    public RecipeProgressStatus getRecipeProgressStatusByName(String name){
         List<RecipeProgressStatus> recipeProgressStatuses = (List<RecipeProgressStatus>)recipeProgressStatusRepository.findAll();
         RecipeProgressStatus currentRecipeProgressStatus = new RecipeProgressStatus();
         for(RecipeProgressStatus recipeProgressStatus : recipeProgressStatuses){
@@ -28,11 +28,11 @@ public class RecipeProgressStatusService {
         return currentRecipeProgressStatus;
     }
 
-    public RecipeProgressStatus GetRecipeProgressStatusById(int recipeProgressStatusId) {
+    public RecipeProgressStatus getRecipeProgressStatusById(int recipeProgressStatusId) {
         return recipeProgressStatusRepository.findOne(recipeProgressStatusId);
     }
 
-    public List<RecipeProgressStatus> GetRecipeProgressStatuses() {
+    public List<RecipeProgressStatus> getRecipeProgressStatuses() {
         return (List<RecipeProgressStatus>)recipeProgressStatusRepository.findAll();
     }
 }

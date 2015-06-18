@@ -50,9 +50,9 @@ public class ConcreteDrugService {
             //====
             RecipeHasDrugs recipeHasDrugs = recipeHasDrugsService.getRecipeHasDrugsByRecipeAndDrugIds(recipeDrugWithPharmacistViewModel.recipeId, drug.drugId);
             //====
-            List<Ingredient> ingredientForDrug = ingredientService.GetIngredientsForDrug(drug.drugId);
+            List<Ingredient> ingredientForDrug = ingredientService.getIngredientsForDrug(drug.drugId);
             for (Ingredient ingredient : ingredientForDrug){
-                List<ConcreteIngredient> concreteIngredientList = concreteIngredientsService.GetConcreteIngredientByMaxAvailableDate(ingredient.getId());
+                List<ConcreteIngredient> concreteIngredientList = concreteIngredientsService.getConcreteIngredientByMaxAvailableDate(ingredient.getId());
                 int countRecordsByMaxDate = concreteIngredientList.size();
                 //=====
 
@@ -62,7 +62,7 @@ public class ConcreteDrugService {
                         concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                         concreteIngredient.setIngredientId(ingredient.getId());
                         concreteIngredient.setAvailabilityDate(new Date());
-                        concreteIngredientsService.Save(concreteIngredient);
+                        concreteIngredientsService.save(concreteIngredient);
                     }
                 }
                 else if(countRecordsByMaxDate * recipeHasDrugs.getCount() < ingredient.getCount()){
@@ -73,7 +73,7 @@ public class ConcreteDrugService {
                             concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                             concreteIngredient.setIngredientId(ingredient.getId());
                             concreteIngredient.setAvailabilityDate(concreteIngredientList.get(0).getAvailabilityDate());
-                            concreteIngredientsService.Save(concreteIngredient);
+                            concreteIngredientsService.save(concreteIngredient);
                         }
                     }
                     if(recipeHasDrugs.getCount() * recipeHasDrugs.getCount() >= availablePositionForDrug){
@@ -82,7 +82,7 @@ public class ConcreteDrugService {
                             concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                             concreteIngredient.setIngredientId(ingredient.getId());
                             concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(concreteIngredientList.get(0).getAvailabilityDate(), 1));
-                            concreteIngredientsService.Save(concreteIngredient);
+                            concreteIngredientsService.save(concreteIngredient);
                         }
                     }
                 }
@@ -92,7 +92,7 @@ public class ConcreteDrugService {
                         concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                         concreteIngredient.setIngredientId(ingredient.getId());
                         concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(concreteIngredientList.get(0).getAvailabilityDate(), 1));
-                        concreteIngredientsService.Save(concreteIngredient);
+                        concreteIngredientsService.save(concreteIngredient);
                     }
                 }
                 //=====
@@ -113,7 +113,7 @@ public class ConcreteDrugService {
                     concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(concreteIngredientList.get(0).getAvailabilityDate(), 1));
                 }
 
-                concreteIngredientsService.Save(concreteIngredient);*/
+                concreteIngredientsService.saveRecipe(concreteIngredient);*/
             }
         }
     }
@@ -144,14 +144,14 @@ public class ConcreteDrugService {
 
     public String GetAvailabilityRecipeDate(int recipeId) {
         List<ConcreteDrug> concreteDrugs = GetConcreteDrugsByRecipeId(recipeId);
-        List<Date> drugAvailabilityDate = concreteIngredientsService.GetConcreteIngredientDateByConcreteDrugsId(concreteDrugs);
+        List<Date> drugAvailabilityDate = concreteIngredientsService.getConcreteIngredientDateByConcreteDrugsId(concreteDrugs);
 
         return DateWorker.MaxDate(drugAvailabilityDate);
     }
 
     public String GetAvailabilityDrugDate(Integer recipeId,Integer drugId) {
         ConcreteDrug concreteDrug = GetConcreteDrugByRecipeIdAndDrugId(recipeId, drugId);
-        return concreteIngredientsService.GetConcreteIngredientAvailableDate(concreteDrug.getId(),drugId);
+        return concreteIngredientsService.getConcreteIngredientAvailableDate(concreteDrug.getId(), drugId);
     }
 
     private ConcreteDrug GetConcreteDrugByRecipeIdAndDrugId(Integer recipeId, Integer drugId) {

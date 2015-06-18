@@ -9,7 +9,6 @@ import aptekaproj.models.RecipeHasDrugs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,11 +23,11 @@ public class RecipeHasDrugsService {
     @Autowired
     private RecipeService recipeService;
 
-    public void SaveRecipeHasDrugs(RecipeHasDrugs recipeHasDrugs) {
+    public void saveRecipeHasDrugs(RecipeHasDrugs recipeHasDrugs) {
         recipesHasDrugsRepository.save(recipeHasDrugs);
     }
 
-    public void UpdateRecipeHasDrugs(RecipeViewModel recipeViewModel, Recipe recipe){
+    public void updateRecipeHasDrugs(RecipeViewModel recipeViewModel, Recipe recipe){
         for (DrugViewModel drugViewModel : recipeViewModel.drugViewModels){
             RecipeHasDrugs recipeHasDrugs = new RecipeHasDrugs();
             if(drugViewModel.recipesHasDrugsId != null){
@@ -42,11 +41,11 @@ public class RecipeHasDrugsService {
             recipeHasDrugs.setRecipeId(recipe.getId());
             recipeHasDrugs.setDone(false);
             recipeHasDrugs.setProgressStatusId(recipe.getRecipeProgressStatusId());
-            SaveRecipeHasDrugs(recipeHasDrugs);
+            saveRecipeHasDrugs(recipeHasDrugs);
         }
     }
 
-    public List<RecipeHasDrugs> GetAllRecipesHasDrugs() {
+    public List<RecipeHasDrugs> getAllRecipesHasDrugs() {
         return (List<RecipeHasDrugs>) recipesHasDrugsRepository.findAll();
     }
 
@@ -59,7 +58,7 @@ public class RecipeHasDrugsService {
     }
 
     public void checkAllDrugsInRecipeDone(int recipeId) {
-        List<RecipeHasDrugs> recipeHasDrugs = GetAllRecipesHasDrugs();
+        List<RecipeHasDrugs> recipeHasDrugs = getAllRecipesHasDrugs();
         int countRecipesDone = 0;
         int countDrugsInRecipe = 0;
 
@@ -73,12 +72,12 @@ public class RecipeHasDrugsService {
         }
 
         if (countRecipesDone == countDrugsInRecipe){
-            recipeService.ChangeStatus(recipeId, ProgressStatusEnum.PACKAGE.toString().toUpperCase());
+            recipeService.changeStatus(recipeId, ProgressStatusEnum.PACKAGE.toString().toUpperCase());
         }
     }
 
     public RecipeHasDrugs getRecipeHasDrugsByRecipeAndDrugIds(int recipeId, int drugId) {
-        List<RecipeHasDrugs> recipeHasDrugsList = GetAllRecipesHasDrugs();
+        List<RecipeHasDrugs> recipeHasDrugsList = getAllRecipesHasDrugs();
         RecipeHasDrugs recipeHasDrugs = new RecipeHasDrugs();
 
         for (RecipeHasDrugs recipeHasDrugs1 : recipeHasDrugsList){

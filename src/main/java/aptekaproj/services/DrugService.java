@@ -38,25 +38,25 @@ public class DrugService {
     @Autowired
     private IngredientService ingredientService;
 
-    public List<Drug> GetDrugs(){
+    public List<Drug> getDrugs(){
         return (List<Drug>)drugsRepository.findAll();
     }
 
-    public List<DrugViewModel> GetDrugsForRecipe(Integer recipeId) {
-        List<RecipeHasDrugs> recipeHasDrugses = recipeHasDrugsService.GetAllRecipesHasDrugs();
+    public List<DrugViewModel> getDrugsForRecipe(Integer recipeId) {
+        List<RecipeHasDrugs> recipeHasDrugs = recipeHasDrugsService.getAllRecipesHasDrugs();
         List<DrugViewModel> drugViewModels = new ArrayList<>();
 
-        for (RecipeHasDrugs recipeHasDrugs : recipeHasDrugses){
-            if(recipeHasDrugs.getRecipeId() == recipeId){
+        for (RecipeHasDrugs recipeHasDrugs1 : recipeHasDrugs){
+            if(recipeHasDrugs1.getRecipeId() == recipeId){
                 DrugViewModel drugViewModel = new DrugViewModel();
-                Drug drug = drugsRepository.findOne(recipeHasDrugs.getDrugId());
+                Drug drug = drugsRepository.findOne(recipeHasDrugs1.getDrugId());
 
                 if(drug == null)
                     continue;
 
-                drugViewModel.recipesHasDrugsId = recipeHasDrugs.getId();
-                drugViewModel.drugId = recipeHasDrugs.getDrugId();
-                drugViewModel.drugCount = recipeHasDrugs.getCount();
+                drugViewModel.recipesHasDrugsId = recipeHasDrugs1.getId();
+                drugViewModel.drugId = recipeHasDrugs1.getDrugId();
+                drugViewModel.drugCount = recipeHasDrugs1.getCount();
                 drugViewModel.drugName = drug.getName();
                 drugViewModel.availabilityDate = concreteDrugService.GetAvailabilityDrugDate(recipeId,drug.getId());
                 drugViewModel.needsToProduce = drug.getNeedToProduce();
@@ -68,8 +68,8 @@ public class DrugService {
         return drugViewModels;
     }
 
-    public List<DrugViewModel> GetDrugsNeedsToProduce(int recipeId) {
-        List<RecipeHasDrugs> recipeHasDrugs = recipeHasDrugsService.GetAllRecipesHasDrugs();
+    public List<DrugViewModel> getDrugsNeedsToProduce(int recipeId) {
+        List<RecipeHasDrugs> recipeHasDrugs = recipeHasDrugsService.getAllRecipesHasDrugs();
         List<DrugViewModel> drugViewModels = new ArrayList<>();
 
         for (RecipeHasDrugs recipeHasDrugs1 : recipeHasDrugs){
@@ -92,7 +92,7 @@ public class DrugService {
         return drugViewModels;
     }
 
-    public Drug GetDrugById(int drugId) {
+    public Drug getDrugById(int drugId) {
         return drugsRepository.findOne(drugId);
     }
 
@@ -101,12 +101,12 @@ public class DrugService {
         List<DrugToProduceViewModel> drugsToProduce = new ArrayList<>();
 
         for (ConcreteDrug concreteDrug : concreteDrugList){
-            Recipe recipe = recipeService.GetRecipeById(concreteDrug.getRecipeId());
+            Recipe recipe = recipeService.getRecipeById(concreteDrug.getRecipeId());
 
             if(recipe == null)
                 continue;
 
-            String recipeStatus = recipeProgressStatusService.GetRecipeProgressStatusById(recipe.getRecipeProgressStatusId()).getName();
+            String recipeStatus = recipeProgressStatusService.getRecipeProgressStatusById(recipe.getRecipeProgressStatusId()).getName();
             String tt = ProgressStatusEnum.IN_PROCESS.toString().toUpperCase();
 
             if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.toUpperCase().equals(tt)){
@@ -125,12 +125,12 @@ public class DrugService {
         DrugToProduceViewModel drugToProduce = new DrugToProduceViewModel();
 
         for (ConcreteDrug concreteDrug : concreteDrugList){
-            Recipe recipe = recipeService.GetRecipeById(concreteDrug.getRecipeId());
+            Recipe recipe = recipeService.getRecipeById(concreteDrug.getRecipeId());
 
             if(recipe == null)
                 continue;
 
-            String recipeStatus = recipeProgressStatusService.GetRecipeProgressStatusById(recipe.getRecipeProgressStatusId()).getName();
+            String recipeStatus = recipeProgressStatusService.getRecipeProgressStatusById(recipe.getRecipeProgressStatusId()).getName();
             String status = ProgressStatusEnum.IN_PROCESS.toString().toUpperCase();
 
             if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.toUpperCase().equals(status) && concreteDrug.getDrugId() == drugId){
@@ -147,11 +147,11 @@ public class DrugService {
 
     private DrugViewModel getDrug(int recipeId, int drugId){
         DrugViewModel drugViewModel = new DrugViewModel();
-        List<RecipeHasDrugs> recipeHasDrugs = recipeHasDrugsService.GetAllRecipesHasDrugs();
+        List<RecipeHasDrugs> recipeHasDrugs = recipeHasDrugsService.getAllRecipesHasDrugs();
 
         for (RecipeHasDrugs recipeHasDrug : recipeHasDrugs){
             if(recipeHasDrug.getRecipeId() == recipeId && recipeHasDrug.getDrugId() == drugId){
-                Drug drug = GetDrugById(drugId);
+                Drug drug = getDrugById(drugId);
                 if (drug == null)
                     continue;
 

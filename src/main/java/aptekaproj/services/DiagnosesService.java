@@ -20,7 +20,7 @@ public class DiagnosesService {
     private IDiagnosesRepository diagnosesRepository;
 
     @Transactional
-    public List<Diagnoses> GetPatientHistory(int userId){
+    public List<Diagnoses> getPatientHistory(int userId){
         List<Diagnoses> history = new ArrayList<>();
         List<Diagnoses> diagnoseses = (List<Diagnoses>) diagnosesRepository.findAll();
         for(Diagnoses diagnoses:diagnoseses){
@@ -32,7 +32,7 @@ public class DiagnosesService {
         return history;
     }
 
-    public PostViewModel SaveDiagnosis(Diagnoses diagnoses) {
+    public PostViewModel saveDiagnosis(Diagnoses diagnoses) {
         PostViewModel postViewModel = new PostViewModel();
         try{
             Diagnoses diagnoses1 = diagnosesRepository.save(diagnoses);
@@ -47,7 +47,7 @@ public class DiagnosesService {
         }
     }
 
-    public List<Diagnoses> GetDiagnosisForUser(int userId) {
+    public List<Diagnoses> getDiagnosisForUser(int userId) {
         List<Diagnoses> diagnosesList = (List<Diagnoses>)diagnosesRepository.findAll();
         List<Diagnoses> diagnosesForUser = new ArrayList<>();
         for (Diagnoses diagnoses:diagnosesList){
@@ -58,7 +58,7 @@ public class DiagnosesService {
         return diagnosesForUser;
     }
 
-    public void UpdateDiagnosis(int diagnosesId, int recipeId) {
+    public void updateDiagnosis(int diagnosesId, int recipeId) {
         Diagnoses diagnoses = diagnosesRepository.findOne(diagnosesId);
 
         if(diagnoses == null)
@@ -75,7 +75,7 @@ public class DiagnosesService {
         diagnosesRepository.save(diagnoses1);
     }
 
-    public void UpdateDiagnosis(Diagnoses diagnoses) {
+    public void updateDiagnosis(Diagnoses diagnoses) {
         Diagnoses diagnoses1 = new Diagnoses();
         diagnoses1.setId(diagnoses.getId());
         diagnoses1.setPatientUserId(diagnoses.getPatientUserId());
@@ -87,15 +87,15 @@ public class DiagnosesService {
         diagnosesRepository.save(diagnoses1);
     }
 
-    public List<Diagnoses> GetAllDiagnoses() {
+    public List<Diagnoses> getAllDiagnoses() {
         return (List<Diagnoses>)diagnosesRepository.findAll();
     }
 
-    public void DeleteDiagnosis(int id) {
+    public void deleteDiagnosis(int id) {
         diagnosesRepository.delete(id);
     }
 
-    public Diagnoses GetDiagnosis(Integer recipeId) {
+    public Diagnoses getDiagnosis(Integer recipeId) {
         List<Diagnoses> diagnosesList = (List<Diagnoses>)diagnosesRepository.findAll();
         Diagnoses diagnoses = new Diagnoses();
 
