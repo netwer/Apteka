@@ -122,11 +122,17 @@ public class ConcreteDrugService {
         }
     }
 
-    //todo not implemented
-    public void UpdateDrugsToProduce(List<DrugWithPharmacistViewModel> drugWithPharmacists) {
-        for (DrugWithPharmacistViewModel drugWithPharmacistViewModel1 : drugWithPharmacists){
-            //ConcreteDrugs drug =
-
+    //todo test
+    public void updateDrugsToProduce(RecipeDrugWithPharmacistViewModel drugWithPharmacists) {
+        List<ConcreteDrug> concreteDrugsToUpdate = GetAll();
+        for(ConcreteDrug concreteDrug : concreteDrugsToUpdate) {
+            for (DrugWithPharmacistViewModel drugWithPharmacistViewModel : drugWithPharmacists.drugsWithPharmacist) {
+                if (concreteDrug.getRecipeId() == drugWithPharmacists.recipeId && concreteDrug.getDrugId() == drugWithPharmacistViewModel.drugId && concreteDrug.getPharmacyStaffId() == drugWithPharmacistViewModel.pharmacyStaffId){
+                    concreteDrug.setPharmacyStaffId(drugWithPharmacistViewModel.pharmacyStaffIdNew);
+                    concreteDrug.setDrugId(drugWithPharmacistViewModel.drugIdNew);
+                    concreteDrugsRepository.save(concreteDrug);
+                }
+            }
         }
     }
 

@@ -116,13 +116,12 @@ public class PharmaciesController {
     /**
      * Updates the links between drugs and apothecaries who prepare them
      * sounds funny :)
-     * not implemented!
-     * @param drugWithPharmacists
+     * @param recipeDrugWithPharmacistViewModel
      */
     @ResponseBody
     @RequestMapping(value = "/pharmacies/2/drugs/", method = RequestMethod.PUT)
-    public void updateOrderToProduce(@RequestBody List<DrugWithPharmacistViewModel> drugWithPharmacists) {
-        concreteDrugService.UpdateDrugsToProduce(drugWithPharmacists);
+    public void updateOrderToProduce(@RequestBody RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {
+        concreteDrugService.updateDrugsToProduce(recipeDrugWithPharmacistViewModel);
     }
 
 
