@@ -116,6 +116,7 @@ public class PharmaciesController {
     /**
      * Updates the links between drugs and apothecaries who prepare them
      * sounds funny :)
+     * not implemented!
      * @param drugWithPharmacists
      */
     @ResponseBody

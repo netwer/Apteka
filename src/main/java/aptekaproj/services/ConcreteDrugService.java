@@ -31,93 +31,98 @@ public class ConcreteDrugService {
     private ConcreteIngredientService concreteIngredientsService;
 
     @Autowired
-    private DrugService drugService;
-
-    @Autowired
     private RecipeHasDrugsService recipeHasDrugsService;
 
     //todo - the method must be tested
     //without refactoring - for debugging
     public void DrugsToProduce(RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {
+        //each drudId and pharmacyStaffId
         for (DrugWithPharmacistViewModel drug : recipeDrugWithPharmacistViewModel.drugsWithPharmacist){
-
+            //create the ConcreteDrug record
             ConcreteDrug concreteDrug = new ConcreteDrug();
             concreteDrug.setDrugId(drug.drugId);
             concreteDrug.setPharmacyStaffId(drug.pharmacyStaffId);
             concreteDrug.setRecipeId(recipeDrugWithPharmacistViewModel.recipeId);
             ConcreteDrug createdConcreteDrug = concreteDrugsRepository.save(concreteDrug);
 
-            //====
+            //next, create the ConcreteIngredients records for each ConcreteDrug record
+            //get record from RecipeHasDrugs by recipeId and drugId
+            //this record need for get count drug in recipe
             RecipeHasDrugs recipeHasDrugs = recipeHasDrugsService.getRecipeHasDrugsByRecipeAndDrugIds(recipeDrugWithPharmacistViewModel.recipeId, drug.drugId);
-            //====
+            //get ingredients for current drug
             List<Ingredient> ingredientForDrug = ingredientService.getIngredientsForDrug(drug.drugId);
+
             for (Ingredient ingredient : ingredientForDrug){
+
+                //get list of ConcreteIngredient grope by last date and get count of records by last date
                 List<ConcreteIngredient> concreteIngredientList = concreteIngredientsService.getConcreteIngredientByMaxAvailableDate(ingredient.getId());
                 int countRecordsByMaxDate = concreteIngredientList.size();
-                //=====
 
+                //the number of days to be added to the current date, or the date the maximum
+                //this variable is needed to change the date of availability of ingredient
+                int dateCount = 0;
+                Date date;
+
+                //if no records by last/max date. It is mean that the ConcreteIngredient is empty or
+                //added new ingredient
+                //Adding entries by current day
                 if(countRecordsByMaxDate == 0){
-                    for(int i = 0;i<ingredient.getCount();i++){
+                    dateCount = 0;
+                    date = new Date();
+
+                    //add new ConcreteIngredient
+                    //if the current value of the variable i is divisible by the number of ingredients,
+                    //then increase the variable dateCount 1
+                    for(int i = 0;i<ingredient.getCount()*recipeHasDrugs.getCount();i++){
+                        if(i!=0&&i%ingredient.getCount() == 0){
+                            dateCount++;
+                        }
                         ConcreteIngredient concreteIngredient = new ConcreteIngredient();
                         concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                         concreteIngredient.setIngredientId(ingredient.getId());
-                        concreteIngredient.setAvailabilityDate(new Date());
+                        concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(date, dateCount));
                         concreteIngredientsService.save(concreteIngredient);
                     }
                 }
+                //else if countRecordsByMaxDate is not empty
+                //and amount of ingredients to be added is less
+                //than a predetermined amount of ingredients
+                //Adding entries by current day
                 else if(countRecordsByMaxDate * recipeHasDrugs.getCount() < ingredient.getCount()){
-                    int availablePositionForDrug = ingredient.getCount() - countRecordsByMaxDate;
-                    if(recipeHasDrugs.getCount() < availablePositionForDrug){
-                        for(int i = 0;i<countRecordsByMaxDate * recipeHasDrugs.getCount();i++){
-                            ConcreteIngredient concreteIngredient = new ConcreteIngredient();
-                            concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
-                            concreteIngredient.setIngredientId(ingredient.getId());
-                            concreteIngredient.setAvailabilityDate(concreteIngredientList.get(0).getAvailabilityDate());
-                            concreteIngredientsService.save(concreteIngredient);
+                    dateCount = 0;
+                    date = new Date();
+                    for (int i = countRecordsByMaxDate; i < ingredient.getCount()*recipeHasDrugs.getCount();i++){
+                        if(i!=0&&i%ingredient.getCount() == 0){
+                            dateCount++;
                         }
-                    }
-                    if(recipeHasDrugs.getCount() * recipeHasDrugs.getCount() >= availablePositionForDrug){
-                        for(int i = 0;i<countRecordsByMaxDate * recipeHasDrugs.getCount();i++){
-                            ConcreteIngredient concreteIngredient = new ConcreteIngredient();
-                            concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
-                            concreteIngredient.setIngredientId(ingredient.getId());
-                            concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(concreteIngredientList.get(0).getAvailabilityDate(), 1));
-                            concreteIngredientsService.save(concreteIngredient);
-                        }
-                    }
-                }
-                else if (countRecordsByMaxDate >= ingredient.getCount()){
-                    for(int i = 0;i<countRecordsByMaxDate * recipeHasDrugs.getCount();i++){
                         ConcreteIngredient concreteIngredient = new ConcreteIngredient();
                         concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                         concreteIngredient.setIngredientId(ingredient.getId());
-                        concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(concreteIngredientList.get(0).getAvailabilityDate(), 1));
+                        concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(date, dateCount));
                         concreteIngredientsService.save(concreteIngredient);
                     }
                 }
-                //=====
-
-                /*ConcreteIngredient concreteIngredient = new ConcreteIngredient();
-                concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
-                concreteIngredient.setIngredientId(ingredient.getId());
-
-                if(countRecordsByMaxDate < ingredient.getCount()){
-                    if(countRecordsByMaxDate == 0){
-                        concreteIngredient.setAvailabilityDate(new Date());
-                    }
-                    else {
-                        concreteIngredient.setAvailabilityDate(concreteIngredientList.get(0).getAvailabilityDate());
+                //amount of ingredients to be added is more
+                //than a predetermined amount of ingredients
+                //Adding entries by next day
+                else if (countRecordsByMaxDate * recipeHasDrugs.getCount() >= ingredient.getCount()){
+                    dateCount = 1;
+                    for(int i = 0;i<countRecordsByMaxDate * recipeHasDrugs.getCount();i++){
+                        if(i!=0&&i%ingredient.getCount() == 0){
+                            dateCount++;
+                        }
+                        ConcreteIngredient concreteIngredient = new ConcreteIngredient();
+                        concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
+                        concreteIngredient.setIngredientId(ingredient.getId());
+                        concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(concreteIngredientList.get(0).getAvailabilityDate(), dateCount));
+                        concreteIngredientsService.save(concreteIngredient);
                     }
                 }
-                else {
-                    concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(concreteIngredientList.get(0).getAvailabilityDate(), 1));
-                }
-
-                concreteIngredientsService.saveRecipe(concreteIngredient);*/
             }
         }
     }
 
+    //todo not implemented
     public void UpdateDrugsToProduce(List<DrugWithPharmacistViewModel> drugWithPharmacists) {
         for (DrugWithPharmacistViewModel drugWithPharmacistViewModel1 : drugWithPharmacists){
             //ConcreteDrugs drug =
