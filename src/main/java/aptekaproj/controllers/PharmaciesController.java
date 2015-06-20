@@ -29,8 +29,8 @@ public class PharmaciesController {
     private ConcreteDrugService concreteDrugService;
 
     /**
-     * Get apotekary list for appointment to the manufacturer
-     * @param pharmacy_id
+     * Get apothecary list for appointment to the manufacturer
+     * @param pharmacy_id - id of pharmacy
      * @return List<UserViewModel>
      */
     @ResponseBody
@@ -43,44 +43,46 @@ public class PharmaciesController {
     /**
      * Get recipes for pharmacist by apothecary id and status
      * url: localhost:8443/Pharmacies/pharmacies/2/recipes
-     * @param status
-     * @return
+     * @param status - recipe status
+     * @return List<Recipe>
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/2/recipes", method = RequestMethod.GET)
-    public List<Recipe> getRecipes(@RequestParam(value = "s", required = true) String status) {
-        return recipeService.getRecipesForPharmacyByStatus(2, status);
+    @RequestMapping(value = "/pharmacies/{pharmacy_id}/recipes/{status}", method = RequestMethod.GET)
+    public List<Recipe> getRecipes(@PathVariable("pharmacy_id") int pharmacy_id,
+                                   @PathVariable("status") String status){
+
+        return recipeService.getRecipesForPharmacyByStatus(pharmacy_id, status);
     }
 
     //todo test
     /**
      * Get recipe info for pharmacist by recipe ID
-     * @param id
+     * @param recipeId - recipe id
      * @return RecipeViewModel
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/2/recipes/", method = RequestMethod.GET)
-    public RecipeViewModel getRecipe(@RequestParam(value = "id", required = true) int id) {
-        return recipeService.getRecipe(id);
+    @RequestMapping(value = "/pharmacies/recipe/{recipeId}", method = RequestMethod.GET)
+    public RecipeViewModel getRecipe(@PathVariable("recipeId") int recipeId) {
+        return recipeService.getRecipe(recipeId);
     }
 
     //todo test
     /**
      * updateRecipe recipe by pharmacist - the input parameter is ViewModel for recipe
-     * @param recipeViewModel
+     * @param recipeViewModel - recipe view model
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/2/recipes/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/pharmacies/recipe/update", method = RequestMethod.PUT)
     public void updateRecipe(@RequestBody RecipeViewModel recipeViewModel) {
         recipeService.updateRecipe(recipeViewModel);
     }
 
     /**
      * Change recipe status - the input parameter is ViewModel with recipe ID and new status
-     * @param postViewModel
+     * @param postViewModel - post view model
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/2/recipes/", method = RequestMethod.POST)
+    @RequestMapping(value = "/pharmacies/recipe/change", method = RequestMethod.POST)
     public void changeStatus(@RequestBody PostViewModel postViewModel) {//,@RequestBody String status){
         recipeService.changeStatus(postViewModel.id, postViewModel.status);
     }
@@ -89,25 +91,26 @@ public class PharmaciesController {
     /**
      * Get List drugs for produce and List apothecaries in apothecary
      * Need one more parameter - apothecary id
-     * @param pharmacistId
-     * @param recipeId
-     * @return
+     * @param pharmacistId - pharmacist id
+     * @param recipeId - recipe id
+     * @return OrderMissingViewModel
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/2/order", method = RequestMethod.GET)
-    public OrderMissingViewModel getOrderMissing(@RequestParam(value = "pharmacistId", required = true) int pharmacistId,
-                                                 @RequestParam(value = "recipeId", required = true) int recipeId) {
+    @RequestMapping(value = "/pharmacies/order/{pharmacistId}/{recipeId}", method = RequestMethod.GET)
+    public OrderMissingViewModel getOrderMissing(@PathVariable("pharmacistId") int pharmacistId,
+                                                 @PathVariable("recipeId")  int recipeId ){
         return recipeService.getOrderMissing(pharmacistId, recipeId);
     }
 
     //todo test
+    //todo what need to return?
     /**
      * Implementation of logic "send medicine to manufacturing"
      * Create instance for ConcreteDrugs and ConcreteIngredients
-     * @param recipeDrugWithPharmacistViewModel
+     * @param recipeDrugWithPharmacistViewModel recipe drug with pharmacist view model
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/2/drugs/", method = RequestMethod.POST)
+    @RequestMapping(value = "/pharmacies/order/", method = RequestMethod.POST)
     public void orderToProduce(@RequestBody RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {//need viewModel!!!
         concreteDrugService.DrugsToProduce(recipeDrugWithPharmacistViewModel);
     }
@@ -116,23 +119,22 @@ public class PharmaciesController {
     /**
      * Updates the links between drugs and apothecaries who prepare them
      * sounds funny :)
-     * @param recipeDrugWithPharmacistViewModel
+     * @param recipeDrugWithPharmacistViewModel recipe drug with pharmacist view model
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/2/drugs/", method = RequestMethod.PUT)
+    @RequestMapping(value = "/pharmacies/drugs/update", method = RequestMethod.PUT)
     public void updateOrderToProduce(@RequestBody RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {
         concreteDrugService.updateDrugsToProduce(recipeDrugWithPharmacistViewModel);
     }
 
-
     /**
      * excess method
-     * @param id
-     * @return
+     * @param recipeId - recipe id
+     * @return RecipeViewModel
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/2/recipe/{id}", method = RequestMethod.GET)
-    public RecipeViewModel getRecipeInfo(@PathVariable int id) {
-        return recipeService.getRecipe(id);
+    @RequestMapping(value = "/pharmacies/recipe/{recipeId}", method = RequestMethod.GET)
+    public RecipeViewModel getRecipeInfo(@PathVariable("recipeId") int recipeId) {
+        return recipeService.getRecipe(recipeId);
     }
 }
