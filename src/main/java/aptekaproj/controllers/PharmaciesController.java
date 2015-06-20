@@ -133,7 +133,7 @@ public class PharmaciesController {
      * @return RecipeViewModel
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/recipe/{recipeId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pharmacies/recipe1/{recipeId}", method = RequestMethod.GET)
     public RecipeViewModel getRecipeInfo(@PathVariable("recipeId") int recipeId) {
         return recipeService.getRecipe(recipeId);
     }
