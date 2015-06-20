@@ -106,10 +106,10 @@ public class DrugService {
             if(recipe == null)
                 continue;
 
-            String recipeStatus = recipeProgressStatusService.getRecipeProgressStatusById(recipe.getRecipeProgressStatusId()).getName();
-            String tt = ProgressStatusEnum.IN_PROCESS.toString().toUpperCase();
+            String recipeStatus = recipeProgressStatusService.getRecipeProgressStatusById(recipe.getRecipeProgressStatusId()).getName().toUpperCase();
+            String progressStatus = ProgressStatusEnum.IN_PROCESS.toString().toUpperCase();
 
-            if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.toUpperCase().equals(tt)){
+            if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.equals(progressStatus)){
                 DrugToProduceViewModel drugToProduceViewModel = new DrugToProduceViewModel();
                 drugToProduceViewModel.drugViewModel = getDrug(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
                 drugToProduceViewModel.ingredientInDrugViewModels = ingredientService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
@@ -130,10 +130,10 @@ public class DrugService {
             if(recipe == null)
                 continue;
 
-            String recipeStatus = recipeProgressStatusService.getRecipeProgressStatusById(recipe.getRecipeProgressStatusId()).getName();
+            String recipeStatus = recipeProgressStatusService.getRecipeProgressStatusById(recipe.getRecipeProgressStatusId()).getName().toUpperCase();
             String status = ProgressStatusEnum.IN_PROCESS.toString().toUpperCase();
 
-            if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.toUpperCase().equals(status) && concreteDrug.getDrugId() == drugId){
+            if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.equals(status) && concreteDrug.getDrugId() == drugId){
                 DrugToProduceViewModel drugToProduceViewModel = new DrugToProduceViewModel();
                 drugToProduceViewModel.drugViewModel = getDrug(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
                 drugToProduceViewModel.ingredientInDrugViewModels = ingredientService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
