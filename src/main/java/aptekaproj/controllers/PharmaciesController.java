@@ -34,8 +34,8 @@ public class PharmaciesController {
      * @return List<UserViewModel>
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacists", method = RequestMethod.GET)
-    public List<UserViewModel> getPharmacists(@RequestParam(value = "pharmacy", required = true) int pharmacy_id) {
+    @RequestMapping(value = "/pharmacists/{pharmacy_id}", method = RequestMethod.GET)
+    public List<UserViewModel> getPharmacists(@PathVariable("pharmacy_id") int pharmacy_id) {
         return pharmacyStaffService.getPharmacists(pharmacy_id);
     }
 
