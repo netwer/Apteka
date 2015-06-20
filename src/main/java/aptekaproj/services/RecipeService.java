@@ -1,11 +1,8 @@
 package aptekaproj.services;
 
-import aptekaproj.viewModels.DrugViewModel;
-import aptekaproj.viewModels.OrderMissingViewModel;
-import aptekaproj.viewModels.PatientRecipeViewModel;
-import aptekaproj.viewModels.RecipeViewModel;
+import aptekaproj.viewModels.*;
 import aptekaproj.controllers.repository.IRecipesRepository;
-import aptekaproj.helpers.Enums.ProgressStatusEnum;
+import aptekaproj.helpers.enums.ProgressStatusEnum;
 import aptekaproj.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +43,7 @@ public class RecipeService {
     @Autowired
     private ConcreteDrugService concreteDrugService;
 
-    public void saveRecipe(RecipeViewModel recipeViewModel){
+    public PostViewModel saveRecipe(RecipeViewModel recipeViewModel){
         //todo check!
         RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.CREATED.toString());
         Recipe recipe = new Recipe();
@@ -56,10 +53,20 @@ public class RecipeService {
         recipe.setCreatedAt(new Date());
 
         //todo CHECK!
-        //Recipes recipes1 = recipesRepository.saveRecipeHasDrugs(recipes);
-        Recipe recipe1 = recipesRepository.save(recipe);
-        diagnosesService.updateDiagnosis(recipeViewModel.diagnosesId, recipe1.getId());
-        recipeHasDrugsService.updateRecipeHasDrugs(recipeViewModel, recipe1);
+        PostViewModel postViewModel = new PostViewModel();
+        try {
+            Recipe recipe1 = recipesRepository.save(recipe);
+            diagnosesService.updateDiagnosis(recipeViewModel.diagnosesId, recipe1.getId());
+            recipeHasDrugsService.updateRecipeHasDrugs(recipeViewModel, recipe1);
+            postViewModel.id = recipe1.getId();
+            postViewModel.message = "Saved";
+            postViewModel.status = "OK";
+
+        }catch (Exception e){
+            postViewModel.status = "Error";
+            postViewModel.message = e.getMessage();
+        }
+        return postViewModel;
     }
 
     public void saveRecipe(Recipe recipe){

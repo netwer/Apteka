@@ -1,6 +1,6 @@
 package aptekaproj.services;
 
-import aptekaproj.helpers.Enums.ProgressStatusEnum;
+import aptekaproj.helpers.enums.ProgressStatusEnum;
 import aptekaproj.viewModels.DrugViewModel;
 import aptekaproj.viewModels.RecipeViewModel;
 import aptekaproj.controllers.repository.IRecipesHasDrugsRepository;

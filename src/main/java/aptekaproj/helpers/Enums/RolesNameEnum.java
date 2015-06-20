@@ -1,4 +1,4 @@
-package aptekaproj.helpers.Enums;
+package aptekaproj.helpers.enums;
 
 /**
  * Created by Admin on 06.06.2015.

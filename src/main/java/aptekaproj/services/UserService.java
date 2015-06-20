@@ -3,7 +3,7 @@ package aptekaproj.services;
 import aptekaproj.viewModels.PatientCardViewModel;
 import aptekaproj.viewModels.UserViewModel;
 import aptekaproj.viewModels.UserDoctorViewModel;
-import aptekaproj.helpers.Enums.RolesNameEnum;
+import aptekaproj.helpers.enums.RolesNameEnum;
 import aptekaproj.helpers.Hash;
 import aptekaproj.controllers.repository.IUsersRepository;
 import aptekaproj.models.Diagnoses;

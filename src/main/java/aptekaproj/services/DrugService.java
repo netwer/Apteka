@@ -3,7 +3,7 @@ package aptekaproj.services;
 import aptekaproj.viewModels.DrugToProduceViewModel;
 import aptekaproj.viewModels.DrugViewModel;
 import aptekaproj.controllers.repository.IDrugsRepository;
-import aptekaproj.helpers.Enums.ProgressStatusEnum;
+import aptekaproj.helpers.enums.ProgressStatusEnum;
 import aptekaproj.models.ConcreteDrug;
 import aptekaproj.models.Drug;
 import aptekaproj.models.Recipe;

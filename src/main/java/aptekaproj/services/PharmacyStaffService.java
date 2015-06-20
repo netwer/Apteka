@@ -2,7 +2,7 @@ package aptekaproj.services;
 
 import aptekaproj.viewModels.UserViewModel;
 import aptekaproj.controllers.repository.IPharmacyStaffRepository;
-import aptekaproj.helpers.Enums.RolesNameEnum;
+import aptekaproj.helpers.enums.RolesNameEnum;
 import aptekaproj.models.PharmacyStaff;
 import aptekaproj.models.User;
 import org.springframework.beans.factory.annotation.Autowired;

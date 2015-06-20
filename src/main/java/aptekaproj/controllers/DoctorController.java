@@ -1,9 +1,6 @@
 package aptekaproj.controllers;
 
-import aptekaproj.viewModels.PatientCardViewModel;
-import aptekaproj.viewModels.PostViewModel;
-import aptekaproj.viewModels.RecipeViewModel;
-import aptekaproj.viewModels.UserDoctorViewModel;
+import aptekaproj.viewModels.*;
 import aptekaproj.models.Diagnoses;
 import aptekaproj.models.Drug;
 import aptekaproj.models.Pharmacy;
@@ -59,9 +56,9 @@ public class DoctorController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/PatientCard",method = RequestMethod.GET)
-    public PatientCardViewModel getAppointment(@RequestParam(value = "patientId", required = true) int patientId,
-                                               @RequestParam(value = "doctorId", required = true) int doctorId) {
+    @RequestMapping(value = "/appointment/{doctorId}/{patientId}",method = RequestMethod.GET)
+    public PatientCardViewModel getAppointment(@PathVariable("doctorId") int doctorId,
+                                               @PathVariable("patientId")  int patientId){
         return userService.getPatientCard(patientId, doctorId);
     }
 
@@ -98,8 +95,8 @@ public class DoctorController {
      */
     @ResponseBody
     @RequestMapping(value = "/diagnose/update",method = RequestMethod.PUT)
-    public void updateDiagnose(@RequestBody Diagnoses diagnoses){
-        diagnosesService.updateDiagnosis(diagnoses);
+    public PostViewModel updateDiagnose(@RequestBody Diagnoses diagnoses){
+        return diagnosesService.updateDiagnosis(diagnoses);
     }
 
     //todo test
@@ -110,12 +107,12 @@ public class DoctorController {
      */
     @ResponseBody
     @RequestMapping(value = "/recipe/save",method = RequestMethod.POST)
-    public void saveRecipe(@RequestBody RecipeViewModel recipeViewModel){
-        recipeService.saveRecipe(recipeViewModel);
+    public PostViewModel saveRecipe(@RequestBody RecipeViewModel recipeViewModel){
+        return recipeService.saveRecipe(recipeViewModel);
     }
 
     //todo test
-
+    //todo what need to return?
     /**
      * updateDiagnosis Recipe
      * @param recipeViewModel
@@ -127,14 +124,13 @@ public class DoctorController {
     }
 
     //todo test
-
     /**
      * Get pharmacies list: GET /pharmacies
      * url: localhost:8443/Doctor/recipe/pharmacies
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/recipe/pharmacies",method = RequestMethod.GET)
+    @RequestMapping(value = "/pharmacies",method = RequestMethod.GET)
     public List<Pharmacy> getPharmacies(){
         return pharmacyService.getPharmacies();
     }
@@ -146,7 +142,7 @@ public class DoctorController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/recipe/drugs",method = RequestMethod.GET)
+    @RequestMapping(value = "/drugs",method = RequestMethod.GET)
     public List<Drug> getDrugs(){
         return drugService.getDrugs();
     }

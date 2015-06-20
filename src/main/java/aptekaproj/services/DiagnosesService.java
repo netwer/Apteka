@@ -1,5 +1,6 @@
 package aptekaproj.services;
 
+import aptekaproj.helpers.exeptions.SaveUpdateException;
 import aptekaproj.viewModels.PostViewModel;
 import aptekaproj.controllers.repository.IDiagnosesRepository;
 import aptekaproj.models.Diagnoses;
@@ -75,7 +76,7 @@ public class DiagnosesService {
         diagnosesRepository.save(diagnoses1);
     }
 
-    public void updateDiagnosis(Diagnoses diagnoses) {
+    public PostViewModel updateDiagnosis(Diagnoses diagnoses) {
         Diagnoses diagnoses1 = new Diagnoses();
         diagnoses1.setId(diagnoses.getId());
         diagnoses1.setPatientUserId(diagnoses.getPatientUserId());
@@ -84,7 +85,19 @@ public class DiagnosesService {
         diagnoses1.setDoctorUserId(diagnoses.getDoctorUserId());
         diagnoses1.setCreatedAt(diagnoses.getCreatedAt());
         diagnoses1.setRecipeId(diagnoses.getRecipeId());
-        diagnosesRepository.save(diagnoses1);
+
+        PostViewModel postViewModel = new PostViewModel();
+        try{
+            Diagnoses diagnoses2 = diagnosesRepository.save(diagnoses1);
+            postViewModel.id = diagnoses2.getId();
+            postViewModel.status = "OK";
+            postViewModel.message = "Updated";
+            return postViewModel;
+        }catch (Exception e){
+            postViewModel.status = "Error";
+            postViewModel.message = e.getMessage();
+            return postViewModel;
+        }
     }
 
     public List<Diagnoses> getAllDiagnoses() {
