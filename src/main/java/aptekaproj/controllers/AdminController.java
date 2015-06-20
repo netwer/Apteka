@@ -1,5 +1,7 @@
 package aptekaproj.controllers;
 
+import aptekaproj.models.Diagnoses;
+import aptekaproj.viewModels.PostViewModel;
 import aptekaproj.viewModels.UserDoctorViewModel;
 import aptekaproj.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +46,9 @@ public class AdminController {
      * @param userDoctorViewModel
      */
     @ResponseBody
-    @RequestMapping(value = "/appointments",method = RequestMethod.POST)
-    public void saveAppointment(@RequestBody UserDoctorViewModel userDoctorViewModel){
-        adminService.saveAppointment(userDoctorViewModel);
+    @RequestMapping(value = "/appointment",method = RequestMethod.POST)
+    public PostViewModel saveAppointment(@RequestBody UserDoctorViewModel userDoctorViewModel){
+        return adminService.saveAppointment(userDoctorViewModel);
     }
 
     /**
@@ -54,7 +56,7 @@ public class AdminController {
      * @param  id
      */
     @ResponseBody
-    @RequestMapping(value = "/appointments/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/appointment/{id}",method = RequestMethod.DELETE)
     public void deleteAppointment(@PathVariable int id){
         adminService.deleteAppointment(id);
     }

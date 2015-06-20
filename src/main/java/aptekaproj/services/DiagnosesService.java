@@ -91,8 +91,21 @@ public class DiagnosesService {
         return (List<Diagnoses>)diagnosesRepository.findAll();
     }
 
-    public void deleteDiagnosis(int id) {
-        diagnosesRepository.delete(id);
+    public PostViewModel deleteDiagnosis(int id) {
+        PostViewModel postViewModel = new PostViewModel();
+        try{
+            diagnosesRepository.delete(id);
+            postViewModel.id = id;
+            postViewModel.status = "OK";
+            postViewModel.message = "Deleted";
+            return postViewModel;
+        }catch (Exception e){
+            postViewModel.status = "Error";
+            postViewModel.message = e.getMessage();
+            return postViewModel;
+        }
+
+
     }
 
     public Diagnoses getDiagnosis(Integer recipeId) {

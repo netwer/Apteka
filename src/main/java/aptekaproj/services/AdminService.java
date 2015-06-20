@@ -1,5 +1,6 @@
 package aptekaproj.services;
 
+import aptekaproj.viewModels.PostViewModel;
 import aptekaproj.viewModels.UserDoctorViewModel;
 import aptekaproj.models.Diagnoses;
 import aptekaproj.models.User;
@@ -31,7 +32,7 @@ public class AdminService {
         return userDoctorViewModels;
     }
 
-    public void saveAppointment(UserDoctorViewModel userDoctorViewModel) {
+    public PostViewModel saveAppointment(UserDoctorViewModel userDoctorViewModel) {
         Diagnoses diagnoses = new Diagnoses();
 
         diagnoses.setPatientUserId(userDoctorViewModel.patientId);
@@ -41,7 +42,7 @@ public class AdminService {
         diagnoses.setComplaints("");
         diagnoses.setRecipeId(null);
 
-        diagnosesService.saveDiagnosis(diagnoses);
+        return diagnosesService.saveDiagnosis(diagnoses);
     }
 
     public void deleteAppointment(int id) {
