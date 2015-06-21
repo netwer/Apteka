@@ -1,5 +1,6 @@
 package aptekaproj.controllers;
 
+import aptekaproj.helpers.exeptions.ProcessException;
 import aptekaproj.models.Diagnoses;
 import aptekaproj.viewModels.PostViewModel;
 import aptekaproj.viewModels.UserDoctorViewModel;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +40,12 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/appointments",method = RequestMethod.GET)
     public List<UserDoctorViewModel> getAppointments(){
-        return adminService.getAppointments();
+        try{
+            return adminService.getAppointments();
+        }
+        catch (ProcessException e){
+            return new ArrayList<>();
+        }
     }
 
     /**
@@ -48,7 +55,11 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/appointment",method = RequestMethod.POST)
     public PostViewModel saveAppointment(@RequestBody UserDoctorViewModel userDoctorViewModel){
-        return adminService.saveAppointment(userDoctorViewModel);
+        try{
+            return adminService.saveAppointment(userDoctorViewModel);
+        }catch (ProcessException e){
+            return new PostViewModel();
+        }
     }
 
     /**
@@ -58,7 +69,11 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/appointment/{id}",method = RequestMethod.DELETE)
     public void deleteAppointment(@PathVariable int id){
-        adminService.deleteAppointment(id);
+        try {
+            adminService.deleteAppointment(id);
+        }catch (ProcessException e){
+
+        }
     }
 
 }

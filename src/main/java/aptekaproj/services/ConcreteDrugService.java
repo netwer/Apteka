@@ -2,6 +2,7 @@ package aptekaproj.services;
 
 import aptekaproj.controllers.repository.IConcreteDrugsRepository;
 import aptekaproj.helpers.DateWorker;
+import aptekaproj.helpers.enums.ProgressStatusEnum;
 import aptekaproj.models.ConcreteDrug;
 import aptekaproj.models.ConcreteIngredient;
 import aptekaproj.models.Ingredient;
@@ -32,6 +33,9 @@ public class ConcreteDrugService {
 
     @Autowired
     private RecipeHasDrugsService recipeHasDrugsService;
+
+    @Autowired
+    private RecipeService recipeService;
 
     //todo - the method must be tested
     //without refactoring - for debugging
@@ -120,6 +124,7 @@ public class ConcreteDrugService {
                 }
             }
         }
+        recipeService.changeStatus(recipeDrugWithPharmacistViewModel.recipeId, ProgressStatusEnum.IN_PROCESS.toString());
     }
 
     //todo test

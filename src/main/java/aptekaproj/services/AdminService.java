@@ -1,5 +1,6 @@
 package aptekaproj.services;
 
+import aptekaproj.helpers.exeptions.ProcessException;
 import aptekaproj.viewModels.PostViewModel;
 import aptekaproj.viewModels.UserDoctorViewModel;
 import aptekaproj.models.Diagnoses;
@@ -22,7 +23,7 @@ public class AdminService {
     @Autowired
     private DiagnosesService diagnosesService;
 
-    public List<UserDoctorViewModel> getAppointments(){
+    public List<UserDoctorViewModel> getAppointments() throws ProcessException{
         List<User> doctors = userService.getDoctors();
         List<UserDoctorViewModel> userDoctorViewModels = new ArrayList<>();
         for (User doctor:doctors){
@@ -32,7 +33,7 @@ public class AdminService {
         return userDoctorViewModels;
     }
 
-    public PostViewModel saveAppointment(UserDoctorViewModel userDoctorViewModel) {
+    public PostViewModel saveAppointment(UserDoctorViewModel userDoctorViewModel) throws ProcessException{
         Diagnoses diagnoses = new Diagnoses();
 
         diagnoses.setPatientUserId(userDoctorViewModel.patientId);
@@ -45,7 +46,7 @@ public class AdminService {
         return diagnosesService.saveDiagnosis(diagnoses);
     }
 
-    public void deleteAppointment(int id) {
+    public void deleteAppointment(int id) throws ProcessException{
         diagnosesService.deleteDiagnosis(id);
     }
 }
