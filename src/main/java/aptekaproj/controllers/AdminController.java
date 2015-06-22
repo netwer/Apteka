@@ -30,7 +30,7 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/")
     public String sayHello(){
-        return "Hi!!!, This is Spring Boot Project for IS 'Apteka'";
+        return "Hi! This is Spring Boot Project for IS 'Apteka'";
     }
 
     /**
@@ -56,6 +56,8 @@ public class AdminController {
     @RequestMapping(value = "/appointment",method = RequestMethod.POST)
     public PostViewModel saveAppointment(@RequestBody UserDoctorViewModel userDoctorViewModel){
         try{
+            if(userDoctorViewModel == null)
+                throw new ProcessException("The data from user is empty!");
             return adminService.saveAppointment(userDoctorViewModel);
         }catch (ProcessException e){
             return new PostViewModel();
@@ -67,9 +69,11 @@ public class AdminController {
      * @param  id
      */
     @ResponseBody
-    @RequestMapping(value = "/appointment/{id}",method = RequestMethod.DELETE)
+        @RequestMapping(value = "/appointment/{id}",method = RequestMethod.DELETE)
     public void deleteAppointment(@PathVariable int id){
         try {
+            if(id <= 0 || String.valueOf(id).isEmpty() || !String.valueOf(id).isEmpty())
+                throw new ProcessException("Wrong id parameter!");
             adminService.deleteAppointment(id);
         }catch (ProcessException e){
 
