@@ -1,11 +1,12 @@
 package aptekaproj.controllers;
 
 import aptekaproj.helpers.exeptions.ProcessException;
-import aptekaproj.models.Diagnoses;
 import aptekaproj.viewModels.PostViewModel;
 import aptekaproj.viewModels.UserDoctorViewModel;
 import aptekaproj.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * Controller for administrator
  */
 @Controller
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @RequestMapping("/Admin")
 public class AdminController {
 
@@ -30,6 +32,7 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/")
     public String sayHello(){
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
         return "Hi! This is Spring Boot Project for IS 'Apteka'";
     }
 
