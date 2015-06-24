@@ -4,11 +4,11 @@ package aptekaproj.helpers.enums;
  * Created by Admin on 06.06.2015.
  */
 public enum RolesNameEnum {
-    DOCTOR("Doctor"),
-    PATIENT("Patient"),
+    DOCTOR("DOCTOR"),
+    PATIENT("PATIENT"),
     PHARMACIES("Pharmacies"),
-    ADMIN("Admin"),
-    APOTHECARY("Apothecary");
+    ADMIN("ADMIN"),
+    APOTHECARY("APOTHECARY");
 
     private String displayRoleName;
     RolesNameEnum(String displayRoleName){

@@ -1,16 +1,29 @@
 package aptekaproj;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 
-@Configuration
-@ComponentScan
-@EnableAutoConfiguration
+/*
+@SpringBootApplication
 public class AptekaApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AptekaApplication.class, args);
     }
+}
+*/
+@SpringBootApplication
+public class AptekaApplication extends SpringBootServletInitializer {
+
+    public static void main(String[] args) {
+        SpringApplication.run(AptekaApplication.class, args);
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(AptekaApplication.class);
+    }
+
 }

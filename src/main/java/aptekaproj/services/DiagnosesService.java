@@ -1,6 +1,5 @@
 package aptekaproj.services;
 
-import aptekaproj.helpers.exeptions.SaveUpdateException;
 import aptekaproj.viewModels.PostViewModel;
 import aptekaproj.controllers.repository.IDiagnosesRepository;
 import aptekaproj.models.Diagnoses;

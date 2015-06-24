@@ -39,4 +39,18 @@ public class RoleService{
     public String getRoleName(int id){
         return repository.findOne(id).getName();
     }
+
+    public Role getRoleById(int roleId) {
+        List<Role> roleList = (List<Role>) repository.findAll();
+        Role currentRole = new Role();
+        for(Role role:roleList){
+            if(role.getId() == roleId){
+                currentRole = role;
+            }
+        }
+
+        return currentRole;
+    }
+
+
 }

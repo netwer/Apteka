@@ -160,4 +160,16 @@ public class UserService {
     public List<User> getUsers(){
         return (List<User>)usersRepository.findAll();
     }
+
+    public User getUserByLogin(String login) {
+        List<User> userList = getUsers();
+        User userByLogin = new User();
+        for (User user : userList){
+            if(user.getLogin().equals(login)){
+                userByLogin = user;
+            }
+        }
+        userByLogin.role = roleService.getRoleById(userByLogin.getRoleId());
+        return userByLogin;
+    }
 }

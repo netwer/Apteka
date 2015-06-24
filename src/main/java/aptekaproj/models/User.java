@@ -38,6 +38,8 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    public Role role;
+
     public User(){
     }
 
