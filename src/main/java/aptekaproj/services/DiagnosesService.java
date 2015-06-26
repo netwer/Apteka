@@ -1,5 +1,8 @@
 package aptekaproj.services;
 
+import aptekaproj.models.Pharmacy;
+import aptekaproj.models.Recipe;
+import aptekaproj.viewModels.PatientCardViewModel;
 import aptekaproj.viewModels.PostViewModel;
 import aptekaproj.controllers.repository.IDiagnosesRepository;
 import aptekaproj.models.Diagnoses;
@@ -7,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +22,15 @@ public class DiagnosesService {
 
     @Autowired
     private IDiagnosesRepository diagnosesRepository;
+
+    @Autowired
+    private RecipeService recipeService;
+
+    @Autowired
+    private PharmacyService pharmacyService;
+
+    @Autowired
+    private RecipeHasDrugsService recipeHasDrugsService;
 
     @Transactional
     public List<Diagnoses> getPatientHistory(int userId){
@@ -52,6 +65,17 @@ public class DiagnosesService {
         List<Diagnoses> diagnosesForUser = new ArrayList<>();
         for (Diagnoses diagnoses:diagnosesList){
             if(diagnoses.getPatientUserId() == userId){
+                diagnosesForUser.add(diagnoses);
+            }
+        }
+        return diagnosesForUser;
+    }
+
+    public List<Diagnoses> getDiagnosisForDoctor(int userId) {
+        List<Diagnoses> diagnosesList = (List<Diagnoses>)diagnosesRepository.findAll();
+        List<Diagnoses> diagnosesForUser = new ArrayList<>();
+        for (Diagnoses diagnoses:diagnosesList){
+            if(diagnoses.getDoctorUserId() == userId){
                 diagnosesForUser.add(diagnoses);
             }
         }
@@ -131,6 +155,37 @@ public class DiagnosesService {
             }
         }
 
+        return diagnoses;
+    }
+
+    public void saveAppointment(PatientCardViewModel patientCardViewModel) throws ParseException {
+        Diagnoses diagnoses = new Diagnoses();
+        Pharmacy pharmacy = pharmacyService.getPharmacyByTitle(patientCardViewModel.apothecaryName);
+        Recipe recipe = recipeService.createRecipe(patientCardViewModel.visitDate,pharmacy.getId());
+
+        diagnoses.setComplaints(patientCardViewModel.complaints);
+        diagnoses.setDiagnosis(patientCardViewModel.diagnosis);
+        diagnoses.setCreatedAt(patientCardViewModel.visitDate);
+        diagnoses.setRecipeId(recipe.getId());
+        diagnoses.setDoctorUserId(patientCardViewModel.doctorId);
+        diagnoses.setPatientUserId(patientCardViewModel.patientId);
+        diagnosesRepository.save(diagnoses);
+
+        recipeHasDrugsService.saveRecipeHasDrugs(patientCardViewModel.drugsInRecipe,recipe.getId());
+    }
+
+    public Diagnoses getDiagnosesByRecipeId(int recipeId) {
+        List<Diagnoses> diagnoseses = getAllDiagnoses();
+        Diagnoses diagnoses = new Diagnoses();
+        if(diagnoseses == null)
+            return diagnoses;
+
+        for(Diagnoses diagnoses1 : diagnoseses){
+            if(diagnoses1.getRecipeId() == recipeId){
+                diagnoses = diagnoses1;
+                break;
+            }
+        }
         return diagnoses;
     }
 }

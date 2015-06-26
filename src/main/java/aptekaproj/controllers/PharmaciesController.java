@@ -49,9 +49,9 @@ public class PharmaciesController {
      * @return List<Recipe>
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/{pharmacy_id}/recipes/{status}", method = RequestMethod.GET)
-    public List<Recipe> getRecipes(@PathVariable("pharmacy_id") int pharmacy_id,
-                                   @PathVariable("status") String status){
+    @RequestMapping(value = "/pharmacies/{pharmacy_id}/recipes", method = RequestMethod.GET)
+    public List<RecipeViewModel> getRecipes(@PathVariable("pharmacy_id") int pharmacy_id,
+                                   @RequestParam("status") String status){
 
         return recipeService.getRecipesForPharmacyByStatus(pharmacy_id, status);
     }

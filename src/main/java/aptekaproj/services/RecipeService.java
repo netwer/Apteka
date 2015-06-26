@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Created by Admin on 28.05.2015.
@@ -149,8 +148,8 @@ public class RecipeService {
         return recipesRepository.findOne(recipeId);
     }
 
-    public List<Recipe> getRecipesForPharmacyByStatus(int pharmacy_id, String status) {
-        List<Recipe> recipes = new ArrayList<>();
+    public List<RecipeViewModel> getRecipesForPharmacyByStatus(int pharmacy_id, String status) {
+        List<RecipeViewModel> recipes = new ArrayList<>();
         List<Recipe> currentRecipes = (List<Recipe>)recipesRepository.findAll();
         RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(status);
 
@@ -159,7 +158,16 @@ public class RecipeService {
 
         for (Recipe recipe : currentRecipes){
             if(recipe.getPharmacyId() == pharmacy_id && recipe.getRecipeProgressStatusId() == recipeProgressStatus.getId()){
-                recipes.add(recipe);
+                Diagnoses diagnoses = diagnosesService.getDiagnosesByRecipeId(recipe.getId());
+                if(diagnoses.getId() == 0)
+                    continue;
+                RecipeViewModel recipeViewModel = new RecipeViewModel();
+                recipeViewModel.recipeTitle = recipe.getTitle();
+                recipeViewModel.recipeId = recipe.getId();
+                recipeViewModel.pharmacyId = recipe.getPharmacyId();
+                recipeViewModel.patientFullName = userService.getUserById(diagnoses.getPatientUserId()).getFullName();
+                recipeViewModel.diagnosesId = diagnoses.getId();
+                recipes.add(recipeViewModel);
             }
         }
 
