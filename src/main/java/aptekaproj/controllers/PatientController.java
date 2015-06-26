@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Controller
 @PreAuthorize("hasAuthority('ROLE_PATIENT')")
-@RequestMapping("/api/patient")
+@RequestMapping("/patient")
 public class PatientController {
 
     @Autowired

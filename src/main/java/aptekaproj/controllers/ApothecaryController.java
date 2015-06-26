@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Controller
 @PreAuthorize("hasAuthority('ROLE_APOTHECARY')")
-@RequestMapping("/api/apothecary")
+@RequestMapping("/apothecary")
 public class ApothecaryController {
 
     @Autowired

@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Controller
 @PreAuthorize("hasAuthority('ROLE_DOCTOR')")
-@RequestMapping("/api/doctor")
+@RequestMapping("/doctor")
 public class DoctorController {
 
     @Autowired
