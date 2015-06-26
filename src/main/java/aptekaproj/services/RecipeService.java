@@ -201,7 +201,8 @@ public class RecipeService {
         recipe.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd").parse(visitDate));
         recipe.setPharmacyId(pharmacyId);
         recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
-        recipe.setTitle("Рецепт № " + getAllRecipes().size()+1);
+        int recipeNumber = getAllRecipes().size()+1;
+        recipe.setTitle("Рецепт № " + recipeNumber);
 
         return recipesRepository.save(recipe);
     }
