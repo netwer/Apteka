@@ -1,8 +1,11 @@
 package aptekaproj.controllers;
 
+import aptekaproj.models.Recipe;
 import aptekaproj.models.RecipeHasDrugs;
+import aptekaproj.services.RecipeService;
 import aptekaproj.viewModels.DrugToProduceViewModel;
 import aptekaproj.services.DrugService;
+import aptekaproj.viewModels.PostViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,9 @@ public class ApothecaryController {
 
     @Autowired
     private DrugService drugService;
+
+    @Autowired
+    private RecipeService recipeService;
 
     /**
      * Get list DrugToProduceViewModel
@@ -55,5 +61,11 @@ public class ApothecaryController {
     @RequestMapping(value = "/drug/{recipeHasDrugsId1}",method = RequestMethod.GET)
     public RecipeHasDrugs drugToDone(@PathVariable("recipeHasDrugsId1") int recipeHasDrugsId1){
         return drugService.drugToDone(recipeHasDrugsId1);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/pharmacies/recipe/change", method = RequestMethod.POST)
+    public void changeStatus(@RequestBody PostViewModel postViewModel) {//,@RequestBody String status){
+        recipeService.changeStatus(postViewModel.id, postViewModel.status);
     }
 }
