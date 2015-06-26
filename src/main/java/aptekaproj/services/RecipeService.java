@@ -7,9 +7,12 @@ import aptekaproj.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Created by Admin on 28.05.2015.
@@ -180,5 +183,44 @@ public class RecipeService {
         orderMissing.apothecaryUsers = pharmacistsList;
         orderMissing.drugViewModels = drugViewModelList;
         return orderMissing;
+    }
+
+    public Recipe createRecipe(String visitDate, int pharmacyId) throws ParseException {
+        Recipe recipe = new Recipe();
+        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.CREATED.toString());
+
+        recipe.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd").parse(visitDate));
+        recipe.setPharmacyId(pharmacyId);
+        recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
+        recipe.setTitle("Рецепт № " + getAllRecipes().size()+1);
+
+        return recipesRepository.save(recipe);
+    }
+
+    public List<Recipe> getAllRecipes(){
+        return (List<Recipe>)recipesRepository.findAll();
+    }
+
+    public List<RecipeViewModel> getRecipesByStatus(int doctorId, String status) {
+        List<RecipeViewModel> recipeViewModels = new ArrayList<>();
+        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(status);
+        List<Diagnoses> diagnoseses = diagnosesService.getDiagnosisForDoctor(doctorId);
+        if(recipeProgressStatus == null)
+            return recipeViewModels;
+        for(Diagnoses diagnoses : diagnoseses){
+            Recipe recipe = getRecipeById(diagnoses.getRecipeId());
+            if(recipe.getRecipeProgressStatusId() == recipeProgressStatus.getId()){
+                RecipeViewModel recipeViewModel = new RecipeViewModel();
+                recipeViewModel.diagnosesId = diagnoses.getId();
+                recipeViewModel.recipeId = recipe.getId();
+                recipeViewModel.recipeTitle = recipe.getTitle();
+                recipeViewModel.pharmacyId = recipe.getPharmacyId();
+                recipeViewModel.patientFullName = userService.getUserById(diagnoses.getPatientUserId()).getFullName();
+
+                recipeViewModels.add(recipeViewModel);
+            }
+        }
+
+        return recipeViewModels;
     }
 }

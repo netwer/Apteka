@@ -1,5 +1,6 @@
 package aptekaproj.controllers;
 
+import aptekaproj.helpers.exeptions.ProcessException;
 import aptekaproj.viewModels.*;
 import aptekaproj.models.Diagnoses;
 import aptekaproj.models.Drug;
@@ -44,7 +45,7 @@ public class DoctorController {
      * @return List<UserDoctorViewModel>
      */
     @ResponseBody
-    @RequestMapping(value = "/{doctorId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/appointments/{doctorId}", method = RequestMethod.GET)
     public List<UserDoctorViewModel> getAppointments(@PathVariable int doctorId){
         return userService.getPatients(doctorId);
     }
@@ -64,10 +65,26 @@ public class DoctorController {
         return userService.getPatientCard(patientId, doctorId);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/appointment/{doctorId}/{patientId}/save",method = RequestMethod.POST)
+    public void saveAppointment(@PathVariable("doctorId") int doctorId,
+                                @PathVariable("patientId")  int patientId,
+                                @RequestBody PatientCardViewModel patientCardViewModel){
+        try{
+            if(doctorId <= 0 || patientId <= 0 || patientCardViewModel == null)
+                throw new ProcessException("Bad parameters");
+            diagnosesService.saveAppointment(patientCardViewModel);
+        } catch (ProcessException e){
+
+        } catch (ParseException e) {
+
+        }
+    }
+
    //todo test
     /**
      * Getting all of the patient admission records GET /diagnoses/4
-     * @param user_id
+     * @param user_id - is patient id;
      * @return
      */
     @ResponseBody
@@ -147,5 +164,13 @@ public class DoctorController {
     @RequestMapping(value = "/drugs",method = RequestMethod.GET)
     public List<Drug> getDrugs(){
         return drugService.getDrugs();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/{doctorId}/recipes",method = RequestMethod.GET)
+    public List<RecipeViewModel> getRecipesByStatus(
+            @PathVariable("doctorId") int doctorId,
+            @RequestParam(value = "status", required = true) String status){
+        return recipeService.getRecipesByStatus(doctorId,status);
     }
 }
