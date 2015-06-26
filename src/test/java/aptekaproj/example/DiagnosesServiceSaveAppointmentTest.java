@@ -1,8 +1,7 @@
-package aptekaproj.services;
+package aptekaproj.example;
 
 import aptekaproj.AptekaApplication;
-import aptekaproj.controllers.repository.IRolesRepository;
-import aptekaproj.models.*;
+import aptekaproj.services.DiagnosesService;
 import aptekaproj.viewModels.DrugViewModel;
 import aptekaproj.viewModels.PatientCardViewModel;
 import org.junit.After;
@@ -11,19 +10,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = AptekaApplication.class)
