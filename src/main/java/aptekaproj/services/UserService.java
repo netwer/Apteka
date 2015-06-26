@@ -77,6 +77,7 @@ public class UserService {
                 //usersDoctorViewModel.lastVisitDate = new SimpleDateFormat("MM/dd/yyyy").format(diagnoses.getCreatedAt()).toString();
                 userDoctorViewModel.lastVisitDate = diagnoses.getCreatedAt().toString();
                 userDoctorViewModel.diagnosisId = diagnoses.getId();
+                userDoctorViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
                 userDoctorViewModels.add(userDoctorViewModel);
             }
         }
@@ -105,6 +106,7 @@ public class UserService {
                 patientCardViewModel.patientAddress = patient.getAddress();
                 patientCardViewModel.patientFullName = patient.getFullName();
                 patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
+                patientCardViewModel.patientEmail = patient.getEmail();
                 //todo need?
                 //patientCardViewModel.recipeViewModel = recipeService.getRecipe(patientId,diagnoses.getId(),diagnoses.getRecipeId());
 
