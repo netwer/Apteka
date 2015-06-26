@@ -167,6 +167,7 @@ public class RecipeService {
                 recipeViewModel.pharmacyId = recipe.getPharmacyId();
                 recipeViewModel.patientFullName = userService.getUserById(diagnoses.getPatientUserId()).getFullName();
                 recipeViewModel.diagnosesId = diagnoses.getId();
+                recipeViewModel.drugViewModels = drugService.getDrugsForRecipe(recipe.getId());
                 recipes.add(recipeViewModel);
             }
         }
