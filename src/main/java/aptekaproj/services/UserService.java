@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,7 +76,7 @@ public class UserService {
                 userDoctorViewModel.doctorFullName = doctor.getFullName();
                 //todo right date?
                 //usersDoctorViewModel.lastVisitDate = new SimpleDateFormat("MM/dd/yyyy").format(diagnoses.getCreatedAt()).toString();
-                userDoctorViewModel.lastVisitDate = diagnoses.getCreatedAt().toString();
+                //userDoctorViewModel.lastVisitDate = diagnoses.getCreatedAt().toString();
                 userDoctorViewModel.diagnosisId = diagnoses.getId();
                 userDoctorViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
                 userDoctorViewModels.add(userDoctorViewModel);
@@ -84,13 +85,26 @@ public class UserService {
         return userDoctorViewModels;
     }
 
-    //todo add check is recipe_id is null ?!
-    //todo add check is complaints is null ?!
-    //todo add check is diagnosis is null?!
     public PatientCardViewModel getPatientCard(int patientId,int doctorId){
         PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
-        User patient = new User();
-        List<Diagnoses> diagnoseses = diagnosesService.getAllDiagnoses();
+        User patient = getUserById(patientId);
+
+        if(patient == null)
+            return patientCardViewModel;
+
+        patientCardViewModel.patientFullName = patient.getFullName();
+        patientCardViewModel.patientAddress = patient.getAddress();
+        patientCardViewModel.patientEmail = patient.getEmail();
+        patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
+        patientCardViewModel.patientId = patient.getId();
+        patientCardViewModel.doctorId = doctorId;
+        patientCardViewModel.visitDate = new Date().toString();
+
+        return patientCardViewModel;
+        /*List<Diagnoses> diagnoseses = diagnosesService.getAllDiagnoses();
+        //todo add check is recipe_id is null ?!
+        //todo add check is complaints is null ?!
+        //todo add check is diagnosis is null?!
         for(Diagnoses diagnoses : diagnoseses){
             if(diagnoses.getDoctorUserId()  == doctorId  &&
                diagnoses.getPatientUserId() == patientId &&
@@ -114,7 +128,7 @@ public class UserService {
                 break;
             }
         }
-        return patientCardViewModel;
+        return patientCardViewModel;*/
     }
 
     private User userInDb(String login, String password){

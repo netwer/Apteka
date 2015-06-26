@@ -89,4 +89,16 @@ public class RecipeHasDrugsService {
 
         return recipeHasDrugs;
     }
+
+    public void saveRecipeHasDrugs(List<DrugViewModel> drugsInRecipe, int recipeId) {
+        for (DrugViewModel drugViewModel : drugsInRecipe ){
+            RecipeHasDrugs recipeHasDrugs = new RecipeHasDrugs();
+            recipeHasDrugs.setRecipeId(recipeId);
+            recipeHasDrugs.setCount(drugViewModel.drugCount);
+            recipeHasDrugs.setDrugId(drugViewModel.drugId);
+            recipeHasDrugs.setDone(false);
+
+            saveRecipeHasDrugs(recipeHasDrugs);
+        }
+    }
 }
