@@ -139,6 +139,7 @@ public class RecipeService {
         recipeViewModel.pharmacyId = recipe.getPharmacyId();
         recipeViewModel.recipeId = recipeId;
         recipeViewModel.recipeTitle = recipe.getTitle();
+        recipeViewModel.recipeProgressStatusId = recipe.getRecipeProgressStatusId();
         recipeViewModel.availabilityDate = concreteDrugService.GetAvailabilityRecipeDate(recipeId);
         recipeViewModel.drugViewModels = drugService.getDrugsForRecipe(recipeId);
         return recipeViewModel;
@@ -175,14 +176,16 @@ public class RecipeService {
         return recipes;
     }
 
-    public void changeStatus(int recipeId, String status) {
+    public boolean changeStatus(int recipeId, String status) {
         Recipe recipe = getRecipeById(recipeId);
 
         if (recipe == null)
-            return;
+            return false;
 
         recipe.setRecipeProgressStatusId(recipeProgressStatusService.getRecipeProgressStatusByName(status).getId());
         saveRecipe(recipe);
+
+        return true;
     }
 
     public OrderMissingViewModel getOrderMissing(int pharmacistId, int recipeId) {

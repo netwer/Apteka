@@ -40,7 +40,7 @@ public class DoctorController {
 
     /**
      * Get appointments list
-     * url example: http://localhost:8443/Doctor/1
+     * url services: http://localhost:8443/Doctor/1
      * @param doctorId
      * @return List<UserDoctorViewModel>
      */

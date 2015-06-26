@@ -11,6 +11,7 @@ public class RecipeViewModel {
     public int recipeId;
     public int pharmacyId;
     public int diagnosesId;
+    public int recipeProgressStatusId;
     public String availabilityDate;
     public List<DrugViewModel> drugViewModels;
 }

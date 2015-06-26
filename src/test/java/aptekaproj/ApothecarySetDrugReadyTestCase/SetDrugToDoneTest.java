@@ -43,10 +43,12 @@ public class SetDrugToDoneTest {
     @After
     public void tearDown() throws Exception {
         recipeHasDrugs = null;
+        apothecaryId = 0;
+        recipesHasDrugsId = 0;
     }
 
     @Test
-    public void getAllDrugs() throws Exception {
+    public void setDrugToDone() throws Exception {
         List<DrugToProduceViewModel> drugToProduceListBefore = drugService.getDrugsToProduce(apothecaryId);
         countDrugsToProduceBefore = drugToProduceListBefore.size();
 

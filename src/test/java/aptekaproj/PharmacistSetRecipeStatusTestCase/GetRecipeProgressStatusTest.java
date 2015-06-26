@@ -1,6 +1,9 @@
 package aptekaproj.PharmacistSetRecipeStatusTestCase;
 
 import aptekaproj.AptekaApplication;
+import aptekaproj.helpers.enums.ProgressStatusEnum;
+import aptekaproj.models.RecipeProgressStatus;
+import aptekaproj.services.RecipeProgressStatusService;
 import aptekaproj.services.RecipeService;
 import org.junit.After;
 import org.junit.Before;
@@ -10,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -20,21 +25,48 @@ import static org.junit.Assert.assertTrue;
 public class GetRecipeProgressStatusTest {
 
     @Autowired
-    private RecipeService recipeService;
+    private RecipeProgressStatusService recipeProgressStatusService;
 
-    private int recipeId;
-    private String status;
-    private boolean result;
+    private RecipeProgressStatus recipeProgressStatus;
 
     @Before
     public void setUp() throws Exception {
+        recipeProgressStatus = new RecipeProgressStatus();
     }
 
     @After
     public void tearDown() throws Exception {
+        recipeProgressStatus = null;
     }
 
     @Test
-    public void changeRecipeStatus() throws Exception {
+    public void getRecipeProgressStatus() throws Exception {
+        recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(1);
+        assertNotNull(recipeProgressStatus);
+        assertEquals(recipeProgressStatus.getName(), ProgressStatusEnum.CREATED.toString());
+
+        recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(2);
+        assertNotNull(recipeProgressStatus);
+        assertEquals(recipeProgressStatus.getName(), ProgressStatusEnum.UPDATED.toString());
+
+        recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(3);
+        assertNotNull(recipeProgressStatus);
+        assertEquals(recipeProgressStatus.getName(), ProgressStatusEnum.DONE.toString());
+
+        recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(4);
+        assertNotNull(recipeProgressStatus);
+        assertEquals(recipeProgressStatus.getName(), ProgressStatusEnum.IN_PROCESS.toString());
+
+        recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(5);
+        assertNotNull(recipeProgressStatus);
+        assertEquals(recipeProgressStatus.getName(), ProgressStatusEnum.PACKAGE.toString());
+
+        recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(6);
+        assertNotNull(recipeProgressStatus);
+        assertEquals(recipeProgressStatus.getName(), ProgressStatusEnum.WAITING_PROCESS.toString());
+
+        recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(7);
+        assertNotNull(recipeProgressStatus);
+        assertEquals(recipeProgressStatus.getName(), ProgressStatusEnum.ISSUED.toString());
     }
 }

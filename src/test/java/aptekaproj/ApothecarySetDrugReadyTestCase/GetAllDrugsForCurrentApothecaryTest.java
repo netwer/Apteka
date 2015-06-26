@@ -35,12 +35,13 @@ public class GetAllDrugsForCurrentApothecaryTest {
 
     @After
     public void tearDown() throws Exception {
-
+        apothecaryId = 0;
     }
 
     @Test
     public void getAllDrugs() throws Exception {
         List<DrugToProduceViewModel> drugToProduceList = drugService.getDrugsToProduce(apothecaryId);
+
         assertNotNull(drugToProduceList);
         assertNotEquals(drugToProduceList.size(),0);
     }
