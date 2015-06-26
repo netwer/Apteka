@@ -46,7 +46,7 @@ public class PharmacyStaffService {
         return users;
     }
 
-    public PharmacyStaff getPharmacyByPharmacistId(int pharmacistId) {
+    public PharmacyStaff getPharmacyByApothecaryId(int pharmacistId) {
         List<PharmacyStaff> pharmacyStaffs = getPharmacyStaffs();
         PharmacyStaff currentPharmacyStaff = new PharmacyStaff();
         for (PharmacyStaff pharmacyStaff : pharmacyStaffs){
@@ -64,7 +64,7 @@ public class PharmacyStaffService {
     }
 
     public List<User> getStaffs(int pharmacistId) {
-        int pharmacyId = getPharmacyByPharmacistId(pharmacistId).getPharmacyId();
+        int pharmacyId = getPharmacyByApothecaryId(pharmacistId).getPharmacyId();
         List<Integer> pharmacistIdList = getPharmacistsIdsInPharmacy(pharmacyId);
         return userService.getUsersByIds(pharmacistIdList, RolesNameEnum.APOTHECARY.toString());
     }

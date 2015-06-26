@@ -1,6 +1,5 @@
 package aptekaproj.controllers;
 
-import aptekaproj.models.Recipe;
 import aptekaproj.models.RecipeHasDrugs;
 import aptekaproj.services.RecipeService;
 import aptekaproj.viewModels.DrugToProduceViewModel;
@@ -30,13 +29,13 @@ public class ApothecaryController {
 
     /**
      * Get list DrugToProduceViewModel
-     * @param pharmacyStaffId
+     * @param apothecaryId
      * @return List<DrugToProduceViewModel>
      */
     @ResponseBody
-    @RequestMapping(value = "/drugs/{pharmacyStaffId}",method = RequestMethod.GET)
-    public List<DrugToProduceViewModel> getDrugsToProduce(@PathVariable("pharmacyStaffId") int pharmacyStaffId){
-        return drugService.getDrugsToProduce(pharmacyStaffId);
+    @RequestMapping(value = "/drugs/{apothecaryId}",method = RequestMethod.GET)
+    public List<DrugToProduceViewModel> getDrugsToProduce(@PathVariable("apothecaryId") int apothecaryId){
+        return drugService.getDrugsToProduce(apothecaryId);
     }
 
     /**
