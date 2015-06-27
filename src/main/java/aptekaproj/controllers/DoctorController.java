@@ -37,6 +37,52 @@ public class DoctorController {
 
     @ResponseBody
     @RequestMapping(value = "/{doctorId}/appointments", method = RequestMethod.GET)
+    public List<PatientCardViewModel> getAppointmentsForPatient(@PathVariable Integer doctorId,
+                                                                @RequestParam(value = "patientId", required = false) Integer patientId){
+        if (patientId == null) {
+            return userService.getDoctorAppointmentsCards(doctorId);
+        }
+        return userService.getPatientsCards(doctorId, patientId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/{doctorId}/appointments/{diagnosisId}",method = RequestMethod.PUT)
+    public void saveAppointment(@PathVariable("doctorId") int doctorId,
+                                @PathVariable("diagnosisId")  int diagnosisId,
+                                @RequestBody PatientCardViewModel patientCardViewModel){
+        try{
+            if(doctorId <= 0 || diagnosisId <= 0 || patientCardViewModel == null)
+                throw new ProcessException("Bad parameters");
+            diagnosesService.saveAppointment(patientCardViewModel,diagnosisId);
+        } catch (ProcessException e){
+
+        } catch (ParseException e) {
+
+        }
+    }
+
+//    @ResponseBody
+//    @RequestMapping(value = "/doctor/{doctorId}/appointments?patientId",method = RequestMethod.GET)
+//    public List<PatientCardViewModel> getAppointmentsPatientHistory(@PathVariable("doctorId") int doctorId,
+//                                                                    @RequestParam("patientId") int patientId) {
+//        return userService.getPatientsCards(doctorId, patientId);
+//    }
+
+    @ResponseBody
+    @RequestMapping(value = "/pharmacies",method = RequestMethod.GET)
+    public List<Pharmacy> getPharmacies(){
+        return pharmacyService.getPharmacies();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/drugs",method = RequestMethod.GET)
+    public List<Drug> getDrugs(){
+        return drugService.getDrugs();
+    }
+
+
+/*    @ResponseBody
+    @RequestMapping(value = "/{doctorId}/appointments", method = RequestMethod.GET)
     public List<UserDoctorViewModel> getAppointments(@PathVariable int doctorId){
         return userService.getPatients(doctorId);
     }
@@ -58,9 +104,9 @@ public class DoctorController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/doctor/{doctorId}/appointments?patientId={patientId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{doctorId}/appointments/",method = RequestMethod.GET)
     public List<PatientCardViewModel> getAppointmentsPatientHistory(@PathVariable("doctorId") int doctorId,
-                                                                    @PathVariable("patientId") int patientId) {
+                                                                    @RequestParam("patientId") int patientId) {
         return userService.getPatientsCards(patientId);
     }
 
@@ -74,7 +120,7 @@ public class DoctorController {
     @RequestMapping(value = "/drugs",method = RequestMethod.GET)
     public List<Drug> getDrugs(){
         return drugService.getDrugs();
-    }
+    }*/
 
 
     /*//todo test

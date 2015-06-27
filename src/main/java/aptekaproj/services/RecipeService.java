@@ -236,4 +236,8 @@ public class RecipeService {
 
         return recipeViewModels;
     }
+
+    public void deleteRecipe(Recipe recipe) {
+        recipesRepository.delete(recipe);
+    }
 }

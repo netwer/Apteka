@@ -194,7 +194,7 @@ public class DiagnosesService {
         return diagnoses;
     }
 
-    private Diagnoses getDiagnosesById(int diagnosisId) {
+    public Diagnoses getDiagnosesById(int diagnosisId) {
         return diagnosesRepository.findOne(diagnosisId);
     }
 }

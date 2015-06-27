@@ -9,6 +9,7 @@ import aptekaproj.models.RecipeHasDrugs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -100,5 +101,22 @@ public class RecipeHasDrugsService {
 
             saveRecipeHasDrugs(recipeHasDrugs);
         }
+    }
+
+    public List<RecipeHasDrugs> getRecipesHasDrugsByRecipeId(int recipeId) {
+        List<RecipeHasDrugs>  recipeHasDrugsList = getAllRecipesHasDrugs();
+        List<RecipeHasDrugs> recipeHasDrugsList1 = new ArrayList<>();
+
+        for (RecipeHasDrugs recipeHasDrugs : recipeHasDrugsList){
+            if(recipeHasDrugs.getRecipeId() == recipeId){
+                recipeHasDrugsList1.add(recipeHasDrugs);
+            }
+        }
+
+        return recipeHasDrugsList1;
+    }
+
+    public void deleteRecipeHasDrugs(RecipeHasDrugs recipeHasDrugs) {
+        recipesHasDrugsRepository.delete(recipeHasDrugs);
     }
 }
