@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -158,17 +159,21 @@ public class DiagnosesService {
         return diagnoses;
     }
 
-    public void saveAppointment(PatientCardViewModel patientCardViewModel) throws ParseException {
-        Diagnoses diagnoses = new Diagnoses();
-        Pharmacy pharmacy = pharmacyService.getPharmacyByTitle(patientCardViewModel.apothecaryName);
+    public void saveAppointment(PatientCardViewModel patientCardViewModel, int diagnosisId) throws ParseException {
+        Diagnoses diagnoses = getDiagnosesById(diagnosisId);
+        Pharmacy pharmacy = pharmacyService.getPharmacyById(patientCardViewModel.pharmacyId);
         Recipe recipe = recipeService.createRecipe(patientCardViewModel.visitDate,pharmacy.getId());
+
+        if(diagnoses == null || pharmacy == null || recipe == null)
+            return;
 
         diagnoses.setComplaints(patientCardViewModel.complaints);
         diagnoses.setDiagnosis(patientCardViewModel.diagnosis);
-        diagnoses.setCreatedAt(patientCardViewModel.visitDate);
+        diagnoses.setCreatedAt(new Date().toString());
         diagnoses.setRecipeId(recipe.getId());
-        diagnoses.setDoctorUserId(patientCardViewModel.doctorId);
-        diagnoses.setPatientUserId(patientCardViewModel.patientId);
+        //diagnoses.setCreatedAt(patientCardViewModel.visitDate);
+        //diagnoses.setDoctorUserId(patientCardViewModel.doctorId);
+        //diagnoses.setPatientUserId(patientCardViewModel.patientId);
         diagnosesRepository.save(diagnoses);
 
         recipeHasDrugsService.saveRecipeHasDrugs(patientCardViewModel.drugsInRecipe,recipe.getId());
@@ -187,5 +192,9 @@ public class DiagnosesService {
             }
         }
         return diagnoses;
+    }
+
+    private Diagnoses getDiagnosesById(int diagnosisId) {
+        return diagnosesRepository.findOne(diagnosisId);
     }
 }

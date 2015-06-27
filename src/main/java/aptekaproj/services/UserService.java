@@ -82,7 +82,7 @@ public class UserService {
                 userDoctorViewModel.doctorFullName = doctor.getFullName();
                 //todo right date?
                 //usersDoctorViewModel.lastVisitDate = new SimpleDateFormat("MM/dd/yyyy").format(diagnoses.getCreatedAt()).toString();
-                //userDoctorViewModel.lastVisitDate = diagnoses.getCreatedAt().toString();
+                userDoctorViewModel.visitDate = diagnoses.getCreatedAt().toString();
                 userDoctorViewModel.diagnosisId = diagnoses.getId();
                 userDoctorViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
                 userDoctorViewModels.add(userDoctorViewModel);
@@ -219,7 +219,7 @@ public class UserService {
                 patientCardViewModel.complaints = diagnoses.getComplaints();
                 patientCardViewModel.visitDate = diagnoses.getCreatedAt();
                 patientCardViewModel.recipeId = diagnoses.getRecipeId();
-                patientCardViewModel.apothecaryName = "";
+                patientCardViewModel.pharmacyId = 0;
                 patientCardViewModel.drugsInRecipe = drugService.getDrugsForRecipe(diagnoses.getRecipeId());
                 history.add(patientCardViewModel);
             }

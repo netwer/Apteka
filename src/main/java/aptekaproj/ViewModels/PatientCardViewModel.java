@@ -9,6 +9,7 @@ public class PatientCardViewModel {
     public int patientId;
     public int doctorId;
     public int recipeId;
+    public int pharmacyId;
     public String patientFullName;
     public String patientAddress;
     public String patientPoliceNumber;
@@ -16,7 +17,7 @@ public class PatientCardViewModel {
     public String visitDate;
     public String complaints;
     public String diagnosis;
-    public String apothecaryName;
+    //public String apothecaryName;
     public List<DrugViewModel> drugsInRecipe;
     //public RecipeViewModel recipeViewModel;
 }

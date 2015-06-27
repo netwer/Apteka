@@ -38,7 +38,7 @@ public class AdminService {
 
         diagnoses.setPatientUserId(userDoctorViewModel.patientId);
         diagnoses.setDoctorUserId(userDoctorViewModel.doctorId);
-        diagnoses.setCreatedAt(userDoctorViewModel.lastVisitDate);
+        diagnoses.setCreatedAt(userDoctorViewModel.visitDate);
         diagnoses.setDiagnosis("");
         diagnoses.setComplaints("");
         diagnoses.setRecipeId(null);

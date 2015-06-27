@@ -9,6 +9,6 @@ public class UserDoctorViewModel {
     public int doctorId;
     public String patientFullName;
     public String doctorFullName;
-    public String lastVisitDate;
+    public String visitDate;
     public String patientPoliceNumber;
 }

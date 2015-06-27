@@ -23,6 +23,7 @@ public class DiagnosesServiceSaveAppointmentTest {
     private DiagnosesService diagnosesService;
 
     PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
+    private int diagnosisId;
     @Before
     public void setUp() throws Exception {
         patientCardViewModel.patientId = 4;
@@ -35,7 +36,7 @@ public class DiagnosesServiceSaveAppointmentTest {
         patientCardViewModel.visitDate = "2015-06-26";
         patientCardViewModel.complaints = "Головная боль, судороги";
         patientCardViewModel.diagnosis = "Общее недомогание";
-        patientCardViewModel.apothecaryName = "Аптека 5";
+        patientCardViewModel.pharmacyId = 5;
         List<DrugViewModel> drugViewModels = new ArrayList<>();
 
         DrugViewModel drugViewModel1 = new DrugViewModel();
@@ -63,6 +64,7 @@ public class DiagnosesServiceSaveAppointmentTest {
         drugViewModels.add(drugViewModel4);
 
         patientCardViewModel.drugsInRecipe = drugViewModels;
+        diagnosisId = 36;
     }
 
     @After
@@ -72,6 +74,6 @@ public class DiagnosesServiceSaveAppointmentTest {
 
     @Test
     public void testSaveAppointment() throws Exception {
-        diagnosesService.saveAppointment(patientCardViewModel);
+        diagnosesService.saveAppointment(patientCardViewModel, diagnosisId);
     }
 }
