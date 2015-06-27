@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Controller
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 public class AdminController {
 
     @Autowired

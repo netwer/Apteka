@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Controller for errors
  */
 @Controller
-@RequestMapping("/error")
+@RequestMapping("/api/error")
 public class ErrorController {
 
     /**
