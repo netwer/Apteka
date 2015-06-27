@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+        <h2>Приготовить сегодня</h2>
+        <div class="list-group">
+            <a class="list-group-item" ng-class="{active: selectedDrug.id == drug.id}"
+               ng-click="selectDrug(drug);" ng-repeat="drug in person.drugs">
+                <h4 class="list-group-item-heading">
+                    {{drug.name}}
+                    <span class="label label-default" style="float: right;" aria-hidden="true">{{drug.quantity}} шт.</span>
+                </h4>
+
+                <!--<p class="list-group-item-text">-->
+                    <!--<strong>Кол-во лекарств:</strong> {{recipe.drugs.length}}-->
+                <!--</p>-->
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-8" ng-show="selectedDrug != undefined">
+        <h2>Ингредиенты</h2>
+        <ul class="list-group">
+            <li class="list-group-item"
+                    ng-repeat="ingredient in selectedDrug.ingredients | orderBy: 'name'">
+                {{$index + 1}}. {{ingredient.name}}
+                <span class="label label-default" style="float: right;" aria-hidden="true">{{ingredient.quantity}} {{ingredient.quantity_type}}</span>
+            </li>
+        </ul>
+        <button type="button" class="btn btn-success col-md-offset-9 col-sm-3" ng-click="completeManufacture(selectedDrug);"><i class="fa fa-check"></i> Лекарство готово</button>
+    </div>
+    <div class="col-sm-6 col-md-8" ng-show="selectedDrug == undefined && person.drugs.length > 0">
+        <h2>Ингредиенты</h2>
+        <ul class="list-group">
+            <li class="list-group-item"
+                    ng-repeat="ingredient in listOfAllNeededIngredients() | orderBy: 'name'">
+                {{$index + 1}}. {{ingredient.name}}
+                <span class="label label-default" style="float: right;" aria-hidden="true">{{ingredient.quantity}} {{ingredient.quantity_type}}</span>
+            </li>
+        </ul>
+        <button type="button" class="btn btn-success col-md-offset-9 col-sm-3" ng-print><i class="fa fa-print"></i> Распечатать</button>
+    </div>
+    <div class="printSection">
+        <h2>Необходимые игредиенты</h2>
+        <ul class="list-group">
+            <li class="list-group-item"
+                    ng-repeat="ingredient in listOfAllNeededIngredients() | orderBy: 'name'">
+                {{$index + 1}}. {{ingredient.name}}
+                <span class="label label-default" style="float: right;" aria-hidden="true">{{ingredient.quantity}} {{ingredient.quantity_type}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+<div class="row">
+    <div ng-show="person.drugs.length == 0" class="text-center">
+        <h2><small>
+            <br>
+            <i class="fa fa-thumbs-up fa-4x"></i>
+            <br>
+            Вы приготовили все необходимые лекарства на сегодня
+        </small></h2>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<h2>Готовы к выдаче</h2>
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped col-sm-10">
+            <thead>
+            <tr>
+                <th class="text-center">Рецепт</th>
+                <th class="text-center">Дата</th>
+                <th class="text-center">Лекарства</th>
+                <th class="text-center">
+                    <form class="form-inline">
+                        <div class="form-group has-feedback">
+                            <input type="text" class="form-control input-sm" placeholder="Пациент">
+                            <i class="fa fa-search form-control-feedback" aria-hidden="true"></i>
+                        </div>
+                    </form>
+                </th>
+                <th class="text-center">Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="recipe in recipes">
+                <th scope="row" class="text-center">№{{recipe.id}}</th>
+                <td class="text-center">{{recipe.date}}</td>
+                <td>
+                    <ol>
+                        <li ng-repeat="drug in recipe.drugs">{{drug.name}} – {{drug.quantity}} шт.</li>
+                    </ol>
+                </td>
+                <td>
+                    <p>
+                        {{recipe.patient.name}}<br>
+                        <strong>Контактные данные:</strong><br>
+                        Блалала +7911833424 звонить только после полудня!
+                    </p>
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-default"><i class="fa fa-sign-out"></i> Выдать</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

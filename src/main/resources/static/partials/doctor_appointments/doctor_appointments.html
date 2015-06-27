@@ -1,0 +1,24 @@
+<h2>Готовы к выдаче</h2>
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped col-sm-10">
+            <thead>
+            <tr>
+                <th class="text-center">Время</th>
+                <th>Пациент</th>
+                <th>Номер медицинского полиса</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="appointment in appointments">
+                <th scope="row" class="text-center">{{appointment.time}}</th>
+                <td>{{appointment.patient.name}}</td>
+                <td>{{appointment.patient.medicalPolicyNumber}}</td>
+                <td class="text-right">
+                    <a class="btn btn-default" href="#/doctorPatientCard/{{appointment.patient.id}}"><i class="fa fa-sign-out"></i> Начать прием</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

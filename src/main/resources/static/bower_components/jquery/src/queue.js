@@ -60,7 +60,7 @@ jQuery.extend({
 		}
 	},
 
-	// Not static - generate a queueHooks object, or return the current one
+	// Not public - generate a queueHooks object, or return the current one
 	_queueHooks: function( elem, type ) {
 		var key = type + "queueHooks";
 		return data_priv.get( elem, key ) || data_priv.access( elem, key, {

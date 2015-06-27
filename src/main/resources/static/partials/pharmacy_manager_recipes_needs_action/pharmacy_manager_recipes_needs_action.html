@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+        <h2>Рецепты</h2>
+
+        <div class="list-group">
+            <a class="list-group-item" ng-class="{active: selectedRecipe.id == recipe.id}"
+               ng-click="selectRecipe(recipe);" ng-repeat="recipe in recipes">
+                <h4 class="list-group-item-heading">Рецепт №{{recipe.id}}</h4>
+
+                <p class="list-group-item-text">
+                    <strong>Дата:</strong> {{recipe.date}}<br>
+                    <strong>Пациент:</strong> {{recipe.patient.name}}<br>
+                    <strong>Кол-во лекарств:</strong> {{recipe.drugs.length}}
+                </p>
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-8">
+        <h2>Лекарства</h2>
+        <div class="list-group">
+            <button type="button" class="list-group-item"
+                    ng-repeat="drug in selectedRecipe.drugs | orderBy: 'status.priority'" ng-click="open(drug);"
+                    ng-disabled="drug.status.type === 'label-success'"
+                    ng-class="{disabled: drug.status.type === 'label-success'}">
+                {{$index + 1}}. {{drug.name}} – {{drug.quantity}} шт.
+                <span class="label" ng-class="drug.status.type" style="float: right;" aria-hidden="true">{{drug.status.name}}</span>
+            </button>
+        </div>
+        <button ng-show="isAllDrugsDone(selectedRecipe);" type="button" class="btn btn-success col-md-offset-9 col-sm-3"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span> Укомплектован</button>
+    </div>
+</div>
+</div>
