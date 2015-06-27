@@ -36,7 +36,7 @@ public class AuthController {
         UserViewModel userViewModel = userService.getUser(login,password);
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken(userViewModel.userLogin, "", AuthorityUtils.createAuthorityList("ROLE_"+userViewModel.userRole)));
-        System.out.println("LOGINNNN->" + SecurityContextHolder.getContext().getAuthentication().getName());
+        System.out.println("LOGIN->" + SecurityContextHolder.getContext().getAuthentication().getName());
         return userViewModel;
     }
 

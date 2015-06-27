@@ -33,6 +33,12 @@ public class UserService {
 
     @Autowired
     private RecipeService recipeService;
+
+    @Autowired
+    private RecipeHasDrugsService recipeHasDrugsService;
+
+    @Autowired
+    private DrugService drugService;
     private List<User> doctors;
 
     public UserViewModel getUser(String login, String password){
@@ -187,5 +193,38 @@ public class UserService {
         }
         userByLogin.role = roleService.getRoleById(userByLogin.getRoleId());
         return userByLogin;
+    }
+
+    public List<PatientCardViewModel> getPatientsCards(int userId) {
+        List<PatientCardViewModel> history = new ArrayList<>();
+        User patient = getUserById(userId);
+        if(patient == null)
+            return history;
+
+        List<Diagnoses> diagnoseses = diagnosesService.getAllDiagnoses();
+
+        if(diagnoseses == null)
+            return history;
+
+        for(Diagnoses diagnoses:diagnoseses){
+            if(diagnoses.getPatientUserId() == userId && diagnoses.getRecipeId() != null){
+                PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
+                patientCardViewModel.patientId = patient.getId();
+                patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
+                patientCardViewModel.patientEmail = patient.getEmail();
+                patientCardViewModel.patientAddress = patient.getAddress();
+                patientCardViewModel.patientFullName = patient.getFullName();
+                patientCardViewModel.doctorId = diagnoses.getDoctorUserId();
+                patientCardViewModel.diagnosis = diagnoses.getDiagnosis();
+                patientCardViewModel.complaints = diagnoses.getComplaints();
+                patientCardViewModel.visitDate = diagnoses.getCreatedAt();
+                patientCardViewModel.recipeId = diagnoses.getRecipeId();
+                patientCardViewModel.apothecaryName = "";
+                patientCardViewModel.drugsInRecipe = drugService.getDrugsForRecipe(diagnoses.getRecipeId());
+                history.add(patientCardViewModel);
+            }
+        }
+
+        return history;
     }
 }

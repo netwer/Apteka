@@ -88,10 +88,13 @@ public class DoctorController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/diagnoses/{user_id}",method = RequestMethod.GET)
-    public List<Diagnoses> appointmentsHistory(@PathVariable int user_id){
-        return diagnosesService.getPatientHistory(user_id);
+    @RequestMapping(value = "/appointments/patient/{user_id}",method = RequestMethod.GET)
+    public List<PatientCardViewModel> getAppointmentsPatientHistory(@PathVariable int user_id){
+        return userService.getPatientsCards(user_id);
     }
+    /*public List<Diagnoses> appointmentsHistory(@PathVariable int user_id){
+        return diagnosesService.getPatientHistory(user_id);
+    }*/
 
     //todo test
     /**
