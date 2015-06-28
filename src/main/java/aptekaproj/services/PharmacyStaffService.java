@@ -1,10 +1,10 @@
 package aptekaproj.services;
 
+import aptekaproj.models.*;
+import aptekaproj.viewModels.ApothecaryViewModel;
 import aptekaproj.viewModels.UserViewModel;
 import aptekaproj.controllers.repository.IPharmacyStaffRepository;
 import aptekaproj.helpers.enums.RolesNameEnum;
-import aptekaproj.models.PharmacyStaff;
-import aptekaproj.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +25,9 @@ public class PharmacyStaffService {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private ConcreteDrugService concreteDrugService;
 
     public List<UserViewModel> getPharmacists(int pharmacy_id) {
         List<UserViewModel> users = new ArrayList<>();
@@ -63,10 +66,34 @@ public class PharmacyStaffService {
         return (List<PharmacyStaff>)pharmacyStaffRepository.findAll();
     }
 
-    public List<User> getApothecariesStaffs(int pharmacistId) {
-        int pharmacyId = getApothecariesByPharmacistId(pharmacistId).getPharmacyId();
-        List<Integer> apothecariesIdList = getPharmacistsIdsInPharmacy(pharmacyId);
-        return userService.getUsersByIds(apothecariesIdList, RolesNameEnum.APOTHECARY.toString());
+    public List<ApothecaryViewModel> getApothecariesStaffs(int pharmacistId) {
+        List<ApothecaryViewModel> apothecaryViewModels = new ArrayList<>();
+        ApothecaryViewModel apothecaryViewModel = new ApothecaryViewModel();
+        PharmacyStaff pharmacyStaff  = getApothecariesByPharmacistId(pharmacistId);
+        List<PharmacyStaff> apothecaryPharmacyStaff = getApothecaryPharmacyStaffByPharmacist(pharmacyStaff.getPharmacyId());
+        for (PharmacyStaff staff : apothecaryPharmacyStaff){
+            List<ConcreteDrug> concreteDrugsForApothecary = concreteDrugService.getConcreteDrugsForApothecary(staff.getId());
+            apothecaryViewModel.drugsInProgress = concreteDrugsForApothecary.size();
+            apothecaryViewModel.apothecaryId = staff.getUserId();
+            apothecaryViewModel.apothecaryFullName = userService.getUserById(staff.getUserId()).getFullName();
+            apothecaryViewModels.add(apothecaryViewModel);
+        }
+
+        return apothecaryViewModels;
+    }
+
+    private List<PharmacyStaff> getApothecaryPharmacyStaffByPharmacist(int pharmacyId) {
+        List<PharmacyStaff> pharmacyStaffs = getPharmacyStaffs();
+        List<PharmacyStaff> apothecaryPharmacyStaffList = new ArrayList<>();
+        for(PharmacyStaff pharmacyStaff : pharmacyStaffs){
+            User user = userService.getUserById(pharmacyStaff.getUserId());
+            Role role = roleService.getRoleById(user.getRoleId());
+            if(pharmacyStaff.getPharmacyId() == pharmacyId && role.getName().equals(RolesNameEnum.APOTHECARY.toString())){
+                apothecaryPharmacyStaffList.add(pharmacyStaff);
+            }
+        }
+
+        return apothecaryPharmacyStaffList;
     }
 
     private List<Integer> getPharmacistsIdsInPharmacy(int pharmacyId) {

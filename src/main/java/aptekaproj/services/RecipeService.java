@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,35 +44,10 @@ public class RecipeService {
     @Autowired
     private ConcreteDrugService concreteDrugService;
 
-    public PostViewModel saveRecipe(RecipeViewModel recipeViewModel){
-        //todo check!
-        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.CREATED.toString());
-        Recipe recipe = new Recipe();
-        recipe.setTitle(recipeViewModel.recipeTitle);
-        recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
-        recipe.setPharmacyId(recipeViewModel.pharmacyId);
-        recipe.setCreatedAt(new Date());
-
-        //todo CHECK!
-        PostViewModel postViewModel = new PostViewModel();
-        try {
-            Recipe recipe1 = recipesRepository.save(recipe);
-            diagnosesService.updateDiagnosis(recipeViewModel.diagnosesId, recipe1.getId());
-            recipeHasDrugsService.updateRecipeHasDrugs(recipeViewModel, recipe1);
-            postViewModel.id = recipe1.getId();
-            postViewModel.message = "Saved";
-            postViewModel.status = "OK";
-
-        }catch (Exception e){
-            postViewModel.status = "Error";
-            postViewModel.message = e.getMessage();
-        }
-        return postViewModel;
-    }
-
-    public void saveRecipe(Recipe recipe){
-        recipesRepository.save(recipe);
-    }
+    public List<Recipe> getAllRecipes()         { return (List<Recipe>)recipesRepository.findAll();}
+    public Recipe getRecipeById(int recipeId)   { return recipesRepository.findOne(recipeId);      }
+    public void saveRecipe(Recipe recipe)       { recipesRepository.save(recipe);                  }
+    public void deleteRecipe(Recipe recipe)     { recipesRepository.delete(recipe);                }
 
     public List<PatientRecipeViewModel> getRecipesForPatient(int patientId) {
         List<Diagnoses> diagnosesList = diagnosesService.getDiagnosisForUser(patientId);
@@ -114,23 +88,6 @@ public class RecipeService {
         return patientRecipeViewModels;
     }
 
-    public void updateRecipe(RecipeViewModel recipeViewModel) {
-        Recipe recipe = recipesRepository.findOne(recipeViewModel.recipeId);
-        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.UPDATED.toString());
-
-        if(recipe == null || recipeProgressStatus == null)
-            return;
-
-        recipe.setId(recipeViewModel.recipeId);
-        recipe.setTitle(recipeViewModel.recipeTitle);
-        recipe.setPharmacyId(recipeViewModel.pharmacyId);
-        recipe.setCreatedAt(new Date());
-        recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
-
-        recipesRepository.save(recipe);
-        recipeHasDrugsService.updateRecipeHasDrugs(recipeViewModel, recipe);
-    }
-
     public RecipeViewModel getRecipe(int recipeId){
         Recipe recipe = getRecipeById(recipeId);
         Diagnoses diagnoses = diagnosesService.getDiagnosis(recipeId);
@@ -145,24 +102,20 @@ public class RecipeService {
         recipeViewModel.recipeTitle = recipe.getTitle();
         recipeViewModel.recipeProgressStatusId = recipe.getRecipeProgressStatusId();
         recipeViewModel.availabilityDate = concreteDrugService.GetAvailabilityRecipeDate(recipeId);
-        recipeViewModel.drugViewModels = drugService.getDrugsForRecipe(recipeId);
+        recipeViewModel.drugs = drugService.getDrugsForRecipe(recipeId);
         return recipeViewModel;
     }
 
-    public Recipe getRecipeById(int recipeId){
-        return recipesRepository.findOne(recipeId);
-    }
-
-    public List<RecipeViewModel> getRecipesForPharmacyByStatus(int pharmacy_id, String status) {
+    public List<RecipeViewModel> getRecipesForPharmacyByStatus(int pharmacyId, int statusId) {
         List<RecipeViewModel> recipes = new ArrayList<>();
         List<Recipe> currentRecipes = (List<Recipe>)recipesRepository.findAll();
-        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(status);
+        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(statusId);
 
         if (recipeProgressStatus == null)
             return recipes;
 
         for (Recipe recipe : currentRecipes){
-            if(recipe.getPharmacyId() == pharmacy_id && recipe.getRecipeProgressStatusId() == recipeProgressStatus.getId()){
+            if(recipe.getPharmacyId() == pharmacyId && recipe.getRecipeProgressStatusId() == recipeProgressStatus.getId()){
                 Diagnoses diagnoses = diagnosesService.getDiagnosesByRecipeId(recipe.getId());
                 if(diagnoses.getId() == 0)
                     continue;
@@ -172,12 +125,25 @@ public class RecipeService {
                 recipeViewModel.pharmacyId = recipe.getPharmacyId();
                 recipeViewModel.patientFullName = userService.getUserById(diagnoses.getPatientUserId()).getFullName();
                 recipeViewModel.diagnosesId = diagnoses.getId();
-                recipeViewModel.drugViewModels = drugService.getDrugsForRecipe(recipe.getId());
+                recipeViewModel.availabilityDate = concreteDrugService.GetAvailabilityRecipeDate(recipe.getId());
+                recipeViewModel.drugs = drugService.getDrugsForRecipe(recipe.getId());
                 recipes.add(recipeViewModel);
             }
         }
 
         return recipes;
+    }
+
+    public boolean changeStatus(int recipeId, int statusId) {
+        Recipe recipe = getRecipeById(recipeId);
+
+        if (recipe == null)
+            return false;
+
+        recipe.setRecipeProgressStatusId(recipeProgressStatusService.getRecipeProgressStatusById(statusId).getId());
+        saveRecipe(recipe);
+
+        return true;
     }
 
     public boolean changeStatus(int recipeId, String status) {
@@ -190,15 +156,6 @@ public class RecipeService {
         saveRecipe(recipe);
 
         return true;
-    }
-
-    public OrderMissingViewModel getOrderMissing(int pharmacistId, int recipeId) {
-        List<User> apothecariesList = pharmacyStaffService.getApothecariesStaffs(pharmacistId);
-        List<DrugViewModel> drugViewModelList = drugService.getDrugsNeedsToProduce(recipeId);
-        OrderMissingViewModel orderMissing = new OrderMissingViewModel();
-        orderMissing.apothecaryUsers = apothecariesList;
-        orderMissing.drugViewModels = drugViewModelList;
-        return orderMissing;
     }
 
     public Recipe createRecipe(Date visitDate, int pharmacyId) throws ParseException {
@@ -214,8 +171,30 @@ public class RecipeService {
         return recipesRepository.save(recipe);
     }
 
-    public List<Recipe> getAllRecipes(){
-        return (List<Recipe>)recipesRepository.findAll();
+    public PostViewModel saveRecipe(RecipeViewModel recipeViewModel){
+        //todo check!
+        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.CREATED.toString());
+        Recipe recipe = new Recipe();
+        recipe.setTitle(recipeViewModel.recipeTitle);
+        recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
+        recipe.setPharmacyId(recipeViewModel.pharmacyId);
+        recipe.setCreatedAt(new Date());
+
+        //todo CHECK!
+        PostViewModel postViewModel = new PostViewModel();
+        try {
+            Recipe recipe1 = recipesRepository.save(recipe);
+            diagnosesService.updateDiagnosis(recipeViewModel.diagnosesId, recipe1.getId());
+            recipeHasDrugsService.updateRecipeHasDrugs(recipeViewModel, recipe1);
+            postViewModel.id = recipe1.getId();
+            postViewModel.message = "Saved";
+            postViewModel.status = "OK";
+
+        }catch (Exception e){
+            postViewModel.status = "Error";
+            postViewModel.message = e.getMessage();
+        }
+        return postViewModel;
     }
 
     public List<RecipeViewModel> getRecipesByStatus(int doctorId, String status) {
@@ -241,7 +220,29 @@ public class RecipeService {
         return recipeViewModels;
     }
 
-    public void deleteRecipe(Recipe recipe) {
-        recipesRepository.delete(recipe);
+    public void updateRecipe(RecipeViewModel recipeViewModel) {
+        Recipe recipe = recipesRepository.findOne(recipeViewModel.recipeId);
+        RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.UPDATED.toString());
+
+        if(recipe == null || recipeProgressStatus == null)
+            return;
+
+        recipe.setId(recipeViewModel.recipeId);
+        recipe.setTitle(recipeViewModel.recipeTitle);
+        recipe.setPharmacyId(recipeViewModel.pharmacyId);
+        recipe.setCreatedAt(new Date());
+        recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
+
+        recipesRepository.save(recipe);
+        recipeHasDrugsService.updateRecipeHasDrugs(recipeViewModel, recipe);
     }
+
+    /*public OrderMissingViewModel getOrderMissing(int pharmacistId, int recipeId) {
+        List<User> apothecariesList = pharmacyStaffService.getApothecariesStaffs(pharmacistId);
+        List<DrugViewModel> drugViewModelList = drugService.getDrugsNeedsToProduce(recipeId);
+        OrderMissingViewModel orderMissing = new OrderMissingViewModel();
+        orderMissing.apothecaryUsers = apothecariesList;
+        orderMissing.drugViewModels = drugViewModelList;
+        return orderMissing;
+    }*/
 }

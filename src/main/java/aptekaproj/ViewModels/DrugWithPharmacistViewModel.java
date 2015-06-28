@@ -5,7 +5,5 @@ package aptekaproj.viewModels;
  */
 public class DrugWithPharmacistViewModel {
     public int drugId;
-    public int drugIdNew;
     public int pharmacyStaffId;
-    public int pharmacyStaffIdNew;
 }

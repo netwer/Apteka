@@ -3,10 +3,7 @@ package aptekaproj.services;
 import aptekaproj.controllers.repository.IConcreteDrugsRepository;
 import aptekaproj.helpers.DateWorker;
 import aptekaproj.helpers.enums.ProgressStatusEnum;
-import aptekaproj.models.ConcreteDrug;
-import aptekaproj.models.ConcreteIngredient;
-import aptekaproj.models.Ingredient;
-import aptekaproj.models.RecipeHasDrugs;
+import aptekaproj.models.*;
 import aptekaproj.viewModels.DrugWithPharmacistViewModel;
 import aptekaproj.viewModels.RecipeDrugWithPharmacistViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,22 +34,25 @@ public class ConcreteDrugService {
     @Autowired
     private RecipeService recipeService;
 
+    @Autowired
+    private DrugService drugService;
+
     //todo - the method must be tested
     //without refactoring - for debugging
-    public void DrugsToProduce(RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {
+    public void drugsToProduce(List<RecipeDrugWithPharmacistViewModel> recipeDrugWithPharmacistViewModel) {
         //each drudId and pharmacyStaffId
-        for (DrugWithPharmacistViewModel drug : recipeDrugWithPharmacistViewModel.drugsWithPharmacist){
+        for (RecipeDrugWithPharmacistViewModel drug : recipeDrugWithPharmacistViewModel){
             //create the ConcreteDrug record
             ConcreteDrug concreteDrug = new ConcreteDrug();
             concreteDrug.setDrugId(drug.drugId);
-            concreteDrug.setPharmacyStaffId(drug.pharmacyStaffId);
-            concreteDrug.setRecipeId(recipeDrugWithPharmacistViewModel.recipeId);
+            concreteDrug.setPharmacyStaffId(drug.apothecaryId);
+            concreteDrug.setRecipeId(drug.recipeId);
             ConcreteDrug createdConcreteDrug = concreteDrugsRepository.save(concreteDrug);
 
             //next, create the ConcreteIngredients records for each ConcreteDrug record
             //get record from RecipeHasDrugs by recipeId and drugId
             //this record need for get count drug in recipe
-            RecipeHasDrugs recipeHasDrugs = recipeHasDrugsService.getRecipeHasDrugsByRecipeAndDrugIds(recipeDrugWithPharmacistViewModel.recipeId, drug.drugId);
+            RecipeHasDrugs recipeHasDrugs = recipeHasDrugsService.getRecipeHasDrugsByRecipeAndDrugIds(drug.recipeId, drug.drugId);
             //get ingredients for current drug
             List<Ingredient> ingredientForDrug = ingredientService.getIngredientsForDrug(drug.drugId);
 
@@ -124,19 +124,17 @@ public class ConcreteDrugService {
                 }
             }
         }
-        recipeService.changeStatus(recipeDrugWithPharmacistViewModel.recipeId, ProgressStatusEnum.IN_PROCESS.toString());
+        recipeService.changeStatus(recipeDrugWithPharmacistViewModel.get(0).recipeId, ProgressStatusEnum.IN_PROCESS.toString());
     }
 
     //todo test
-    public void updateDrugsToProduce(RecipeDrugWithPharmacistViewModel drugWithPharmacists) {
+    public void updateDrugToProduce(RecipeDrugWithPharmacistViewModel drugWithApothecaries) {
         List<ConcreteDrug> concreteDrugsToUpdate = GetAll();
         for(ConcreteDrug concreteDrug : concreteDrugsToUpdate) {
-            for (DrugWithPharmacistViewModel drugWithPharmacistViewModel : drugWithPharmacists.drugsWithPharmacist) {
-                if (concreteDrug.getRecipeId() == drugWithPharmacists.recipeId && concreteDrug.getDrugId() == drugWithPharmacistViewModel.drugId && concreteDrug.getPharmacyStaffId() == drugWithPharmacistViewModel.pharmacyStaffId){
-                    concreteDrug.setPharmacyStaffId(drugWithPharmacistViewModel.pharmacyStaffIdNew);
-                    concreteDrug.setDrugId(drugWithPharmacistViewModel.drugIdNew);
-                    concreteDrugsRepository.save(concreteDrug);
-                }
+            if(concreteDrug.getDrugId() == drugWithApothecaries.drugId && concreteDrug.getRecipeId() == drugWithApothecaries.recipeId){
+                concreteDrug.setPharmacyStaffId(drugWithApothecaries.apothecaryId);
+                concreteDrugsRepository.save(concreteDrug);
+                break;
             }
         }
     }
@@ -202,5 +200,18 @@ public class ConcreteDrugService {
         }
 
         return concreteDrug;
+    }
+
+    public List<ConcreteDrug> getConcreteDrugsForApothecary(int pharmacyId) {
+        List<ConcreteDrug> concreteDrugs = getAllConcreteDrugs();
+        List<ConcreteDrug> concreteDrugsForApothecary = new ArrayList<>();
+        for (ConcreteDrug concreteDrug : concreteDrugs){
+            RecipeHasDrugs recipeHasDrugs = recipeHasDrugsService.getRecipeHasDrugsByRecipeAndDrugIds(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
+            if(concreteDrug.getPharmacyStaffId() == pharmacyId && recipeHasDrugs.getDone() == false){
+                concreteDrugsForApothecary.add(concreteDrug);
+            }
+        }
+
+        return concreteDrugsForApothecary;
     }
 }

@@ -60,6 +60,7 @@ public class DrugService {
                 drugViewModel.drugName = drug.getName();
                 drugViewModel.availabilityDate = concreteDrugService.GetAvailabilityDrugDate(recipeId,drug.getId());
                 drugViewModel.needsToProduce = drug.getNeedToProduce();
+                drugViewModel.apothecaryId = concreteDrugService.getConcreteDrugByRecipeAndDrugIds(recipeId,drug.getId()).getPharmacyStaffId();
 
                 drugViewModels.add(drugViewModel);
             }

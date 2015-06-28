@@ -6,6 +6,8 @@ import aptekaproj.models.Role;
 import aptekaproj.models.User;
 import aptekaproj.services.PharmacyStaffService;
 import aptekaproj.services.RoleService;
+import aptekaproj.services.UserService;
+import aptekaproj.viewModels.ApothecaryViewModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +34,9 @@ public class GetApothecaryStaffTest {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private UserService userService;
+
     private int pharmacistId;
 
     @Before
@@ -46,12 +51,13 @@ public class GetApothecaryStaffTest {
 
     @Test
     public void testGetApothecaryStaff() throws Exception {
-        List<User> apothecariesList = pharmacyStaffService.getApothecariesStaffs(pharmacistId);
+        List<ApothecaryViewModel> apothecariesList = pharmacyStaffService.getApothecariesStaffs(pharmacistId);
         Role apothecaryRole = roleService.getRoleByName(RolesNameEnum.APOTHECARY.toString());
 
         assertNotNull(apothecariesList);
-        for (User user : apothecariesList){
-            assertEquals(user.getRoleId(),(int)apothecaryRole.getId());
+        for (ApothecaryViewModel user : apothecariesList){
+            User user1 = userService.getUserById(user.apothecaryId);
+            assertEquals(user1.getRoleId(),(int)apothecaryRole.getId());
         }
     }
 }

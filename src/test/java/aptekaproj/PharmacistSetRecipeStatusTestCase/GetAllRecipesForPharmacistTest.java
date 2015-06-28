@@ -26,23 +26,23 @@ public class GetAllRecipesForPharmacistTest {
     private RecipeService recipeService;
 
     private int pharmacyId;
-    private String status;
+    private int statusId;
 
     @Before
     public void setUp() throws Exception {
         pharmacyId = 3;
-        status = "В ПРОЦЕССЕ ИЗГОТОВЛЕНИЯ";
+        statusId = 6;
     }
 
     @After
     public void tearDown() throws Exception {
         pharmacyId = 0;
-        status = "";
+        statusId = 0;
     }
 
     @Test
     public void getAllRecipes() throws Exception {
-        List<RecipeViewModel> recipeViewModels = recipeService.getRecipesForPharmacyByStatus(pharmacyId, status);
+        List<RecipeViewModel> recipeViewModels = recipeService.getRecipesForPharmacyByStatus(pharmacyId, statusId);
 
         assertNotNull(recipeViewModels);
         assertNotEquals(recipeViewModels.size(),0);
