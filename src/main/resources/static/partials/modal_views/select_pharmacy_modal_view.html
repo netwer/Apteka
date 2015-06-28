@@ -2,26 +2,26 @@
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: 5px;" ng-click="cancel();">
         <span aria-hidden="true">&times;</span>
     </button>
-    <h2 class="modal-title">{{drug.name}}</h2>
+    <h2 class="modal-title">{{drug.drugName}}</h2>
     <h4 class="text-muted" style="margin-top: 0px">
-        Колличество: {{drug.quantity}} шт.
+        Колличество: {{drug.drugCount}} шт.
     </h4>
 </div>
 <div class="modal-body">
     <h4 style="margin-top: 0px; font-weight: 400;">Выберите фармацевта:</h4>
     <div class="list-group" style="margin-bottom: 0px;">
-        <a class="list-group-item" ng-repeat="person in persons | orderBy: 'count'" ng-click="select(person)" ng-class="{active: selectedPerson.id == person.id}">
+        <a class="list-group-item" ng-repeat="person in persons | orderBy: 'count'" ng-click="select(person)" ng-class="{active: selectedApothecaryId == person.apothecaryId}">
             <h4 class="list-group-item-heading">
-                <i class="fa fa-check-square-o" ng-show="selectedPerson.id == person.id"></i>
+                <i class="fa fa-check-square-o" ng-show="selectedApothecaryId == person.apothecaryId"></i>
                 <!--<span class="glyphicon glyphicon-check" ng-show="selectedPerson.id == person.id"></span>-->
-                {{person.name}}
+                {{person.apothecaryFullName}}
             </h4>
             <p class="list-group-item-text">
-                <strong>Загруженность:</strong> {{person.count}}
+                <strong>Загруженность:</strong> {{person.drugsInProgress}}
             </p>
         </a>
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-success" ng-click="ok()" ng-disabled="selectedPerson == undefined">Назначить</button>
+    <button class="btn btn-success" ng-click="ok()" ng-disabled="selectedApothecaryId == undefined">Назначить</button>
 </div>

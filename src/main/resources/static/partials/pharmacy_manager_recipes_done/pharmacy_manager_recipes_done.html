@@ -24,7 +24,7 @@
                 <td class="text-center">{{recipe.date}}</td>
                 <td>
                     <ol>
-                        <li ng-repeat="drug in recipe.drugs">{{drug.name}} – {{drug.quantity}} шт.</li>
+                        <li ng-repeat="drug in recipe.drugs | fil">{{drug.name}} – {{drug.quantity}} шт.</li>
                     </ol>
                 </td>
                 <td>

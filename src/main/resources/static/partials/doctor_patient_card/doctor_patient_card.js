@@ -16,7 +16,7 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
             var doctorId = UserService.getUserInfo().userId;
 
             Appointments.query({doctorId: doctorId}).$promise.then(function (data) {
-                data.forEach(function(appointment){
+                data.forEach(function (appointment) {
                     if (appointment.patientId == patientId) {
                         $scope.currentUserAppointment = appointment;
                     }
@@ -26,7 +26,7 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
             });
 
             $scope.diagnosisRecords = [];
-            Appointments.query({patientId:patientId, doctorId:doctorId}).$promise.then(function (data) {
+            Appointments.query({patientId: patientId, doctorId: doctorId}).$promise.then(function (data) {
                 $scope.diagnosisRecords = data;
             }, function (error) {
                 console.log(error);
@@ -100,8 +100,8 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
                     || $scope.currentRecord.pharmacyId == undefined;
             };
 
-            $scope.createRecipe = function() {
-                $scope.currentRecord.drugsInRecipe = $scope.selectedDrugs.map(function(selectedDrug) {
+            $scope.createRecipe = function () {
+                $scope.currentRecord.drugsInRecipe = $scope.selectedDrugs.map(function (selectedDrug) {
                     var resultDrug = {};
                     for (var i = 0; i < $scope.drugs.length; i++) {
                         var drug = $scope.drugs[i];
@@ -114,7 +114,10 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
                     return resultDrug;
                 });
 
-                Appointments.update({appointmentId:$scope.currentUserAppointment.diagnosisId, doctorId:doctorId}, $scope.currentRecord).$promise.then(function (data) {
+                Appointments.update({
+                    appointmentId: $scope.currentUserAppointment.diagnosisId,
+                    doctorId: doctorId
+                }, $scope.currentRecord).$promise.then(function (data) {
                     console.log(data);
                     $location.path('/doctorAppointments');
                 }, function (error) {

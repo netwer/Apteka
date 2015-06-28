@@ -1,41 +1,64 @@
 var module = angular.module('myApp.services', ['ngResource'])
-    .factory('Drugs', ['$resource', function($resource) {
+    .factory('Drugs', ['$resource', function ($resource) {
         return $resource('/api/doctor/drugs', {})
     }])
-    .factory('Pharmacies', ['$resource', function($resource) {
+    .factory('Pharmacies', ['$resource', function ($resource) {
         return $resource('/api/doctor/pharmacies', {})
     }])
-    .factory('Appointments', ['$resource', function($resource) {
+    .factory('Appointments', ['$resource', function ($resource) {
         return $resource('/api/doctor/:doctorId/appointments/:appointmentId',
             {
                 doctorId: "@doctorId",
                 appointmentId: "@appointmentId"
             },
             {
-                'update': { method:'PUT' }
+                'update': {method: 'PUT'}
             }
         )
     }])
-    .factory('DateService', function(){
+    .factory('PharmacyRecipes', ['$resource', function ($resource) {
+        return $resource('/api/pharmacist/:pharmacistId/recipes/:recipeId', {
+                pharmacistId: '@pharmacistId',
+                recipeId: '@recipeId',
+                status: '@status'
+            },
+            {
+                'update': {method: 'PUT'}
+            })
+    }])
+    .factory('PharmacyStaff', ['$resource', function ($resource) {
+        return $resource('/api/pharmacist/:pharmacistId/staff', {
+            pharmacistId: '@pharmacistId'
+        })
+    }])
+    .factory('PharmacyConcreteDrug', ['$resource', function ($resource) {
+        return $resource('/api/pharmacist/concreteDrugs', {}, {
+            'update': {method: 'PUT'},
+            'create': {method: 'POST'}
+        })
+    }])
+    .factory('DateService', function () {
         return {
-            getDate: function(string) {
+            getDate: function (string) {
                 return moment(string).format('DD.MM.YYYY');
             },
-            getTime: function(string) {
+            getTime: function (string) {
                 return moment(string).format('HH:mm');
             }
         }
     })
-    .factory('UserService', ['$http', '$q', '$window', '$location', function($http, $q, $window, $location) {
+    .factory('UserService', ['$http', '$q', '$window', '$location', function ($http, $q, $window, $location) {
         var userInfo;
 
         function login(userName, password) {
             var deferred = $q.defer();
 
-            $http.get("/auth/", {params: {
-                login: userName,
-                password: password
-            }}).then(function(result) {
+            $http.get("/auth/", {
+                params: {
+                    login: userName,
+                    password: password
+                }
+            }).then(function (result) {
                 userInfo = {
                     userId: result.data.userId,
                     userRole: result.data.userRole,
@@ -43,7 +66,7 @@ var module = angular.module('myApp.services', ['ngResource'])
                 };
                 $window.sessionStorage["userInfo"] = JSON.stringify(userInfo);
                 deferred.resolve(userInfo);
-            }, function(error) {
+            }, function (error) {
                 deferred.reject(error);
             });
 
@@ -64,6 +87,7 @@ var module = angular.module('myApp.services', ['ngResource'])
                 userInfo = JSON.parse($window.sessionStorage["userInfo"]);
             }
         }
+
         init();
 
         return {

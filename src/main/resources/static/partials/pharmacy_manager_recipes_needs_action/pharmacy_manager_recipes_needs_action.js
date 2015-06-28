@@ -1,4 +1,4 @@
-angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'ui.bootstrap.progressbar'])
+angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.services'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/pharmacyManagerRecipesNeedsAction', {
@@ -7,277 +7,182 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'ui.bootst
         });
     }])
 
-    .controller('PharmacyManagerRecipesNeedsActionController', ['$scope', '$modal', '$log', function ($scope, $modal, $log) {
-        $scope.persons = [
-            {
-                id: 1,
-                name: 'Константин Контсантинопольский',
-                count: 4
-            },
-            {
-                id: 2,
-                name: 'Валентин Ковальский',
-                count: 1
-            },
-            {
-                id: 3,
-                name: 'Георгий Валерьянович',
-                count: 2
-            },
-            {
-                id: 4,
-                name: 'Иван Иванов',
-                count: 2
-            }
-        ];
+    .controller('PharmacyManagerRecipesNeedsActionController', [
+        '$scope', '$modal', '$log', 'PharmacyRecipes', 'PharmacyStaff', 'UserService', 'PharmacyConcreteDrug',
+        function ($scope, $modal, $log, PharmacyRecipes, PharmacyStaff, UserService, PharmacyConcreteDrug) {
 
-        $scope.statuses = [
-            {
-                id: 1,
-                name: 'Готово',
-                type: 'label-success',
-                priority: 3
-            },
-            {
-                id: 2,
-                name: 'В процессе',
-                type: 'label-warning',
-                priority: 2
-            },
-            {
-                id: 3,
-                name: 'Не назначено',
-                type: 'label-danger',
-                priority: 1
-            }
-        ];
+            var managerId = UserService.getUserInfo().userId;
 
-        $scope.drugs = [
-            {
-                recipe: {
-                    name: 'Рецепт №1'
-                },
-                name: 'Спазмалгон',
-                quantity: 2,
-                status: $scope.statuses[0]
-            },
-            {
-                recipe: {
-                    name: 'Рецепт №1'
-                },
-                name: 'Глюкоброминатират гепоппатаниума (20 мл)',
-                quantity: 1,
-                status: $scope.statuses[0]
-            },
-            {
-                recipe: {
-                    name: 'Рецепт №1'
-                },
-                name: 'Фермагематоген детский (10 гр)',
-                quantity: 10,
-                status: $scope.statuses[1],
-                person: $scope.persons[2]
-            },
-            {
-                recipe: {
-                    name: 'Рецепт №1'
-                },
-                name: 'Касторка',
-                quantity: 1,
-                status: $scope.statuses[2]
-            }
-        ];
-
-        $scope.recipes = [
-            {
-                id: 1,
-                date: '03 января 2014',
-                patient: {
-                    name: 'Мартин Мак-Флай'
-                },
-                drugs: [
+            var recipesWithConfiguredDrugStatuses = function (recipes) {
+                var statuses = [
                     {
-                        recipe: {
-                            name: 'Рецепт №1'
-                        },
-                        name: 'Спазмалгон',
-                        quantity: 2,
-                        status: $scope.statuses[0]
+                        name: 'Готово',
+                        type: 'label-success',
+                        priority: 3
                     },
                     {
-                        recipe: {
-                            name: 'Рецепт №1'
-                        },
-                        name: 'Глюкоброминатират гепоппатаниума (20 мл)',
-                        quantity: 1,
-                        status: $scope.statuses[0]
+                        name: 'В процессе',
+                        type: 'label-warning',
+                        priority: 2
                     },
                     {
-                        recipe: {
-                            name: 'Рецепт №1'
-                        },
-                        name: 'Фермагематоген детский (10 гр)',
-                        quantity: 10,
-                        status: $scope.statuses[1],
-                        person: $scope.persons[2]
-                    },
-                    {
-                        recipe: {
-                            name: 'Рецепт №1'
-                        },
-                        name: 'Касторка',
-                        quantity: 1,
-                        status: $scope.statuses[2]
+                        name: 'Не назначено',
+                        type: 'label-danger',
+                        priority: 1
                     }
-                ]
-            },
-            {
-                id: 2,
-                date: '01 января 2014',
-                patient: {
-                    name: 'Ван Хельсинк'
-                },
-                drugs: [
-                    {
-                        recipe: {
-                            name: 'Рецепт №2'
-                        },
-                        name: 'Сироп солодкового корня (100 мл)',
-                        quantity: 1,
-                        status: $scope.statuses[2]
-                    },
-                    {
-                        recipe: {
-                            name: 'Рецепт №2'
-                        },
-                        name: 'Антигриппин уно трето в таблетках-призраках',
-                        quantity: 10,
-                        status: $scope.statuses[2]
-                    },
-                    {
-                        recipe: {
-                            name: 'Рецепт №2'
-                        },
-                        name: 'Анаболические стеройды',
-                        quantity: 1,
-                        status: $scope.statuses[2]
-                    },
-                    {
-                        recipe: {
-                            name: 'Рецепт №2'
-                        },
-                        name: 'Пипетка',
-                        quantity: 1,
-                        status: $scope.statuses[0]
-                    }
-                ]
-            },
-            {
-                id: 3,
-                date: '10 января 2015',
-                patient: {
-                    name: 'Робин'
-                },
-                drugs: [
-                    {
-                        recipe: {
-                            name: 'Рецепт №3'
-                        },
-                        name: 'Сироп солодкового корня (100 мл)',
-                        quantity: 1,
-                        status: $scope.statuses[0]
-                    },
-                    {
-                        recipe: {
-                            name: 'Рецепт №3'
-                        },
-                        name: 'Антигриппин уно трето в таблетках-призраках',
-                        quantity: 10,
-                        status: $scope.statuses[0]
-                    },
-                    {
-                        recipe: {
-                            name: 'Рецепт №3'
-                        },
-                        name: 'Анаболические стеройды',
-                        quantity: 1,
-                        status: $scope.statuses[0]
-                    },
-                    {
-                        recipe: {
-                            name: 'Рецепт №3'
-                        },
-                        name: 'Пипетка',
-                        quantity: 1,
-                        status: $scope.statuses[0]
-                    }
-                ]
-            }
-        ];
-        if ($scope.recipes.length > 0) {
-            $scope.selectedDrug = $scope.recipes[0];
-        }
+                ];
+                return recipes.map(function (recipe) {
+                    recipe.drugs.forEach(function (drug) {
+                        if (drug.apothecaryId != null) {
+                            drug.status = statuses[1];
+                        }
+                        else if (drug.needsToProduce == false) {
+                            drug.status = statuses[0];
+                        }
+                        else {
+                            drug.status = statuses[3];
+                        }
+                    });
+                });
+            };
 
-        $scope.selectRecipe = function(recipe) {
-            $scope.selectedDrug = recipe;
-        };
 
-        $scope.isAllDrugsDone = function(recipe) {
-            isAllDrugsHasDoneStatus = true;
-            recipe.drugs.forEach(function(drug) {
-                if (drug.status.id != $scope.statuses[0].id) {
-                    isAllDrugsHasDoneStatus = false;
+            $scope.recipes = [];
+            PharmacyRecipes.query({pharmacistId: managerId, status: 1}).$promise.then(function (data) {
+                Array.prototype.push.apply($scope.recipes, recipesWithConfiguredDrugStatuses(data));
+                if ($scope.recipes.length > 0 && $scope.selectedRecipe == undefined) {
+                    $scope.selectedRecipe = $scope.recipes[0];
                 }
+                console.log(data);
+            }, function (error) {
+                console.log(error);
             });
-            return isAllDrugsHasDoneStatus;
-        };
-
-        $scope.open = function (selectedDrug) {
-            var modalInstance = $modal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'partials/modal_views/select_pharmacy_modal_view.html',
-                controller: 'ModalInstanceCtrl',
-                size: undefined,
-                resolve: {
-                    persons: function () {
-                        return $scope.persons;
-                    },
-                    drug: function () {
-                        return selectedDrug;
-                    },
-                    statuses: function () {
-                        return $scope.statuses;
-                    }
+            PharmacyRecipes.query({pharmacistId: managerId, status: 5}).$promise.then(function (data) {
+                Array.prototype.push.apply($scope.recipes, recipesWithConfiguredDrugStatuses(data));
+                if ($scope.recipes.length > 0 && $scope.selectedRecipe == undefined) {
+                    $scope.selectedRecipe = $scope.recipes[0];
                 }
+                console.log(data);
+            }, function (error) {
+                console.log(error);
             });
 
-            modalInstance.result.then(function (selectedItem) {
-            }, function () {
-                console.log($scope.drugs);
-                $log.info('Modal dismissed at');
+            $scope.staff = [];
+            PharmacyStaff.query({pharmacistId: managerId}).$promise.then(function (data) {
+                $scope.staff = data;
+                console.log(data);
+            }, function (error) {
+                console.log(error);
             });
-        };
-    }])
 
-    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, persons, drug, statuses) {
+            $scope.selectRecipe = function (recipe) {
+                $scope.selectedRecipe = recipe;
+            };
+
+            $scope.isAllDrugsDone = function (recipe) {
+                if (!recipe) {
+                    return false;
+                }
+
+                var isAllDrugsHasDoneStatus = true;
+                recipe.drugs.forEach(function (drug) {
+                    if (drug.status.type != 'label-success') {
+                        isAllDrugsHasDoneStatus = false;
+                    }
+                });
+                return isAllDrugsHasDoneStatus;
+            };
+
+            $scope.isAllDrugsInProgress = function (recipe) {
+                if (!recipe) {
+                    return false;
+                }
+
+                var isAllDrugsHasInProgressStatus = true;
+                recipe.drugs.forEach(function (drug) {
+                    if (drug.status.type == 'label-danger') {
+                        isAllDrugsHasInProgressStatus = false;
+                    }
+                });
+                return isAllDrugsHasInProgressStatus;
+            };
+
+            $scope.open = function (selectedDrug) {
+                var modalInstance = $modal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: 'partials/modal_views/select_pharmacy_modal_view.html',
+                    controller: 'ModalInstanceCtrl',
+                    size: undefined,
+                    resolve: {
+                        persons: function () {
+                            return $scope.staff;
+                        },
+                        drug: function () {
+                            return selectedDrug;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function (selectedItem) {
+                }, function () {
+                    console.log($scope.drugs);
+                    $log.info('Modal dismissed at');
+                });
+            };
+
+            $scope.assignDrugs = function () {
+                var resultAssignments = $scope.selectedRecipe.drugs.map(function (drug) {
+                    return {
+                        recipeId: $scope.selectedRecipe.recipeId,
+                        drugId: drug.drugId,
+                        apothecaryId: drug.apothecaryId
+                    }
+                });
+
+                PharmacyConcreteDrug.create({}, resultAssignments).$promise.then(function (data) {
+                    console.log(data);
+                }, function (error) {
+                    console.log(error);
+                });
+
+            };
+
+            $scope.completeRecipe = function () {
+                PharmacyRecipes.update({
+                    pharmacistId: managerId,
+                    recipeId: $scope.selectedRecipe.recipeId
+                }, {
+                    status: 3
+                }).$promise.then(function (data) {
+                        console.log(data);
+                    }, function (error) {
+                        console.log(error);
+                    });
+            };
+        }])
+
+    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, persons, drug) {
         $scope.select = function (person) {
-            if ($scope.selectedPerson == person) {
-                $scope.selectedPerson = undefined;
+            if ($scope.selectedApothecaryId == person.apothecaryId) {
+                $scope.selectedApothecaryId = undefined;
             }
             else {
-                $scope.selectedPerson = person;
+                $scope.selectedApothecaryId = person.apothecaryId;
             }
             //$scope.selectedPerson = $scope.drug.person;
         };
 
         $scope.persons = persons;
         $scope.drug = drug;
-        $scope.selectedPerson = $scope.drug.person;
-        $scope.oldPerson = angular.copy($scope.drug.person);
+        $scope.selectedApothecaryId = $scope.drug.apothecaryId;
 
         $scope.ok = function () {
-            $scope.drug.status = statuses[1];
-            $scope.drug.person = $scope.selectedPerson;
+            $scope.drug.status = {
+                name: 'В процессе',
+                type: 'label-warning',
+                priority: 2
+            };
+            $scope.drug.apothecaryId = $scope.selectedApothecaryId;
             $modalInstance.close($scope.drug);
         };
 
