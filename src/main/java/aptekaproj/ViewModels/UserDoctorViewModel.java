@@ -1,14 +1,16 @@
 package aptekaproj.viewModels;
 
+import java.util.Date;
+
 /**
  * Created by Admin on 24.05.2015.
  */
 public class UserDoctorViewModel {
+    public Integer patientId;
     public Integer diagnosisId;
-    public int patientId;
-    public int doctorId;
+    public Integer doctorId;
     public String patientFullName;
     public String doctorFullName;
-    public String visitDate;
+    public Date visitDate;
     public String patientPoliceNumber;
 }

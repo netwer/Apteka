@@ -24,34 +24,17 @@ public class PatientController {
     @Autowired
     private RecipeService recipeService;
 
-    @Autowired
-    private RecipeProgressStatusService recipeProgressStatusService;
-
     /**
      * Get recipe for patient
-     * http://localhost:8443/Patient/?userId=4
+     * http://localhost:8443/api/patient/{patientId}/recipes
      * @param patientId
      * @return PatientRecipeViewModel
      */
-    @RequestMapping(value = "/{patientId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{patientId}/recipes", method = RequestMethod.GET)
     public @ResponseBody
     List<PatientRecipeViewModel> getRecipes(@PathVariable int patientId){
         if(patientId <= 0)
             return new ArrayList<>();
         return recipeService.getRecipesForPatient(patientId);
     }
-
-    /**
-     * Get statuses
-     * http://localhost:8443/Patient/statuses
-     * @return
-     */
-    @RequestMapping(value = "/{patientId}/statuses", method = RequestMethod.GET)
-    public @ResponseBody
-    List<RecipeProgressStatus> GetRecipeStatuses(@PathVariable int patientId){
-        if(patientId <= 0)
-            return new ArrayList<>();
-        return recipeProgressStatusService.getRecipeProgressStatuses();
-    }
-
 }

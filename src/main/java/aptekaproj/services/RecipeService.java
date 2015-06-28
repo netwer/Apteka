@@ -75,8 +75,8 @@ public class RecipeService {
         recipesRepository.save(recipe);
     }
 
-    public List<PatientRecipeViewModel> getRecipesForPatient(int userId) {
-        List<Diagnoses> diagnosesList = diagnosesService.getDiagnosisForUser(userId);
+    public List<PatientRecipeViewModel> getRecipesForPatient(int patientId) {
+        List<Diagnoses> diagnosesList = diagnosesService.getDiagnosisForUser(patientId);
         List<PatientRecipeViewModel> patientRecipeViewModels = new ArrayList<>();
         PatientRecipeViewModel patientRecipeViewModel;
         for (Diagnoses diagnoses : diagnosesList){
@@ -96,7 +96,7 @@ public class RecipeService {
             RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(recipe.getRecipeProgressStatusId());
 
             patientRecipeViewModel.doctorId = diagnoses.getDoctorUserId();
-            patientRecipeViewModel.patientId = userId;
+            patientRecipeViewModel.patientId = patientId;
             patientRecipeViewModel.doctorName = user.getFullName();
             patientRecipeViewModel.pharmaciesAddress = pharmacy.getAddress();
             patientRecipeViewModel.pharmaciesName = pharmacy.getName();
@@ -105,6 +105,9 @@ public class RecipeService {
             patientRecipeViewModel.recipeId = diagnoses.getRecipeId();
             patientRecipeViewModel.recipeStatusId = recipeProgressStatus.getId();
             patientRecipeViewModel.recipeStatusName = recipeProgressStatus.getName();
+            patientRecipeViewModel.complaints = diagnoses.getComplaints();
+            patientRecipeViewModel.diagnosis = diagnoses.getDiagnosis();
+            patientRecipeViewModel.drugs = drugService.getDrugsForRecipe(recipe.getId());
 
             patientRecipeViewModels.add(patientRecipeViewModel);
         }

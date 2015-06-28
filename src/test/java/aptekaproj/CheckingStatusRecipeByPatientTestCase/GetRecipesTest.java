@@ -27,7 +27,7 @@ public class GetRecipesTest {
     @Autowired
     private RecipeService recipeService;
 
-    private int patientId;
+    private Integer patientId;
 
     @Before
     public void setUp() throws Exception {

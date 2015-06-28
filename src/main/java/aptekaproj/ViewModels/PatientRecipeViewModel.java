@@ -1,17 +1,18 @@
 package aptekaproj.viewModels;
+import java.util.List;
 
-/**
- * Created by Admin on 31.05.2015.
- */
 public class PatientRecipeViewModel {
-    public int recipeId;
-    public int doctorId;
-    public int recipeStatusId;
-    public int patientId;
+    public Integer recipeId;
+    public Integer doctorId;
+    public Integer recipeStatusId;
+    public Integer patientId;
     public String recipeStatusName;
     public String doctorName;
     public String recipeTitle;
     public String recipeCreated;
     public String pharmaciesAddress;
     public String pharmaciesName;
+    public String complaints;
+    public String diagnosis;
+    public List<DrugViewModel> drugs;
 }
