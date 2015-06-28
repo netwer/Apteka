@@ -23,6 +23,9 @@ public class Ingredient {
     @Column(name = "count")
     private int count;
 
+    @Column(name = "unit_measure_id")
+    private Integer unit;
+
     public int getId() {
         return id;
     }
@@ -53,5 +56,13 @@ public class Ingredient {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public Integer getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Integer unit) {
+        this.unit = unit;
     }
 }
