@@ -37,8 +37,12 @@ public class DoctorController {
 
     @ResponseBody
     @RequestMapping(value = "/{doctorId}/appointments", method = RequestMethod.GET)
-    public List<UserDoctorViewModel> getAppointments(@PathVariable int doctorId){
-        return userService.getPatients(doctorId);
+    public List<PatientCardViewModel> getAppointmentsForPatient(@PathVariable Integer doctorId,
+                                                                @RequestParam(value = "patientId", required = false) Integer patientId){
+        if (patientId == null) {
+            return userService.getDoctorAppointmentsCards(doctorId);
+        }
+        return userService.getPatientsCards(doctorId, patientId);
     }
 
     @ResponseBody
@@ -56,14 +60,6 @@ public class DoctorController {
 
         }
     }
-
-//    @ResponseBody
-//    @RequestMapping(value = "/doctor/{doctorId}/appointments?patientId",method = RequestMethod.GET)
-//    public List<PatientCardViewModel> getAppointmentsPatientHistory(@PathVariable("doctorId") int doctorId,
-//                                                                    @RequestParam("patientId") int patientId) {
-//        return userService.getPatientsCards(doctorId, patientId);
-//    }
-
     @ResponseBody
     @RequestMapping(value = "/pharmacies",method = RequestMethod.GET)
     public List<Pharmacy> getPharmacies(){
@@ -75,78 +71,4 @@ public class DoctorController {
     public List<Drug> getDrugs(){
         return drugService.getDrugs();
     }
-
-
-    /*//todo test
-    *//**
-     * Getting specific record for admission GET /diagnoses/{id}
-     * localhost:8443/Doctor/getAppointment?patientId=4&doctorId=1
-     * @param patientId
-     * @param doctorId
-     * @return
-     *//*
-    @ResponseBody
-    @RequestMapping(value = "/appointment/{doctorId}/{patientId}",method = RequestMethod.GET)
-    public PatientCardViewModel getAppointment(@PathVariable("doctorId") int doctorId,
-                                               @PathVariable("patientId")  int patientId){
-        return userService.getPatientCard(patientId, doctorId);
-    }*/
-
-    /*//todo test
-    *//**
-     * Creating a record of the results of the reception POST /diagnoses
-     * saveRecipeHasDrugs diagnoses object for patient
-     * @param diagnoses
-     * @return
-     * @throws ParseException
-     *//*
-    @ResponseBody
-    @RequestMapping(value = "/diagnose/save",method = RequestMethod.POST)
-    public PostViewModel saveDiagnose(@RequestBody Diagnoses diagnoses) throws ParseException {
-        return diagnosesService.saveDiagnosis(diagnoses);
-    }
-
-    //todo test
-    *//**
-     * updateDiagnosis diagnoses
-     * @param diagnoses
-     *//*
-    @ResponseBody
-    @RequestMapping(value = "/diagnose/update",method = RequestMethod.PUT)
-    public PostViewModel updateDiagnose(@RequestBody Diagnoses diagnoses){
-        return diagnosesService.updateDiagnosis(diagnoses);
-    }
-
-    //todo test
-    *//**
-     * Creating a record of the results of the reception POST /diagnoses
-     * saveRecipeHasDrugs recipe
-     * @param recipeViewModel
-     *//*
-    @ResponseBody
-    @RequestMapping(value = "/recipe/save",method = RequestMethod.POST)
-    public PostViewModel saveRecipe(@RequestBody RecipeViewModel recipeViewModel){
-        return recipeService.saveRecipe(recipeViewModel);
-    }
-
-    //todo test
-    //todo what need to return?
-    *//**
-     * updateDiagnosis Recipe
-     * @param recipeViewModel
-     *//*
-    @ResponseBody
-    @RequestMapping(value = "/recipe/update",method = RequestMethod.PUT)
-    public void updateRecipe(@RequestBody RecipeViewModel recipeViewModel){
-        recipeService.updateRecipe(recipeViewModel);
-    }
-*/
-
-    /*@ResponseBody
-    @RequestMapping(value = "/{doctorId}/recipes",method = RequestMethod.GET)
-    public List<RecipeViewModel> getRecipesByStatus(
-            @PathVariable("doctorId") int doctorId,
-            @RequestParam(value = "status", required = true) String status){
-        return recipeService.getRecipesByStatus(doctorId,status);
-    }*/
 }
