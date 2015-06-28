@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class DateWorker {
 
-    public static Date AddDaysToDate(Date currentDate,int countDays){
+    public static Date addDaysToDate(Date currentDate, int countDays){
         Date date = currentDate;
         Calendar c = Calendar.getInstance();
         c.setTime(date);
@@ -17,14 +17,14 @@ public class DateWorker {
         return c.getTime();
     }
 
-    public static Date MaxDate(Date d1,Date d2){
+    public static Date maxDate(Date d1, Date d2){
         if(TimeIgnoringComparator.compare(d1,d2) >= 0)
             return d1;
         else
             return d2;
     }
 
-    public static String MaxDate(List<Date> drugAvailabilityDate) {
+    public static String maxDate(List<Date> drugAvailabilityDate) {
         Date maxDate = new Date(0);
         for (Date date : drugAvailabilityDate){
             if(TimeIgnoringComparator.compare(date,maxDate) >= 0){

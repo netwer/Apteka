@@ -91,52 +91,6 @@ public class UserService {
         return userDoctorViewModels;
     }
 
-    public PatientCardViewModel getPatientCard(int patientId,int doctorId){
-        PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
-        User patient = getUserById(patientId);
-
-        if(patient == null)
-            return patientCardViewModel;
-
-        patientCardViewModel.patientFullName = patient.getFullName();
-        patientCardViewModel.patientAddress = patient.getAddress();
-        patientCardViewModel.patientEmail = patient.getEmail();
-        patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
-        patientCardViewModel.patientId = patient.getId();
-        patientCardViewModel.doctorId = doctorId;
-        patientCardViewModel.visitDate = new Date();
-
-        return patientCardViewModel;
-        /*List<Diagnoses> diagnoseses = diagnosesService.getAllDiagnoses();
-        //todo add check is recipe_id is null ?!
-        //todo add check is complaints is null ?!
-        //todo add check is diagnosis is null?!
-        for(Diagnoses diagnoses : diagnoseses){
-            if(diagnoses.getDoctorUserId()  == doctorId  &&
-               diagnoses.getPatientUserId() == patientId &&
-               diagnoses.getRecipeId()       == null      &&
-               (diagnoses.getComplaints() == null || diagnoses.getComplaints().isEmpty()) &&
-               (diagnoses.getDiagnosis() == null || diagnoses.getDiagnosis().isEmpty())){
-
-                patient = getUserById(patientId);
-                patientCardViewModel.complaints = diagnoses.getComplaints();
-                patientCardViewModel.diagnosis = diagnoses.getDiagnosis();
-                patientCardViewModel.doctorId = doctorId;
-                patientCardViewModel.patientId = patientId;
-                patientCardViewModel.patientAddress = patient.getAddress();
-                patientCardViewModel.patientFullName = patient.getFullName();
-                patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
-                patientCardViewModel.patientEmail = patient.getEmail();
-                //todo need?
-                //patientCardViewModel.recipeViewModel = recipeService.getRecipe(patientId,diagnoses.getId(),diagnoses.getRecipeId());
-
-                //todo may be error
-                break;
-            }
-        }
-        return patientCardViewModel;*/
-    }
-
     private User userInDb(String login, String password){
         List<User> userList = (List<User>) usersRepository.findAll();
         for(User user : userList){
@@ -162,21 +116,6 @@ public class UserService {
         }
 
         return doctors;
-    }
-
-    public List<User> getUsersByIds(List<Integer> pharmacistIdList, String roleName) {
-        List<User> userList = getUsers();
-        List<User> apotekarys = new ArrayList<>();
-        Role role = roleService.getRoleByName(roleName);
-        for (User user : userList){
-            for (Integer pharmacistId : pharmacistIdList){
-                if(user.getId() == pharmacistId && user.getRoleId()==role.getId()){
-                    apotekarys.add(user);
-                }
-            }
-        }
-
-        return apotekarys;
     }
 
     public List<User> getUsers(){
@@ -227,7 +166,7 @@ public class UserService {
                 patientCardViewModel.visitDate = diagnoses.getCreatedAt();
                 patientCardViewModel.recipeId = null;
                 patientCardViewModel.pharmacyId = 0;
-                patientCardViewModel.drugsInRecipe = null;
+                patientCardViewModel.drugs = null;
                 history.add(patientCardViewModel);
             }
         }
@@ -261,11 +200,72 @@ public class UserService {
                 patientCardViewModel.visitDate = diagnoses.getCreatedAt();
                 patientCardViewModel.recipeId = diagnoses.getRecipeId();
                 patientCardViewModel.pharmacyId = 0;
-                patientCardViewModel.drugsInRecipe = drugService.getDrugsForRecipe(diagnoses.getRecipeId());
+                patientCardViewModel.drugs = drugService.getDrugsForRecipe(diagnoses.getRecipeId());
                 history.add(patientCardViewModel);
             }
         }
 
         return history;
+    }
+
+    public List<User> getUsersByIds(List<Integer> pharmacistIdList, String roleName) {
+        List<User> userList = getUsers();
+        List<User> apotekarys = new ArrayList<>();
+        Role role = roleService.getRoleByName(roleName);
+        for (User user : userList){
+            for (Integer pharmacistId : pharmacistIdList){
+                if(user.getId() == pharmacistId && user.getRoleId()==role.getId()){
+                    apotekarys.add(user);
+                }
+            }
+        }
+
+        return apotekarys;
+    }
+
+    public PatientCardViewModel getPatientCard(int patientId,int doctorId){
+        PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
+        User patient = getUserById(patientId);
+
+        if(patient == null)
+            return patientCardViewModel;
+
+        patientCardViewModel.patientFullName = patient.getFullName();
+        patientCardViewModel.patientAddress = patient.getAddress();
+        patientCardViewModel.patientEmail = patient.getEmail();
+        patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
+        patientCardViewModel.patientId = patient.getId();
+        patientCardViewModel.doctorId = doctorId;
+        patientCardViewModel.visitDate = new Date();
+
+        return patientCardViewModel;
+        /*List<Diagnoses> diagnoseses = diagnosesService.getAllDiagnoses();
+        //todo add check is recipe_id is null ?!
+        //todo add check is complaints is null ?!
+        //todo add check is diagnosis is null?!
+        for(Diagnoses diagnoses : diagnoseses){
+            if(diagnoses.getDoctorUserId()  == doctorId  &&
+               diagnoses.getPatientUserId() == patientId &&
+               diagnoses.getRecipeId()       == null      &&
+               (diagnoses.getComplaints() == null || diagnoses.getComplaints().isEmpty()) &&
+               (diagnoses.getDiagnosis() == null || diagnoses.getDiagnosis().isEmpty())){
+
+                patient = getUserById(patientId);
+                patientCardViewModel.complaints = diagnoses.getComplaints();
+                patientCardViewModel.diagnosis = diagnoses.getDiagnosis();
+                patientCardViewModel.doctorId = doctorId;
+                patientCardViewModel.patientId = patientId;
+                patientCardViewModel.patientAddress = patient.getAddress();
+                patientCardViewModel.patientFullName = patient.getFullName();
+                patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
+                patientCardViewModel.patientEmail = patient.getEmail();
+                //todo need?
+                //patientCardViewModel.recipeViewModel = recipeService.getRecipe(patientId,diagnoses.getId(),diagnoses.getRecipeId());
+
+                //todo may be error
+                break;
+            }
+        }
+        return patientCardViewModel;*/
     }
 }

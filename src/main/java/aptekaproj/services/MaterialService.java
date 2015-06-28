@@ -14,7 +14,6 @@ public class MaterialService {
     @Autowired
     private IMaterialsRepository materialsRepository;
 
-
     public Material getMaterialById(int materialId) {
         return materialsRepository.findOne(materialId);
     }

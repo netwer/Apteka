@@ -101,7 +101,7 @@ public class RecipeService {
         recipeViewModel.recipeId = recipeId;
         recipeViewModel.recipeTitle = recipe.getTitle();
         recipeViewModel.recipeProgressStatusId = recipe.getRecipeProgressStatusId();
-        recipeViewModel.availabilityDate = concreteDrugService.GetAvailabilityRecipeDate(recipeId);
+        recipeViewModel.availabilityDate = concreteDrugService.getAvailabilityRecipeDate(recipeId);
         recipeViewModel.drugs = drugService.getDrugsForRecipe(recipeId);
         return recipeViewModel;
     }
@@ -125,7 +125,7 @@ public class RecipeService {
                 recipeViewModel.pharmacyId = recipe.getPharmacyId();
                 recipeViewModel.patientFullName = userService.getUserById(diagnoses.getPatientUserId()).getFullName();
                 recipeViewModel.diagnosesId = diagnoses.getId();
-                recipeViewModel.availabilityDate = concreteDrugService.GetAvailabilityRecipeDate(recipe.getId());
+                recipeViewModel.availabilityDate = concreteDrugService.getAvailabilityRecipeDate(recipe.getId());
                 recipeViewModel.drugs = drugService.getDrugsForRecipe(recipe.getId());
                 recipes.add(recipeViewModel);
             }

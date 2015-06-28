@@ -20,6 +20,6 @@ public class PatientCardViewModel {
     public String complaints;
     public String diagnosis;
     //public String apothecaryName;
-    public List<DrugViewModel> drugsInRecipe;
+    public List<DrugViewModel> drugs;
     //public RecipeViewModel recipeViewModel;
 }

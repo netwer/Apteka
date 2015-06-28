@@ -29,26 +29,6 @@ public class PharmacyStaffService {
     @Autowired
     private ConcreteDrugService concreteDrugService;
 
-    public List<UserViewModel> getPharmacists(int pharmacy_id) {
-        List<UserViewModel> users = new ArrayList<>();
-        List<PharmacyStaff> pharmacyStaffs = (List<PharmacyStaff>)pharmacyStaffRepository.findAll();
-
-        for(PharmacyStaff pharmacyStaff : pharmacyStaffs){
-            if(pharmacyStaff.getPharmacyId() == pharmacy_id){
-                UserViewModel userViewModel = new UserViewModel();
-                User user1 = new User();
-                user1 = userService.getUserById(pharmacyStaff.getUserId());
-                userViewModel.userId = user1.getId();
-                userViewModel.userRole = roleService.getRoleName(user1.getRoleId());
-                userViewModel.userFullName = user1.getFullName();
-                userViewModel.userLogin = user1.getLogin();
-                users.add(userViewModel);
-            }
-        }
-
-        return users;
-    }
-
     public PharmacyStaff getApothecariesByPharmacistId(int pharmacistId) {
         List<PharmacyStaff> pharmacyStaffs = getPharmacyStaffs();
         PharmacyStaff currentPharmacyStaff = new PharmacyStaff();
@@ -108,5 +88,23 @@ public class PharmacyStaffService {
         return integers;
     }
 
+    public List<UserViewModel> getPharmacists(int pharmacy_id) {
+        List<UserViewModel> users = new ArrayList<>();
+        List<PharmacyStaff> pharmacyStaffs = (List<PharmacyStaff>)pharmacyStaffRepository.findAll();
 
+        for(PharmacyStaff pharmacyStaff : pharmacyStaffs){
+            if(pharmacyStaff.getPharmacyId() == pharmacy_id){
+                UserViewModel userViewModel = new UserViewModel();
+                User user1 = new User();
+                user1 = userService.getUserById(pharmacyStaff.getUserId());
+                userViewModel.userId = user1.getId();
+                userViewModel.userRole = roleService.getRoleName(user1.getRoleId());
+                userViewModel.userFullName = user1.getFullName();
+                userViewModel.userLogin = user1.getLogin();
+                users.add(userViewModel);
+            }
+        }
+
+        return users;
+    }
 }

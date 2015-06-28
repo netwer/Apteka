@@ -41,7 +41,7 @@ public class ConcreteIngredientService {
             }
         }
 
-        dateForGroup = DateWorker.MaxDate(maxDate, currentDate);
+        dateForGroup = DateWorker.maxDate(maxDate, currentDate);
         List<ConcreteIngredient> concreteIngredientByDate = new ArrayList<>();
         for(ConcreteIngredient concreteIngredient1 : concreteIngredientById){
             if(TimeIgnoringComparator.compare(concreteIngredient1.getAvailabilityDate(),dateForGroup) == 0){
@@ -83,6 +83,6 @@ public class ConcreteIngredientService {
             }
         }
 
-        return DateWorker.MaxDate(availableDate);
+        return DateWorker.maxDate(availableDate);
     }
 }

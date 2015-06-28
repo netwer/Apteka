@@ -33,17 +33,12 @@ public class DiagnosesService {
     @Autowired
     private RecipeHasDrugsService recipeHasDrugsService;
 
-    @Transactional
-    public List<Diagnoses> getPatientHistory(int userId){
-        List<Diagnoses> history = new ArrayList<>();
-        List<Diagnoses> diagnoseses = (List<Diagnoses>) diagnosesRepository.findAll();
-        for(Diagnoses diagnoses:diagnoseses){
-            if(diagnoses.getPatientUserId() == userId){
-                history.add(diagnoses);
-            }
-        }
+    public List<Diagnoses> getAllDiagnoses() {
+        return (List<Diagnoses>)diagnosesRepository.findAll();
+    }
 
-        return history;
+    public Diagnoses getDiagnosesById(int diagnosisId) {
+        return diagnosesRepository.findOne(diagnosisId);
     }
 
     public PostViewModel saveDiagnosis(Diagnoses diagnoses) {
@@ -53,6 +48,64 @@ public class DiagnosesService {
             postViewModel.id = diagnoses1.getId();
             postViewModel.status = "OK";
             postViewModel.message = "Saved";
+            return postViewModel;
+        }catch (Exception e){
+            postViewModel.status = "Error";
+            postViewModel.message = e.getMessage();
+            return postViewModel;
+        }
+    }
+
+    public void updateDiagnosis(int diagnosesId, int recipeId) {
+        Diagnoses diagnoses = diagnosesRepository.findOne(diagnosesId);
+
+        if(diagnoses == null)
+            return;
+
+        Diagnoses diagnoses1 = new Diagnoses();
+        diagnoses1.setId(diagnoses.getId());
+        diagnoses1.setPatientUserId(diagnoses.getPatientUserId());
+        diagnoses1.setComplaints(diagnoses.getComplaints());
+        diagnoses1.setDiagnosis(diagnoses.getDiagnosis());
+        diagnoses1.setDoctorUserId(diagnoses.getDoctorUserId());
+        diagnoses1.setCreatedAt(diagnoses.getCreatedAt());
+        diagnoses1.setRecipeId(recipeId);
+        diagnosesRepository.save(diagnoses1);
+    }
+
+    public PostViewModel deleteDiagnosis(int id) {
+        PostViewModel postViewModel = new PostViewModel();
+        try{
+            diagnosesRepository.delete(id);
+            postViewModel.id = id;
+            postViewModel.status = "OK";
+            postViewModel.message = "Deleted";
+            return postViewModel;
+        }catch (Exception e){
+            postViewModel.status = "Error";
+            postViewModel.message = e.getMessage();
+            return postViewModel;
+        }
+
+
+    }
+
+    public PostViewModel updateDiagnosis(Diagnoses diagnoses) {
+        Diagnoses diagnoses1 = new Diagnoses();
+        diagnoses1.setId(diagnoses.getId());
+        diagnoses1.setPatientUserId(diagnoses.getPatientUserId());
+        diagnoses1.setComplaints(diagnoses.getComplaints());
+        diagnoses1.setDiagnosis(diagnoses.getDiagnosis());
+        diagnoses1.setDoctorUserId(diagnoses.getDoctorUserId());
+        diagnoses1.setCreatedAt(diagnoses.getCreatedAt());
+        diagnoses1.setRecipeId(diagnoses.getRecipeId());
+
+        PostViewModel postViewModel = new PostViewModel();
+        try{
+            Diagnoses diagnoses2 = diagnosesRepository.save(diagnoses1);
+            postViewModel.id = diagnoses2.getId();
+            postViewModel.status = "OK";
+            postViewModel.message = "Updated";
             return postViewModel;
         }catch (Exception e){
             postViewModel.status = "Error";
@@ -81,68 +134,6 @@ public class DiagnosesService {
             }
         }
         return diagnosesForUser;
-    }
-
-    public void updateDiagnosis(int diagnosesId, int recipeId) {
-        Diagnoses diagnoses = diagnosesRepository.findOne(diagnosesId);
-
-        if(diagnoses == null)
-            return;
-
-        Diagnoses diagnoses1 = new Diagnoses();
-        diagnoses1.setId(diagnoses.getId());
-        diagnoses1.setPatientUserId(diagnoses.getPatientUserId());
-        diagnoses1.setComplaints(diagnoses.getComplaints());
-        diagnoses1.setDiagnosis(diagnoses.getDiagnosis());
-        diagnoses1.setDoctorUserId(diagnoses.getDoctorUserId());
-        diagnoses1.setCreatedAt(diagnoses.getCreatedAt());
-        diagnoses1.setRecipeId(recipeId);
-        diagnosesRepository.save(diagnoses1);
-    }
-
-    public PostViewModel updateDiagnosis(Diagnoses diagnoses) {
-        Diagnoses diagnoses1 = new Diagnoses();
-        diagnoses1.setId(diagnoses.getId());
-        diagnoses1.setPatientUserId(diagnoses.getPatientUserId());
-        diagnoses1.setComplaints(diagnoses.getComplaints());
-        diagnoses1.setDiagnosis(diagnoses.getDiagnosis());
-        diagnoses1.setDoctorUserId(diagnoses.getDoctorUserId());
-        diagnoses1.setCreatedAt(diagnoses.getCreatedAt());
-        diagnoses1.setRecipeId(diagnoses.getRecipeId());
-
-        PostViewModel postViewModel = new PostViewModel();
-        try{
-            Diagnoses diagnoses2 = diagnosesRepository.save(diagnoses1);
-            postViewModel.id = diagnoses2.getId();
-            postViewModel.status = "OK";
-            postViewModel.message = "Updated";
-            return postViewModel;
-        }catch (Exception e){
-            postViewModel.status = "Error";
-            postViewModel.message = e.getMessage();
-            return postViewModel;
-        }
-    }
-
-    public List<Diagnoses> getAllDiagnoses() {
-        return (List<Diagnoses>)diagnosesRepository.findAll();
-    }
-
-    public PostViewModel deleteDiagnosis(int id) {
-        PostViewModel postViewModel = new PostViewModel();
-        try{
-            diagnosesRepository.delete(id);
-            postViewModel.id = id;
-            postViewModel.status = "OK";
-            postViewModel.message = "Deleted";
-            return postViewModel;
-        }catch (Exception e){
-            postViewModel.status = "Error";
-            postViewModel.message = e.getMessage();
-            return postViewModel;
-        }
-
-
     }
 
     public Diagnoses getDiagnosis(Integer recipeId) {
@@ -176,7 +167,7 @@ public class DiagnosesService {
         //diagnoses.setPatientUserId(patientCardViewModel.patientId);
         diagnosesRepository.save(diagnoses);
 
-        recipeHasDrugsService.saveRecipeHasDrugs(patientCardViewModel.drugsInRecipe,recipe.getId());
+        recipeHasDrugsService.saveRecipeHasDrugs(patientCardViewModel.drugs,recipe.getId());
     }
 
     public Diagnoses getDiagnosesByRecipeId(int recipeId) {
@@ -194,7 +185,16 @@ public class DiagnosesService {
         return diagnoses;
     }
 
-    public Diagnoses getDiagnosesById(int diagnosisId) {
-        return diagnosesRepository.findOne(diagnosisId);
+    @Transactional
+    public List<Diagnoses> getPatientHistory(int userId){
+        List<Diagnoses> history = new ArrayList<>();
+        List<Diagnoses> diagnoseses = (List<Diagnoses>) diagnosesRepository.findAll();
+        for(Diagnoses diagnoses:diagnoseses){
+            if(diagnoses.getPatientUserId() == userId){
+                history.add(diagnoses);
+            }
+        }
+
+        return history;
     }
 }

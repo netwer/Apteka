@@ -17,7 +17,6 @@ public class RoleService{
     @Autowired
     private IRolesRepository repository;
 
-
     @Transactional
     public Role getRoleByName(String name){
         List<Role> roleList = (List<Role>) repository.findAll();
@@ -28,11 +27,6 @@ public class RoleService{
         }
         return new Role();
         //return rolesList;
-    }
-
-    @Transactional
-    public void saveRole(Role role){
-        repository.save(role);
     }
 
     @Transactional
@@ -52,5 +46,8 @@ public class RoleService{
         return currentRole;
     }
 
-
+    @Transactional
+    public void saveRole(Role role){
+        repository.save(role);
+    }
 }

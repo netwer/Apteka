@@ -1,12 +1,7 @@
 package aptekaproj.DrugsToApothecaryTestCase;
 
 import aptekaproj.AptekaApplication;
-import aptekaproj.helpers.enums.RolesNameEnum;
-import aptekaproj.models.Role;
-import aptekaproj.models.User;
 import aptekaproj.services.RecipeService;
-import aptekaproj.services.RoleService;
-import aptekaproj.viewModels.OrderMissingViewModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,11 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by org.apteka on 28.06.2015.

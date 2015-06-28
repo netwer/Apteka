@@ -3,8 +3,10 @@ package aptekaproj.services;
 import aptekaproj.controllers.repository.IConcreteDrugsRepository;
 import aptekaproj.helpers.DateWorker;
 import aptekaproj.helpers.enums.ProgressStatusEnum;
-import aptekaproj.models.*;
-import aptekaproj.viewModels.DrugWithPharmacistViewModel;
+import aptekaproj.models.ConcreteDrug;
+import aptekaproj.models.ConcreteIngredient;
+import aptekaproj.models.Ingredient;
+import aptekaproj.models.RecipeHasDrugs;
 import aptekaproj.viewModels.RecipeDrugWithPharmacistViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,7 +86,7 @@ public class ConcreteDrugService {
                         ConcreteIngredient concreteIngredient = new ConcreteIngredient();
                         concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                         concreteIngredient.setIngredientId(ingredient.getId());
-                        concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(date, dateCount));
+                        concreteIngredient.setAvailabilityDate(DateWorker.addDaysToDate(date, dateCount));
                         concreteIngredientsService.save(concreteIngredient);
                     }
                 }
@@ -102,7 +104,7 @@ public class ConcreteDrugService {
                         ConcreteIngredient concreteIngredient = new ConcreteIngredient();
                         concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                         concreteIngredient.setIngredientId(ingredient.getId());
-                        concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(date, dateCount));
+                        concreteIngredient.setAvailabilityDate(DateWorker.addDaysToDate(date, dateCount));
                         concreteIngredientsService.save(concreteIngredient);
                     }
                 }
@@ -118,7 +120,7 @@ public class ConcreteDrugService {
                         ConcreteIngredient concreteIngredient = new ConcreteIngredient();
                         concreteIngredient.setConcreteDrugId(createdConcreteDrug.getId());
                         concreteIngredient.setIngredientId(ingredient.getId());
-                        concreteIngredient.setAvailabilityDate(DateWorker.AddDaysToDate(concreteIngredientList.get(0).getAvailabilityDate(), dateCount));
+                        concreteIngredient.setAvailabilityDate(DateWorker.addDaysToDate(concreteIngredientList.get(0).getAvailabilityDate(), dateCount));
                         concreteIngredientsService.save(concreteIngredient);
                     }
                 }
@@ -129,7 +131,7 @@ public class ConcreteDrugService {
 
     //todo test
     public void updateDrugToProduce(RecipeDrugWithPharmacistViewModel drugWithApothecaries) {
-        List<ConcreteDrug> concreteDrugsToUpdate = GetAll();
+        List<ConcreteDrug> concreteDrugsToUpdate = getAll();
         for(ConcreteDrug concreteDrug : concreteDrugsToUpdate) {
             if(concreteDrug.getDrugId() == drugWithApothecaries.drugId && concreteDrug.getRecipeId() == drugWithApothecaries.recipeId){
                 concreteDrug.setPharmacyStaffId(drugWithApothecaries.apothecaryId);
@@ -139,8 +141,8 @@ public class ConcreteDrugService {
         }
     }
 
-    public List<ConcreteDrug> GetConcreteDrugsByRecipeId(int recipeId) {
-        List<ConcreteDrug> concreteDrugList = GetAll();
+    public List<ConcreteDrug> getConcreteDrugsByRecipeId(int recipeId) {
+        List<ConcreteDrug> concreteDrugList = getAll();
         List<ConcreteDrug> concreteDrugListById = new ArrayList<>();
 
         for (ConcreteDrug drug : concreteDrugList){
@@ -152,24 +154,24 @@ public class ConcreteDrugService {
         return concreteDrugListById;
     }
 
-    private List<ConcreteDrug> GetAll() {
+    private List<ConcreteDrug> getAll() {
         return (List<ConcreteDrug>)concreteDrugsRepository.findAll();
     }
 
-    public String GetAvailabilityRecipeDate(int recipeId) {
-        List<ConcreteDrug> concreteDrugs = GetConcreteDrugsByRecipeId(recipeId);
+    public String getAvailabilityRecipeDate(int recipeId) {
+        List<ConcreteDrug> concreteDrugs = getConcreteDrugsByRecipeId(recipeId);
         List<Date> drugAvailabilityDate = concreteIngredientsService.getConcreteIngredientDateByConcreteDrugsId(concreteDrugs);
 
-        return DateWorker.MaxDate(drugAvailabilityDate);
+        return DateWorker.maxDate(drugAvailabilityDate);
     }
 
-    public String GetAvailabilityDrugDate(Integer recipeId,Integer drugId) {
-        ConcreteDrug concreteDrug = GetConcreteDrugByRecipeIdAndDrugId(recipeId, drugId);
+    public String getAvailabilityDrugDate(Integer recipeId, Integer drugId) {
+        ConcreteDrug concreteDrug = getConcreteDrugByRecipeIdAndDrugId(recipeId, drugId);
         return concreteIngredientsService.getConcreteIngredientAvailableDate(concreteDrug.getId(), drugId);
     }
 
-    private ConcreteDrug GetConcreteDrugByRecipeIdAndDrugId(Integer recipeId, Integer drugId) {
-        List<ConcreteDrug> concreteDrugs = GetAll();
+    private ConcreteDrug getConcreteDrugByRecipeIdAndDrugId(Integer recipeId, Integer drugId) {
+        List<ConcreteDrug> concreteDrugs = getAll();
         ConcreteDrug concreteDrug = new ConcreteDrug();
         for (ConcreteDrug drug : concreteDrugs){
             if(drug.getDrugId() == drugId && drug.getRecipeId() == recipeId){

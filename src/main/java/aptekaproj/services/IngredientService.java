@@ -29,7 +29,6 @@ public class IngredientService {
     @Autowired
     private UnitMeasureService unitMeasureService;
 
-
     public List<Ingredient> getIngredientsForDrug(int drugId) {
         List<Ingredient> ingredients = getAllIngredients();
         List<Ingredient> ingredientForDrug = new ArrayList<>();
