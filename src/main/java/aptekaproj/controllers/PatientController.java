@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,13 +30,15 @@ public class PatientController {
     /**
      * Get recipe for patient
      * http://localhost:8443/Patient/?userId=4
-     * @param userId
+     * @param patientId
      * @return PatientRecipeViewModel
      */
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{patientId}", method = RequestMethod.GET)
     public @ResponseBody
-    List<PatientRecipeViewModel> Patients(@PathVariable int userId){
-        return recipeService.getRecipesForPatient(userId);
+    List<PatientRecipeViewModel> getRecipes(@PathVariable int patientId){
+        if(patientId <= 0)
+            return new ArrayList<>();
+        return recipeService.getRecipesForPatient(patientId);
     }
 
     /**
@@ -43,9 +46,11 @@ public class PatientController {
      * http://localhost:8443/Patient/statuses
      * @return
      */
-    @RequestMapping(value = "/statuses", method = RequestMethod.GET)
+    @RequestMapping(value = "/{patientId}/statuses", method = RequestMethod.GET)
     public @ResponseBody
-    List<RecipeProgressStatus> GetRecipeStatuses(){
+    List<RecipeProgressStatus> GetRecipeStatuses(@PathVariable int patientId){
+        if(patientId <= 0)
+            return new ArrayList<>();
         return recipeProgressStatusService.getRecipeProgressStatuses();
     }
 

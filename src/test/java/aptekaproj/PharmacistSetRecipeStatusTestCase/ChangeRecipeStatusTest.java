@@ -31,8 +31,10 @@ public class ChangeRecipeStatusTest {
     private RecipeProgressStatusService recipeProgressStatusService;
 
     private int recipeId;
+    private int lastStatusId;
     private String status;
     private boolean result;
+    private Recipe recipe;
     private RecipeViewModel recipeAfter;
     private RecipeViewModel recipeBefore;
     private RecipeProgressStatus recipeProgressStatusBefore;
@@ -42,6 +44,7 @@ public class ChangeRecipeStatusTest {
     public void setUp() throws Exception {
         recipeId = 14;
         status = "ГОТОВ";
+        lastStatusId = 0;
         result = false;
         recipeBefore = new RecipeViewModel();
         recipeAfter = new RecipeViewModel();
@@ -51,18 +54,15 @@ public class ChangeRecipeStatusTest {
 
     @After
     public void tearDown() throws Exception {
-        recipeId = 0;
-        status = "";
-        result = false;
-        recipeBefore = null;
-        recipeAfter = null;
-        recipeProgressStatusBefore = null;
-        recipeProgressStatusAfter = null;
+        recipe = recipeService.getRecipeById(recipeId);
+        recipe.setRecipeProgressStatusId(lastStatusId);
+        recipeService.saveRecipe(recipe);
     }
 
     @Test
     public void changeRecipeStatus() throws Exception {
         recipeBefore = recipeService.getRecipe(recipeId);
+        lastStatusId = recipeBefore.recipeProgressStatusId;
         recipeProgressStatusBefore = recipeProgressStatusService.getRecipeProgressStatusById(recipeBefore.recipeProgressStatusId);
 
         result = recipeService.changeStatus(recipeId,status);

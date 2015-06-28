@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Controller
 @PreAuthorize("hasAuthority('ROLE_PHARMACIST')")
-@RequestMapping("/api/pharmacies")
+@RequestMapping("/api/pharmacist")
 public class PharmaciesController {
 
     @Autowired
@@ -31,13 +31,13 @@ public class PharmaciesController {
 
     /**
      * Get apothecary list for appointment to the manufacturer
-     * @param pharmacy_id - id of pharmacy
+     * @param pharmacistId - id of pharmacy
      * @return List<UserViewModel>
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacists/{pharmacy_id}", method = RequestMethod.GET)
-    public List<UserViewModel> getPharmacists(@PathVariable("pharmacy_id") int pharmacy_id) {
-        return pharmacyStaffService.getPharmacists(pharmacy_id);
+    @RequestMapping(value = "/{pharmacistId}/pharmacists", method = RequestMethod.GET)
+    public List<UserViewModel> getPharmacists(@PathVariable("pharmacistId") int pharmacistId) {
+        return pharmacyStaffService.getPharmacists(pharmacistId);
     }
 
     //todo test
@@ -48,11 +48,11 @@ public class PharmaciesController {
      * @return List<Recipe>
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/{pharmacy_id}/recipes", method = RequestMethod.GET)
-    public List<RecipeViewModel> getRecipes(@PathVariable("pharmacy_id") int pharmacy_id,
+    @RequestMapping(value = "/{pharmacistId}/recipes", method = RequestMethod.GET)
+    public List<RecipeViewModel> getRecipes(@PathVariable("pharmacistId") int pharmacistId,
                                    @RequestParam("status") String status){
 
-        return recipeService.getRecipesForPharmacyByStatus(pharmacy_id, status);
+        return recipeService.getRecipesForPharmacyByStatus(pharmacistId, status);
     }
 
     //todo test
@@ -62,8 +62,11 @@ public class PharmaciesController {
      * @return RecipeViewModel
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/recipe/{recipeId}", method = RequestMethod.GET)
-    public RecipeViewModel getRecipe(@PathVariable("recipeId") int recipeId) {
+    @RequestMapping(value = "/{pharmacistId}/recipe/{recipeId}", method = RequestMethod.GET)
+    public RecipeViewModel getRecipe(@PathVariable("pharmacistId") int pharmacistId,
+                                     @PathVariable("recipeId") int recipeId) {
+        if(pharmacistId <= 0 || recipeId <= 0)
+            return new RecipeViewModel();
         return recipeService.getRecipe(recipeId);
     }
 
@@ -73,8 +76,11 @@ public class PharmaciesController {
      * @param recipeViewModel - recipe view model
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/recipe/update", method = RequestMethod.PUT)
-    public void updateRecipe(@RequestBody RecipeViewModel recipeViewModel) {
+    @RequestMapping(value = "/{pharmacistId}/recipe/update", method = RequestMethod.POST)
+    public void updateRecipe(@PathVariable("pharmacistId") int pharmacistId,
+                             @RequestBody RecipeViewModel recipeViewModel) {
+        if(pharmacistId <= 0 || recipeViewModel == null)
+            return;
         recipeService.updateRecipe(recipeViewModel);
     }
 
@@ -83,8 +89,11 @@ public class PharmaciesController {
      * @param postViewModel - post view model
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/recipe/change", method = RequestMethod.POST)
-    public void changeStatus(@RequestBody PostViewModel postViewModel) {//,@RequestBody String status){
+    @RequestMapping(value = "/{pharmacistId}/recipe/change", method = RequestMethod.POST)
+    public void changeStatus(@PathVariable("pharmacistId") int pharmacistId,
+                             @RequestBody PostViewModel postViewModel) {
+        if(pharmacistId <= 0 || postViewModel == null)
+            return;
         recipeService.changeStatus(postViewModel.id, postViewModel.status);
     }
 
@@ -97,9 +106,11 @@ public class PharmaciesController {
      * @return OrderMissingViewModel
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/order/{pharmacistId}/{recipeId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{pharmacistId}/order/{recipeId}", method = RequestMethod.GET)
     public OrderMissingViewModel getOrderMissing(@PathVariable("pharmacistId") int pharmacistId,
                                                  @PathVariable("recipeId")  int recipeId ){
+        if(pharmacistId <= 0 || recipeId <= 0)
+            return new OrderMissingViewModel();
         return recipeService.getOrderMissing(pharmacistId, recipeId);
     }
 
@@ -111,8 +122,11 @@ public class PharmaciesController {
      * @param recipeDrugWithPharmacistViewModel recipe drug with pharmacist view model
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/order/", method = RequestMethod.POST)
-    public void orderToProduce(@RequestBody RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {//need viewModel!!!
+    @RequestMapping(value = "/{pharmacistId}/order/save", method = RequestMethod.PUT)
+    public void orderToProduce(@PathVariable("pharmacistId") int pharmacistId,
+                               @RequestBody RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {//need viewModel!!!
+        if(pharmacistId <= 0 || recipeDrugWithPharmacistViewModel == null)
+            return;
         concreteDrugService.DrugsToProduce(recipeDrugWithPharmacistViewModel);
     }
 
@@ -123,8 +137,11 @@ public class PharmaciesController {
      * @param recipeDrugWithPharmacistViewModel recipe drug with pharmacist view model
      */
     @ResponseBody
-    @RequestMapping(value = "/pharmacies/drugs/update", method = RequestMethod.PUT)
-    public void updateOrderToProduce(@RequestBody RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {
+    @RequestMapping(value = "/{pharmacistId}/order/update", method = RequestMethod.POST)
+    public void updateOrderToProduce(@PathVariable("pharmacistId") int pharmacistId,
+                                     @RequestBody RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacistViewModel) {
+        if(pharmacistId <= 0 || recipeDrugWithPharmacistViewModel == null)
+            return;
         concreteDrugService.updateDrugsToProduce(recipeDrugWithPharmacistViewModel);
     }
 

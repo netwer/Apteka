@@ -7,6 +7,7 @@ public class DrugViewModel {
     public Integer recipesHasDrugsId;
     public int drugId;
     public int drugCount;
+    public int recipeId;
     public boolean needsToProduce;
     public String availabilityDate;
     public String drugName;

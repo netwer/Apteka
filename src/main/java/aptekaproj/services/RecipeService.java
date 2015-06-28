@@ -96,6 +96,7 @@ public class RecipeService {
             RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusById(recipe.getRecipeProgressStatusId());
 
             patientRecipeViewModel.doctorId = diagnoses.getDoctorUserId();
+            patientRecipeViewModel.patientId = userId;
             patientRecipeViewModel.doctorName = user.getFullName();
             patientRecipeViewModel.pharmaciesAddress = pharmacy.getAddress();
             patientRecipeViewModel.pharmaciesName = pharmacy.getName();
@@ -189,10 +190,10 @@ public class RecipeService {
     }
 
     public OrderMissingViewModel getOrderMissing(int pharmacistId, int recipeId) {
-        List<User> pharmacistsList = pharmacyStaffService.getStaffs(pharmacistId);
+        List<User> apothecariesList = pharmacyStaffService.getApothecariesStaffs(pharmacistId);
         List<DrugViewModel> drugViewModelList = drugService.getDrugsNeedsToProduce(recipeId);
         OrderMissingViewModel orderMissing = new OrderMissingViewModel();
-        orderMissing.apothecaryUsers = pharmacistsList;
+        orderMissing.apothecaryUsers = apothecariesList;
         orderMissing.drugViewModels = drugViewModelList;
         return orderMissing;
     }

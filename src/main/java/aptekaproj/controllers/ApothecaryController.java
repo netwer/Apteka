@@ -33,38 +33,46 @@ public class ApothecaryController {
      * @return List<DrugToProduceViewModel>
      */
     @ResponseBody
-    @RequestMapping(value = "/drugs/{apothecaryId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{apothecaryId}/drugs",method = RequestMethod.GET)
     public List<DrugToProduceViewModel> getDrugsToProduce(@PathVariable("apothecaryId") int apothecaryId){
         return drugService.getDrugsToProduce(apothecaryId);
     }
 
     /**
+     * Change drug and recipe status
+     * @param recipeHasDrugsId
+     * @return RecipeHasDrugs
+     */
+    @ResponseBody
+    @RequestMapping(value = "/{apothecaryId}/drug/{recipeHasDrugsId}",method = RequestMethod.GET)
+    public RecipeHasDrugs drugToDone(@PathVariable("apothecaryId") int apothecaryId,
+                                     @PathVariable("recipeHasDrugsId") int recipeHasDrugsId){
+        if(apothecaryId <= 0 || recipeHasDrugsId <= 0)
+            return new RecipeHasDrugs();
+        return drugService.drugToDone(recipeHasDrugsId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/{apothecaryId}/recipe/change", method = RequestMethod.POST)
+    public void changeStatus(@PathVariable("apothecaryId") int apothecaryId,
+                             @RequestBody PostViewModel postViewModel) {
+        if(apothecaryId <= 0 || postViewModel == null)
+            return;
+        recipeService.changeStatus(postViewModel.id, postViewModel.status);
+    }
+
+
+    /*//todo not
+    *//**
      * Get one record DrugToProduceViewModel
      * @param pharmacyStaffId
      * @param drugId
      * @return
-     */
+     *//*
     @ResponseBody
     @RequestMapping(value = "/drug/{pharmacyStaffId}/{drugId}",method = RequestMethod.GET)
     public DrugToProduceViewModel getDrugToProduce(@PathVariable("pharmacyStaffId") int pharmacyStaffId,
                                                    @PathVariable("drugId")  int drugId){
         return drugService.getDrugToProduce(pharmacyStaffId,drugId);
-    }
-
-    /**
-     * Change drug and recipe status
-     * @param recipeHasDrugsId1
-     * @return RecipeHasDrugs
-     */
-    @ResponseBody
-    @RequestMapping(value = "/drug/{recipeHasDrugsId1}",method = RequestMethod.GET)
-    public RecipeHasDrugs drugToDone(@PathVariable("recipeHasDrugsId1") int recipeHasDrugsId1){
-        return drugService.drugToDone(recipeHasDrugsId1);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/pharmacies/recipe/change", method = RequestMethod.POST)
-    public void changeStatus(@RequestBody PostViewModel postViewModel) {//,@RequestBody String status){
-        recipeService.changeStatus(postViewModel.id, postViewModel.status);
-    }
+    }*/
 }

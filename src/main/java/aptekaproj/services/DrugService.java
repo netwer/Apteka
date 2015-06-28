@@ -83,6 +83,7 @@ public class DrugService {
                     drugViewModel.drugCount = recipeHasDrugs1.getCount();
                     drugViewModel.drugId = drug.getId();
                     drugViewModel.recipesHasDrugsId = recipeHasDrugs1.getId();
+                    drugViewModel.recipeId = recipeId;
 
                     drugViewModels.add(drugViewModel);
                 }
@@ -98,7 +99,7 @@ public class DrugService {
 
     public List<DrugToProduceViewModel> getDrugsToProduce(int apothecaryId) {
         List<ConcreteDrug> concreteDrugList = concreteDrugService.getAllConcreteDrugs();
-        PharmacyStaff pharmacyStaff = pharmacyStaffService.getPharmacyByApothecaryId(apothecaryId);
+        PharmacyStaff pharmacyStaff = pharmacyStaffService.getApothecariesByPharmacistId(apothecaryId);
         List<DrugToProduceViewModel> drugsToProduce = new ArrayList<>();
 
         if(concreteDrugList == null || pharmacyStaff == null)

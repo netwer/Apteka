@@ -3,6 +3,7 @@ package aptekaproj.ApothecarySetDrugReadyTestCase;
 import aptekaproj.AptekaApplication;
 import aptekaproj.models.RecipeHasDrugs;
 import aptekaproj.services.DrugService;
+import aptekaproj.services.RecipeHasDrugsService;
 import aptekaproj.viewModels.DrugToProduceViewModel;
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +26,10 @@ public class SetDrugToDoneTest {
 
     @Autowired
     private DrugService drugService;
+
+    @Autowired
+    private RecipeHasDrugsService recipeHasDrugsService;
+
     private int apothecaryId;
     private int recipesHasDrugsId;
     private int countDrugsToProduceBefore;
@@ -42,9 +47,10 @@ public class SetDrugToDoneTest {
 
     @After
     public void tearDown() throws Exception {
-        recipeHasDrugs = null;
         apothecaryId = 0;
         recipesHasDrugsId = 0;
+        recipeHasDrugs.setDone(false);
+        recipeHasDrugsService.update(recipeHasDrugs);
     }
 
     @Test

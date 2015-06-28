@@ -6,7 +6,7 @@ package aptekaproj.helpers.enums;
 public enum RolesNameEnum {
     DOCTOR("DOCTOR"),
     PATIENT("PATIENT"),
-    PHARMACIES("Pharmacies"),
+    PHARMACIST("PHARMACIST"),
     ADMIN("ADMIN"),
     APOTHECARY("APOTHECARY");
 
