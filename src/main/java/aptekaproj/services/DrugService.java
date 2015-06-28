@@ -125,8 +125,8 @@ public class DrugService {
                     for (RecipeHasDrugs recipeHasDrugs : recipeHasDrugsList){
                         if(recipeHasDrugs.getRecipeId() == recipe.getId() && recipeHasDrugs.getDone() == false && recipeHasDrugs.getDrugId() == concreteDrug.getDrugId()){
                             DrugToProduceViewModel drugToProduce = new DrugToProduceViewModel();
-                            drugToProduce.drugViewModel = getDrug(recipe.getId(),recipeHasDrugs.getDrugId());
-                            drugToProduce.ingredientInDrugViewModels = ingredientService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
+                            drugToProduce.drug = getDrug(recipe.getId(),recipeHasDrugs.getDrugId());
+                            drugToProduce.ingredients = ingredientService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
                             drugsToProduce.add(drugToProduce);
                         }
                     }
@@ -142,8 +142,8 @@ public class DrugService {
 
             if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.equals(progressStatus) && recipeHasDrugs.getDone() == false){
                 DrugToProduceViewModel drugToProduceViewModel = new DrugToProduceViewModel();
-                drugToProduceViewModel.drugViewModel = getDrug(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
-                drugToProduceViewModel.ingredientInDrugViewModels = ingredientService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
+                drugToProduceViewModel.drug = getDrug(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
+                drugToProduceViewModel.ingredients = ingredientService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
                 drugsToProduce.add(drugToProduceViewModel);
             }*/
         }
@@ -166,8 +166,8 @@ public class DrugService {
 
             if(concreteDrug.getPharmacyStaffId() == pharmacyStaffId && recipeStatus.equals(status) && concreteDrug.getDrugId() == drugId){
                 DrugToProduceViewModel drugToProduceViewModel = new DrugToProduceViewModel();
-                drugToProduceViewModel.drugViewModel = getDrug(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
-                drugToProduceViewModel.ingredientInDrugViewModels = ingredientService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
+                drugToProduceViewModel.drug = getDrug(concreteDrug.getRecipeId(),concreteDrug.getDrugId());
+                drugToProduceViewModel.ingredients = ingredientService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
                 drugToProduce = drugToProduceViewModel;
                 break;
             }
@@ -192,6 +192,7 @@ public class DrugService {
                 drugViewModel.recipesHasDrugsId = recipeHasDrug.getId();
                 drugViewModel.needsToProduce = drug.getNeedToProduce();
                 drugViewModel.availabilityDate = concreteDrugService.GetAvailabilityDrugDate(recipeId,drug.getId());
+                drugViewModel.apothecaryId = concreteDrugService.getConcreteDrugByRecipeAndDrugIds(recipeId,drugId).getPharmacyStaffId();
                 return drugViewModel;
             }
         }

@@ -11,4 +11,5 @@ public class IngredientInDrugViewModel {
     public int count;
     public String materialName;
     public Date availableDate;
+    public String unit;
 }

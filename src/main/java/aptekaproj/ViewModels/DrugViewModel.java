@@ -5,6 +5,7 @@ package aptekaproj.viewModels;
  */
 public class DrugViewModel {
     public Integer recipesHasDrugsId;
+    public Integer apothecaryId;
     public int drugId;
     public int drugCount;
     public int recipeId;

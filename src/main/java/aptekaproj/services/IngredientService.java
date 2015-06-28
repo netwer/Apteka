@@ -26,6 +26,9 @@ public class IngredientService {
     @Autowired
     private MaterialService materialService;
 
+    @Autowired
+    private UnitMeasureService unitMeasureService;
+
 
     public List<Ingredient> getIngredientsForDrug(int drugId) {
         List<Ingredient> ingredients = getAllIngredients();
@@ -60,6 +63,7 @@ public class IngredientService {
                 ingredientInDrug.ingredientId = ingredient.getId();
                 ingredientInDrug.materialId= ingredient.getMaterialId();
                 ingredientInDrug.materialName = material.getName();
+                ingredientInDrug.unit = unitMeasureService.getUnitMeasureById(ingredient.getUnit()).getUnit();
 
                 ingredientsInDrug.add(ingredientInDrug);
             }

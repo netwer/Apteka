@@ -186,4 +186,21 @@ public class ConcreteDrugService {
     public List<ConcreteDrug> getAllConcreteDrugs() {
         return (List<ConcreteDrug>)concreteDrugsRepository.findAll();
     }
+
+    public ConcreteDrug getConcreteDrugByRecipeAndDrugIds(int recipeId, int drugId) {
+        List<ConcreteDrug> concreteDrugs = getAllConcreteDrugs();
+        ConcreteDrug concreteDrug = new ConcreteDrug();
+
+        if(concreteDrugs == null)
+            return concreteDrug;
+
+        for(ConcreteDrug concreteDrug1 : concreteDrugs){
+            if(concreteDrug1.getRecipeId() == recipeId && concreteDrug1.getDrugId() ==drugId){
+                concreteDrug = concreteDrug1;
+                break;
+            }
+        }
+
+        return concreteDrug;
+    }
 }

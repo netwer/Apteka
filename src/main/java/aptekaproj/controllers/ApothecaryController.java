@@ -24,9 +24,6 @@ public class ApothecaryController {
     @Autowired
     private DrugService drugService;
 
-    @Autowired
-    private RecipeService recipeService;
-
     /**
      * Get list DrugToProduceViewModel
      * @param apothecaryId
@@ -44,35 +41,11 @@ public class ApothecaryController {
      * @return RecipeHasDrugs
      */
     @ResponseBody
-    @RequestMapping(value = "/{apothecaryId}/drug/{recipeHasDrugsId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{apothecaryId}/drugs/{recipeHasDrugsId}",method = RequestMethod.DELETE)
     public RecipeHasDrugs drugToDone(@PathVariable("apothecaryId") int apothecaryId,
                                      @PathVariable("recipeHasDrugsId") int recipeHasDrugsId){
         if(apothecaryId <= 0 || recipeHasDrugsId <= 0)
             return new RecipeHasDrugs();
         return drugService.drugToDone(recipeHasDrugsId);
     }
-
-    @ResponseBody
-    @RequestMapping(value = "/{apothecaryId}/recipe/change", method = RequestMethod.POST)
-    public void changeStatus(@PathVariable("apothecaryId") int apothecaryId,
-                             @RequestBody PostViewModel postViewModel) {
-        if(apothecaryId <= 0 || postViewModel == null)
-            return;
-        recipeService.changeStatus(postViewModel.id, postViewModel.status);
-    }
-
-
-    /*//todo not
-    *//**
-     * Get one record DrugToProduceViewModel
-     * @param pharmacyStaffId
-     * @param drugId
-     * @return
-     *//*
-    @ResponseBody
-    @RequestMapping(value = "/drug/{pharmacyStaffId}/{drugId}",method = RequestMethod.GET)
-    public DrugToProduceViewModel getDrugToProduce(@PathVariable("pharmacyStaffId") int pharmacyStaffId,
-                                                   @PathVariable("drugId")  int drugId){
-        return drugService.getDrugToProduce(pharmacyStaffId,drugId);
-    }*/
 }
