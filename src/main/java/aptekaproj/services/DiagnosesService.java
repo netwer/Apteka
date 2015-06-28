@@ -169,7 +169,7 @@ public class DiagnosesService {
 
         diagnoses.setComplaints(patientCardViewModel.complaints);
         diagnoses.setDiagnosis(patientCardViewModel.diagnosis);
-        diagnoses.setCreatedAt(new Date().toString());
+        diagnoses.setCreatedAt(new Date());
         diagnoses.setRecipeId(recipe.getId());
         //diagnoses.setCreatedAt(patientCardViewModel.visitDate);
         //diagnoses.setDoctorUserId(patientCardViewModel.doctorId);

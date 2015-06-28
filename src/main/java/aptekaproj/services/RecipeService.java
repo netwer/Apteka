@@ -197,11 +197,11 @@ public class RecipeService {
         return orderMissing;
     }
 
-    public Recipe createRecipe(String visitDate, int pharmacyId) throws ParseException {
+    public Recipe createRecipe(Date visitDate, int pharmacyId) throws ParseException {
         Recipe recipe = new Recipe();
         RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.CREATED.toString());
 
-        recipe.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd").parse(visitDate));
+        recipe.setCreatedAt(visitDate);
         recipe.setPharmacyId(pharmacyId);
         recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
         int recipeNumber = getAllRecipes().size()+1;

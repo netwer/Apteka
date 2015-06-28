@@ -1,6 +1,7 @@
 package aptekaproj.models;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Admin on 25.04.2015.
@@ -31,7 +32,7 @@ public class Diagnoses {
     private String complaints;
 
     @Column(name = "created_at")
-    private String createdAt;
+    private Date createdAt;
 
     public int getPatientUserId() {
         return patientUserId;
@@ -73,11 +74,11 @@ public class Diagnoses {
         this.complaints = complaints;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

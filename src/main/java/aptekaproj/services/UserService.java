@@ -82,7 +82,7 @@ public class UserService {
                 userDoctorViewModel.doctorFullName = doctor.getFullName();
                 //todo right date?
                 //usersDoctorViewModel.lastVisitDate = new SimpleDateFormat("MM/dd/yyyy").format(diagnoses.getCreatedAt()).toString();
-                userDoctorViewModel.visitDate = diagnoses.getCreatedAt().toString();
+                userDoctorViewModel.visitDate = diagnoses.getCreatedAt();
                 userDoctorViewModel.diagnosisId = diagnoses.getId();
                 userDoctorViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
                 userDoctorViewModels.add(userDoctorViewModel);
@@ -104,7 +104,7 @@ public class UserService {
         patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
         patientCardViewModel.patientId = patient.getId();
         patientCardViewModel.doctorId = doctorId;
-        patientCardViewModel.visitDate = new Date().toString();
+        patientCardViewModel.visitDate = new Date();
 
         return patientCardViewModel;
         /*List<Diagnoses> diagnoseses = diagnosesService.getAllDiagnoses();
@@ -195,72 +195,6 @@ public class UserService {
         return userByLogin;
     }
 
-    /*public List<PatientCardViewModel> getPatientsCards(int userId) {
-        List<PatientCardViewModel> history = new ArrayList<>();
-        User patient = getUserById(userId);
-        if(patient == null)
-            return history;
-
-        List<Diagnoses> diagnoseses = diagnosesService.getAllDiagnoses();
-
-        if(diagnoseses == null)
-            return history;
-
-        for(Diagnoses diagnoses:diagnoseses){
-            if(diagnoses.getPatientUserId() == userId && diagnoses.getRecipeId() != null){
-                PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
-                patientCardViewModel.patientId = patient.getId();
-                patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
-                patientCardViewModel.patientEmail = patient.getEmail();
-                patientCardViewModel.patientAddress = patient.getAddress();
-                patientCardViewModel.patientFullName = patient.getFullName();
-                patientCardViewModel.doctorId = diagnoses.getDoctorUserId();
-                patientCardViewModel.diagnosis = diagnoses.getDiagnosis();
-                patientCardViewModel.complaints = diagnoses.getComplaints();
-                patientCardViewModel.visitDate = diagnoses.getCreatedAt();
-                patientCardViewModel.recipeId = diagnoses.getRecipeId();
-                patientCardViewModel.pharmacyId = 0;
-                patientCardViewModel.drugsInRecipe = drugService.getDrugsForRecipe(diagnoses.getRecipeId());
-                history.add(patientCardViewModel);
-            }
-        }
-
-        return history;
-    }*/
-
-    public List<PatientCardViewModel> getPatientsCards(Integer doctorId, Integer userId) {
-        List<PatientCardViewModel> history = new ArrayList<>();
-        User patient = getUserById(userId);
-        if(patient == null)
-            return history;
-
-        List<Diagnoses> diagnoseses = diagnosesService.getAllDiagnoses();
-
-        if(diagnoseses == null)
-            return history;
-
-        for(Diagnoses diagnoses:diagnoseses){
-            if(diagnoses.getPatientUserId() == userId && diagnoses.getDoctorUserId() == doctorId && diagnoses.getRecipeId() != null){
-                PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
-                patientCardViewModel.patientId = patient.getId();
-                patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
-                patientCardViewModel.patientEmail = patient.getEmail();
-                patientCardViewModel.patientAddress = patient.getAddress();
-                patientCardViewModel.patientFullName = patient.getFullName();
-                patientCardViewModel.doctorId = diagnoses.getDoctorUserId();
-                patientCardViewModel.diagnosis = diagnoses.getDiagnosis();
-                patientCardViewModel.complaints = diagnoses.getComplaints();
-                patientCardViewModel.visitDate = diagnoses.getCreatedAt();
-                patientCardViewModel.recipeId = diagnoses.getRecipeId();
-                patientCardViewModel.pharmacyId = 0;
-                patientCardViewModel.drugsInRecipe = drugService.getDrugsForRecipe(diagnoses.getRecipeId());
-                history.add(patientCardViewModel);
-            }
-        }
-
-        return history;
-    }
-
     public List<PatientCardViewModel> getDoctorAppointmentsCards(Integer userId) {
         List<PatientCardViewModel> history = new ArrayList<>();
 
@@ -281,6 +215,41 @@ public class UserService {
                 User patient = getUserById(diagnoses.getPatientUserId());
 
                 PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
+                patientCardViewModel.diagnosisId = diagnoses.getId();
+                patientCardViewModel.patientId = patient.getId();
+                patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
+                patientCardViewModel.patientEmail = patient.getEmail();
+                patientCardViewModel.patientAddress = patient.getAddress();
+                patientCardViewModel.patientFullName = patient.getFullName();
+                patientCardViewModel.doctorId = diagnoses.getDoctorUserId();
+                patientCardViewModel.diagnosis = null;
+                patientCardViewModel.complaints = null;
+                patientCardViewModel.visitDate = diagnoses.getCreatedAt();
+                patientCardViewModel.recipeId = null;
+                patientCardViewModel.pharmacyId = 0;
+                patientCardViewModel.drugsInRecipe = null;
+                history.add(patientCardViewModel);
+            }
+        }
+
+        return history;
+    }
+
+    public List<PatientCardViewModel> getPatientsCards(Integer doctorId, Integer userId) {
+        List<PatientCardViewModel> history = new ArrayList<>();
+        User patient = getUserById(userId);
+        if(patient == null)
+            return history;
+
+        List<Diagnoses> diagnoseses = diagnosesService.getAllDiagnoses();
+
+        if(diagnoseses == null)
+            return history;
+
+        for(Diagnoses diagnoses:diagnoseses){
+            if(diagnoses.getPatientUserId() == userId && diagnoses.getDoctorUserId() == doctorId && diagnoses.getRecipeId() != null){
+                PatientCardViewModel patientCardViewModel = new PatientCardViewModel();
+                patientCardViewModel.diagnosisId = diagnoses.getId();
                 patientCardViewModel.patientId = patient.getId();
                 patientCardViewModel.patientPoliceNumber = patient.getMedicalPolicyNumber();
                 patientCardViewModel.patientEmail = patient.getEmail();
