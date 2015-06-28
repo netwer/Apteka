@@ -8,8 +8,30 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
     }])
 
     .controller('DoctorPatientCardController', [
-        '$scope', '$routeParams', '$timeout', 'Drugs', 'Pharmacies',
-        function ($scope, $routeParams, $timeout, Drugs, Pharmacies) {
+        '$scope', '$routeParams', '$location', '$timeout', 'Drugs', 'Pharmacies', 'Appointments', 'DateService', 'UserService',
+        function ($scope, $routeParams, $location, $timeout, Drugs, Pharmacies, Appointments, DateService, UserService) {
+            $scope.dateService = DateService;
+
+            var patientId = $routeParams.patientId;
+            var doctorId = UserService.getUserInfo().userId;
+
+            Appointments.query({doctorId: doctorId}).$promise.then(function (data) {
+                data.forEach(function(appointment){
+                    if (appointment.patientId == patientId) {
+                        $scope.currentUserAppointment = appointment;
+                    }
+                });
+            }, function (error) {
+                console.log(error);
+            });
+
+            $scope.diagnosisRecords = [];
+            Appointments.query({patientId:patientId, doctorId:doctorId}).$promise.then(function (data) {
+                $scope.diagnosisRecords = data;
+            }, function (error) {
+                console.log(error);
+            });
+
             $scope.pharmacies = [];
             Pharmacies.query().$promise.then(function (data) {
                 $scope.pharmacies = data;
@@ -24,7 +46,10 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
                 console.log(error);
             });
 
-            $scope.currentRecord = {};
+            $scope.currentRecord = {
+                drugsInRecipe: []
+            };
+
             $scope.selectedDrugs = [];
             $scope.addDrug = function () {
                 $scope.selectedDrugs.push({name: "", quantity: 1});
@@ -59,7 +84,7 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
             $scope.isNotAllDrugsHasRealNames = function () {
                 var result = false;
                 $scope.selectedDrugs.forEach(function (drug) {
-                    if (!isDrugHasRealName(drug)) {
+                    if (!$scope.isDrugHasRealName(drug)) {
                         result = true;
                     }
                 });
@@ -68,117 +93,32 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
 
             $scope.disableCreateRecipeButton = function () {
                 return $scope.isNotAllDrugsHasNames()
-                    || $scope.isNotAllDrugsHasRealNames
+                    || $scope.isNotAllDrugsHasRealNames()
                     || !($scope.selectedDrugs.length > 0)
                     || !($scope.currentRecord.complaints.length > 0)
                     || !($scope.currentRecord.diagnosis.length > 0)
-                    || $scope.currentPharmacy == undefined;
+                    || $scope.currentRecord.pharmacyId == undefined;
             };
 
-            //$scope.drugs = [
-            //    {
-            //        recipe: {
-            //            name: 'Рецепт №1'
-            //        },
-            //        name: 'Спазмалгон',
-            //        quantity: 2
-            //    },
-            //    {
-            //        recipe: {
-            //            name: 'Рецепт №1'
-            //        },
-            //        name: 'Глюкоброминатират гепоппатаниума (20 мл)',
-            //        quantity: 1
-            //    },
-            //    {
-            //        recipe: {
-            //            name: 'Рецепт №1'
-            //        },
-            //        name: 'Фермагематоген детский (10 гр)',
-            //        quantity: 10
-            //    },
-            //    {
-            //        recipe: {
-            //            name: 'Рецепт №1'
-            //        },
-            //        name: 'Касторка',
-            //        quantity: 1
-            //    }
-            //];
-
-
-            $scope.patients = {
-                '1': {
-                    id: 1,
-                    name: 'Иван Иванов',
-                    email: 'ivaiva@lol.ru',
-                    medicalPolicyNumber: 'ABS123-124',
-                    diagnosesRecords: [
-                        {
-                            id: 1,
-                            date: '23 марта 2013',
-                            complaints: 'Болит голова и живот',
-                            diagnosis: 'Мигрень, Спасмы в желужке',
-                            recipe: {
-                                id: 13,
-                                pharmacy: {
-                                    id: 1
-                                },
-                                drugs: [
-                                    {
-                                        name: 'Спазмалгон',
-                                        quantity: 2
-                                    },
-                                    {
-                                        name: 'Глюкоброминатират гепоппатаниума (20 мл)',
-                                        quantity: 1
-                                    },
-                                    {
-                                        name: 'Фермагематоген детский (10 гр)',
-                                        quantity: 10
-                                    },
-                                    {
-                                        name: 'Касторка',
-                                        quantity: 1
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            id: 1,
-                            date: '23 марта 2013',
-                            complaints: 'Болит голова и живот',
-                            diagnosis: 'Мигрень, Спасмы в желужке',
-                            recipe: {
-                                id: 13,
-                                pharmacy: {
-                                    id: 1
-                                },
-                                drugs: [
-                                    {
-                                        name: 'Спазмалгон',
-                                        quantity: 2
-                                    },
-                                    {
-                                        name: 'Глюкоброминатират гепоппатаниума (20 мл)',
-                                        quantity: 1
-                                    },
-                                    {
-                                        name: 'Фермагематоген детский (10 гр)',
-                                        quantity: 10
-                                    },
-                                    {
-                                        name: 'Касторка',
-                                        quantity: 1
-                                    }
-                                ]
-                            }
+            $scope.createRecipe = function() {
+                $scope.currentRecord.drugsInRecipe = $scope.selectedDrugs.map(function(selectedDrug) {
+                    var resultDrug = {};
+                    for (var i = 0; i < $scope.drugs.length; i++) {
+                        var drug = $scope.drugs[i];
+                        if (drug.name === selectedDrug.name) {
+                            resultDrug.drugId = drug.id;
+                            resultDrug.drugCount = selectedDrug.quantity;
+                            break;
                         }
-                    ]
-                }
-            };
+                    }
+                    return resultDrug;
+                });
 
-            var patientId = $routeParams.patientId;
-            console.log(patientId);
-            $scope.patient = $scope.patients[patientId];
+                Appointments.update({appointmentId:$scope.currentUserAppointment.diagnosisId, doctorId:doctorId}, $scope.currentRecord).$promise.then(function (data) {
+                    console.log(data);
+                    $location.path('/doctorAppointments');
+                }, function (error) {
+                    console.log(error);
+                });
+            }
         }]);

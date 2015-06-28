@@ -1,4 +1,4 @@
-<h2>Готовы к выдаче</h2>
+<h2>Записи на прием</h2>
 <div class="row">
     <div class="col-sm-12">
         <table class="table table-striped col-sm-10">
@@ -11,11 +11,11 @@
             </thead>
             <tbody>
             <tr ng-repeat="appointment in appointments">
-                <th scope="row" class="text-center">{{appointment.time}}</th>
-                <td>{{appointment.patient.name}}</td>
-                <td>{{appointment.patient.medicalPolicyNumber}}</td>
+                <th scope="row" class="text-center">{{dateService.getTime(appointment.visitDate)}}</th>
+                <td>{{appointment.patientFullName}}</td>
+                <td>№{{appointment.patientPoliceNumber}}</td>
                 <td class="text-right">
-                    <a class="btn btn-default" href="#/doctorPatientCard/{{appointment.patient.id}}"><i class="fa fa-sign-out"></i> Начать прием</a>
+                    <a class="btn btn-default" href="#/doctorPatientCard/{{appointment.patientId}}"><i class="fa fa-sign-out"></i> Начать прием</a>
                 </td>
             </tr>
             </tbody>

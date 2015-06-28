@@ -1,18 +1,18 @@
 <div id="login_container">
     <div id="login">
         <img class="logo" src="components/img/logo.svg">
-        <form name="loginform" id="loginform" action="/api/login" method="post">
+        <form>
             <h1 style="margin-top: 0; font-weight: 200;">Личный кабинет</h1>
             <div class="form-group col-sm-10 col-sm-offset-1">
                 <!--<label for="user_login" class="text-left">Имя пользователя<br>-->
-                    <input type="text" class="form-control input" name="log" id="user_login" value="" placeholder="Имя пользователя"></label>
+                    <input type="text" class="form-control input" name="log" id="user_login" ng-model="username" placeholder="Имя пользователя"></label>
             </div>
             <div class="form-group col-sm-10 col-sm-offset-1">
                 <!--<label for="user_pass" class="text-left">Пароль<br>-->
-                    <input type="password" class="form-control input" name="pwd" id="user_pass" value="" placeholder="Пароль"></label>
+                    <input type="password" class="form-control input" name="pwd" id="user_pass" ng-model="password" placeholder="Пароль"></label>
             </div>
             <div class="form-group last-group col-sm-10 col-sm-offset-1">
-                <button type="submit" name="submit" id="submit" class="btn btn-primary btn-block btn-striped btn-striped-active"><span class="glyphicon glyphicon-log-in"></span> Войти</button>
+                <button class="btn btn-primary btn-block " ng-class="{'btn-striped': loginInProcess, 'btn-striped-active': loginInProcess}" ng-click="login()"><span class="glyphicon glyphicon-log-in"></span> Войти</button>
             </div>
         </form>
 

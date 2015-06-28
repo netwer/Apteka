@@ -1,4 +1,4 @@
-angular.module('myApp.doctorAppointments', ['ngRoute', 'ui.bootstrap.progressbar'])
+angular.module('myApp.doctorAppointments', ['ngRoute', 'myApp.services'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/doctorAppointments', {
@@ -7,63 +7,18 @@ angular.module('myApp.doctorAppointments', ['ngRoute', 'ui.bootstrap.progressbar
         });
     }])
 
-    .controller('DoctorAppointmentsController', ['$scope', '$modal', '$log', function ($scope, $modal, $log) {
-        $scope.appointments = [
-            {
-                time: '09:15',
-                patient: {
-                    id: 1,
-                    name: 'Иван Иванов',
-                    medicalPolicyNumber: 'ABS123-124'
-                }
-            },
-            {
-                time: '10:15',
-                patient: {
-                    id: 1,
-                    name: 'Иван Иванов',
-                    medicalPolicyNumber: 'ABS123-124'
-                }
-            },
-            {
-                time: '11:15',
-                patient: {
-                    id: 1,
-                    name: 'Иван Иванов',
-                    medicalPolicyNumber: 'ABS123-124'
-                }
-            },
-            {
-                time: '12:15',
-                patient: {
-                    id: 1,
-                    name: 'Иван Иванов',
-                    medicalPolicyNumber: 'ABS123-124'
-                }
-            },
-            {
-                time: '13:15',
-                patient: {
-                    id: 1,
-                    name: 'Иван Иванов',
-                    medicalPolicyNumber: 'ABS123-124'
-                }
-            },
-            {
-                time: '14:15',
-                patient: {
-                    id: 1,
-                    name: 'Иван Иванов',
-                    medicalPolicyNumber: 'ABS123-124'
-                }
-            },
-            {
-                time: '15:15',
-                patient: {
-                    id: 1,
-                    name: 'Иван Иванов',
-                    medicalPolicyNumber: 'ABS123-124'
-                }
-            }
-        ];
-    }]);
+    .controller('DoctorAppointmentsController', [
+        '$scope', '$modal', '$log', 'Appointments', 'DateService', 'UserService',
+        function ($scope, $modal, $log, Appointments, DateService, UserService) {
+            $scope.dateService = DateService;
+
+            var doctorId = UserService.getUserInfo().userId;
+            console.log(doctorId);
+
+            $scope.appointments = [];
+            Appointments.query({doctorId: doctorId}).$promise.then(function (data) {
+                $scope.appointments = data;
+            }, function (error) {
+                console.log(error);
+            });
+        }]);
