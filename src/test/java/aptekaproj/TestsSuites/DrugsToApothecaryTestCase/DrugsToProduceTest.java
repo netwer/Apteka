@@ -63,22 +63,26 @@ public class DrugsToProduceTest {
 
         RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacist3 = new RecipeDrugWithPharmacistViewModel();
         recipeDrugWithPharmacist3.recipeId = 17;
-        recipeDrugWithPharmacist3.drugId = 3;
+        recipeDrugWithPharmacist3.drugId = 4;
         recipeDrugWithPharmacist3.apothecaryId = 9;
         recipeDrugWithPharmacistList.add(recipeDrugWithPharmacist3);
 
         RecipeDrugWithPharmacistViewModel recipeDrugWithPharmacist4 = new RecipeDrugWithPharmacistViewModel();
-        recipeDrugWithPharmacist4.recipeId = 17;
-        recipeDrugWithPharmacist4.drugId = 4;
+        recipeDrugWithPharmacist4.recipeId = 14;
+        recipeDrugWithPharmacist4.drugId = 1;
         recipeDrugWithPharmacist4.apothecaryId = 9;
         recipeDrugWithPharmacistList.add(recipeDrugWithPharmacist4);
     }
 
     @After
     public void tearDown() throws Exception {
-        List<ConcreteDrug> concreteDrugsToProduce = concreteDrugService.getConcreteDrugsByRecipeId(recipeId);
-        //concreteDrugService.deleteConcreteDrugs(concreteDrugsToProduce);
-        //concreteIngredientService.deleteConcreteIngredientService(concreteDrugsToProduce);
+        List<ConcreteDrug> concreteDrugsToProduce = concreteDrugService.getConcreteDrugsByRecipeId(17);
+        concreteDrugService.deleteConcreteDrugs(concreteDrugsToProduce);
+        concreteIngredientService.deleteConcreteIngredientService(concreteDrugsToProduce);
+
+        List<ConcreteDrug> concreteDrugsToProduce1 = concreteDrugService.getConcreteDrugsByRecipeId(14);
+        concreteDrugService.deleteConcreteDrugs(concreteDrugsToProduce1);
+        concreteIngredientService.deleteConcreteIngredientService(concreteDrugsToProduce1);
     }
 
     @Test
