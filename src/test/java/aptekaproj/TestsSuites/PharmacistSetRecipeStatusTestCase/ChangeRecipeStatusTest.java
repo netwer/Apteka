@@ -1,4 +1,4 @@
-package aptekaproj.PharmacistSetRecipeStatusTestCase;
+package aptekaproj.TestsSuites.PharmacistSetRecipeStatusTestCase;
 
 import aptekaproj.AptekaApplication;
 import aptekaproj.models.Recipe;
@@ -13,8 +13,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -32,7 +30,7 @@ public class ChangeRecipeStatusTest {
 
     private int recipeId;
     private int lastStatusId;
-    private String status;
+    private int statusId;
     private boolean result;
     private Recipe recipe;
     private RecipeViewModel recipeAfter;
@@ -43,7 +41,7 @@ public class ChangeRecipeStatusTest {
     @Before
     public void setUp() throws Exception {
         recipeId = 14;
-        status = "ГОТОВ";
+        statusId = 3;
         lastStatusId = 0;
         result = false;
         recipeBefore = new RecipeViewModel();
@@ -65,7 +63,7 @@ public class ChangeRecipeStatusTest {
         lastStatusId = recipeBefore.recipeProgressStatusId;
         recipeProgressStatusBefore = recipeProgressStatusService.getRecipeProgressStatusById(recipeBefore.recipeProgressStatusId);
 
-        result = recipeService.changeStatus(recipeId,status);
+        result = recipeService.changeStatus(recipeId, statusId);
 
         recipeAfter = recipeService.getRecipe(recipeId);
         recipeProgressStatusAfter = recipeProgressStatusService.getRecipeProgressStatusById(recipeAfter.recipeProgressStatusId);
@@ -74,6 +72,7 @@ public class ChangeRecipeStatusTest {
         assertNotEquals(recipeBefore,recipeAfter);
         assertNotEquals(recipeBefore.recipeProgressStatusId,recipeAfter.recipeProgressStatusId);
         assertNotEquals(recipeProgressStatusBefore.getName(),recipeProgressStatusAfter.getName());
+        assertEquals(recipeProgressStatusAfter.getId(),statusId);
         assertEquals(recipeProgressStatusAfter.getName(),"ГОТОВ");
 
 

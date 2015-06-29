@@ -1,9 +1,8 @@
-package aptekaproj.CheckingStatusRecipeByPatientTestCase;
+package aptekaproj.TestsSuites.PharmacistSetRecipeStatusTestCase;
 
 import aptekaproj.AptekaApplication;
-import aptekaproj.models.Recipe;
 import aptekaproj.services.RecipeService;
-import aptekaproj.viewModels.PatientRecipeViewModel;
+import aptekaproj.viewModels.RecipeViewModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,38 +13,38 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by org.apteka on 27.06.2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = AptekaApplication.class)
-public class GetRecipesTest {
+public class GetAllRecipesForPharmacistTest {
+
     @Autowired
     private RecipeService recipeService;
 
-    private Integer patientId;
+    private int pharmacyId;
+    private int statusId;
 
     @Before
     public void setUp() throws Exception {
-
-        patientId = 14;
+        pharmacyId = 3;
+        statusId = 6;
     }
 
     @After
     public void tearDown() throws Exception {
-
+        pharmacyId = 0;
+        statusId = 0;
     }
 
     @Test
-    public void testGetRecipesForPatient() throws Exception {
-        List<PatientRecipeViewModel> patientRecipeViewModels = recipeService.getRecipesForPatient(patientId);
+    public void getAllRecipes() throws Exception {
+        List<RecipeViewModel> recipeViewModels = recipeService.getRecipesForPharmacyByStatus(pharmacyId, statusId);
 
-        assertNotNull(patientRecipeViewModels);
-        for(PatientRecipeViewModel patientRecipeViewModel : patientRecipeViewModels)
-            assertEquals(patientRecipeViewModel.patientId,patientId);
+        assertNotNull(recipeViewModels);
+        assertNotEquals(recipeViewModels.size(),0);
     }
 }

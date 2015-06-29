@@ -1,4 +1,4 @@
-package aptekaproj.DrugsToApothecaryTestCase;
+package aptekaproj.ControllersTests.PharmaciesControllerTest;
 
 import aptekaproj.AptekaApplication;
 import aptekaproj.helpers.enums.RolesNameEnum;

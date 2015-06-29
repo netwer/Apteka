@@ -1,10 +1,9 @@
-package aptekaproj.PharmacistSetRecipeStatusTestCase;
+package aptekaproj.OtherTests;
 
 import aptekaproj.AptekaApplication;
 import aptekaproj.helpers.enums.ProgressStatusEnum;
 import aptekaproj.models.RecipeProgressStatus;
 import aptekaproj.services.RecipeProgressStatusService;
-import aptekaproj.services.RecipeService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +21,7 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = AptekaApplication.class)
-public class GetRecipeProgressStatusTest {
+public class GetRecipeProgressStatusByIdTest {
 
     @Autowired
     private RecipeProgressStatusService recipeProgressStatusService;

@@ -1,4 +1,4 @@
-package aptekaproj.ApothecarySetDrugReadyTestCase;
+package aptekaproj.TestsSuites.ApothecarySetDrugReadyTestCase;
 
 import aptekaproj.AptekaApplication;
 import aptekaproj.services.DrugService;
