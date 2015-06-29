@@ -1,5 +1,6 @@
 package aptekaproj.controllers;
 
+import aptekaproj.models.PharmacyStaff;
 import aptekaproj.viewModels.*;
 import aptekaproj.services.ConcreteDrugService;
 import aptekaproj.services.PharmacyStaffService;
@@ -36,7 +37,8 @@ public class PharmaciesController {
                                             @RequestParam("status") int statusId){
         if(pharmacistId <= 0 || statusId <= 0)
             return new ArrayList<>();
-        return recipeService.getRecipesForPharmacyByStatus(pharmacistId, statusId);
+        PharmacyStaff pharmacyStaff = pharmacyStaffService.getApothecariesByPharmacistId(pharmacistId);
+        return recipeService.getRecipesForPharmacyByStatus(pharmacyStaff.getPharmacyId(), statusId);
     }
 
     @ResponseBody

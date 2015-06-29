@@ -172,17 +172,17 @@ public class DiagnosesService {
 
     public Diagnoses getDiagnosesByRecipeId(int recipeId) {
         List<Diagnoses> diagnoseses = getAllDiagnoses();
-        Diagnoses diagnoses = new Diagnoses();
+        Diagnoses diagnosisForRecipe = new Diagnoses();
         if(diagnoseses == null)
-            return diagnoses;
+            return diagnosisForRecipe;
 
-        for(Diagnoses diagnoses1 : diagnoseses){
-            if(diagnoses1.getRecipeId() == recipeId){
-                diagnoses = diagnoses1;
+        for(Diagnoses diagnosis : diagnoseses){
+            if(diagnosis.getRecipeId() != null && diagnosis.getRecipeId() == recipeId){
+                diagnosisForRecipe = diagnosis;
                 break;
             }
         }
-        return diagnoses;
+        return diagnosisForRecipe;
     }
 
     @Transactional
