@@ -45,7 +45,7 @@ public class CreateRecordAboutAdmissionTest {
         patientCardViewModel.visitDate = new Date();
         patientCardViewModel.complaints = "Головная боль, судороги";
         patientCardViewModel.diagnosis = "Общее недомогание";
-        patientCardViewModel.pharmacyId = 5;
+        patientCardViewModel.pharmacyId = 3;
         List<DrugViewModel> drugViewModels = new ArrayList<>();
 
         DrugViewModel drugViewModel1 = new DrugViewModel();
@@ -69,7 +69,7 @@ public class CreateRecordAboutAdmissionTest {
         drugViewModels.add(drugViewModel4);
 
         patientCardViewModel.drugs = drugViewModels;
-        diagnosisId = 35;
+        diagnosisId = 36;
     }
 
     @After

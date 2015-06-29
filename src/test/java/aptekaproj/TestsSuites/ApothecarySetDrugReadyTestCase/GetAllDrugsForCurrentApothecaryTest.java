@@ -43,6 +43,5 @@ public class GetAllDrugsForCurrentApothecaryTest {
         List<DrugToProduceViewModel> drugToProduceList = drugService.getDrugsToProduce(apothecaryId);
 
         assertNotNull(drugToProduceList);
-        assertNotEquals(drugToProduceList.size(),0);
     }
 }

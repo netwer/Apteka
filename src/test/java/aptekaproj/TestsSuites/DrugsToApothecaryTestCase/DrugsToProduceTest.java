@@ -77,8 +77,8 @@ public class DrugsToProduceTest {
     @After
     public void tearDown() throws Exception {
         List<ConcreteDrug> concreteDrugsToProduce = concreteDrugService.getConcreteDrugsByRecipeId(recipeId);
-        concreteDrugService.deleteConcreteDrugs(concreteDrugsToProduce);
-        concreteIngredientService.deleteConcreteIngredientService(concreteDrugsToProduce);
+        //concreteDrugService.deleteConcreteDrugs(concreteDrugsToProduce);
+        //concreteIngredientService.deleteConcreteIngredientService(concreteDrugsToProduce);
     }
 
     @Test

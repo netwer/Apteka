@@ -22,12 +22,16 @@ public class GetDiagnosisTest {
     @Autowired
     private DiagnosesService diagnosesService;
 
-    private int diagnosisId;
+    private int diagnosisId1;
+    private int diagnosisId2;
+    private int diagnosisId3;
 
     @Before
     public void setUp() throws Exception {
 
-        diagnosisId = 21;
+        diagnosisId1 = 36;
+        diagnosisId2 = 37;
+        diagnosisId3 = 38;
     }
 
     @After
@@ -38,11 +42,25 @@ public class GetDiagnosisTest {
     @Test
     public void testGetDiagnosisById() throws Exception {
         Diagnoses diagnoses = new Diagnoses();
-        Diagnoses diagnoses1 = diagnosesService.getDiagnosesById(diagnosisId);
+        Diagnoses diagnoses1 = diagnosesService.getDiagnosesById(diagnosisId1);
+        Diagnoses diagnoses2 = diagnosesService.getDiagnosesById(diagnosisId2);
+        Diagnoses diagnoses3 = diagnosesService.getDiagnosesById(diagnosisId3);
 
 
         assertNotNull(diagnoses1);
         assertNotEquals(diagnoses,diagnoses1);
-        assertEquals(diagnoses1.getId(),diagnosisId);
+        assertEquals(diagnoses1.getId(), diagnosisId1);
+
+        assertNotNull(diagnoses2);
+        assertNotEquals(diagnoses,diagnoses2);
+        assertEquals(diagnoses2.getId(), diagnosisId2);
+
+        assertNotNull(diagnoses3);
+        assertNotEquals(diagnoses,diagnoses3);
+        assertEquals(diagnoses3.getId(), diagnosisId3);
+
+        assertNotEquals(diagnoses1,diagnoses2);
+        assertNotEquals(diagnoses1,diagnoses3);
+        assertNotEquals(diagnoses2,diagnoses3);
     }
 }
