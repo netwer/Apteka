@@ -37,7 +37,7 @@ public class PharmaciesController {
                                             @RequestParam("status") int statusId){
         if(pharmacistId <= 0 || statusId <= 0)
             return new ArrayList<>();
-        PharmacyStaff pharmacyStaff = pharmacyStaffService.getApothecariesByPharmacistId(pharmacistId);
+        PharmacyStaff pharmacyStaff = pharmacyStaffService.getPharmacyStaffByUserId(pharmacistId);
         return recipeService.getRecipesForPharmacyByStatus(pharmacyStaff.getPharmacyId(), statusId);
     }
 

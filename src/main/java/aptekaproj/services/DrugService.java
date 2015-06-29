@@ -100,7 +100,7 @@ public class DrugService {
 
     public List<DrugToProduceViewModel> getDrugsToProduce(int apothecaryId) {
         List<ConcreteDrug> concreteDrugList = concreteDrugService.getAllConcreteDrugs();
-        PharmacyStaff pharmacyStaff = pharmacyStaffService.getApothecariesByPharmacistId(apothecaryId);
+        PharmacyStaff pharmacyStaff = pharmacyStaffService.getPharmacyStaffByUserId(apothecaryId);
         List<DrugToProduceViewModel> drugsToProduce = new ArrayList<>();
 
         if(concreteDrugList == null || pharmacyStaff == null)

@@ -3,10 +3,7 @@ package aptekaproj.services;
 import aptekaproj.controllers.repository.IConcreteDrugsRepository;
 import aptekaproj.helpers.DateWorker;
 import aptekaproj.helpers.enums.ProgressStatusEnum;
-import aptekaproj.models.ConcreteDrug;
-import aptekaproj.models.ConcreteIngredient;
-import aptekaproj.models.Ingredient;
-import aptekaproj.models.RecipeHasDrugs;
+import aptekaproj.models.*;
 import aptekaproj.viewModels.RecipeDrugWithPharmacistViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,17 +34,25 @@ public class ConcreteDrugService {
     private RecipeService recipeService;
 
     @Autowired
+    private PharmacyStaffService pharmacyStaffService;
+
+    @Autowired
     private DrugService drugService;
 
     //todo - the method must be tested
     //without refactoring - for debugging
-    public void drugsToProduce(List<RecipeDrugWithPharmacistViewModel> recipeDrugWithPharmacistViewModel) {
+    public boolean drugsToProduce(List<RecipeDrugWithPharmacistViewModel> recipeDrugWithPharmacistViewModel) {
         //each drudId and pharmacyStaffId
         for (RecipeDrugWithPharmacistViewModel drug : recipeDrugWithPharmacistViewModel){
             //create the ConcreteDrug record
+            PharmacyStaff pharmacyStaff = pharmacyStaffService.getPharmacyStaffByUserId(drug.apothecaryId);
+
+            if(pharmacyStaff == null)
+                continue;
+
             ConcreteDrug concreteDrug = new ConcreteDrug();
             concreteDrug.setDrugId(drug.drugId);
-            concreteDrug.setPharmacyStaffId(drug.apothecaryId);
+            concreteDrug.setPharmacyStaffId(pharmacyStaff.getId());
             concreteDrug.setRecipeId(drug.recipeId);
             ConcreteDrug createdConcreteDrug = concreteDrugsRepository.save(concreteDrug);
 
@@ -55,8 +60,15 @@ public class ConcreteDrugService {
             //get record from RecipeHasDrugs by recipeId and drugId
             //this record need for get count drug in recipe
             RecipeHasDrugs recipeHasDrugs = recipeHasDrugsService.getRecipeHasDrugsByRecipeAndDrugIds(drug.recipeId, drug.drugId);
+
+            if(recipeHasDrugs == null)
+                return false;
+
             //get ingredients for current drug
             List<Ingredient> ingredientForDrug = ingredientService.getIngredientsForDrug(drug.drugId);
+
+            if(ingredientForDrug == null || ingredientForDrug.size() == 0)
+                return false;
 
             for (Ingredient ingredient : ingredientForDrug){
 
@@ -126,7 +138,10 @@ public class ConcreteDrugService {
                 }
             }
         }
-        recipeService.changeStatus(recipeDrugWithPharmacistViewModel.get(0).recipeId, ProgressStatusEnum.IN_PROCESS.toString());
+        boolean changedStatusResult = recipeService.changeStatus(recipeDrugWithPharmacistViewModel.get(0).recipeId, ProgressStatusEnum.IN_PROCESS.toString());
+
+        if ((changedStatusResult)) return true;
+        else return false;
     }
 
     //todo test
@@ -134,7 +149,10 @@ public class ConcreteDrugService {
         List<ConcreteDrug> concreteDrugsToUpdate = getAll();
         for(ConcreteDrug concreteDrug : concreteDrugsToUpdate) {
             if(concreteDrug.getDrugId() == drugWithApothecaries.drugId && concreteDrug.getRecipeId() == drugWithApothecaries.recipeId){
-                concreteDrug.setPharmacyStaffId(drugWithApothecaries.apothecaryId);
+                PharmacyStaff pharmacyStaff = pharmacyStaffService.getPharmacyStaffByUserId(drugWithApothecaries.apothecaryId);
+                if(pharmacyStaff == null)
+                    continue;
+                concreteDrug.setPharmacyStaffId(pharmacyStaff.getId());
                 concreteDrugsRepository.save(concreteDrug);
                 break;
             }
@@ -215,5 +233,14 @@ public class ConcreteDrugService {
         }
 
         return concreteDrugsForApothecary;
+    }
+
+    public void deleteConcreteDrugs(List<ConcreteDrug> concreteDrugsToProduce) {
+        for (ConcreteDrug concreteDrug : concreteDrugsToProduce)
+            concreteDrugsRepository.delete(concreteDrug);
+    }
+
+    public void saveConcreteDrug(ConcreteDrug concreteDrug) {
+        concreteDrugsRepository.save(concreteDrug);
     }
 }

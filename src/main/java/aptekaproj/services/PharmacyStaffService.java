@@ -29,11 +29,11 @@ public class PharmacyStaffService {
     @Autowired
     private ConcreteDrugService concreteDrugService;
 
-    public PharmacyStaff getApothecariesByPharmacistId(int pharmacistId) {
+    public PharmacyStaff getPharmacyStaffByUserId(int userId) {
         List<PharmacyStaff> pharmacyStaffs = getPharmacyStaffs();
         PharmacyStaff currentPharmacyStaff = new PharmacyStaff();
         for (PharmacyStaff pharmacyStaff : pharmacyStaffs){
-            if(pharmacyStaff.getUserId()==pharmacistId){
+            if(pharmacyStaff.getUserId()==userId){
                 currentPharmacyStaff = pharmacyStaff;
                 break;
             }
@@ -49,7 +49,7 @@ public class PharmacyStaffService {
     public List<ApothecaryViewModel> getApothecariesStaffs(int pharmacistId) {
         List<ApothecaryViewModel> apothecaryViewModels = new ArrayList<>();
         ApothecaryViewModel apothecaryViewModel = new ApothecaryViewModel();
-        PharmacyStaff pharmacyStaff  = getApothecariesByPharmacistId(pharmacistId);
+        PharmacyStaff pharmacyStaff  = getPharmacyStaffByUserId(pharmacistId);
         List<PharmacyStaff> apothecaryPharmacyStaff = getApothecaryPharmacyStaffByPharmacist(pharmacyStaff.getPharmacyId());
         for (PharmacyStaff staff : apothecaryPharmacyStaff){
             List<ConcreteDrug> concreteDrugsForApothecary = concreteDrugService.getConcreteDrugsForApothecary(staff.getId());

@@ -85,4 +85,15 @@ public class ConcreteIngredientService {
 
         return DateWorker.maxDate(availableDate);
     }
+
+    public void deleteConcreteIngredientService(List<ConcreteDrug> concreteDrugsToProduce) {
+        List<ConcreteIngredient> concreteIngredients = getAllConcreteIngredients();
+        for (ConcreteIngredient concreteIngredient : concreteIngredients){
+            for (ConcreteDrug concreteDrug : concreteDrugsToProduce){
+                if(concreteIngredient.getConcreteDrugId() == concreteDrug.getId()){
+                    concreteIngredientsRepository.delete(concreteIngredient);
+                }
+            }
+        }
+    }
 }
