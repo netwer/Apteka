@@ -37,6 +37,23 @@ var module = angular.module('myApp.services', ['ngResource'])
             'create': {method: 'POST'}
         })
     }])
+    .factory('PharmacyConcreteDrug', ['$resource', function ($resource) {
+        return $resource('/api/pharmacist/concreteDrugs', {}, {
+            'update': {method: 'PUT'},
+            'create': {method: 'POST'}
+        })
+    }])
+    .factory('ApothecaryDrug', ['$resource', function ($resource) {
+        return $resource('/api/apothecary/:apothecaryId/drugs/:drugId', {
+            apothecaryId: '@apothecaryId',
+            drugId: '@drugId'
+        })
+    }])
+    .factory('PatientRecipes', ['$resource', function ($resource) {
+        return $resource('/api/patient/:patientId/recipes', {
+            patientId: '@patientId'
+        })
+    }])
     .factory('DateService', function () {
         return {
             getDate: function (string) {

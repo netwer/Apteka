@@ -2,8 +2,9 @@
     <div class="col-sm-12">
         <h1>{{patient.name}}<br>
             <small>
-                Медицинский полис <strong>№{{patient.medicalPolicyNumber}}</strong><br>
-                E-Mail адрес: <strong>{{patient.email}}</strong>
+                Медицинский полис <strong>№{{patient.patientPoliceNumber}}</strong><br>
+                Адрес <strong>№{{patient.patientAddress}}</strong><br>
+                E-Mail адрес: <strong>{{patient.patientEmail}}</strong>
             </small>
         </h1>
         <hr>
@@ -16,10 +17,10 @@
                 <small>{{pharmacy.address}}</small>
             </h3>
             <li href="#" class="list-group-item" ng-repeat="recipe in pharmacy.recipes | filter: {status: {type: 'label-success'}}">
-                <h4 class="list-group-item-heading">Рецепт №{{recipe.id}}</h4>
+                <h4 class="list-group-item-heading">Рецепт №{{recipe.recipeId}}</h4>
                 <h5>Лекарства</h5>
                 <ol class="list-group-item-text">
-                    <li ng-repeat="drug in recipe.drugs">{{drug.name}} – {{drug.quantity}} шт.</li>
+                    <li ng-repeat="drug in recipe.drugs">{{drug.drugName}} – {{drug.drugCount}} шт.</li>
                 </ol>
             </li>
         </ul>
@@ -33,12 +34,12 @@
             </h3>
             <li href="#" class="list-group-item" ng-repeat="recipe in pharmacy.recipes | filter: {status: {type: 'label-warning'}}">
                 <h4 class="list-group-item-heading">
-                    Рецепт №{{recipe.id}}<br>
+                    Рецепт №{{recipe.recipeId}}<br>
                     <small>Дата готовности: <strong>{{recipe.completionDate}}</strong></small>
                 </h4>
                 <h5>Лекарства</h5>
                 <ol class="list-group-item-text">
-                    <li ng-repeat="drug in recipe.drugs">{{drug.name}} – {{drug.quantity}} шт.</li>
+                    <li ng-repeat="drug in recipe.drugs">{{drug.drugName}} – {{drug.drugCount}} шт.</li>
                 </ol>
             </li>
         </ul>

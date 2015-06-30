@@ -8,12 +8,12 @@ angular.module('myApp.pharmacyManagerRecipesInProgress', ['ngRoute', 'myApp.serv
     }])
 
     .controller('PharmacyManagerRecipesInProgressController', [
-        '$scope', '$modal', '$log', 'UserService', 'PharmacyRecipes',
-        function ($scope, $modal, $log, UserService, PharmacyRecipes) {
+        '$scope', '$log', 'UserService', 'PharmacyRecipes',
+        function ($scope, $log, UserService, PharmacyRecipes) {
 
             var managerId = UserService.getUserInfo().userId;
 
-            var recipesWithConfiguredDrugStatuses = function (recipes) {
+            var configureDrugStates = function (recipes) {
                 var statuses = [
                     {
                         name: 'Готово',
@@ -31,7 +31,7 @@ angular.module('myApp.pharmacyManagerRecipesInProgress', ['ngRoute', 'myApp.serv
                         priority: 1
                     }
                 ];
-                return recipes.map(function (recipe) {
+                recipes.forEach(function (recipe) {
                     recipe.drugs.forEach(function (drug) {
                         if (drug.apothecaryId != null) {
                             drug.status = statuses[1];
@@ -46,14 +46,13 @@ angular.module('myApp.pharmacyManagerRecipesInProgress', ['ngRoute', 'myApp.serv
                 });
             };
 
-
             $scope.recipes = [];
             PharmacyRecipes.query({pharmacistId: managerId, status: 4}).$promise.then(function (data) {
-                $scope.recipes = recipesWithConfiguredDrugStatuses(data);
+                configureDrugStates(data);
+                $scope.recipes = data;
                 if ($scope.recipes.length > 0 && $scope.selectedRecipe == undefined) {
                     $scope.selectedRecipe = $scope.recipes[0];
                 }
-                console.log(data);
             }, function (error) {
                 console.log(error);
             });

@@ -1,4 +1,4 @@
-angular.module('myApp.pharmacyManagerRecipesDone', ['ngRoute'])
+angular.module('myApp.pharmacyManagerRecipesDone', ['ngRoute', 'myApp.services'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/pharmacyManagerRecipesDone', {
@@ -12,40 +12,6 @@ angular.module('myApp.pharmacyManagerRecipesDone', ['ngRoute'])
         function ($scope, $modal, $log, UserService, PharmacyRecipes) {
             var managerId = UserService.getUserInfo().userId;
 
-            var recipesWithConfiguredDrugStatuses = function (recipes) {
-                var statuses = [
-                    {
-                        name: 'Готово',
-                        type: 'label-success',
-                        priority: 3
-                    },
-                    {
-                        name: 'В процессе',
-                        type: 'label-warning',
-                        priority: 2
-                    },
-                    {
-                        name: 'Не назначено',
-                        type: 'label-danger',
-                        priority: 1
-                    }
-                ];
-                return recipes.map(function (recipe) {
-                    recipe.drugs.forEach(function (drug) {
-                        if (drug.apothecaryId != null) {
-                            drug.status = statuses[1];
-                        }
-                        else if (drug.needsToProduce == false) {
-                            drug.status = statuses[0];
-                        }
-                        else {
-                            drug.status = statuses[3];
-                        }
-                    });
-                });
-            };
-
-
             $scope.recipes = [];
             PharmacyRecipes.query({pharmacistId: managerId, status: 3}).$promise.then(function (data) {
                 $scope.recipes = data;
@@ -54,7 +20,7 @@ angular.module('myApp.pharmacyManagerRecipesDone', ['ngRoute'])
                 console.log(error);
             });
 
-            $scope.sendRecipe = function(recipe) {
+            $scope.sendRecipe = function (recipe) {
                 PharmacyRecipes.update({
                     pharmacistId: managerId,
                     recipeId: recipe.recipeId

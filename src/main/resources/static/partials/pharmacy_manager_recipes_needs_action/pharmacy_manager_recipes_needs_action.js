@@ -13,7 +13,7 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
 
             var managerId = UserService.getUserInfo().userId;
 
-            var recipesWithConfiguredDrugStatuses = function (recipes) {
+            var configureDrugStates = function (recipes) {
                 var statuses = [
                     {
                         name: 'Готово',
@@ -31,7 +31,7 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
                         priority: 1
                     }
                 ];
-                return recipes.map(function (recipe) {
+                recipes.forEach(function (recipe) {
                     recipe.drugs.forEach(function (drug) {
                         if (drug.apothecaryId != null) {
                             drug.status = statuses[1];
@@ -49,20 +49,24 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
 
             $scope.recipes = [];
             PharmacyRecipes.query({pharmacistId: managerId, status: 1}).$promise.then(function (data) {
-                Array.prototype.push.apply($scope.recipes, recipesWithConfiguredDrugStatuses(data));
+                configureDrugStates(data);
+                data.forEach(function(recipe) {
+                    $scope.recipes.push(recipe);
+                });
                 if ($scope.recipes.length > 0 && $scope.selectedRecipe == undefined) {
                     $scope.selectedRecipe = $scope.recipes[0];
                 }
-                console.log(data);
             }, function (error) {
                 console.log(error);
             });
             PharmacyRecipes.query({pharmacistId: managerId, status: 5}).$promise.then(function (data) {
-                Array.prototype.push.apply($scope.recipes, recipesWithConfiguredDrugStatuses(data));
+                configureDrugStates(data);
+                data.forEach(function(recipe) {
+                    $scope.recipes.push(recipe);
+                });
                 if ($scope.recipes.length > 0 && $scope.selectedRecipe == undefined) {
                     $scope.selectedRecipe = $scope.recipes[0];
                 }
-                console.log(data);
             }, function (error) {
                 console.log(error);
             });
@@ -108,10 +112,11 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
             };
 
             $scope.open = function (selectedDrug) {
+                console.log(selectedDrug);
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'partials/modal_views/select_pharmacy_modal_view.html',
-                    controller: 'ModalInstanceCtrl',
+                    controller: 'ModalInstanceController',
                     size: undefined,
                     resolve: {
                         persons: function () {
@@ -161,7 +166,7 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
             };
         }])
 
-    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, persons, drug) {
+    .controller('ModalInstanceController', function ($scope, $modalInstance, persons, drug) {
         $scope.select = function (person) {
             if ($scope.selectedApothecaryId == person.apothecaryId) {
                 $scope.selectedApothecaryId = undefined;

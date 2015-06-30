@@ -1,4 +1,4 @@
-angular.module('myApp.patientRecipes', ['ngRoute', 'ui.bootstrap.progressbar'])
+angular.module('myApp.patientRecipes', ['ngRoute', 'myApp.services'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/patientRecipes', {
@@ -7,117 +7,96 @@ angular.module('myApp.patientRecipes', ['ngRoute', 'ui.bootstrap.progressbar'])
         });
     }])
 
-    .controller('PatientRecipesController', ['$scope', '$modal', '$log', function ($scope, $modal, $log) {
-        $scope.statuses = [
-            {
-                id: 1,
-                name: 'Готово',
-                type: 'label-success'
-            },
-            {
-                id: 2,
-                name: 'В процессе',
-                type: 'label-warning'
-            }
-        ];
+    .controller('PatientRecipesController', [
+        '$scope', '$log', 'UserService', 'PatientRecipes',
+        function ($scope, $log, UserService, PatientRecipes) {
 
-        $scope.patient = {
-            id: 1,
-            name: 'Иван Иванов',
-            email: 'ivaiva@lol.ru',
-            medicalPolicyNumber: 'ABS123-124',
-            diagnosesRecords: [
-                {
-                    id: 1,
-                    date: '23 марта 2013',
-                    complaints: 'Болит голова и живот',
-                    diagnosis: 'Мигрень, Спасмы в желужке',
-                    recipe: {
-                        id: 13,
-                        status: $scope.statuses[0],
-                        pharmacy: {
-                            id: 1,
-                            name: 'Аптека 1',
-                            address: 'пер. Слепушкина, 7'
-                        },
-                        drugs: [
-                            {
-                                name: 'Спазмалгон',
-                                quantity: 2
-                            },
-                            {
-                                name: 'Глюкоброминатират гепоппатаниума (20 мл)',
-                                quantity: 1
-                            },
-                            {
-                                name: 'Фермагематоген детский (10 гр)',
-                                quantity: 10
-                            },
-                            {
-                                name: 'Касторка',
-                                quantity: 1
-                            }
-                        ]
+            var patientId = UserService.getUserInfo().userId;
+
+            var configureDrugStates = function (recipes) {
+                var statuses = [
+                    {
+                        name: 'Готово',
+                        type: 'label-success',
+                        priority: 3
+                    },
+                    {
+                        name: 'В процессе',
+                        type: 'label-warning',
+                        priority: 2
+                    },
+                    {
+                        name: 'Не назначено',
+                        type: 'label-danger',
+                        priority: 1
                     }
-                },
-                {
-                    id: 1,
-                    date: '23 марта 2013',
-                    complaints: 'Болит голова и живот',
-                    diagnosis: 'Мигрень, Спасмы в желужке',
-                    recipe: {
-                        id: 13,
-                        status: $scope.statuses[1],
-                        completionDate: '20 марта 2013',
-                        pharmacy: {
-                            id: 1,
-                            name: 'Аптека 1',
-                            address: 'пер. Слепушкина, 7'
-                        },
-                        drugs: [
-                            {
-                                name: 'Спазмалгон',
-                                quantity: 2
-                            },
-                            {
-                                name: 'Глюкоброминатират гепоппатаниума (20 мл)',
-                                quantity: 1
-                            },
-                            {
-                                name: 'Фермагематоген детский (10 гр)',
-                                quantity: 10
-                            },
-                            {
-                                name: 'Касторка',
-                                quantity: 1
-                            }
-                        ]
+                ];
+                recipes.forEach(function (recipe) {
+                    recipe.drugs.forEach(function (drug) {
+                        if (drug.apothecaryId != null) {
+                            drug.status = statuses[1];
+                        }
+                        else if (drug.needsToProduce == false) {
+                            drug.status = statuses[0];
+                        }
+                        else {
+                            drug.status = statuses[3];
+                        }
+                    });
+                });
+            };
+
+            var configureRecipesAvailabilityDate = function (recipes) {
+                recipes.forEach(function (recipe) {
+                    var maxDate;
+                    recipe.drugs.forEach(function (drug) {
+                        var availabilityDate = drug.availabilityDate;
+                        if (maxDate == undefined) {
+                            maxDate = availabilityDate;
+                        }
+
+                        if (maxDate < availabilityDate) {
+                            maxDate = availabilityDate;
+                        }
+                    });
+                    if (maxDate != undefined) {
+                        recipe.completionDate = maxDate;
                     }
-                }
-            ]
-        };
+                });
+            };
 
-        $scope.recipesGroupedByPharmacy = function(){
-            var dictOfPharmacies = [];
+            var recipesGroupedByPharmacy = function (recipes) {
+                var dictOfPharmacies = [];
 
-            $scope.patient.diagnosesRecords.forEach(function(record){
-                var pharmacy = dictOfPharmacies[record.recipe.pharmacy.id];
-                if (pharmacy == undefined) {
-                    pharmacy = angular.copy(record.recipe.pharmacy);
-                    pharmacy.recipes = [record.recipe];
-                    dictOfPharmacies[pharmacy.id] = pharmacy;
+                recipes.forEach(function (recipe) {
+                    var pharmacy = dictOfPharmacies[recipe.pharmaciesAddress];
+                    if (pharmacy == undefined) {
+                        pharmacy = {
+                            name: recipe.pharmaciesName,
+                            address: recipe.pharmaciesAddress
+                        };
+                        pharmacy.recipes = [recipe];
+                        dictOfPharmacies[pharmacy.address] = pharmacy;
+                    }
+                    else {
+                        pharmacy.recipes.push(recipe);
+                    }
+                });
+
+                var listOfPharmacies = [];
+                for (var pharmacyAddress in dictOfPharmacies) {
+                    listOfPharmacies.push(dictOfPharmacies[pharmacyAddress]);
                 }
-                else {
-                    pharmacy.recipes.push(record.recipe);
-                }
+                return listOfPharmacies;
+            };
+
+            $scope.recipes = [];
+            PatientRecipes.query({patientId: patientId}).$promise.then(function (data) {
+                configureDrugStates(data);
+                configureRecipesAvailabilityDate(data);
+                $scope.pharmacies = recipesGroupedByPharmacy(data);
+                console.log(data);
+            }, function (error) {
+                console.log(error);
             });
-
-            var listOfPharmacies = [];
-            for(var pharmacyId in dictOfPharmacies) {
-                listOfPharmacies.push(dictOfPharmacies[pharmacyId]);
-            }
-            return listOfPharmacies;
-        };
-        $scope.pharmacies = $scope.recipesGroupedByPharmacy();
-
-    }]);
+        }]);
