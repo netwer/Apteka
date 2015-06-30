@@ -1,5 +1,6 @@
 package aptekaproj.services;
 
+import aptekaproj.helpers.TimeIgnoringComparator;
 import aptekaproj.models.*;
 import aptekaproj.viewModels.DrugToProduceViewModel;
 import aptekaproj.viewModels.DrugViewModel;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +36,9 @@ public class DrugService {
 
     @Autowired
     private IngredientService ingredientService;
+
+    @Autowired
+    private ConcreteIngredientService concreteIngredientService;
 
     @Autowired
     private PharmacyStaffService pharmacyStaffService;
@@ -102,19 +107,38 @@ public class DrugService {
         List<ConcreteDrug> concreteDrugList = concreteDrugService.getAllConcreteDrugs();
         PharmacyStaff pharmacyStaff = pharmacyStaffService.getPharmacyStaffByUserId(apothecaryId);
         List<DrugToProduceViewModel> drugsToProduce = new ArrayList<>();
+        List<ConcreteIngredient> concreteIngredients = concreteIngredientService.getAllConcreteIngredients();
+
 
         if(concreteDrugList == null || pharmacyStaff == null)
             return drugsToProduce;
 
+        Date todayDate = new Date();
+
         for (ConcreteDrug concreteDrug : concreteDrugList){
-            if(concreteDrug.getPharmacyStaffId() == pharmacyStaff.getId()){
+            Boolean isConcreteDrugAvailableToday = false;
+
+            Date maxConcreteIngredientAvailabilityDate = todayDate;
+            for (ConcreteIngredient ingredient : concreteIngredients) {
+                if (ingredient.getConcreteDrugId() == concreteDrug.getId()) {
+                    Date concreteIngredientAvailabilityDate = ingredient.getAvailabilityDate();
+                    if (TimeIgnoringComparator.compare(maxConcreteIngredientAvailabilityDate, concreteIngredientAvailabilityDate) < 0) {
+                        maxConcreteIngredientAvailabilityDate = concreteIngredientAvailabilityDate;
+                    }
+                }
+                isConcreteDrugAvailableToday = TimeIgnoringComparator.compare(todayDate, maxConcreteIngredientAvailabilityDate) >= 0;
+            }
+
+//            Boolean isConcreteDrugAvailableToday = true;
+
+            if(concreteDrug.getPharmacyStaffId() == pharmacyStaff.getId() && isConcreteDrugAvailableToday){
                 Drug drug = getDrugById(concreteDrug.getDrugId());
 
                 if (drug == null || drug.getNeedToProduce() == false)
                     continue;
 
                 Recipe recipe = recipeService.getRecipeById(concreteDrug.getRecipeId());
-                RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.WAITING_PROCESS.toString());
+                RecipeProgressStatus recipeProgressStatus = recipeProgressStatusService.getRecipeProgressStatusByName(ProgressStatusEnum.IN_PROCESS.toString());
                 if(recipe == null || recipeProgressStatus == null)
                     continue;
 
@@ -127,7 +151,7 @@ public class DrugService {
                         if(recipeHasDrugs.getRecipeId() == recipe.getId() && recipeHasDrugs.getDone() == false && recipeHasDrugs.getDrugId() == concreteDrug.getDrugId()){
                             DrugToProduceViewModel drugToProduce = new DrugToProduceViewModel();
                             drugToProduce.drug = getDrug(recipe.getId(),recipeHasDrugs.getDrugId());
-                            drugToProduce.ingredients = ingredientService.getIngredientsForDrug(concreteDrug.getDrugId(),concreteDrug.getId());
+                            drugToProduce.ingredients = ingredientService.getIngredientsForDrug(concreteDrug.getDrugId(), concreteDrug.getId());
                             drugsToProduce.add(drugToProduce);
                         }
                     }

@@ -24,7 +24,7 @@
                 <td class="text-center">{{recipe.date}}</td>
                 <td>
                     <ol>
-                        <li ng-repeat="drug in recipe.drugs | fil">{{drug.name}} – {{drug.quantity}} шт.</li>
+                        <li ng-repeat="drug in recipe.drugs">{{drug.name}} – {{drug.quantity}} шт.</li>
                     </ol>
                 </td>
                 <td>
@@ -35,7 +35,7 @@
                     </p>
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-default"><i class="fa fa-sign-out"></i> Выдать</button>
+                    <button class="btn btn-default" ng-click="sendRecipe(recipe);"><i class="fa fa-sign-out"></i> Выдать</button>
                 </td>
             </tr>
             </tbody>

@@ -54,6 +54,11 @@ var module = angular.module('myApp.services', ['ngResource'])
             patientId: '@patientId'
         })
     }])
+    .factory('PatientInfo', ['$resource', function ($resource) {
+        return $resource('/api/patient/:patientId', {
+            patientId: '@patientId'
+        })
+    }])
     .factory('DateService', function () {
         return {
             getDate: function (string) {

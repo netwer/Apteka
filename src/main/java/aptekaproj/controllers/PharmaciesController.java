@@ -69,7 +69,7 @@ public class PharmaciesController {
     @RequestMapping(value = "/{pharmacistId}/recipes/{recipeId}", method = RequestMethod.PUT)
     public void changeStatus(@PathVariable("pharmacistId") int pharmacistId,
                              @PathVariable("recipeId") int recipeId,
-                             @RequestBody int statusId) {
+                             @RequestParam("status") int statusId) {
         if(pharmacistId <= 0 || recipeId <= 0 || statusId <= 0)
             return;
         recipeService.changeStatus(recipeId, statusId);

@@ -13,7 +13,7 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
 
             var managerId = UserService.getUserInfo().userId;
 
-            var configureDrugStates = function (recipes) {
+            var configureDrugStates = function (recipes, allDone) {
                 var statuses = [
                     {
                         name: 'Готово',
@@ -33,14 +33,18 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
                 ];
                 recipes.forEach(function (recipe) {
                     recipe.drugs.forEach(function (drug) {
-                        if (drug.apothecaryId != null) {
+                        if (drug.apothecaryId != null && drug.apothecaryId != 0) {
                             drug.status = statuses[1];
                         }
                         else if (drug.needsToProduce == false) {
                             drug.status = statuses[0];
                         }
                         else {
-                            drug.status = statuses[3];
+                            drug.status = statuses[2];
+                        }
+
+                        if (allDone) {
+                            drug.status = statuses[0];
                         }
                     });
                 });
@@ -49,7 +53,7 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
 
             $scope.recipes = [];
             PharmacyRecipes.query({pharmacistId: managerId, status: 1}).$promise.then(function (data) {
-                configureDrugStates(data);
+                configureDrugStates(data, false);
                 data.forEach(function(recipe) {
                     $scope.recipes.push(recipe);
                 });
@@ -60,7 +64,7 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
                 console.log(error);
             });
             PharmacyRecipes.query({pharmacistId: managerId, status: 5}).$promise.then(function (data) {
-                configureDrugStates(data);
+                configureDrugStates(data, true);
                 data.forEach(function(recipe) {
                     $scope.recipes.push(recipe);
                 });
@@ -155,8 +159,7 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
             $scope.completeRecipe = function () {
                 PharmacyRecipes.update({
                     pharmacistId: managerId,
-                    recipeId: $scope.selectedRecipe.recipeId
-                }, {
+                    recipeId: $scope.selectedRecipe.recipeId,
                     status: 3
                 }).$promise.then(function (data) {
                         console.log(data);

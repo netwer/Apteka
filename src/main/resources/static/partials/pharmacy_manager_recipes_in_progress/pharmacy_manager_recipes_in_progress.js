@@ -33,14 +33,14 @@ angular.module('myApp.pharmacyManagerRecipesInProgress', ['ngRoute', 'myApp.serv
                 ];
                 recipes.forEach(function (recipe) {
                     recipe.drugs.forEach(function (drug) {
-                        if (drug.apothecaryId != null) {
+                        if (drug.apothecaryId != null && drug.apothecaryId != 0) {
                             drug.status = statuses[1];
                         }
                         else if (drug.needsToProduce == false) {
                             drug.status = statuses[0];
                         }
                         else {
-                            drug.status = statuses[3];
+                            drug.status = statuses[2];
                         }
                     });
                 });

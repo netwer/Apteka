@@ -79,6 +79,7 @@ public class ConcreteDrugService {
                 //the number of days to be added to the current date, or the date the maximum
                 //this variable is needed to change the date of availability of ingredient
                 int dateCount = 0;
+                Integer countOfIngredientsInMaxDate = countRecordsByMaxDate % ingredient.getCount();
                 Date date;
 
                 //if no records by last/max date. It is mean that the ConcreteIngredient is empty or
@@ -91,8 +92,8 @@ public class ConcreteDrugService {
                     //add new ConcreteIngredient
                     //if the current value of the variable i is divisible by the number of ingredients,
                     //then increase the variable dateCount 1
-                    for(int i = 0;i<ingredient.getCount()*recipeHasDrugs.getCount();i++){
-                        if(i!=0&&i%ingredient.getCount() == 0){
+                    for(int i = 0; i < recipeHasDrugs.getCount(); i++){
+                        if(i != 0 && i % ingredient.getCount() == 0){
                             dateCount++;
                         }
                         ConcreteIngredient concreteIngredient = new ConcreteIngredient();
@@ -106,11 +107,11 @@ public class ConcreteDrugService {
                 //and amount of ingredients to be added is less
                 //than a predetermined amount of ingredients
                 //Adding entries by current day
-                else if(countRecordsByMaxDate * recipeHasDrugs.getCount() < ingredient.getCount()){
+                else if(countOfIngredientsInMaxDate != 0){
                     dateCount = 0;
                     date = new Date();
-                    for (int i = countRecordsByMaxDate; i < ingredient.getCount()*recipeHasDrugs.getCount();i++){
-                        if(i!=0&&i%ingredient.getCount() == 0){
+                    for (int i = countOfIngredientsInMaxDate + 1; i < recipeHasDrugs.getCount() + countOfIngredientsInMaxDate + 1; i++){
+                        if( i != 0 && i % ingredient.getCount() == 0){
                             dateCount++;
                         }
                         ConcreteIngredient concreteIngredient = new ConcreteIngredient();
@@ -123,10 +124,10 @@ public class ConcreteDrugService {
                 //amount of ingredients to be added is more
                 //than a predetermined amount of ingredients
                 //Adding entries by next day
-                else if (countRecordsByMaxDate * recipeHasDrugs.getCount() >= ingredient.getCount()){
+                else if (countOfIngredientsInMaxDate == 0){
                     dateCount = 1;
-                    for(int i = 0;i<countRecordsByMaxDate * recipeHasDrugs.getCount();i++){
-                        if(i!=0&&i%ingredient.getCount() == 0){
+                    for(int i = 0; i < recipeHasDrugs.getCount(); i++){
+                        if(i != 0 && i % ingredient.getCount() == 0){
                             dateCount++;
                         }
                         ConcreteIngredient concreteIngredient = new ConcreteIngredient();

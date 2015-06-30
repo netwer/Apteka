@@ -48,10 +48,11 @@ public class PharmacyStaffService {
 
     public List<ApothecaryViewModel> getApothecariesStaffs(int pharmacistId) {
         List<ApothecaryViewModel> apothecaryViewModels = new ArrayList<>();
-        ApothecaryViewModel apothecaryViewModel = new ApothecaryViewModel();
+
         PharmacyStaff pharmacyStaff  = getPharmacyStaffByUserId(pharmacistId);
         List<PharmacyStaff> apothecaryPharmacyStaff = getApothecaryPharmacyStaffByPharmacist(pharmacyStaff.getPharmacyId());
         for (PharmacyStaff staff : apothecaryPharmacyStaff){
+            ApothecaryViewModel apothecaryViewModel = new ApothecaryViewModel();
             List<ConcreteDrug> concreteDrugsForApothecary = concreteDrugService.getConcreteDrugsForApothecary(staff.getId());
             apothecaryViewModel.drugsInProgress = concreteDrugsForApothecary.size();
             apothecaryViewModel.apothecaryId = staff.getUserId();

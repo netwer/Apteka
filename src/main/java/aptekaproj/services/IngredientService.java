@@ -63,7 +63,6 @@ public class IngredientService {
                 ingredientInDrug.materialId= ingredient.getMaterialId();
                 ingredientInDrug.materialName = material.getName();
                 ingredientInDrug.unit = unitMeasureService.getUnitMeasureById(ingredient.getUnit()).getUnit();
-
                 ingredientsInDrug.add(ingredientInDrug);
             }
         }

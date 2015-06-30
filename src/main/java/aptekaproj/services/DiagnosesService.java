@@ -153,7 +153,7 @@ public class DiagnosesService {
     public void saveAppointment(PatientCardViewModel patientCardViewModel, int diagnosisId) throws ParseException {
         Diagnoses diagnoses = getDiagnosesById(diagnosisId);
         Pharmacy pharmacy = pharmacyService.getPharmacyById(patientCardViewModel.pharmacyId);
-        Recipe recipe = recipeService.createRecipe(patientCardViewModel.visitDate,pharmacy.getId());
+        Recipe recipe = recipeService.createRecipe(patientCardViewModel.visitDate, pharmacy.getId());
 
         if(diagnoses == null || pharmacy == null || recipe == null)
             return;

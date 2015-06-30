@@ -101,7 +101,7 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
             };
 
             $scope.createRecipe = function () {
-                $scope.currentRecord.drugsInRecipe = $scope.selectedDrugs.map(function (selectedDrug) {
+                $scope.currentRecord.drugs = $scope.selectedDrugs.map(function (selectedDrug) {
                     var resultDrug = {};
                     for (var i = 0; i < $scope.drugs.length; i++) {
                         var drug = $scope.drugs[i];

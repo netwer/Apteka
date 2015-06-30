@@ -8,43 +8,10 @@ angular.module('myApp.patientRecipes', ['ngRoute', 'myApp.services'])
     }])
 
     .controller('PatientRecipesController', [
-        '$scope', '$log', 'UserService', 'PatientRecipes',
-        function ($scope, $log, UserService, PatientRecipes) {
+        '$scope', '$log', 'UserService', 'PatientRecipes', 'PatientInfo',
+        function ($scope, $log, UserService, PatientRecipes, PatientInfo) {
 
             var patientId = UserService.getUserInfo().userId;
-
-            var configureDrugStates = function (recipes) {
-                var statuses = [
-                    {
-                        name: 'Готово',
-                        type: 'label-success',
-                        priority: 3
-                    },
-                    {
-                        name: 'В процессе',
-                        type: 'label-warning',
-                        priority: 2
-                    },
-                    {
-                        name: 'Не назначено',
-                        type: 'label-danger',
-                        priority: 1
-                    }
-                ];
-                recipes.forEach(function (recipe) {
-                    recipe.drugs.forEach(function (drug) {
-                        if (drug.apothecaryId != null) {
-                            drug.status = statuses[1];
-                        }
-                        else if (drug.needsToProduce == false) {
-                            drug.status = statuses[0];
-                        }
-                        else {
-                            drug.status = statuses[3];
-                        }
-                    });
-                });
-            };
 
             var configureRecipesAvailabilityDate = function (recipes) {
                 recipes.forEach(function (recipe) {
@@ -75,11 +42,11 @@ angular.module('myApp.patientRecipes', ['ngRoute', 'myApp.services'])
                             name: recipe.pharmaciesName,
                             address: recipe.pharmaciesAddress
                         };
-                        pharmacy.recipes = [recipe];
+                        pharmacy.recipes = [angular.copy(recipe)];
                         dictOfPharmacies[pharmacy.address] = pharmacy;
                     }
                     else {
-                        pharmacy.recipes.push(recipe);
+                        pharmacy.recipes.push(angular.copy(recipe));
                     }
                 });
 
@@ -92,11 +59,18 @@ angular.module('myApp.patientRecipes', ['ngRoute', 'myApp.services'])
 
             $scope.recipes = [];
             PatientRecipes.query({patientId: patientId}).$promise.then(function (data) {
-                configureDrugStates(data);
                 configureRecipesAvailabilityDate(data);
                 $scope.pharmacies = recipesGroupedByPharmacy(data);
                 console.log(data);
             }, function (error) {
                 console.log(error);
             });
+
+            PatientInfo.get({patientId: patientId}).$promise.then(function (data) {
+                $scope.patient = data;
+                console.log(data);
+            }, function (error) {
+                console.log(error);
+            });
+
         }]);

@@ -20,45 +20,49 @@ angular.module('myApp.pharmacyDrugsToManufacture', ['ngRoute', 'myApp.services']
                 console.log(error);
             });
 
-        $scope.completeManufacture = function(drug) {
-            var indexOfCurrentDrug = $scope.drugs.indexOf(drug);
-            //drug.status = $scope.statuses[0];
-            if (indexOfCurrentDrug < $scope.drugs.length - 1) {
-                $scope.selectedDrug = $scope.drugs[indexOfCurrentDrug + 1];
-            }
-            else if (indexOfCurrentDrug > 0) {
-                $scope.selectedDrug = $scope.drugs[indexOfCurrentDrug - 1];
-            }
-            else {
-                $scope.selectedDrug = undefined;
-            }
+            $scope.completeManufacture = function (drug) {
+                var indexOfCurrentDrug = $scope.drugs.indexOf(drug);
+                //drug.status = $scope.statuses[0];
+                if (indexOfCurrentDrug < $scope.drugs.length - 1) {
+                    $scope.selectedDrug = $scope.drugs[indexOfCurrentDrug + 1];
+                }
+                else if (indexOfCurrentDrug > 0) {
+                    $scope.selectedDrug = $scope.drugs[indexOfCurrentDrug - 1];
+                }
+                else {
+                    $scope.selectedDrug = undefined;
+                }
 
-            $scope.drugs.remove(indexOfCurrentDrug);
-        };
-
-        $scope.selectDrug = function(recipe) {
-            $scope.selectedDrug = recipe;
-        };
-
-        $scope.listOfAllNeededIngredients = function() {
-            var dictOfIngredients = {};
-
-            $scope.drugs.forEach(function(currentDrug) {
-                currentDrug.ingredients.forEach(function (currentIngredient) {
-                    var ingredient = dictOfIngredients[currentIngredient.ingredientId];
-                    if (ingredient == undefined) {
-                        dictOfIngredients[currentIngredient.ingredientId] = currentIngredient;
-                    }
-                    else {
-                        ingredient.count += currentIngredient.count;
-                    }
+                ApothecaryDrug.delete({apothecaryId: apothecaryId, drugId:drug.drug.recipesHasDrugsId}).$promise.then(function (data) {
+                    $scope.drugs.remove(indexOfCurrentDrug);
+                }, function (error) {
+                    console.log(error);
                 });
-            });
+            };
 
-            var listOfIngredients = [];
-            for(var ingredientId in dictOfIngredients) {
-                listOfIngredients.push(dictOfIngredients[ingredientId]);
-            }
-            return listOfIngredients;
-        };
-    }]);
+            $scope.selectDrug = function (recipe) {
+                $scope.selectedDrug = recipe;
+            };
+
+            $scope.listOfAllNeededIngredients = function () {
+                //var dictOfIngredients = {};
+                //
+                //$scope.drugs.forEach(function (currentDrug) {
+                //    currentDrug.ingredients.forEach(function (currentIngredient) {
+                //        var ingredient = dictOfIngredients[currentIngredient.ingredientId];
+                //        if (ingredient == undefined) {
+                //            dictOfIngredients[currentIngredient.ingredientId] = angular.copy(currentIngredient);
+                //        }
+                //        else {
+                //            ingredient.count += currentIngredient.count;
+                //        }
+                //    });
+                //});
+
+                var listOfIngredients = [];
+                //for (var ingredientId in dictOfIngredients) {
+                //    listOfIngredients.push(dictOfIngredients[ingredientId]);
+                //}
+                return listOfIngredients;
+            };
+        }]);

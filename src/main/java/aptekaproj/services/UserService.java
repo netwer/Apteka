@@ -105,6 +105,13 @@ public class UserService {
         return usersRepository.findOne(id);
     }
 
+    public User getPublicUserById(int id){
+        User user = usersRepository.findOne(id);
+        user.setHash(null);
+        user.setSalt(null);
+        return user;
+    }
+
     public List<User> getDoctors() {
         List<User> userList = (List<User>)usersRepository.findAll();
         List<User> doctors = new ArrayList<>();
