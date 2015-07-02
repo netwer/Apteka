@@ -98,6 +98,7 @@ public class RecipeHasDrugsService {
             recipeHasDrugs.setCount(drugViewModel.drugCount);
             recipeHasDrugs.setDrugId(drugViewModel.drugId);
             recipeHasDrugs.setDone(false);
+            recipeHasDrugs.setProgressStatusId(1);
 
             saveRecipeHasDrugs(recipeHasDrugs);
         }
