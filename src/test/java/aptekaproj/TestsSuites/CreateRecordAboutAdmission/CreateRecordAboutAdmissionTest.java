@@ -1,6 +1,7 @@
 package aptekaproj.TestsSuites.CreateRecordAboutAdmission;
 
 import aptekaproj.AptekaApplication;
+import aptekaproj.helpers.TimeIgnoringComparator;
 import aptekaproj.models.Diagnoses;
 import aptekaproj.models.Recipe;
 import aptekaproj.models.RecipeHasDrugs;
@@ -103,6 +104,11 @@ public class CreateRecordAboutAdmissionTest {
         assertNotNull(diagnosesAfter.getRecipeId());
         assertEquals(diagnosesAfter.getComplaints(), patientCardViewModel.complaints);
         assertEquals(diagnosesAfter.getDiagnosis(),patientCardViewModel.diagnosis);
+
+        assertNotNull(recipe);
+        assertNotNull(recipe.getCreatedAt());
+        assertEquals((int)diagnosesAfter.getRecipeId(),recipe.getId());
+        assertEquals(TimeIgnoringComparator.compare(diagnosesAfter.getCreatedAt(),recipe.getCreatedAt()),0);
 
         assertNotNull(recipeHasDrugsList);
         for (RecipeHasDrugs recipeHasDrugs : recipeHasDrugsList){
