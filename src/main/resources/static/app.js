@@ -13,8 +13,8 @@ angular.module('myApp',
         'ngAnimate',
         'ngPrint',
         'ui.bootstrap',
-        'myApp.view1',
-        'myApp.view2',
+        'ui-notification',
+        'myApp.navigationController',
         'myApp.pharmacyManagerRecipesNeedsAction',
         'myApp.pharmacyManagerRecipesInProgress',
         'myApp.pharmacyManagerRecipesDone',
@@ -24,14 +24,29 @@ angular.module('myApp',
         'myApp.patientRecipes',
         'myApp.version',
         'myApp.login',
+        'myApp.directives',
         'myApp.services'
     ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/login'});
     }])
+    .config(['NotificationProvider', function(NotificationProvider) {
+        NotificationProvider.setOptions({
+            delay: 10000,
+            startTop: 20,
+            startRight: 10,
+            verticalSpacing: 20,
+            horizontalSpacing: 20,
+            positionX: 'right',
+            positionY: 'top'
+        });
+    }])
     .run(['$rootScope', '$location', 'UserService', function ($rootScope, $location, UserService) {
         $rootScope.$on('$routeChangeStart', function (event) {
-
+            if ($location.$$path === '/logout') {
+                UserService.logout();
+                $location.path('/login');
+            }
             if (UserService.getUserInfo() == undefined) {
                 console.log('DENY');
                 //event.preventDefault();

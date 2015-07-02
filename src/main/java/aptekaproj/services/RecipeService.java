@@ -167,6 +167,7 @@ public class RecipeService {
         recipe.setRecipeProgressStatusId(recipeProgressStatus.getId());
         int recipeNumber = getAllRecipes().size()+1;
         recipe.setTitle("Рецепт № " + recipeNumber);
+        recipe.setCreatedAt(visitDate);
 
         return recipesRepository.save(recipe);
     }

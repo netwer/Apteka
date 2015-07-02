@@ -69,7 +69,7 @@ var module = angular.module('myApp.services', ['ngResource'])
             }
         }
     })
-    .factory('UserService', ['$http', '$q', '$window', '$location', function ($http, $q, $window, $location) {
+    .factory('UserService', ['$rootScope', '$http', '$q', '$window', '$location', function ($rootScope, $http, $q, $window, $location) {
         var userInfo;
 
         function login(userName, password) {
@@ -87,6 +87,9 @@ var module = angular.module('myApp.services', ['ngResource'])
                     userFullName: result.data.userFullName
                 };
                 $window.sessionStorage["userInfo"] = JSON.stringify(userInfo);
+
+                $rootScope.$broadcast('UserInfoChanged', null);
+
                 deferred.resolve(userInfo);
             }, function (error) {
                 deferred.reject(error);
@@ -98,6 +101,7 @@ var module = angular.module('myApp.services', ['ngResource'])
         function logout() {
             userInfo = null;
             $window.sessionStorage["userInfo"] = null;
+            $rootScope.$broadcast('UserInfoChanged', null);
         }
 
         function getUserInfo() {

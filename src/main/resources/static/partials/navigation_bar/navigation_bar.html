@@ -1,0 +1,23 @@
+<div class="container-fluid" ng-controller="NavigationBarController">
+    <div class="navbar-header">
+        <div class="navbar-brand" ng-show="navigationBar.showLogo">
+            <img alt="Brand" src="components/img/brang_logo.svg" style="max-height:30px; margin-top:-4px;">
+        </div>
+    </div>
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li ng-repeat="item in navigationBar.leftItems">
+                <a href="#{{item.path}}">
+                    {{item.title}} <span class="badge" ng-show="item.badge">{{item.badge}}</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-repeat="item in navigationBar.rightItems">
+                <a href="#{{item.path}}">
+                    {{item.title}} <span class="badge" ng-show="item.badge">{{item.badge}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,5 +1,5 @@
-<h2>Готовы к выдаче</h2>
-<div class="row">
+<div class="row" ng-show="!isDataLoading() && recipes.length > 0">
+    <h2>Готовы к выдаче</h2>
     <div class="col-sm-12">
         <table class="table table-striped col-sm-10">
             <thead>
@@ -20,25 +20,34 @@
             </thead>
             <tbody>
             <tr ng-repeat="recipe in recipes">
-                <th scope="row" class="text-center">№{{recipe.id}}</th>
-                <td class="text-center">{{recipe.date}}</td>
+                <th scope="row" class="text-center">№{{recipe.recipeId}}</th>
+                <td class="text-center">{{recipe.availabilityDate}}</td>
                 <td>
                     <ol>
-                        <li ng-repeat="drug in recipe.drugs">{{drug.name}} – {{drug.quantity}} шт.</li>
+                        <li ng-repeat="drug in recipe.drugs">{{drug.drugName}} – {{drug.drugCount}} шт.</li>
                     </ol>
                 </td>
                 <td>
                     <p>
-                        {{recipe.patient.name}}<br>
-                        <strong>Контактные данные:</strong><br>
-                        Блалала +7911833424 звонить только после полудня!
+                        {{recipe.patientFullName}}<br>
                     </p>
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-default" ng-click="sendRecipe(recipe);"><i class="fa fa-sign-out"></i> Выдать</button>
+                    <button class="btn btn-default"
+                            ng-disabled="sendingRecipeId > 0"
+                            ng-class="{'btn-striped': sendingRecipeId > 0 && sendingRecipeId == recipe.recipeId, 'btn-striped-active': sendingRecipeId > 0 && sendingRecipeId == recipe.recipeId}"
+                            ng-click="sendRecipe(recipe);">
+                        <i class="fa fa-sign-out"></i> Выдать
+                    </button>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+</div>
+<div class="row" ng-show="!isDataLoading() && recipes.length == 0">
+    <status-text fa-icon-class="fa-tags fa-4x" text="Готовые рецепты отсутствуют" />
+</div>
+<div class="row" ng-show="isDataLoading()">
+    <status-text fa-icon-class="fa-spinner fa-pulse fa-2x" text="Загружаются рецепты..." />
 </div>

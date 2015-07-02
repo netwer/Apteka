@@ -1,7 +1,7 @@
 <h2>Записи на прием</h2>
-<div class="row">
+<div class="row" ng-show="!isDataLoading()">
     <div class="col-sm-12">
-        <table class="table table-striped col-sm-10">
+        <table class="table table-striped col-sm-10" ng-show="appointments.length > 0">
             <thead>
             <tr>
                 <th class="text-center">Время</th>
@@ -20,5 +20,9 @@
             </tr>
             </tbody>
         </table>
+        <status-text ng-show="appointments.length == 0" fa-icon-class="fa-thumbs-up fa-4x" text="У Вас больше нет записей на прием" />
     </div>
+</div>
+<div class="row" ng-show="isDataLoading()" >
+    <status-text fa-icon-class="fa-spinner fa-pulse fa-2x" text="Загружаются записи на прием..." />
 </div>

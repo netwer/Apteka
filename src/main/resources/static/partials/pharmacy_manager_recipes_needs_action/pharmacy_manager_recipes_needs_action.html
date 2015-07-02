@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-show="!isDataLoading() && recipes.length > 0">
     <div class="col-sm-6 col-md-4">
         <h2>Рецепты</h2>
 
@@ -16,6 +16,7 @@
     </div>
     <div class="col-sm-6 col-md-8">
         <h2>Лекарства</h2>
+
         <div class="list-group">
             <button type="button" class="list-group-item"
                     ng-repeat="drug in selectedRecipe.drugs | orderBy: 'status.priority'" ng-click="open(drug);"
@@ -25,8 +26,24 @@
                 <span class="label" ng-class="drug.status.type" style="float: right;" aria-hidden="true">{{drug.status.name}}</span>
             </button>
         </div>
-        <button ng-hide="isAllDrugsDone(selectedRecipe)" ng-disabled="!isAllDrugsInProgress(selectedRecipe)" ng-click="assignDrugs();" type="button" class="btn btn-success col-md-offset-9 col-sm-3"><i class="fa fa-users"></i> Назначить лекарства</button>
-        <button ng-show="isAllDrugsDone(selectedRecipe)" ng-click="completeRecipe();" type="button" class="btn btn-success col-md-offset-9 col-sm-3"><i class="fa fa-tag"></i> Укомплектован</button>
+        <button ng-hide="isAllDrugsDone(selectedRecipe)"
+                ng-disabled="!isAllDrugsInProgress(selectedRecipe) || actionInProgress"
+                ng-class="{'btn-striped': actionInProgress, 'btn-striped-active': actionInProgress}"
+                ng-click="assignDrugs();" type="button" class="btn btn-success col-md-offset-9 col-sm-3"><i
+                class="fa fa-users"></i> Назначить лекарства
+        </button>
+        <button ng-show="isAllDrugsDone(selectedRecipe)"
+                ng-click="completeRecipe();"
+                ng-disabled="actionInProgress"
+                ng-class="{'btn-striped': actionInProgress, 'btn-striped-active': actionInProgress}"
+                type="button"
+                class="btn btn-success col-md-offset-9 col-sm-3"><i class="fa fa-tag"></i> Укомплектован
+        </button>
     </div>
 </div>
+<div class="row" ng-show="!isDataLoading() && recipes.length == 0">
+    <status-text fa-icon-class="fa-inbox fa-4x" text="Новых и ожидающих комплектацию рецептов нет" />
+</div>
+<div class="row" ng-show="isDataLoading()">
+    <status-text fa-icon-class="fa-spinner fa-pulse fa-2x" text="Загружаются рецепты..." />
 </div>

@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-show="!isDataLoading() && recipes.length > 0">
     <div class="col-sm-6 col-md-4">
         <h2>Рецепты</h2>
 
@@ -27,4 +27,9 @@
         </ol>
     </div>
 </div>
+<div class="row" ng-show="!isDataLoading() && recipes.length == 0">
+    <status-text fa-icon-class="fa-flask fa-4x" text="В процессе изготовления нет ни одного рецепта" />
+</div>
+<div class="row" ng-show="isDataLoading()">
+    <status-text fa-icon-class="fa-spinner fa-pulse fa-2x" text="Загружаются рецепты..." />
 </div>

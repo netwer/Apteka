@@ -1,17 +1,15 @@
-<div class="row">
+<div class="row" ng-show="!isDataLoading() && drugs.length > 0">
     <div class="col-sm-6 col-md-4">
         <h2>Приготовить сегодня</h2>
+
         <div class="list-group">
-            <a class="list-group-item" ng-class="{active: selectedDrug.drug.drugId == drug.drug.drugId}"
+            <a class="list-group-item"
+               ng-class="{active: selectedDrug.drug.recipesHasDrugsId == drug.drug.recipesHasDrugsId}"
                ng-click="selectDrug(drug);" ng-repeat="drug in drugs">
                 <h4 class="list-group-item-heading">
                     {{drug.drug.drugName}}
                     <span class="label label-default" style="float: right;" aria-hidden="true">{{drug.drug.drugCount}} шт.</span>
                 </h4>
-
-                <!--<p class="list-group-item-text">-->
-                    <!--<strong>Кол-во лекарств:</strong> {{recipe.drugs.length}}-->
-                <!--</p>-->
             </a>
         </div>
     </div>
@@ -19,29 +17,38 @@
         <h2>Ингредиенты</h2>
         <ul class="list-group">
             <li class="list-group-item"
-                    ng-repeat="ingredient in selectedDrug.ingredients | orderBy: 'materialName'">
+                ng-repeat="ingredient in selectedDrug.groupedIngredients | orderBy: 'materialName'">
                 {{$index + 1}}. {{ingredient.materialName}}
                 <span class="label label-default" style="float: right;" aria-hidden="true">{{ingredient.count}} {{ingredient.unit}}</span>
             </li>
         </ul>
-        <button type="button" class="btn btn-success col-md-offset-9 col-sm-3" ng-click="completeManufacture(selectedDrug);"><i class="fa fa-check"></i> Лекарство готово</button>
+        <button type="button"
+                class="btn btn-success col-md-offset-9 col-sm-3"
+                ng-disabled="completingManufactureInProcess"
+                ng-class="{'btn-striped': completingManufactureInProcess, 'btn-striped-active': completingManufactureInProcess}"
+                ng-click="completeManufacture(selectedDrug);">
+            <i class="fa fa-check"></i>
+            {{selectedDrug.drug.drugCount > 0 ? 'Лекарствa готовы' : 'Лекарство готово'}}
+        </button>
     </div>
     <div class="col-sm-6 col-md-8" ng-show="selectedDrug == undefined && drugs.length > 0">
         <h2>Ингредиенты</h2>
         <ul class="list-group">
             <li class="list-group-item"
-                    ng-repeat="ingredient in listOfAllNeededIngredients() | orderBy: 'materialName'">
+                ng-repeat="ingredient in allIngredients | orderBy: 'materialName'">
                 {{$index + 1}}. {{ingredient.materialName}}
                 <span class="label label-default" style="float: right;" aria-hidden="true">{{ingredient.count}} {{ingredient.unit}}</span>
             </li>
         </ul>
-        <button type="button" class="btn btn-success col-md-offset-9 col-sm-3" ng-print><i class="fa fa-print"></i> Распечатать</button>
+        <button type="button" class="btn btn-success col-md-offset-9 col-sm-3" ng-print><i class="fa fa-print"></i>
+            Распечатать
+        </button>
     </div>
     <div class="printSection">
         <h2>Необходимые игредиенты</h2>
         <ul class="list-group">
             <li class="list-group-item"
-                    ng-repeat="ingredient in listOfAllNeededIngredients() | orderBy: 'materialName'">
+                ng-repeat="ingredient in allIngredients | orderBy: 'materialName'">
                 {{$index + 1}}. {{ingredient.materialName}}
                 <span class="label label-default" style="float: right;" aria-hidden="true">{{ingredient.count}} {{ingredient.unit}}</span>
             </li>
@@ -49,13 +56,9 @@
     </div>
 </div>
 </div>
-<div class="row">
-    <div ng-show="drugs.length == 0" class="text-center">
-        <h2><small>
-            <br>
-            <i class="fa fa-thumbs-up fa-4x"></i>
-            <br>
-            Вы приготовили все необходимые лекарства на сегодня
-        </small></h2>
-    </div>
+<div class="row" ng-show="!isDataLoading() && drugs.length == 0">
+    <status-text fa-icon-class="fa-thumbs-up fa-4x" text="Вы приготовили все необходимые лекарства на сегодня"/>
+</div>
+<div class="row" ng-show="isDataLoading()">
+    <status-text fa-icon-class="fa-spinner fa-pulse fa-2x" text="Загружаются лекарства..."/>
 </div>

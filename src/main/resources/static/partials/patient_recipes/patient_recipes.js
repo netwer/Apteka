@@ -11,6 +11,11 @@ angular.module('myApp.patientRecipes', ['ngRoute', 'myApp.services'])
         '$scope', '$log', 'UserService', 'PatientRecipes', 'PatientInfo',
         function ($scope, $log, UserService, PatientRecipes, PatientInfo) {
 
+            var countOfLoadingProcesses = 0;
+            $scope.isDataLoading = function() {
+                return countOfLoadingProcesses > 0;
+            };
+
             var patientId = UserService.getUserInfo().userId;
 
             var configureRecipesAvailabilityDate = function (recipes) {
@@ -42,11 +47,16 @@ angular.module('myApp.patientRecipes', ['ngRoute', 'myApp.services'])
                             name: recipe.pharmaciesName,
                             address: recipe.pharmaciesAddress
                         };
-                        pharmacy.recipes = [angular.copy(recipe)];
+                        pharmacy.completedRecipes = [];
+                        pharmacy.recipesInProgress = [];
                         dictOfPharmacies[pharmacy.address] = pharmacy;
                     }
-                    else {
-                        pharmacy.recipes.push(angular.copy(recipe));
+
+                    if (recipe.recipeStatusId == 3) {
+                        pharmacy.completedRecipes.push(angular.copy(recipe));
+                    }
+                    else if (recipe.recipeStatusId == 1 || recipe.recipeStatusId == 4 || recipe.recipeStatusId == 5) {
+                        pharmacy.recipesInProgress.push(angular.copy(recipe));
                     }
                 });
 
@@ -57,20 +67,52 @@ angular.module('myApp.patientRecipes', ['ngRoute', 'myApp.services'])
                 return listOfPharmacies;
             };
 
+            $scope.pharmaciesWithCompletedRecipes = [];
+            var pharmaciesWithCompletedRecipes = function() {
+                if (!$scope.pharmacies) {
+                    return [];
+                }
+                return $scope.pharmacies.filter(function(pharmacy) {
+                    if (!pharmacy || !pharmacy.completedRecipes) {
+                        return false;
+                    }
+                    return pharmacy.completedRecipes.length > 0;
+                });
+            };
+
+            $scope.pharmaciesWithRecipesInProgress = [];
+            var pharmaciesWithRecipesInProgress = function() {
+                if (!$scope.pharmacies) {
+                    return [];
+                }
+                return $scope.pharmacies.filter(function(pharmacy) {
+                    if (!pharmacy || !pharmacy.recipesInProgress) {
+                        return false;
+                    }
+                    return pharmacy.recipesInProgress.length > 0;
+                });
+            };
+
             $scope.recipes = [];
+            countOfLoadingProcesses++;
             PatientRecipes.query({patientId: patientId}).$promise.then(function (data) {
                 configureRecipesAvailabilityDate(data);
                 $scope.pharmacies = recipesGroupedByPharmacy(data);
-                console.log(data);
+                $scope.pharmaciesWithCompletedRecipes = pharmaciesWithCompletedRecipes();
+                $scope.pharmaciesWithRecipesInProgress = pharmaciesWithRecipesInProgress();
+                countOfLoadingProcesses--;
             }, function (error) {
                 console.log(error);
+                countOfLoadingProcesses--;
             });
 
+            countOfLoadingProcesses++;
             PatientInfo.get({patientId: patientId}).$promise.then(function (data) {
                 $scope.patient = data;
-                console.log(data);
+                countOfLoadingProcesses--;
             }, function (error) {
                 console.log(error);
+                countOfLoadingProcesses--;
             });
 
         }]);

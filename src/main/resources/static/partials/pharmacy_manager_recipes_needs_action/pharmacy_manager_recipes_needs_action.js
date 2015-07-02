@@ -1,4 +1,4 @@
-angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.services'])
+angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.services', 'ui-notification'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/pharmacyManagerRecipesNeedsAction', {
@@ -8,8 +8,13 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
     }])
 
     .controller('PharmacyManagerRecipesNeedsActionController', [
-        '$scope', '$modal', '$log', 'PharmacyRecipes', 'PharmacyStaff', 'UserService', 'PharmacyConcreteDrug',
-        function ($scope, $modal, $log, PharmacyRecipes, PharmacyStaff, UserService, PharmacyConcreteDrug) {
+        '$scope', '$modal', '$log', 'PharmacyRecipes', 'PharmacyStaff', 'UserService', 'PharmacyConcreteDrug', 'Notification',
+        function ($scope, $modal, $log, PharmacyRecipes, PharmacyStaff, UserService, PharmacyConcreteDrug, Notification) {
+
+            var countOfLoadingProcesses = 0;
+            $scope.isDataLoading = function() {
+                return countOfLoadingProcesses > 0;
+            };
 
             var managerId = UserService.getUserInfo().userId;
 
@@ -52,6 +57,7 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
 
 
             $scope.recipes = [];
+            countOfLoadingProcesses++;
             PharmacyRecipes.query({pharmacistId: managerId, status: 1}).$promise.then(function (data) {
                 configureDrugStates(data, false);
                 data.forEach(function(recipe) {
@@ -60,9 +66,13 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
                 if ($scope.recipes.length > 0 && $scope.selectedRecipe == undefined) {
                     $scope.selectedRecipe = $scope.recipes[0];
                 }
+                countOfLoadingProcesses--;
             }, function (error) {
                 console.log(error);
+                countOfLoadingProcesses--;
             });
+
+            countOfLoadingProcesses++;
             PharmacyRecipes.query({pharmacistId: managerId, status: 5}).$promise.then(function (data) {
                 configureDrugStates(data, true);
                 data.forEach(function(recipe) {
@@ -71,16 +81,21 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
                 if ($scope.recipes.length > 0 && $scope.selectedRecipe == undefined) {
                     $scope.selectedRecipe = $scope.recipes[0];
                 }
+                countOfLoadingProcesses--;
             }, function (error) {
                 console.log(error);
+                countOfLoadingProcesses--;
             });
 
             $scope.staff = [];
+            countOfLoadingProcesses++;
             PharmacyStaff.query({pharmacistId: managerId}).$promise.then(function (data) {
                 $scope.staff = data;
                 console.log(data);
+                countOfLoadingProcesses--;
             }, function (error) {
                 console.log(error);
+                countOfLoadingProcesses--;
             });
 
             $scope.selectRecipe = function (recipe) {
@@ -139,7 +154,25 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
                 });
             };
 
+            var removeCurrentRecipeAndSelectNext = function() {
+                var indexOfCurrentRecipe = $scope.recipes.indexOf($scope.selectedRecipe);
+                //drug.status = $scope.statuses[0];
+                if (indexOfCurrentRecipe < $scope.recipes.length - 1) {
+                    $scope.selectedRecipe = $scope.recipes[indexOfCurrentRecipe + 1];
+                }
+                else if (indexOfCurrentRecipe > 0) {
+                    $scope.selectedRecipe = $scope.recipes[indexOfCurrentRecipe - 1];
+                }
+                else {
+                    $scope.selectedRecipe = undefined;
+                }
+                $scope.recipes.remove(indexOfCurrentRecipe);
+            };
+
+
+            $scope.actionInProgress = false;
             $scope.assignDrugs = function () {
+                $scope.actionInProgress = true;
                 var resultAssignments = $scope.selectedRecipe.drugs.map(function (drug) {
                     return {
                         recipeId: $scope.selectedRecipe.recipeId,
@@ -150,21 +183,31 @@ angular.module('myApp.pharmacyManagerRecipesNeedsAction', ['ngRoute', 'myApp.ser
 
                 PharmacyConcreteDrug.create({}, resultAssignments).$promise.then(function (data) {
                     console.log(data);
+                    removeCurrentRecipeAndSelectNext();
+                    Notification.success({message: 'Лекарства назначены фармацевтам'});
+                    $scope.actionInProgress = false;
                 }, function (error) {
                     console.log(error);
+                    Notification.error({message: error.statusText, title: 'Ошибка ' + error.status});
+                    $scope.actionInProgress = false;
                 });
-
             };
 
             $scope.completeRecipe = function () {
+                $scope.actionInProgress = true;
                 PharmacyRecipes.update({
                     pharmacistId: managerId,
                     recipeId: $scope.selectedRecipe.recipeId,
                     status: 3
                 }).$promise.then(function (data) {
+                        removeCurrentRecipeAndSelectNext();
                         console.log(data);
+                        Notification.success({message: 'Рецепт укомплектован'});
+                        $scope.actionInProgress = false;
                     }, function (error) {
                         console.log(error);
+                        Notification.error({message: error.statusText, title: 'Ошибка ' + error.status});
+                        $scope.actionInProgress = false;
                     });
             };
         }])

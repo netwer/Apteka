@@ -1,4 +1,4 @@
-angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
+angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services', 'ui-notification'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/doctorPatientCard/:patientId', {
@@ -8,42 +8,60 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
     }])
 
     .controller('DoctorPatientCardController', [
-        '$scope', '$routeParams', '$location', '$timeout', 'Drugs', 'Pharmacies', 'Appointments', 'DateService', 'UserService',
-        function ($scope, $routeParams, $location, $timeout, Drugs, Pharmacies, Appointments, DateService, UserService) {
+        '$scope', '$routeParams', '$location', '$timeout', 'Drugs',
+        'Pharmacies', 'Appointments', 'DateService', 'UserService', 'Notification',
+        function ($scope, $routeParams, $location, $timeout, Drugs, Pharmacies, Appointments, DateService, UserService, Notification) {
             $scope.dateService = DateService;
+
+            var countOfLoadingProcesses = 0;
+            $scope.isDataLoading = function () {
+                return countOfLoadingProcesses > 0;
+            };
 
             var patientId = $routeParams.patientId;
             var doctorId = UserService.getUserInfo().userId;
 
+            countOfLoadingProcesses++;
             Appointments.query({doctorId: doctorId}).$promise.then(function (data) {
                 data.forEach(function (appointment) {
                     if (appointment.patientId == patientId) {
                         $scope.currentUserAppointment = appointment;
                     }
                 });
+                countOfLoadingProcesses--;
             }, function (error) {
                 console.log(error);
+                countOfLoadingProcesses--;
             });
 
             $scope.diagnosisRecords = [];
+            countOfLoadingProcesses++;
             Appointments.query({patientId: patientId, doctorId: doctorId}).$promise.then(function (data) {
                 $scope.diagnosisRecords = data;
+                countOfLoadingProcesses--;
             }, function (error) {
+                countOfLoadingProcesses--;
                 console.log(error);
             });
 
             $scope.pharmacies = [];
+            countOfLoadingProcesses++;
             Pharmacies.query().$promise.then(function (data) {
                 $scope.pharmacies = data;
+                countOfLoadingProcesses--;
             }, function (error) {
                 console.log(error);
+                countOfLoadingProcesses--;
             });
 
             $scope.drugs = [];
+            countOfLoadingProcesses++;
             Drugs.query().$promise.then(function (data) {
                 $scope.drugs = data;
+                countOfLoadingProcesses--;
             }, function (error) {
                 console.log(error);
+                countOfLoadingProcesses--;
             });
 
             $scope.currentRecord = {
@@ -100,7 +118,9 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
                     || $scope.currentRecord.pharmacyId == undefined;
             };
 
+            $scope.creatingRecipeInProgress = false;
             $scope.createRecipe = function () {
+                $scope.creatingRecipeInProgress = true;
                 $scope.currentRecord.drugs = $scope.selectedDrugs.map(function (selectedDrug) {
                     var resultDrug = {};
                     for (var i = 0; i < $scope.drugs.length; i++) {
@@ -118,10 +138,13 @@ angular.module('myApp.doctorPatientCard', ['ngRoute', 'myApp.services'])
                     appointmentId: $scope.currentUserAppointment.diagnosisId,
                     doctorId: doctorId
                 }, $scope.currentRecord).$promise.then(function (data) {
-                    console.log(data);
-                    $location.path('/doctorAppointments');
-                }, function (error) {
-                    console.log(error);
-                });
+                        console.log(data);
+                        Notification.success({message: 'Рецепт отправлен в аптеку'});
+                        $location.path('/doctorAppointments');
+                    }, function (error) {
+                        console.log(error);
+                        Notification.error({message: error.statusText, title: 'Ошибка ' + error.status});
+                        $scope.creatingRecipeInProgress = false;
+                    });
             }
         }]);

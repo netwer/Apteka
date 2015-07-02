@@ -3,7 +3,10 @@
         padding: 3px 20px;
     }
 </style>
-<div class="row">
+<div class="row" ng-show="isDataLoading()" >
+    <status-text fa-icon-class="fa-spinner fa-pulse fa-2x" text="Загружается карта пациента..." />
+</div>
+<div class="row" ng-show="!isDataLoading()">
     <div class="col-sm-5">
         <div class="row">
             <div class="col-sm-12">
@@ -18,7 +21,7 @@
             </div>
 
             <div class="col-sm-12">
-                <h2>История</h2>
+                <h2 ng-hide="diagnosisRecords.length == 0">История</h2>
                 <accordion close-others="oneAtATime">
                     <accordion-group is-open="status.open" ng-repeat="record in diagnosisRecords">
                         <accordion-heading>
@@ -46,12 +49,12 @@
         <h2>Прием от {{dateService.getDate(currentUserAppointment.visitDate)}}</h2>
         <form>
             <div class="form-group">
-                <label for="exampleInputEmail1">Жалобы</label>
-                <textarea type="text" ng-model="currentRecord.complaints" class="form-control" id="exampleInputEmail1" />
+                <label for="complaintsInput">Жалобы</label>
+                <textarea type="text" ng-model="currentRecord.complaints" class="form-control" id="complaintsInput" placeholder="Введите жалобы пациента" />
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Диагноз</label>
-                <textarea type="text" ng-model="currentRecord.diagnosis" class="form-control" id="exampleInputPassword1"/>
+                <label for="diagnosisInput">Диагноз</label>
+                <textarea type="text" ng-model="currentRecord.diagnosis" class="form-control" id="diagnosisInput" placeholder="Введите диагноз"/>
             </div>
             <label for="drugsInputs">Лекарства</label>
             <div class="form-group" ng-repeat="currentDrug in selectedDrugs">
@@ -70,12 +73,12 @@
                 <button id="drugsInputs" class="btn btn-default form-control" ng-disabled="isNotAllDrugsHasNames() || isNotAllDrugsHasRealNames()" ng-click="addDrug();"><i class="fa fa-plus fa-fw"></i> Добавить лекарство</button>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Аптека</label>
-                <select class="form-control" ng-model="currentRecord.pharmacyId" ng-options="pharmacy.id as pharmacy.name + ' – ' + pharmacy.address for pharmacy in pharmacies">
+                <label for="pharmacyInput">Аптека</label>
+                <select id="pharmacyInput" class="form-control" ng-model="currentRecord.pharmacyId" ng-options="pharmacy.id as pharmacy.name + ' – ' + pharmacy.address for pharmacy in pharmacies">
                     <option value="">Выберите аптеку</option>
                 </select>
             </div>
-            <button class="btn btn-default" style="float: right;" ng-disabled="disableCreateRecipeButton()" ng-click="createRecipe();"><i class="fa fa-pencil fa-fw"></i> Выписать рецепт</button>
+            <button class="btn btn-default" ng-class="{'btn-striped': creatingRecipeInProgress, 'btn-striped-active': creatingRecipeInProgress}" style="float: right;" ng-disabled="disableCreateRecipeButton() || creatingRecipeInProgress" ng-click="createRecipe();"><i class="fa fa-pencil fa-fw"></i> Выписать рецепт</button>
         </form>
     </div>
 </div>

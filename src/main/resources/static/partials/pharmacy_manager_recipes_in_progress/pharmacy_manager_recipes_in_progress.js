@@ -13,6 +13,11 @@ angular.module('myApp.pharmacyManagerRecipesInProgress', ['ngRoute', 'myApp.serv
 
             var managerId = UserService.getUserInfo().userId;
 
+            var countOfLoadingProcesses = 0;
+            $scope.isDataLoading = function() {
+                return countOfLoadingProcesses > 0;
+            };
+
             var configureDrugStates = function (recipes) {
                 var statuses = [
                     {
@@ -47,14 +52,17 @@ angular.module('myApp.pharmacyManagerRecipesInProgress', ['ngRoute', 'myApp.serv
             };
 
             $scope.recipes = [];
+            countOfLoadingProcesses++;
             PharmacyRecipes.query({pharmacistId: managerId, status: 4}).$promise.then(function (data) {
                 configureDrugStates(data);
                 $scope.recipes = data;
                 if ($scope.recipes.length > 0 && $scope.selectedRecipe == undefined) {
                     $scope.selectedRecipe = $scope.recipes[0];
                 }
+                countOfLoadingProcesses--;
             }, function (error) {
                 console.log(error);
+                countOfLoadingProcesses--;
             });
 
             $scope.selectRecipe = function (recipe) {

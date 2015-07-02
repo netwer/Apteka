@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row" ng-show="!isDataLoading()">
     <div class="col-sm-12">
-        <h1>{{patient.name}}<br>
+        <h1>{{patient.fullName}}<br>
             <small>
                 Медицинский полис <strong>№{{patient.medicalPolicyNumber}}</strong><br>
                 Адрес <strong>№{{patient.address}}</strong><br>
@@ -9,14 +9,16 @@
         </h1>
         <hr>
     </div>
+</div>
+<div class="row" ng-show="!isDataLoading() && (pharmaciesWithCompletedRecipes.length > 0 || pharmaciesWithRecipesInProgress.length > 0)">
     <div class="col-sm-12 col-md-6">
         <h2>Готовые рецепты</h2>
-        <ul class="list-group" ng-repeat="pharmacy in pharmacies">
+        <ul class="list-group" ng-repeat="pharmacy in pharmaciesWithCompletedRecipes">
             <h3>
                 {{pharmacy.name}}
                 <small>{{pharmacy.address}}</small>
             </h3>
-            <li href="#" class="list-group-item" ng-repeat="recipe in pharmacy.recipes | filter: {recipeStatusId: 3}">
+            <li href="#" class="list-group-item" ng-repeat="recipe in pharmacy.completedRecipes">
                 <h4 class="list-group-item-heading">Рецепт №{{recipe.recipeId}}</h4>
                 <h5>Лекарства</h5>
                 <ol class="list-group-item-text">
@@ -27,12 +29,12 @@
     </div>
     <div class="col-sm-12 col-md-6">
         <h2>Рецепты в процессе изготовления</h2>
-        <ul class="list-group" ng-repeat="pharmacy in pharmacies">
+        <ul class="list-group" ng-repeat="pharmacy in pharmaciesWithRecipesInProgress">
             <h3>
                 {{pharmacy.name}}
                 <small>{{pharmacy.address}}</small>
             </h3>
-            <li href="#" class="list-group-item" ng-repeat="recipe in pharmacy.recipes | filter: (recipeStatusId != 3)">
+            <li href="#" class="list-group-item" ng-repeat="recipe in pharmacy.recipesInProgress">
                 <h4 class="list-group-item-heading">
                     Рецепт №{{recipe.recipeId}}<br>
                     <small>Дата готовности: <strong>{{recipe.completionDate}}</strong></small>
@@ -44,4 +46,10 @@
             </li>
         </ul>
     </div>
+</div>
+<div class="row" ng-show="!isDataLoading() && pharmaciesWithCompletedRecipes.length == 0 && pharmaciesWithRecipesInProgress.length == 0">
+    <status-text fa-icon-class="fa-inbox fa-4x" text="У Вас нет рецептов"/>
+</div>
+<div class="row" ng-show="isDataLoading()">
+    <status-text fa-icon-class="fa-spinner fa-pulse fa-2x" text="Загрузка..."/>
 </div>
